@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BrandIntro } from './components/Welcome';
 import { Panels } from './components/Panels';
 import { Ribbon } from './components/Ribbon';
 import { loadLatestDocument, saveDocument } from './lib/storage';
@@ -41,5 +42,5 @@ export default function App() {
     return () => { live = false; window.clearInterval(timer); };
   }, []);
   useEffect(() => { const handleKeys = (event: KeyboardEvent) => { if (!event.ctrlKey && !event.metaKey) return; if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable=true]')) return; if (event.key.toLowerCase() === 'z') { event.preventDefault(); if (event.shiftKey) redo(); else undo(); } if (event.key.toLowerCase() === 'y') { event.preventDefault(); redo(); } }; window.addEventListener('keydown', handleKeys); return () => window.removeEventListener('keydown', handleKeys); }, [undo, redo]);
-  return <div className={`app theme-${theme}`}><Ribbon /><Panels />{notice && <button className="notice" onClick={() => setNotice(undefined)}>{notice}</button>}<footer><span role="status">{saveStatus}</span><span>100% private · no uploads</span></footer></div>;
+  return <div className={`app theme-${theme}`}><BrandIntro /><Ribbon /><Panels />{notice && <button className="notice" onClick={() => setNotice(undefined)}>{notice}</button>}<footer><span role="status">{saveStatus}</span><span>100% private · no uploads</span></footer></div>;
 }

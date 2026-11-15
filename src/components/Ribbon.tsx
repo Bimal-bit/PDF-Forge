@@ -1,4 +1,4 @@
-import { Download, FilePlus2, Moon, Redo2, Sun, Undo2 } from 'lucide-react';
+import { Download, FileText, Search, FilePlus2, Moon, Redo2, Sun, Undo2 } from 'lucide-react';
 import { lazy, Suspense, useState, type ChangeEvent } from 'react';
 import type { RibbonTab } from '../types';
 import { useAppStore } from '../store/useAppStore';
@@ -40,12 +40,12 @@ export function Ribbon() {
   };
   return <header className="ribbon" aria-label="Editor ribbon">
     <div className="titlebar">
-      <div className="brand"><span className="brand-mark">P</span><span>PDFForge</span><span className="document-name">{useAppStore.getState().document?.name ?? 'Untitled document'}</span></div>
-      <div className="title-actions">
+      <div className="brand"><span className="brand-mark"><FileText size={19} /></span><span>PDFForge</span><span className="document-name">{useAppStore.getState().document?.name ?? 'Untitled document'}</span></div>
+      <div className="title-actions"><button className="action-search" onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}><Search size={14} /><span>Search actions</span><kbd>Ctrl K</kbd></button>
         <button aria-label="Undo" title="Undo (Ctrl+Z)" onClick={undo} disabled={!history.length}><Undo2 size={16} /></button>
         <button aria-label="Redo" title="Redo (Ctrl+Y)" onClick={redo} disabled={!future.length}><Redo2 size={16} /></button>
         <label className="open-button"><FilePlus2 size={16} /> Open PDF<input aria-label="Open PDF" type="file" accept="application/pdf,.pdf" onChange={openFile} /></label>
-        <button aria-label="Export PDF" title="Export PDF" disabled={!document} onClick={() => { if (document) void exportPdf(document, objects, pageSettings).then((bytes) => { downloadPdf(bytes, document.name); setNotice('Edited PDF downloaded.'); }).catch(() => setNotice('PDF export failed.')); }}><Download size={16} /></button>
+        <button aria-label="Export PDF" title="Export PDF" disabled={!document} onClick={() => { if (document) void exportPdf(document, objects, pageSettings).then((bytes) => { downloadPdf(bytes, document.name); setNotice('Edited PDF downloaded.'); }).catch(() => setNotice('PDF export failed.')); }}><Download size={16} /><span>Export</span></button>
         <label className="language-picker">Language<select aria-label="Language" value={language} onChange={(event) => { const next = event.target.value as 'en' | 'es'; setLanguage(next); globalThis.document.documentElement.lang = next; }}><option value="en">English</option><option value="es">Español</option></select></label><button aria-label="Toggle theme" title="Toggle theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}</button>
       </div>
     </div>

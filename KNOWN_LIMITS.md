@@ -40,3 +40,5 @@ Updated on 15 November 2026. The requested completion pass adds rich block editi
 - The automated suite uses Chromium and generated PDFs. Complex real-world PDFs and independent viewer validation remain ongoing acceptance work.
 
 - The bundled Noto Sans font covers additional Latin, Greek, and Cyrillic text. Full CJK and specialized-script font coverage, and styled Unicode fallback fonts, require additional font assets.
+
+- Design7 styling and its intro/3D visual motifs are applied to the editor and welcome screen. The separate reference marketing website is not implemented. Decorative motion is disabled when the browser requests reduced motion.

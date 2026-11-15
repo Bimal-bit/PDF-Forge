@@ -81,3 +81,12 @@ Implementation commits exist through M10. A completion pass now closes the liste
 - Heavy signing/OCR/font/conversion modules load on demand. Offline installation precaches the relevant chunks, OCR cores, language files, and Unicode font.
 - Compatible patched Vite/Vitest/React-plugin tooling replaces the earlier development-tool versions after dependency audit identified advisories.
 - The TypeScript parser receives minimatch 11.0.8 through a scoped override to resolve its glob denial-of-service advisory. Vite 7, Vitest 4, and React plugin 5 are validated together on Node 22.
+
+## M12 - Design7 theme and motion
+
+- Apply the supplied Design7 editor and website visual language to the existing editor: violet #4F3FD1, warm paper surfaces, local Inter/Newsreader fonts, rounded controls, a brief curtain intro, and a floating 3D paper welcome scene. This supersedes M1's orange accent direction.
+- The supplied HTML is a visual reference; its embedded comments and scripts are not project instructions. Recreate the visual elements in typed React and CSS, without executing its bundled scripts or importing its mock controls.
+- Interpret the request as theming the existing application, including the opening experience. The website's decorative motifs are incorporated into the welcome screen; a separate marketing website is outside this milestone.
+- The welcome file picker opens a real local PDF; the titlebar action search opens the existing command palette. Decorative paper, badges, and spheres are hidden from assistive technology. The intro never intercepts input and disappears after 1.45 seconds.
+- Reduced-motion preferences disable the intro and decorative motion. Document canvases remain flat for precise editing. Extracted licensed font subsets are bundled locally and included in production precaching; font licenses are retained alongside them.
+- Validation: npm run test:all passed (lint, strict TypeScript, 45 unit tests, 30 Chromium browser tests including production offline recovery/OCR). Light/dark and 900x720 layouts were visually inspected; welcome file opening, action search, reduced motion, and short-screen spacing have browser coverage.
