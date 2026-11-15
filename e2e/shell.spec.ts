@@ -85,3 +85,15 @@ test('exposes verified redaction, sanitization, and package protection', async (
   await page.getByLabel('Package password').fill('eightchars');
   await expect(page.getByRole('button', { name: 'Export protected package' })).toBeEnabled();
 });
+
+test('exposes local M9 conversion, extraction, optimization, and comparison tools', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'm9.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Export text' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Export HTML' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Export page PNG' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Extract tables CSV' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Optimize PDF' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Compare PDF' })).toBeVisible();
+});

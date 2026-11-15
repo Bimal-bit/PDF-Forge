@@ -36,6 +36,13 @@
 
 M1 through M8 are complete. M9 through M11 remain planned exactly as specified in the task brief.
 
+## M9 — Local conversion, table extraction, optimization, and comparison
+
+- **Conversions:** Browser-local pdf.js text extraction produces TXT and semantic, escaped HTML; current-page PNG exports are rendered into an in-memory canvas. No conversion service receives document content.
+- **Tables:** Only pages with at least two multi-column text rows are exported to CSV. This conservative geometry-based heuristic declines prose and non-text/vector tables rather than fabricating cells.
+- **Optimization and comparison:** Optimization repacks PDFs using object streams and truthfully reports when it cannot reduce size. Comparison is a page-by-page, case-insensitive multiset word diff of extracted text; it cannot compare pixels or scan-only content.
+- **OCR boundary:** No OCR control is exposed until an offline recognition engine and language data can ship with the app; calling text extraction OCR would be misleading for image-only PDFs.
+
 ## M2 — Browser-local rendering and navigation
 
 - **Renderer:** pdf.js renders PDF bytes held in memory only. Its worker is bundled by Vite and does not fetch a document or any external asset.

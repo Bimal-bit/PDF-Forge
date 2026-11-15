@@ -4,7 +4,7 @@ M4 supports single-run overlay editing and basic inserted text, images, shapes, 
 
 This M2 build intentionally contains the foundation plus local PDF rendering, thumbnail navigation, outline navigation, text selection, and text search. The following requested capabilities are not yet in the UI because their scheduled milestones have not been implemented:
 
-- OCR/conversion and advanced accessibility features (M9–M10).
+- M9 supports browser-local extraction and conversion to text, HTML, current-page PNG, and reliably detected table CSV, plus repacking/optimization and extracted-text comparison. It does not expose scan OCR: an offline recognition engine and language data must be bundled before image-only PDFs can be truthfully recognised.
 - Full end-user documentation, fixture suite, and complete feature checklist (M11).
 
 - Thumbnail generation currently favors a simple one-canvas-per-page implementation; extremely large documents may take longer to populate the thumbnail rail even though the main viewer renders lazily.
