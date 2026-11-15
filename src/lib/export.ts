@@ -2,6 +2,7 @@ import { PDFArray, PDFDocument, PDFName, PDFString, PDFFont, StandardFonts, degr
 import type { AnnotationObject, EditorObject, FormObject, OpenDocument, PageSettings } from '../types';
 import { writeFormField } from './formFields';
 import { applyPagePlan } from './pagePlan';
+import { prunePageFields, registerPageFields } from './formAssembly';
 import { drawTextBlock, standardFontName } from './textLayout';
 import { unicodeFont } from './fonts';
 import { annotationAppearance } from './annotationAppearance';
@@ -102,8 +103,14 @@ function drawPageMarks(page: ReturnType<PDFDocument['getPage']>, font: PDFFont, 
 
 export async function mergePdfs(documents: OpenDocument[]): Promise<Uint8Array> {
   const merged = await PDFDocument.create();
-  for (const document of documents) { const input = await PDFDocument.load(document.data.slice(0)); const pages = await merged.copyPages(input, input.getPageIndices()); pages.forEach((page) => merged.addPage(page)); }
-  return merged.save();
+  for (const document of documents) {
+    const input = await PDFDocument.load(document.data.slice(0));
+    const pages = await merged.copyPages(input, input.getPageIndices());
+    pages.forEach((page) => merged.addPage(page));
+    registerPageFields(merged, pages);
+  }
+  prunePageFields(merged, merged.getPages());
+  return merged.save({ updateFieldAppearances: false });
 }
 
 export async function splitPdf(document: OpenDocument, pageNumbers: number[], objects: EditorObject[] = [], settings: PageSettings = emptySettings): Promise<Uint8Array> {

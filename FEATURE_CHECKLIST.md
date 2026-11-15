@@ -7,10 +7,10 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 | Requested capability | Status | Current scope or remaining work |
 | --- | --- | --- |
 | Browser-local React/TypeScript application | Done | React 18, strict TypeScript, Vite, Zustand/Immer, IndexedDB, bundled PDF worker. No upload service. |
-| Open and drag/drop | Done | Browser-local PDF file intake. |
+| Open and drag/drop | Done | Browser-local PDF parsing before workspace replacement; damaged/protected inputs preserve the current workspace. |
 | Undo and redo | Done within current scope | Patch-based history with no explicit count cap. Session-local. |
 | Autosave/recovery | Partial | Source bytes, objects, page settings, and selected page every five seconds. Version history and recent-files UI are absent. |
-| Rendering and text selection | Done | pdf.js canvas and selectable text layer. |
+| Rendering and text selection | Done | pdf.js canvas and selectable text layer, with geometry checked through zoom and every page orientation. |
 | 300-page navigation | Partial | Generated-document smoke test covers opening and last-page navigation. Lazy thumbnails share the viewer worker. Visited page canvases remain allocated. Complex scanned-document performance is unverified. |
 | Zoom and view modes | Partial | 10–500% zoom. Fit width/page and two-page mode are absent. Ruler ticks are decorative. |
 | Outline | Partial | Existing-bookmark navigation follows the page plan. No bookmark editor or page-label editor. |
@@ -24,7 +24,7 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 | Keyboard and context commands | Partial | Application undo/redo and Ctrl+K. Native undo remains available in inputs. Most Word shortcuts, clipboard workflows, and context menus are absent. |
 | Command palette | Partial | Search filters four actions. Most ribbon commands have no palette entry. Focus trap and arrow-key navigation are absent. |
 | Spell/grammar tools | Missing | No local dictionary or complete spelling/grammar workflow. |
-| Page operations | Partial | Move up/down, rotate, delete, duplicate, current-page split, merge. Thumbnails track the page plan. Copies share source-page edits and rotation. |
+| Page operations | Partial | Move up/down, rotate, delete, duplicate, current-page split, merge. Merge retains supported form registrations with unique names. Thumbnails track the page plan. Copies share source-page edits and rotation. |
 | Advanced page operations | Missing | Drag reorder, multi-select, blank/template insertion, range/size/bookmark split, interleave, crop, resize, deskew. |
 | Repeating marks | Partial | Exported header/footer, watermark, Bates numbering, and `{page}`. No live preview, master templates, `{total}`, or `{date}`. |
 | Batch processing | Partial | All-page PNG ZIP export. Batch watermark/compress/stamp and recipient ZIP bundling remain unfinished. |
@@ -55,7 +55,8 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 
 ## Verification boundaries
 
-- M15 audit validation passed with lint, strict TypeScript, 48 unit tests, 48 Chromium browser tests, and the production build. Regressions cover optimization, current-text search/comparison, form clearing, table exports, Unicode marks, recovery scrolling, concurrent OCR edits, and signing after page deletion.
+- M16 audit validation passed with lint, strict TypeScript, 51 unit tests, 55 Chromium browser tests, and the production build. New coverage checks text geometry through zoom/rotation, document paint across themes, thumbnail sizing, merged form registrations, HTML text boundaries, damaged-file workspace preservation, and the available ribbon tabs. All five regenerated fixtures parsed with the expected page counts and form fields.
+- Earlier regressions cover optimization, current-text search/comparison, form clearing, table exports, Unicode marks, recovery scrolling, concurrent OCR edits, and signing after page deletion.
 - Validation results are reported with the delivered changes. The production bundle still triggers Vite's size warning. Checks cover supported inputs and implemented scope.
 - Regression tests exercise recovery after refresh, reordered in-place edits, duplicate-page forms and signatures, command filtering, redaction stream removal, large-document navigation, and tablet rendering.
 - Many original browser tests check control availability. Complete outcome coverage for every requested feature remains unfinished.

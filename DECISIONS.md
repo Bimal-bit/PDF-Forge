@@ -2,7 +2,7 @@
 
 ## Milestone plan
 
-Implementation commits exist through M10. A completion pass now closes the listed M3-M9 workflow gaps, with remaining original-specification scope tracked explicitly. `FEATURE_CHECKLIST.md` records the audited scope. The complete original product acceptance criteria remain unfinished. M11 documentation and fixtures are delivered with this pass, with verification boundaries recorded in the feature checklist.
+Implementation scope and verification are recorded below in milestone order. The completion pass addressed the listed M3-M9 workflow gaps and delivered M11 documentation and fixtures. Later milestones record the theme work and correctness audits. `FEATURE_CHECKLIST.md` tracks the audited scope; the complete original product acceptance criteria remain unfinished.
 
 ## M1 — Project foundation
 
@@ -120,3 +120,16 @@ Implementation commits exist through M10. A completion pass now closes the liste
 - Certificate signing compares the page-plan length with the original page count before reusing unchanged bytes. Deleting trailing pages therefore signs the edited sequence. The tampering regression uses one-byte text decoding so binary PDF bytes cannot shift the mutation offset.
 - Browser tests use two workers to bound concurrent Chromium, production-build, and OCR memory usage. The machine's six-worker default produced initial-render timeouts during this audit.
 - Final validation passed with npm run test:all and npm run build, including lint, strict TypeScript, 48 unit tests, and 48 Chromium browser tests. The production offline-recovery workflow passed. Existing dependency annotation and bundle-size warnings remain in the production build.
+
+## M16 - Workflow verification and data preservation
+
+- Treat this request as a fresh correctness audit of the implemented workflows. The full original specification remains bounded by the feature checklist and known limits. Preserve the pre-existing package-lock.json changes.
+- The existing 48 unit and 48 browser tests passed before changes. New browser regressions reproduced incorrect text-selection geometry, missing form registrations after merge, joined HTML paragraph text, and damaged PDFs replacing an edited workspace.
+- The viewer now supplies pdf.js TextLayer's required scale/font/rotation CSS. Selection follows rendered text through zoom and all four page orientations. In-place font sizes come from PDF text geometry, independent of browser minimum font sizing and zoom.
+- Visual inspection identified replacement-text cover stacking during theme changes and single-page thumbnails stretching to fill the rail. Text blocks now keep each cover below its replacement in an explicit stacking context, and thumbnail tracks keep their content height. Browser checks compare document paint across themes, including the production build.
+- Hide the empty File and Layout tabs until they contain implemented commands, following the engineering guide's rule against exposing unfinished controls. File opening and export remain available in the title bar. The available ribbon tabs have browser coverage.
+- Merge registers copied AcroForm trees, preserves shared widgets, and assigns unique root names when input names collide. Duplication uses the same registration logic and avoids existing name collisions. Merge is a page-and-form assembly operation; combining source catalogs and independent-viewer form fidelity still require broader coverage.
+- HTML import retains block, line-break, and table-cell text boundaries while excluding active markup. It continues to produce basic readable text rather than reconstructing original layout.
+- PDF intake parses document structure and checks for pages before replacing the workspace. Damaged and password-protected files report an error while preserving current edits. Parsing stays browser-local.
+- The fixture generator ran successfully in an isolated test directory. All five outputs parsed with the expected page counts, including 300 pages, and the form sample retained both fields.
+- Final validation passed with npm run test:all and npm run build: lint, strict TypeScript, 51 unit tests, and 55 Chromium browser tests, including production offline recovery and document paint. Light/dark production editor screenshots were visually inspected with no uncaught browser errors. Existing dependency annotation and bundle-size warnings remain.

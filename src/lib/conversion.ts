@@ -90,7 +90,17 @@ export async function importDocument(file: File): Promise<OpenDocument> {
   if (extension === 'html' || extension === 'htm') {
     const html = new DOMParser().parseFromString(text, 'text/html');
     html.querySelectorAll('script,style,iframe,object').forEach((element) => element.remove());
-    text = html.body.textContent ?? '';
+    const blocks = new Set(['ADDRESS', 'ARTICLE', 'ASIDE', 'BLOCKQUOTE', 'DIV', 'DL', 'DT', 'DD', 'FIGCAPTION', 'FIGURE', 'FOOTER', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HEADER', 'HR', 'LI', 'MAIN', 'NAV', 'OL', 'P', 'PRE', 'SECTION', 'TABLE', 'TR', 'UL']);
+    const read = (node: Node): string => {
+      if (node.nodeType === Node.TEXT_NODE) return node.textContent ?? '';
+      if (!(node instanceof Element)) return '';
+      if (node.tagName === 'BR') return '\n';
+      const content = Array.from(node.childNodes, read).join('');
+      if (blocks.has(node.tagName)) return `\n${content}\n`;
+      if (node.tagName === 'TD' || node.tagName === 'TH') return `${content}\t`;
+      return content;
+    };
+    text = read(html.body).replace(/[\t ]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
   } else if (extension === 'md' || extension === 'markdown') text = text.replace(/^#{1,6}\s/gm, '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
   else if (extension !== 'txt') throw new Error('Choose a PNG, JPEG, WebP, TXT, Markdown, HTML, or DOCX file.');
   return textDocument(text, file.name);

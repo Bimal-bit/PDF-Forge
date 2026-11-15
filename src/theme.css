@@ -34,7 +34,7 @@
 .app .panel-tabs button svg { display: none; }
 .app .panel-tabs button.selected { background: var(--control-bg); color: var(--ink); box-shadow: 0 1px 2px var(--panel-shadow); }
 .app .panel-label { color: var(--muted); letter-spacing: .14em; font-size: 10px; }
-.app .thumbnail-list { flex: 1; min-height: 0; max-height: none; gap: 14px; overflow-y: auto; }
+.app .thumbnail-list { flex: 1; min-height: 0; max-height: none; gap: 14px; overflow-y: auto; align-content: start; }
 .app .thumbnail { padding: 6px; border-radius: 5px; color: var(--muted); }
 .app .thumbnail.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 .app .mini-page { background: white; border-radius: 3px; box-shadow: 0 1px 3px var(--panel-shadow); }

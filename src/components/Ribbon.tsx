@@ -21,7 +21,7 @@ import { ThemeToggle } from './ThemeToggle';
 const OcrPanel = lazy(() => import('./OcrPanel').then((module) => ({ default: module.OcrPanel })));
 const CertificatePanel = lazy(() => import('./CertificatePanel').then((module) => ({ default: module.CertificatePanel })));
 
-const tabs: RibbonTab[] = ['File', 'Home', 'Insert', 'Layout', 'Review', 'View', 'Tools'];
+const tabs: RibbonTab[] = ['Home', 'Insert', 'Review', 'View', 'Tools'];
 const tabLabels: Record<'en' | 'es', Record<RibbonTab, string>> = { en: { File: 'File', Home: 'Home', Insert: 'Insert', Layout: 'Layout', Review: 'Review', View: 'View', Tools: 'Tools' }, es: { File: 'Archivo', Home: 'Inicio', Insert: 'Insertar', Layout: 'Diseño', Review: 'Revisar', View: 'Ver', Tools: 'Herramientas' } };
 
 export function Ribbon() {

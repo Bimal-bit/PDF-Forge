@@ -12,6 +12,8 @@ PDFForge processes documents in your browser. The application bundles its PDF re
 
 The current browser profile owns the recovery data. Clearing its site storage removes that recovery data. Unsaved edits inside the five-second interval can be lost on a crash.
 
+Opening validates the PDF before replacing your workspace. A damaged or password-protected file reports an error and keeps your current edits. Unlock password-protected PDFs before opening them.
+
 Find in document searches the current page sequence, including supported replacement text, inserted text, links, tables, and detected field values. Covered source text is excluded from this search. Matching ignores case; replace, regex, and result cycling remain unfinished.
 
 ## Edit text and formatting
@@ -33,6 +35,8 @@ Review adds highlights, notes, predefined stamps, and linear measurements. Suppo
 ## Manage pages
 
 Tools moves the selected page up or down, rotates it, deletes it, duplicates it, or splits it into a separate PDF. Merge PDFs combines selected files locally. Header/footer text accepts `{page}`, and Tools also sets watermark and Bates numbering.
+
+Merged files retain supported form fields. If inputs use the same field names, PDFForge renames the colliding form trees so their values remain independent. Open the downloaded merge and choose Detect form fields to fill them.
 
 Ordinary page plans retain source metadata, bookmarks, names, page labels, and form registrations. Deleted-page destinations point to the first surviving page. Duplicated pages share the PDFForge source-page edit layer and rotation. Existing copied form fields receive independent registrations.
 
@@ -74,7 +78,7 @@ Secure output is flattened. It loses searchable text, interactive fields, tags, 
 
 Tools exports TXT, HTML, Markdown, DOCX, PNG, JPEG, WebP, table CSV/XLSX, and a ZIP of all page PNGs. Export print PDF flattens form appearances and sets viewer print scaling to None. Text/document and image exports include the supported current edits and page plan.
 
-Import document accepts PNG, JPEG, WebP, TXT, Markdown, HTML, and DOCX. Document imports preserve readable text with basic layout. Original complex layouts, embedded images in DOCX/HTML, and mixed typography need further conversion work. Table detection is heuristic and can misclassify prose.
+Import document accepts PNG, JPEG, WebP, TXT, Markdown, HTML, and DOCX. Document imports preserve readable text with basic layout. HTML retains paragraph, line-break, and table-cell text boundaries. Original complex layouts, embedded images in DOCX/HTML, and mixed typography need further conversion work. Table detection is heuristic and can misclassify prose.
 
 Optimize PDF repacks the current edited PDF and reports its size change against that edited export. Compare PDF checks current page text against another local PDF, including word order and page count. It ignores case and punctuation and does not compare visual layout.
 

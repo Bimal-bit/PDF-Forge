@@ -1,4 +1,5 @@
-import { PDFArray, PDFDict, PDFDocument, PDFHexString, PDFName, PDFNumber, PDFRef, PDFString } from 'pdf-lib';
+import { PDFArray, PDFDict, PDFDocument, PDFName, PDFNumber, PDFRef } from 'pdf-lib';
+import { prunePageFields, registerPageFields } from './formAssembly';
 
 /** Keep the source catalog and original page references when assembling a page plan. */
 export async function applyPagePlan(pdf: PDFDocument, order: number[]): Promise<void> {
@@ -13,7 +14,7 @@ export async function applyPagePlan(pdf: PDFDocument, order: number[]): Promise<
     const source = original[number - 1];
     if (seen.has(number)) {
       const [copy] = await pdf.copyPages(pdf, [number - 1]);
-      registerCopiedFields(pdf, copy.node.Annots(), index + 1, copy.ref);
+      registerPageFields(pdf, [copy], index + 1);
       pages.push(copy);
     } else {
       for (const key of ['Resources', 'MediaBox', 'CropBox', 'Rotate']) {
@@ -29,13 +30,7 @@ export async function applyPagePlan(pdf: PDFDocument, order: number[]): Promise<
   for (let index = original.length - 1; index >= 0; index -= 1) pdf.removePage(index);
   pages.forEach((page) => pdf.addPage(page));
   const pageRefs = new Set(pages.map((page) => page.ref.toString()));
-  const annotationRefs = new Set<string>();
-  for (const page of pages) {
-    const annotations = page.node.Annots();
-    for (let index = 0; index < (annotations?.size() ?? 0); index += 1) annotationRefs.add(annotations!.get(index).toString());
-  }
-  const fields = pdf.catalog.lookupMaybe(PDFName.of('AcroForm'), PDFDict)?.lookupMaybe(PDFName.of('Fields'), PDFArray);
-  if (fields) pruneFields(pdf, fields, annotationRefs);
+  prunePageFields(pdf, pages);
   const sourceToOutput = new Map(order.map((number, index) => [number - 1, index]));
   for (const [, object] of pdf.context.enumerateIndirectObjects()) {
     if (!(object instanceof PDFDict)) continue;
@@ -48,49 +43,6 @@ export async function applyPagePlan(pdf: PDFDocument, order: number[]): Promise<
       }
       if (first instanceof PDFNumber) destination.set(0, PDFNumber.of(sourceToOutput.get(first.asNumber()) ?? 0));
     }
-  }
-}
-
-function registerCopiedFields(pdf: PDFDocument, annotations: PDFArray | undefined, copyNumber: number, page: PDFRef) {
-  const roots = new Set<string>();
-  for (let index = 0; index < (annotations?.size() ?? 0); index += 1) {
-    let ref = annotations!.get(index);
-    let node = pdf.context.lookup(ref);
-    if (!(node instanceof PDFDict) || node.get(PDFName.of('Subtype')) !== PDFName.of('Widget')) continue;
-    node.set(PDFName.of('P'), page);
-    while (node.has(PDFName.of('Parent'))) {
-      ref = node.get(PDFName.of('Parent'))!;
-      node = pdf.context.lookup(ref);
-      if (!(node instanceof PDFDict)) throw new Error('The copied form field has an invalid parent.');
-    }
-    if (!(ref instanceof PDFRef) || roots.has(ref.toString())) continue;
-    roots.add(ref.toString());
-    const rawName = pdf.context.lookup(node.get(PDFName.of('T')));
-    const name = rawName instanceof PDFString || rawName instanceof PDFHexString ? rawName.decodeText() : 'Field';
-    node.set(PDFName.of('T'), PDFHexString.fromText(`${name}_copy_${copyNumber}`));
-    let form = pdf.catalog.lookupMaybe(PDFName.of('AcroForm'), PDFDict);
-    if (!form) {
-      form = pdf.context.obj({ Fields: [] });
-      pdf.catalog.set(PDFName.of('AcroForm'), pdf.context.register(form));
-    }
-    const fields = form.lookupMaybe(PDFName.of('Fields'), PDFArray) ?? pdf.context.obj([]);
-    fields.push(ref);
-    form.set(PDFName.of('Fields'), fields);
-  }
-}
-
-function pruneFields(pdf: PDFDocument, fields: PDFArray, annotations: Set<string>) {
-  for (let index = fields.size() - 1; index >= 0; index -= 1) {
-    const reference = fields.get(index);
-    const node = pdf.context.lookup(reference, PDFDict);
-    if (node.get(PDFName.of('Subtype')) === PDFName.of('Widget')) {
-      if (!annotations.has(reference.toString())) fields.remove(index);
-      continue;
-    }
-    const children = node.lookupMaybe(PDFName.of('Kids'), PDFArray);
-    if (!children) continue;
-    pruneFields(pdf, children, annotations);
-    if (!children.size()) fields.remove(index);
   }
 }
 

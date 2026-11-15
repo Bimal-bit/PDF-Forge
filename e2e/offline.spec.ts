@@ -50,3 +50,32 @@ test('reloads the production application and recovers edits offline', async ({ p
   await expect(page.getByRole('article', { name: 'Page 1', exact: true }).locator('.text-layer')).toHaveText('Offline document');
   expect(external).toEqual([]);
 });
+
+test('production theme changes preserve replacement-text paint', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto(base);
+  const pdf = await PDFDocument.create();
+  pdf.addPage([612, 792]).drawText('PDFForge text fixture\nEdit this paragraph and export a copy.', { x: 48, y: 720, size: 18, font: await pdf.embedFont(StandardFonts.Helvetica), lineHeight: 26 });
+  await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'paint.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
+  await page.locator('.text-layer span').filter({ hasText: 'PDFForge text fixture' }).dblclick();
+  await page.getByLabel('Edit PDF text').fill('Verified editing at the original size.');
+  await page.getByLabel('Find text in document').click();
+  const box = (await page.locator('.text-object').boundingBox())!;
+  const ink = async () => {
+    const screenshot = await page.screenshot();
+    return page.evaluate(async ({ bytes, box }) => {
+      const bitmap = await createImageBitmap(new Blob([new Uint8Array(bytes)], { type: 'image/png' }));
+      const canvas = document.createElement('canvas'); canvas.width = bitmap.width; canvas.height = bitmap.height;
+      const context = canvas.getContext('2d')!; context.drawImage(bitmap, 0, 0); bitmap.close();
+      const pixels = context.getImageData(box.x, box.y, box.width, box.height).data;
+      let count = 0;
+      for (let index = 0; index < pixels.length; index += 4) if (pixels[index] < 100 && pixels[index + 1] < 100 && pixels[index + 2] < 100) count += 1;
+      return count;
+    }, { bytes: [...screenshot], box });
+  };
+  const light = await ink();
+  expect(light).toBeGreaterThan(100);
+  await page.getByRole('button', { name: 'Toggle theme', exact: true }).click();
+  expect(await ink()).toBe(light);
+});
