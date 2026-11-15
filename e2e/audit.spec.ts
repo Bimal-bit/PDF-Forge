@@ -79,8 +79,7 @@ test('exports filled fields and typed signatures after duplicating a page', asyn
 });
 
 test('filters command palette actions', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Open a PDF to begin' })).toBeVisible();
+  await openDocument(page, 1);
   await page.keyboard.press('Control+k');
   await page.getByLabel('Search commands').fill('accessibility');
   await expect(page.getByRole('dialog').getByRole('button')).toHaveCount(1);

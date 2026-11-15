@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test('shows a browser-local PDF workspace', async ({ page }) => {
+test('shows the reference landing before a file is selected', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Open a PDF to begin' })).toBeVisible();
-  await expect(page.getByText('no uploads')).toBeVisible();
-  await page.getByRole('button', { name: 'View', exact: true }).click();
-  await page.getByRole('button', { name: 'Zoom in' }).click();
+  await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
+  await expect(page.getByText('Edits happen on your device, never on a server')).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+  await expect(page.locator('.workspace')).toHaveCount(0);
 });
 
 test('opens and renders a local PDF', async ({ page }) => {

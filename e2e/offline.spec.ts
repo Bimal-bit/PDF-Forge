@@ -25,9 +25,15 @@ test('reloads the production application and recovers edits offline', async ({ p
     if (!url.startsWith(base) && !url.startsWith('blob:') && !url.startsWith('data:')) external.push(url);
   });
   await page.goto(base);
-  await expect(page.getByRole('heading', { name: 'Open a PDF to begin' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
+  const guide = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Docs', exact: true }).first().click();
+  expect((await guide).suggestedFilename()).toBe('PDFForge-User-Guide.md');
   const pdf = await PDFDocument.create();
   pdf.addPage([300, 400]).drawText('Offline document', { x: 30, y: 300, font: await pdf.embedFont(StandardFonts.Helvetica), size: 16 });
   await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'offline.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
