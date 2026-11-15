@@ -9,6 +9,17 @@ export interface OpenDocument {
   data: ArrayBuffer;
 }
 
+export interface TextObject {
+  id: string;
+  type: 'text';
+  page: number;
+  text: string;
+  x: number;
+  y: number;
+  fontSize: number;
+  color: string;
+}
+
 export interface AppSnapshot {
   activeTab: RibbonTab;
   theme: Theme;
@@ -16,4 +27,5 @@ export interface AppSnapshot {
   leftPanel: 'thumbnails' | 'outline';
   rightPanelOpen: boolean;
   selectedPage: number;
+  objects: TextObject[];
 }

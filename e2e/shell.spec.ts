@@ -18,3 +18,14 @@ test('opens and renders a local PDF', async ({ page }) => {
   await expect(page.getByLabel('Rendered PDF pages')).toBeVisible();
   await expect(page.getByLabel('Go to page 1')).toBeVisible();
 });
+
+test('exports a PDF with a text object', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'sample.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Insert', exact: true }).click();
+  await page.getByRole('button', { name: 'Add text overlay' }).click();
+  await page.getByLabel('Overlay text').fill('Exported note');
+  const download = page.waitForEvent('download');
+  await page.getByLabel('Export PDF').click();
+  expect((await download).suggestedFilename()).toBe('sample-edited.pdf');
+});

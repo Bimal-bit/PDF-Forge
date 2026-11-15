@@ -15,6 +15,9 @@ interface State extends AppSnapshot {
   setZoom: (zoom: number) => void;
   setLeftPanel: (panel: AppSnapshot['leftPanel']) => void;
   setSelectedPage: (page: number) => void;
+  addTextObject: () => void;
+  updateTextObject: (id: string, text: string) => void;
+  removeObject: (id: string) => void;
   setDragging: (isDragging: boolean) => void;
   toggleRightPanel: () => void;
   setNotice: (notice?: string) => void;
@@ -22,7 +25,7 @@ interface State extends AppSnapshot {
   redo: () => void;
 }
 
-const initial: AppSnapshot = { activeTab: 'Home', theme: 'light', zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1 };
+const initial: AppSnapshot = { activeTab: 'Home', theme: 'light', zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [] };
 
 enablePatches();
 
@@ -35,12 +38,15 @@ function tracked(set: (partial: State | Partial<State> | ((state: State) => Stat
 
 export const useAppStore = create<State>((set) => ({
   ...initial, history: [], future: [], isDragging: false,
-  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.notice = `${document.name} opened locally`; }),
+  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
   setTab: (activeTab) => tracked(set, (draft) => { draft.activeTab = activeTab; }),
   setTheme: (theme) => tracked(set, (draft) => { draft.theme = theme; }),
   setZoom: (zoom) => tracked(set, (draft) => { draft.zoom = Math.max(10, Math.min(500, zoom)); }),
   setLeftPanel: (leftPanel) => set({ leftPanel }),
   setSelectedPage: (selectedPage) => set({ selectedPage }),
+  addTextObject: () => tracked(set, (draft) => { if (!draft.document) return; draft.objects.push({ id: crypto.randomUUID(), type: 'text', page: draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737' }); }),
+  updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object) object.text = text; }),
+  removeObject: (id) => tracked(set, (draft) => { draft.objects = draft.objects.filter((object) => object.id !== id); }),
   setDragging: (isDragging) => set({ isDragging }),
   toggleRightPanel: () => tracked(set, (draft) => { draft.rightPanelOpen = !draft.rightPanelOpen; }),
   setNotice: (notice) => set({ notice }),

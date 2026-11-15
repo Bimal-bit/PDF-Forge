@@ -1,6 +1,6 @@
 # PDFForge
 
-PDFForge is a privacy-first, browser-local PDF workspace. This repository currently implements milestones 1 and 2: local PDF intake and recovery, undo/redo state foundation, pdf.js page rendering, zooming, selectable text, search, thumbnails, and outline navigation.
+PDFForge is a privacy-first, browser-local PDF workspace. This repository currently implements milestones 1 through 3: local PDF intake and recovery, undo/redo state foundation, pdf.js rendering/navigation, plus pdf-lib exports that merge editable text overlays into a valid downloaded PDF.
 
 ## Run
 

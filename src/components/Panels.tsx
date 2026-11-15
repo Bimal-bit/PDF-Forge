@@ -8,7 +8,7 @@ import { useAppStore } from '../store/useAppStore';
 import { toPdfDocument } from '../lib/file';
 
 export function Panels() {
-  const { document, isDragging, setDragging, setDocument, setNotice, rightPanelOpen, toggleRightPanel, zoom, selectedPage, setSelectedPage } = useAppStore();
+  const { document, isDragging, setDragging, setDocument, setNotice, rightPanelOpen, toggleRightPanel, zoom, selectedPage, setSelectedPage, objects } = useAppStore();
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [outline, setOutline] = useState<OutlineItem[]>([]);
   const [query, setQuery] = useState('');
@@ -21,15 +21,21 @@ export function Panels() {
     <Navigator document={document} pdf={pdf} outline={outline} selectedPage={selectedPage} onSelectPage={setSelectedPage} />
     <section className={`canvas ${isDragging ? 'dragging' : ''}`} aria-label="Document canvas">
       <div className="ruler">0 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
-      {document ? <><SearchBox document={document} query={query} setQuery={setQuery} hits={hits} setHits={setHits} onSelectPage={setSelectedPage} /><PdfViewer document={document} zoom={zoom} selectedPage={selectedPage} onDocumentLoaded={(loaded) => { setPdf(loaded); void loaded.getOutline().then((items) => setOutline(items ?? [])); }} /></> : <div className="drop-zone"><Upload size={28} /><h1>Open a PDF to begin</h1><p>Drop a PDF here, or use the Open PDF button above.</p><span>Files stay in your browser.</span></div>}
+      {document ? <><SearchBox document={document} query={query} setQuery={setQuery} hits={hits} setHits={setHits} onSelectPage={setSelectedPage} /><PdfViewer document={document} zoom={zoom} selectedPage={selectedPage} objects={objects} onDocumentLoaded={(loaded) => { setPdf(loaded); void loaded.getOutline().then((items) => setOutline(items ?? [])); }} /></> : <div className="drop-zone"><Upload size={28} /><h1>Open a PDF to begin</h1><p>Drop a PDF here, or use the Open PDF button above.</p><span>Files stay in your browser.</span></div>}
       {isDragging && <div className="drop-overlay">Drop PDF to open</div>}
     </section>
     {rightPanelOpen && <aside className="right-panel" aria-label="Properties"><button className="close-panel" onClick={toggleRightPanel}><PanelRightClose size={16} /> Hide panel</button><p className="panel-label">DOCUMENT</p><dl><dt>Status</dt><dd>{document ? 'Rendered locally' : 'No document'}</dd><dt>Pages</dt><dd>{pdf?.numPages ?? '—'}</dd><dt>Zoom</dt><dd>{zoom}%</dd><dt>Autosave</dt><dd>Every 5 seconds</dd></dl></aside>}
+    {rightPanelOpen && objects.length > 0 && <ObjectEditor objects={objects} />}
   </main>;
 }
 
 interface SearchHit { page: number; count: number }
 interface OutlineItem { title: string; dest?: string | unknown[] | null; items: OutlineItem[] }
+
+function ObjectEditor({ objects }: { objects: import('../types').TextObject[] }) {
+  const { updateTextObject, removeObject } = useAppStore();
+  return <aside className="object-editor-panel" aria-label="Export objects"><p className="panel-label">EXPORT OBJECTS</p>{objects.map((object) => <div className="object-editor" key={object.id}><label>Text<input aria-label="Overlay text" value={object.text} onChange={(event) => updateTextObject(object.id, event.target.value)} /></label><button onClick={() => removeObject(object.id)}>Remove</button></div>)}</aside>;
+}
 
 function Navigator({ document, pdf, outline, selectedPage, onSelectPage }: { document?: { name: string; data: ArrayBuffer }; pdf?: PDFDocumentProxy; outline: OutlineItem[]; selectedPage: number; onSelectPage: (page: number) => void }) {
   const { leftPanel, setLeftPanel } = useAppStore();

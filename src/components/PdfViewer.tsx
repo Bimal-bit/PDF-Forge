@@ -2,17 +2,19 @@ import { TextLayer, type PDFDocumentProxy, type PDFPageProxy } from 'pdfjs-dist'
 import { useEffect, useRef, useState } from 'react';
 import { openPdf } from '../lib/pdf';
 import type { OpenDocument } from '../types';
+import type { TextObject } from '../types';
 
 interface PdfViewerProps {
   document: OpenDocument;
   zoom: number;
   selectedPage: number;
+  objects: TextObject[];
   onDocumentLoaded: (pdf: PDFDocumentProxy) => void;
 }
 
 const RENDER_SCALE = 1.5;
 
-export function PdfViewer({ document, zoom, selectedPage, onDocumentLoaded }: PdfViewerProps) {
+export function PdfViewer({ document, zoom, selectedPage, objects, onDocumentLoaded }: PdfViewerProps) {
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [error, setError] = useState<string>();
   const pageRefs = useRef(new Map<number, HTMLElement>());
@@ -36,11 +38,11 @@ export function PdfViewer({ document, zoom, selectedPage, onDocumentLoaded }: Pd
   if (error) return <div className="viewer-message" role="alert">{error}</div>;
   if (!pdf) return <div className="viewer-message">Preparing local PDF…</div>;
   return <div className="page-stack" aria-label="Rendered PDF pages">
-    {Array.from({ length: pdf.numPages }, (_, index) => <PdfPage key={index + 1} pdf={pdf} pageNumber={index + 1} zoom={zoom} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
+    {Array.from({ length: pdf.numPages }, (_, index) => <PdfPage key={index + 1} pdf={pdf} pageNumber={index + 1} zoom={zoom} objects={objects.filter((object) => object.page === index + 1)} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
   </div>;
 }
 
-function PdfPage({ pdf, pageNumber, zoom, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; zoom: number; pageRef: (node: HTMLElement | null) => void }) {
+function PdfPage({ pdf, pageNumber, zoom, objects, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; zoom: number; objects: TextObject[]; pageRef: (node: HTMLElement | null) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(pageNumber <= 2);
@@ -70,5 +72,5 @@ function PdfPage({ pdf, pageNumber, zoom, pageRef }: { pdf: PDFDocumentProxy; pa
     return () => { cancelled = true; renderTask?.cancel(); };
   }, [pdf, pageNumber, visible, zoom]);
 
-  return <article ref={pageRef} className="pdf-page" aria-label={`Page ${pageNumber}`}><canvas ref={canvasRef} /><div ref={textRef} className="text-layer" />{!visible && <span className="page-placeholder">Page {pageNumber}</span>}<span className="page-number">{pageNumber}</span></article>;
+  return <article ref={pageRef} className="pdf-page" aria-label={`Page ${pageNumber}`}><canvas ref={canvasRef} /><div ref={textRef} className="text-layer" />{objects.map((object) => <span key={object.id} className="text-object" style={{ left: object.x * zoom / 100, bottom: object.y * zoom / 100, fontSize: object.fontSize * zoom / 100, color: object.color }}>{object.text}</span>)}{!visible && <span className="page-placeholder">Page {pageNumber}</span>}<span className="page-number">{pageNumber}</span></article>;
 }

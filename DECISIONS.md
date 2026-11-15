@@ -1,5 +1,11 @@
 # Decisions
 
+## M3 — Browser-local export engine
+
+- **Export format:** pdf-lib loads the original browser-local bytes, appends the object layer to the relevant page content streams, and downloads a new PDF. No server or remote conversion is involved.
+- **Object scope:** M3 provides a small editable text overlay as the visible, exportable object-layer proof. Full text editing, formatting, positioning, and additional object types remain M4 work.
+- **Verification:** The unit test creates a source PDF, exports a text object, reparses the result with pdf-lib, and inspects the decoded appended content stream.
+
 ## M1 — Project foundation
 
 - **Scope:** The request says “Begin with M1 now”; this commit implements M1 only. Later milestone features are deliberately absent rather than represented by fake controls.
@@ -10,7 +16,7 @@
 
 ## Milestone plan
 
-M1 and M2 are complete. M3 through M11 remain planned exactly as specified in the task brief.
+M1 through M3 are complete. M4 through M11 remain planned exactly as specified in the task brief.
 
 ## M2 — Browser-local rendering and navigation
 

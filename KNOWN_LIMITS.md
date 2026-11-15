@@ -1,5 +1,7 @@
 # Known limits
 
+M3 supports exportable text overlays, rather than the full in-place editor. Full text editing, advanced object insertion, annotations, page tools, forms/signatures, redaction/security, OCR/conversion, and advanced accessibility features remain scheduled for M4–M10.
+
 This M2 build intentionally contains the foundation plus local PDF rendering, thumbnail navigation, outline navigation, text selection, and text search. The following requested capabilities are not yet in the UI because their scheduled milestones have not been implemented:
 
 - Editing and export, annotations, page tools, forms/signatures, redaction/security, OCR/conversion, and advanced accessibility features (M3–M10).
