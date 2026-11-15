@@ -19,7 +19,7 @@ export interface TextObject {
   fontSize: number;
   color: string;
   fontFamily?: string;
-  cover?: { width: number; height: number };
+  cover?: { width: number; height: number; x?: number; y?: number };
   fallback?: boolean;
   width?: number;
   height?: number;
@@ -33,6 +33,17 @@ export interface TextObject {
   list?: 'none' | 'bullet' | 'number';
   indent?: number;
   style?: 'Body' | 'Heading 1' | 'Heading 2' | 'Heading 3' | 'Caption';
+  columns?: 1 | 2 | 3;
+  columnGap?: number;
+  dropCapLines?: 0 | 2 | 3;
+  nextTextId?: string;
+  sourceText?: string;
+}
+
+export interface TextChange {
+  id: string; objectId: string; authors: string[]; at: number; lastAt: number;
+  before: string; after: string; removeOnReject: boolean;
+  status: 'pending' | 'accepted' | 'rejected';
 }
 
 export type TextFormat = Pick<TextObject, 'fontFamily' | 'fontSize' | 'color' | 'bold' | 'italic' | 'underline' | 'strike' | 'letterSpacing' | 'alignment' | 'lineHeight' | 'list' | 'indent' | 'style'>;
@@ -41,7 +52,9 @@ export interface SavedStyle { id: string; kind: 'style'; name: string; styleKind
 export interface SavedSnippet { id: string; kind: 'snippet'; name: string; text: string; format: TextFormat }
 export type EditingLibraryEntry = SavedStyle | SavedSnippet;
 
-export interface ShapeObject { id: string; type: 'shape'; page: number; x: number; y: number; width: number; height: number; color: string }
+export interface ShapeObject { id: string; type: 'shape'; page: number; x: number; y: number; width: number; height: number; color: string; shapeKind?: 'rectangle' | 'ellipse' | 'diamond' | 'terminator'; label?: string }
+export interface ConnectorObject { id: string; type: 'connector'; page: number; fromId: string; toId: string; color: string; arrow: boolean }
+export interface EquationObject { id: string; type: 'equation'; page: number; x: number; y: number; latex: string; fontSize: number; color: string }
 export interface ImageObject { id: string; type: 'image'; page: number; x: number; y: number; width: number; height: number; dataUrl: string }
 export interface TableObject { id: string; type: 'table'; page: number; x: number; y: number; width: number; height: number; cells: string[][] }
 export interface LinkObject { id: string; type: 'link'; page: number; x: number; y: number; label: string; url: string; fontSize: number }
@@ -56,7 +69,7 @@ export interface NoteAnnotation { id: string; type: 'note'; page: number; x: num
 export interface StampAnnotation { id: string; type: 'stamp'; page: number; x: number; y: number; label: 'APPROVED' | 'DRAFT' | 'CONFIDENTIAL' }
 export interface MeasureAnnotation { id: string; type: 'measure'; page: number; x: number; y: number; width: number; height: number; units: 'pt' | 'in' | 'cm' }
 export type AnnotationObject = HighlightAnnotation | NoteAnnotation | StampAnnotation | MeasureAnnotation;
-export type EditorObject = TextObject | ShapeObject | ImageObject | TableObject | LinkObject | FormObject | AnnotationObject;
+export type EditorObject = TextObject | ShapeObject | ConnectorObject | EquationObject | ImageObject | TableObject | LinkObject | FormObject | AnnotationObject;
 
 export interface PageSettings {
   order: number[];
@@ -77,6 +90,9 @@ export interface AppSnapshot {
   objects: EditorObject[];
   selectedObjectId?: string;
   pageSettings: PageSettings;
+  trackChanges: boolean;
+  changeAuthor: string;
+  textChanges: TextChange[];
 }
 
 export interface RecoveryDocument extends OpenDocument {
@@ -84,4 +100,7 @@ export interface RecoveryDocument extends OpenDocument {
   pageSettings?: PageSettings;
   selectedPage?: number;
   savedAt?: number;
+  trackChanges?: boolean;
+  changeAuthor?: string;
+  textChanges?: TextChange[];
 }

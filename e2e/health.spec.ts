@@ -6,7 +6,7 @@ async function open(page: Page, pdf: PDFDocument) {
   await page.goto('/');
   await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'health.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
   await expect(page.locator('.text-layer')).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Ribbon tabs' }).getByRole('button')).toHaveText(['Home', 'Insert', 'Review', 'View', 'Tools']);
+  await expect(page.getByRole('navigation', { name: 'Ribbon tabs' }).getByRole('button')).toHaveText(['Home', 'Insert', 'Layout', 'Review', 'View', 'Tools']);
 }
 
 async function downloaded(download: Download) { return readFile((await download.path())!); }

@@ -18,7 +18,7 @@ export async function database() {
   });
 }
 
-export async function saveDocument(document: OpenDocument, workspace?: Pick<AppSnapshot, 'objects' | 'pageSettings' | 'selectedPage'>): Promise<void> {
+export async function saveDocument(document: OpenDocument, workspace?: Pick<AppSnapshot, 'objects' | 'pageSettings' | 'selectedPage'> & Partial<Pick<AppSnapshot, 'trackChanges' | 'changeAuthor' | 'textChanges'>>): Promise<void> {
   const db = await database();
   try {
     await db.put(STORE_NAME, { ...document, ...workspace, savedAt: Date.now() }, document.id);

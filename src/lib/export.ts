@@ -6,12 +6,10 @@ import { prunePageFields, registerPageFields } from './formAssembly';
 import { drawTextBlock, standardFontName } from './textLayout';
 import { unicodeFont } from './fonts';
 import { annotationAppearance } from './annotationAppearance';
-
-function hexColor(value: string) {
-  const hex = value.replace('#', '');
-  const parsed = Number.parseInt(hex.length === 3 ? hex.split('').map((part) => part + part).join('') : hex, 16);
-  return rgb(((parsed >> 16) & 255) / 255, ((parsed >> 8) & 255) / 255, (parsed & 255) / 255);
-}
+import { layoutTextFrames } from './textFlow';
+import { drawTextFlow } from './drawTextFlow';
+import { drawDiagram } from './diagrams';
+import { drawEquation } from './equations';
 
 const emptySettings: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
 
@@ -23,10 +21,13 @@ export async function exportDocument(document: OpenDocument, objects: EditorObje
 export async function exportPdf(document: OpenDocument, objects: EditorObject[], settings: PageSettings = emptySettings): Promise<Uint8Array> {
   const source = await PDFDocument.load(document.data.slice(0), { updateMetadata: false });
   const order = settings.order.length ? settings.order : Array.from({ length: source.getPageCount() }, (_, index) => index + 1);
+  const frameLayouts = layoutTextFrames(objects, order);
+  if ([...frameLayouts.values()].some((layout) => layout.overflow)) throw new Error('Text overflows a story. Enlarge its boxes or add a continuation in Layout before exporting.');
   const pdf = source;
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fonts = new Map<string, PDFFont>([['Helvetica', font]]);
   const markFont = await supportedFont(pdf, fonts, settings.header + settings.footer + settings.watermark, font);
+  const diagramFont = await supportedFont(pdf, fonts, objects.filter((object) => object.type === 'shape').map((object) => object.label ?? '').join(''), font);
   for (const object of objects) {
     if (object.type === 'form' && object.existingName && object.kind !== 'signature') {
       const form = pdf.getForm();
@@ -45,11 +46,14 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
       const family = standardFontName(object);
       let textFont = fonts.get(family);
       if (!textFont) { textFont = await pdf.embedFont(family); fonts.set(family, textFont); }
-      textFont = await supportedFont(pdf, fonts, object.text, textFont);
-      if (object.cover) page.drawRectangle({ x: object.x - 2, y: object.y - 2, width: object.cover.width, height: object.cover.height, color: rgb(1, 1, 1) });
-      drawTextBlock(page, object, textFont);
+      const layout = frameLayouts.get(object.id);
+      textFont = await supportedFont(pdf, fonts, layout?.visibleText ?? object.text, textFont);
+      if (object.cover) page.drawRectangle({ x: (object.cover.x ?? object.x) - 2, y: (object.cover.y ?? object.y) - 2, width: object.cover.width, height: object.cover.height, color: rgb(1, 1, 1) });
+      if (layout) drawTextFlow(page, object, layout, textFont);
+      else drawTextBlock(page, object, textFont);
     }
-    if (object.type === 'shape') page.drawRectangle({ x: object.x, y: object.y, width: object.width, height: object.height, borderColor: hexColor(object.color), borderWidth: 2, opacity: .15 });
+    if (object.type === 'shape' || object.type === 'connector') drawDiagram(page, object, objects, diagramFont);
+    if (object.type === 'equation') await drawEquation(pdf, page, object, fonts);
     if (object.type === 'table') {
       const rowHeight = object.height / object.cells.length; const columnWidth = object.width / object.cells[0].length;
       object.cells.forEach((row, rowIndex) => row.forEach((cell, columnIndex) => { const x = object.x + columnIndex * columnWidth; const y = object.y + object.height - (rowIndex + 1) * rowHeight; page.drawRectangle({ x, y, width: columnWidth, height: rowHeight, borderColor: rgb(.35, .33, .3), borderWidth: 1 }); page.drawText(cell, { x: x + 5, y: y + rowHeight - 15, size: 10, font }); }));

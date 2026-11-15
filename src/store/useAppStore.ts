@@ -1,6 +1,8 @@
 import { produceWithPatches, applyPatches, enablePatches, type Patch } from 'immer';
 import { create } from 'zustand';
 import { getSavedTheme } from '../lib/theme';
+import { linkTextFrames } from '../lib/textFlow';
+import { recordTextChange } from '../lib/reviewChanges';
 import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, PageSettings, RecoveryDocument, RibbonTab, TextFormat, TextObject, Theme } from '../types';
 
 interface HistoryEntry { patches: Patch[]; inverse: Patch[] }
@@ -30,6 +32,10 @@ interface State extends AppSnapshot {
   updateObject: (id: string, patch: Partial<EditorObject>) => void;
   formatTextObjects: (ids: string[], additions: TextObject[], patch: Partial<TextFormat> & { fallback?: boolean; width?: number }) => void;
   selectObject: (id?: string) => void;
+  linkTextObjects: (fromId: string, toId: string) => void;
+  unlinkTextObject: (id: string) => void;
+  setReviewOptions: (options: Partial<Pick<AppSnapshot, 'trackChanges' | 'changeAuthor'>>) => void;
+  reviewTextChange: (id: string, accept: boolean) => void;
   removeObject: (id: string) => void;
   setDragging: (isDragging: boolean) => void;
   toggleRightPanel: () => void;
@@ -38,7 +44,7 @@ interface State extends AppSnapshot {
   redo: () => void;
 }
 
-const initial: AppSnapshot = { activeTab: 'Home', theme: getSavedTheme(), zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [], pageSettings: { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null } };
+const initial: AppSnapshot = { activeTab: 'Home', theme: getSavedTheme(), zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [], pageSettings: { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null }, trackChanges: false, changeAuthor: 'Local editor', textChanges: [] };
 
 enablePatches();
 
@@ -51,8 +57,8 @@ function tracked(set: (partial: State | Partial<State> | ((state: State) => Stat
 
 export const useAppStore = create<State>((set) => ({
   ...initial, history: [], future: [], isDragging: false,
-  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.pageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null }; draft.selectedObjectId = undefined; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
-  restoreDocument: (document) => set({ document, objects: document.objects ?? [], pageSettings: document.pageSettings ?? initial.pageSettings, selectedPage: document.selectedPage ?? 1, selectedObjectId: undefined, history: [], future: [], notice: `${document.name} recovered locally` }),
+  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.textChanges = []; draft.pageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null }; draft.selectedObjectId = undefined; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
+  restoreDocument: (document) => set({ document, objects: document.objects ?? [], pageSettings: document.pageSettings ?? initial.pageSettings, selectedPage: document.selectedPage ?? 1, selectedObjectId: undefined, trackChanges: document.trackChanges ?? false, changeAuthor: document.changeAuthor ?? 'Local editor', textChanges: document.textChanges ?? [], history: [], future: [], notice: `${document.name} recovered locally` }),
   setTab: (activeTab) => tracked(set, (draft) => { draft.activeTab = activeTab; }),
   setTheme: (theme) => tracked(set, (draft) => { draft.theme = theme; }),
   setZoom: (zoom) => tracked(set, (draft) => { draft.zoom = Math.max(10, Math.min(500, zoom)); }),
@@ -64,9 +70,9 @@ export const useAppStore = create<State>((set) => ({
   deletePage: () => tracked(set, (draft) => { if (draft.pageSettings.order.length < 2) return; draft.pageSettings.order.splice(draft.selectedPage - 1, 1); draft.selectedPage = Math.min(draft.selectedPage, draft.pageSettings.order.length); }),
   duplicatePage: () => tracked(set, (draft) => { const source = draft.pageSettings.order[draft.selectedPage - 1]; if (!source) return; draft.pageSettings.order.splice(draft.selectedPage, 0, source); draft.selectedPage += 1; }),
   updatePageSettings: (settings) => tracked(set, (draft) => { Object.assign(draft.pageSettings, settings); }),
-  addTextObject: (page) => tracked(set, (draft) => { if (!draft.document) return; const id = crypto.randomUUID(); draft.selectedObjectId = id; draft.objects.push({ id, type: 'text', page: page ?? draft.pageSettings.order[draft.selectedPage - 1] ?? draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737', width: 300 }); }),
-  updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') object.text = text; }),
-  addObject: (object) => tracked(set, (draft) => { draft.objects.push(object); draft.selectedObjectId = object.id; }),
+  addTextObject: (page) => tracked(set, (draft) => { if (!draft.document) return; const id = crypto.randomUUID(); draft.selectedObjectId = id; draft.objects.push({ id, type: 'text', page: page ?? draft.pageSettings.order[draft.selectedPage - 1] ?? draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737', width: 300 }); if (draft.trackChanges) recordTextChange(draft.textChanges, id, '', 'Text overlay', draft.changeAuthor, true); }),
+  updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') { if (draft.trackChanges || draft.textChanges.some((change) => change.objectId === id && change.status === 'pending')) recordTextChange(draft.textChanges, id, object.text, text, draft.changeAuthor); object.text = text; } }),
+  addObject: (object) => tracked(set, (draft) => { draft.objects.push(object); draft.selectedObjectId = object.id; if (draft.trackChanges && object.type === 'text') recordTextChange(draft.textChanges, object.id, object.sourceText ?? '', object.text, draft.changeAuthor, true); }),
   importAnnotations: (annotations) => tracked(set, (draft) => {
     const ids = new Set(draft.objects.map((object) => object.id));
     for (const annotation of annotations) {
@@ -76,7 +82,7 @@ export const useAppStore = create<State>((set) => ({
       draft.selectedObjectId = object.id;
     }
   }),
-  updateObject: (id, patch) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object) Object.assign(object, patch); }),
+  updateObject: (id, patch) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object) { if (object.type === 'text' && object.cover && ('x' in patch || 'y' in patch)) { object.cover.x ??= object.x; object.cover.y ??= object.y; } Object.assign(object, patch); } }),
   formatTextObjects: (ids, additions, patch) => tracked(set, (draft) => {
     const targets = new Set(ids);
     draft.objects.push(...additions);
@@ -85,7 +91,27 @@ export const useAppStore = create<State>((set) => ({
     }
   }),
   selectObject: (selectedObjectId) => set({ selectedObjectId }),
-  removeObject: (id) => tracked(set, (draft) => { draft.objects = draft.objects.filter((object) => object.id !== id); }),
+  linkTextObjects: (fromId, toId) => tracked(set, (draft) => { linkTextFrames(draft.objects, fromId, toId); }),
+  unlinkTextObject: (id) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') delete object.nextTextId; }),
+  setReviewOptions: (options) => set(options),
+  reviewTextChange: (id, accept) => tracked(set, (draft) => {
+    const change = draft.textChanges.find((entry) => entry.id === id && entry.status === 'pending');
+    if (!change) return;
+    const object = draft.objects.find((entry) => entry.id === change.objectId);
+    if (!accept && object?.type === 'text') {
+      if (change.removeOnReject) {
+        for (const entry of draft.objects) if (entry.type === 'text' && entry.nextTextId === object.id) entry.nextTextId = object.nextTextId;
+        draft.objects = draft.objects.filter((entry) => entry.id !== object.id);
+      } else object.text = change.before;
+    }
+    change.status = accept ? 'accepted' : 'rejected';
+  }),
+  removeObject: (id) => tracked(set, (draft) => {
+    const removed = draft.objects.find((entry) => entry.id === id);
+    for (const object of draft.objects) if (object.type === 'text' && object.nextTextId === id) object.nextTextId = removed?.type === 'text' ? removed.nextTextId : undefined;
+    draft.objects = draft.objects.filter((object) => object.id !== id && !(object.type === 'connector' && (object.fromId === id || object.toId === id)));
+    for (const change of draft.textChanges) if (change.objectId === id && change.status === 'pending') change.status = 'rejected';
+  }),
   setDragging: (isDragging) => set({ isDragging }),
   toggleRightPanel: () => tracked(set, (draft) => { draft.rightPanelOpen = !draft.rightPanelOpen; }),
   setNotice: (notice) => set({ notice }),

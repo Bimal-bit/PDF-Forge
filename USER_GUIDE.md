@@ -46,6 +46,36 @@ Insert adds text, images, rectangles, tables, links, form fields, and typed sign
 
 Review adds highlights, notes, predefined stamps, and linear measurements. Supported annotations include PDF appearance streams. PDFForge XFDF import/export exchanges its own annotation XML schema. Other vendor schemas require additional interoperability work.
 
+## Text flow, columns, and drop caps
+
+Choose **Layout → Text flow & columns**. **Add text box** creates a box on the current page. Select a box to edit its text, position, width, height, column count/gap, and drop cap. Positions use PDF points from the bottom left. Two/three-column text balances within the frame height.
+
+Create another box, select the first box, choose the continuation target, and select **Link text boxes**. Targets can be on another page. A story combines each box's stored text in chain order. Edit a box's contribution in the dialog or sidebar. **Unlink continuation** retains the original contributions. Removing a page reflows a story through its surviving frames. Removing a box deletes its contribution.
+
+A red plus marks overflow, and Layout reports how much text remains. Enlarge the frames or add a continuation until it fits to export the full story. Unicode fallback widths are approximate. Moving replacement text keeps its source cover at the original location.
+
+## Shapes, connectors, and equations
+
+Choose **Layout → Shapes & connectors** to add process rectangles, decision diamonds, ellipses, or oval terminators. Set a label, color, position, and size. Choose two shapes on the current page and select **Connect shapes**. Drag shapes or use arrow keys to move them. Shift increases keyboard movement to ten points. Connectors follow both shapes through movement, zoom, page rotation, undo, and PDF export. Deleting a shape also deletes its connectors.
+
+Choose **Layout → Equation editor** to enter supported LaTeX and preview it. **Insert equation** adds it on the current page. Select an existing equation to change its input, font size, color, or position, then choose **Update selected equation**. Equations export as vector font glyphs and rules.
+
+Examples include `x^2 + y_1`, `\frac{a}{b}`, `\sqrt{x}`, and `\sum_{i=1}^{n} i`. Fractions, roots, scripts, Greek letters, common operators/functions, and plain text are supported. Matrices, custom macros, packages, automatic delimiter sizing, and full TeX typography remain pending. Invalid or unsupported input shows an error before insertion.
+
+## Image editing
+
+Insert a PNG or JPEG, then choose **Layout → Image tools**. Select the image and set crop percentages, clockwise quarter-turn rotation, mask, brightness, and contrast. **Remove background** clears pixels connected to the image edges that match the selected color and tolerance. It works best with uniform backgrounds.
+
+Choose **Preview image edits**, then **Apply image edits** to save the result as a transparent PNG in the document. Crop and rotation update its display dimensions. Undo restores the previous image in the current session. Edited images recover locally and export with transparency. Editing supports up to 16 million pixels per image.
+
+## Tracked text changes
+
+Choose **Review → Tracked changes**, enable tracking, and enter an author name. Edits to one block accumulate into one pending change until reviewed, retaining its original/current text, contributing authors, and timestamps. Pending records keep following further edits until accepted or rejected.
+
+The review dialog filters pending, accepted, rejected, or all changes. **Go to changed text** selects its block/page. **Accept change** retains the current text. **Reject change** restores the original text or removes a tracked insertion/source replacement. Review actions support Undo and Redo. Settings and review records recover with the workspace. PDF export uses the current text, and review metadata stays in the local workspace.
+
+Tracking covers whole-block text. Inline revision markup, formatting/object changes, authenticated author identities, and review-data interchange remain pending.
+
 ## Manage pages
 
 Tools moves the selected page up or down, rotates it, deletes it, duplicates it, or splits it into a separate PDF. Merge PDFs combines selected files locally. Header/footer text accepts `{page}`, and Tools also sets watermark and Bates numbering.

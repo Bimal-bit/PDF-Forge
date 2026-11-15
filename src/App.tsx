@@ -7,7 +7,7 @@ import { useAppStore } from './store/useAppStore';
 import { saveTheme } from './lib/theme';
 
 export default function App() {
-  const { document, objects, pageSettings, restoreDocument, notice, setNotice, theme, undo, redo } = useAppStore();
+  const { document, objects, pageSettings, textChanges, trackChanges, changeAuthor, restoreDocument, notice, setNotice, theme, undo, redo } = useAppStore();
   const [saveStatus, setSaveStatus] = useState('Ready');
   useEffect(() => { saveTheme(theme); }, [theme]);
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     setSaveStatus(document ? 'Unsaved changes' : 'Ready');
-  }, [document, objects, pageSettings]);
+  }, [document, objects, pageSettings, textChanges, trackChanges, changeAuthor]);
 
   useEffect(() => {
     let saving = false;
@@ -31,10 +31,10 @@ export default function App() {
       const state = useAppStore.getState();
       if (!state.document || saving) return;
       saving = true;
-      const snapshot = { objects: state.objects, pageSettings: state.pageSettings, selectedPage: state.selectedPage };
+      const snapshot = { objects: state.objects, pageSettings: state.pageSettings, selectedPage: state.selectedPage, textChanges: state.textChanges, trackChanges: state.trackChanges, changeAuthor: state.changeAuthor };
       void saveDocument(state.document, snapshot).then(() => {
         const current = useAppStore.getState();
-        if (live && current.document === state.document && current.objects === state.objects && current.pageSettings === state.pageSettings) {
+        if (live && current.document === state.document && current.objects === state.objects && current.pageSettings === state.pageSettings && current.textChanges === state.textChanges && current.trackChanges === state.trackChanges && current.changeAuthor === state.changeAuthor) {
           setSaveStatus('Saved locally');
         }
       }).catch(() => {

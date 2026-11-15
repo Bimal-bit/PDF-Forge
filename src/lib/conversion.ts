@@ -3,6 +3,7 @@ import { openPdf } from './pdf';
 import { unicodeFont } from './fonts';
 import { wrapText } from './textLayout';
 import { editedPageText } from './pageText';
+import { layoutTextFrames } from './textFlow';
 import type { EditorObject, OpenDocument, PageSettings } from '../types';
 
 export async function editedTextPages(document: OpenDocument, objects: EditorObject[], settings: PageSettings): Promise<string[]> {
@@ -10,10 +11,11 @@ export async function editedTextPages(document: OpenDocument, objects: EditorObj
   try {
     const order = settings.order.length ? settings.order : Array.from({ length: pdf.numPages }, (_, index) => index + 1);
     const pages: string[] = [];
+    const layouts = layoutTextFrames(objects, order);
     for (const source of order) {
       const content = await (await pdf.getPage(source)).getTextContent();
       const overlays = objects.filter((object) => object.page === source);
-      pages.push(editedPageText(content.items.filter((item) => 'str' in item), overlays));
+      pages.push(editedPageText(content.items.filter((item) => 'str' in item), overlays, layouts));
     }
     return pages;
   } finally { await pdf.loadingTask.destroy(); }

@@ -30,9 +30,8 @@ test('reduced motion skips intro and floating effects while preserving keyboard 
   const paper = page.locator('.landing-preview');
   await expect(paper).toHaveCSS('animation-name', 'none');
   await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
-  await page.getByRole('button', { name: 'Open editor', exact: true }).focus();
   const chooser = page.waitForEvent('filechooser');
-  await page.keyboard.press('Enter');
+  await page.getByRole('button', { name: 'Open editor', exact: true }).press('Enter');
   expect((await chooser).isMultiple()).toBe(false);
 });
 
