@@ -1,5 +1,10 @@
 import { PDFArray, PDFDocument, PDFName, PDFString, PDFFont, StandardFonts, degrees, rgb } from 'pdf-lib';
 import type { AnnotationObject, EditorObject, FormObject, OpenDocument, PageSettings } from '../types';
+import { writeFormField } from './formFields';
+import { applyPagePlan } from './pagePlan';
+import { drawTextBlock, standardFontName } from './textLayout';
+import { unicodeFont } from './fonts';
+import { annotationAppearance } from './annotationAppearance';
 
 function hexColor(value: string) {
   const hex = value.replace('#', '');
@@ -10,22 +15,32 @@ function hexColor(value: string) {
 const emptySettings: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
 
 export async function exportPdf(document: OpenDocument, objects: EditorObject[], settings: PageSettings = emptySettings): Promise<Uint8Array> {
-  const source = await PDFDocument.load(document.data.slice(0));
+  const source = await PDFDocument.load(document.data.slice(0), { updateMetadata: false });
   const order = settings.order.length ? settings.order : Array.from({ length: source.getPageCount() }, (_, index) => index + 1);
-  const pdf = await PDFDocument.create();
-  const copied = await pdf.copyPages(source, order.map((page) => page - 1));
-  copied.forEach((page) => pdf.addPage(page));
+  const pdf = source;
   const font = await pdf.embedFont(StandardFonts.Helvetica);
-  const form = pdf.getForm();
+  const fonts = new Map<string, PDFFont>([['Helvetica', font]]);
+  for (const object of objects) {
+    if (object.type === 'form' && object.existingName && object.kind !== 'signature') {
+      const form = pdf.getForm();
+      const fieldFont = await supportedFont(pdf, fonts, object.value + (object.options ?? []).join(''), font);
+      writeFormField(form, pdf.getPage(object.page - 1), object, fieldFont, object.page - 1);
+    }
+  }
+  await applyPagePlan(pdf, order);
   for (const [outputIndex, sourcePage] of order.entries()) {
     const page = pdf.getPage(outputIndex);
     const rotation = settings.rotations[sourcePage] ?? 0;
-    if (rotation) page.setRotation(degrees(rotation));
+    if (rotation) page.setRotation(degrees((page.getRotation().angle + rotation) % 360));
     drawPageMarks(page, font, outputIndex + 1, settings);
     for (const object of objects.filter((entry) => entry.page === sourcePage)) {
     if (object.type === 'text') {
+      const family = standardFontName(object);
+      let textFont = fonts.get(family);
+      if (!textFont) { textFont = await pdf.embedFont(family); fonts.set(family, textFont); }
+      textFont = await supportedFont(pdf, fonts, object.text, textFont);
       if (object.cover) page.drawRectangle({ x: object.x - 2, y: object.y - 2, width: object.cover.width, height: object.cover.height, color: rgb(1, 1, 1) });
-      page.drawText(object.text, { x: object.x, y: object.y, size: object.fontSize, font, color: hexColor(object.color) });
+      drawTextBlock(page, object, textFont);
     }
     if (object.type === 'shape') page.drawRectangle({ x: object.x, y: object.y, width: object.width, height: object.height, borderColor: hexColor(object.color), borderWidth: 2, opacity: .15 });
     if (object.type === 'table') {
@@ -38,11 +53,25 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
       const annotation = pdf.context.obj({ Type: 'Annot', Subtype: 'Link', Rect: [object.x, object.y, object.x + font.widthOfTextAtSize(object.label, object.fontSize), object.y + object.fontSize], Border: [0, 0, 0], A: { Type: 'Action', S: 'URI', URI: PDFString.of(object.url) } });
       const annotations = page.node.Annots() ?? pdf.context.obj([]) as PDFArray; annotations.push(pdf.context.register(annotation)); page.node.set(PDFName.of('Annots'), annotations);
     }
-    if (object.type === 'form') addFormField(form, page, object, font);
-    if (object.type === 'highlight' || object.type === 'note' || object.type === 'stamp' || object.type === 'measure') addPdfAnnotation(pdf, page.node, object);
+    if (object.type === 'form') {
+      const form = pdf.getForm();
+      const fieldFont = await supportedFont(pdf, fonts, object.value + object.label + (object.options ?? []).join(''), font);
+      if (object.kind === 'signature') addFormField(form, page, object, fieldFont);
+      else if (!object.existingName) writeFormField(form, page, object, fieldFont, outputIndex);
+    }
+    if (object.type === 'highlight' || object.type === 'note' || object.type === 'stamp' || object.type === 'measure') addPdfAnnotation(pdf, page.node, object, font);
     }
   }
   return pdf.save();
+}
+
+async function supportedFont(pdf: PDFDocument, fonts: Map<string, PDFFont>, text: string, preferred: PDFFont) {
+  try { preferred.encodeText(text.replace(/[\r\n]/g, '')); return preferred; }
+  catch {
+    const fallback = fonts.get('Unicode') ?? await unicodeFont(pdf);
+    fonts.set('Unicode', fallback);
+    return fallback;
+  }
 }
 
 function addFormField(form: ReturnType<PDFDocument['getForm']>, page: ReturnType<PDFDocument['getPage']>, object: FormObject, font: PDFFont) {
@@ -71,17 +100,17 @@ export async function mergePdfs(documents: OpenDocument[]): Promise<Uint8Array> 
   return merged.save();
 }
 
-export async function splitPdf(document: OpenDocument, pageNumbers: number[]): Promise<Uint8Array> {
-  return exportPdf(document, [], { ...emptySettings, order: pageNumbers });
+export async function splitPdf(document: OpenDocument, pageNumbers: number[], objects: EditorObject[] = [], settings: PageSettings = emptySettings): Promise<Uint8Array> {
+  return exportPdf(document, objects, { ...settings, order: pageNumbers });
 }
 
-function addPdfAnnotation(pdf: PDFDocument, page: ReturnType<PDFDocument['getPage']>['node'], annotation: AnnotationObject) {
-  const base = { Type: 'Annot', P: page, NM: PDFString.of(annotation.id) };
+function addPdfAnnotation(pdf: PDFDocument, page: ReturnType<PDFDocument['getPage']>['node'], annotation: AnnotationObject, font: PDFFont) {
+  const base = { Type: 'Annot', P: pdf.context.getObjectRef(page), NM: PDFString.of(annotation.id), F: 4, AP: { N: annotationAppearance(pdf, annotation, font) } };
   let value: Record<string, unknown>;
   if (annotation.type === 'highlight') value = { ...base, Subtype: 'Highlight', Rect: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], QuadPoints: [annotation.x, annotation.y + annotation.height, annotation.x + annotation.width, annotation.y + annotation.height, annotation.x, annotation.y, annotation.x + annotation.width, annotation.y], C: [.96, .72, .1], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author) };
   else if (annotation.type === 'note') value = { ...base, Subtype: 'Text', Rect: [annotation.x, annotation.y, annotation.x + 18, annotation.y + 18], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author), Name: 'Comment' };
   else if (annotation.type === 'stamp') value = { ...base, Subtype: 'Stamp', Rect: [annotation.x, annotation.y, annotation.x + 110, annotation.y + 32], Contents: PDFString.of(annotation.label), Name: annotation.label };
-  else value = { ...base, Subtype: 'Line', Rect: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], L: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], Contents: PDFString.of(measurementLabel(annotation)), T: PDFString.of('PDFForge') };
+  else value = { ...base, Subtype: 'Line', Rect: [Math.min(annotation.x, annotation.x + annotation.width), Math.min(annotation.y, annotation.y + annotation.height) - 8, Math.max(annotation.x, annotation.x + annotation.width), Math.max(annotation.y, annotation.y + annotation.height) + 16], L: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], Contents: PDFString.of(measurementLabel(annotation)), T: PDFString.of('PDFForge') };
   const annotations = page.Annots() ?? pdf.context.obj([]) as PDFArray;
   annotations.push(pdf.context.register(pdf.context.obj(value as never)));
   page.set(PDFName.of('Annots'), annotations);

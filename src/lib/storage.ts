@@ -1,5 +1,5 @@
 import { openDB } from 'idb';
-import type { OpenDocument } from '../types';
+import type { OpenDocument, RecoveryDocument, AppSnapshot } from '../types';
 
 const DB_NAME = 'pdfforge';
 const STORE_NAME = 'documents';
@@ -12,15 +12,21 @@ async function database() {
   });
 }
 
-export async function saveDocument(document: OpenDocument): Promise<void> {
+export async function saveDocument(document: OpenDocument, workspace?: Pick<AppSnapshot, 'objects' | 'pageSettings' | 'selectedPage'>): Promise<void> {
   const db = await database();
-  await db.put(STORE_NAME, document, document.id);
+  try {
+    await db.put(STORE_NAME, { ...document, ...workspace, savedAt: Date.now() }, document.id);
+  } finally {
+    db.close();
+  }
 }
 
-export async function loadLatestDocument(): Promise<OpenDocument | undefined> {
+export async function loadLatestDocument(): Promise<RecoveryDocument | undefined> {
   const db = await database();
-  const keys = await db.getAllKeys(STORE_NAME);
-  if (!keys.length) return undefined;
-  const documents = await Promise.all(keys.map((key) => db.get(STORE_NAME, key)));
-  return documents.filter(Boolean).sort((a, b) => b.modifiedAt - a.modifiedAt)[0];
+  try {
+    const documents: RecoveryDocument[] = await db.getAll(STORE_NAME);
+    return documents.sort((a, b) => (b.savedAt ?? b.modifiedAt) - (a.savedAt ?? a.modifiedAt))[0];
+  } finally {
+    db.close();
+  }
 }

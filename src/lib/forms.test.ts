@@ -3,6 +3,18 @@ import { describe, expect, it } from 'vitest';
 import { exportMailMerge, fillMergeTokens, mergeObjects, parseCsv } from './forms';
 
 describe('local mail merge', () => {
+  it('keeps multiline cells, empty quoted values, and escaped quotes in one recipient row', () => {
+    expect(parseCsv('\uFEFFname,address,note\r\nAda,"First line\r\nSecond line",""\r\nLin,"He said ""hello""",ok')).toEqual([
+      { name: 'Ada', address: 'First line\r\nSecond line', note: '' },
+      { name: 'Lin', address: 'He said "hello"', note: 'ok' },
+    ]);
+  });
+
+  it('rejects malformed quoting and ambiguous headers before generating recipient PDFs', () => {
+    expect(() => parseCsv('name,note\nAda,"unfinished')).toThrow();
+    expect(() => parseCsv('name,name\nAda,Lin')).toThrow();
+  });
+
   it('parses quoted CSV cells and replaces named tokens', () => {
     expect(parseCsv('name,city\nAda,"New York"')).toEqual([{ name: 'Ada', city: 'New York' }]);
     expect(fillMergeTokens('Hello {{ name }} from {{city}}', { name: 'Ada', city: 'New York' })).toBe('Hello Ada from New York');

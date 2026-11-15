@@ -29,23 +29,27 @@ export function tableFromTextItems(page: number, items: TextItem[]): ExtractedTa
 
 export async function extractDocumentText(document: OpenDocument): Promise<string[]> {
   const pdf = await openPdf(document);
-  const pages: string[] = [];
-  for (let number = 1; number <= pdf.numPages; number += 1) {
-    const content = await (await pdf.getPage(number)).getTextContent();
-    pages.push(content.items.map((item) => ('str' in item ? item.str : '')).join(' ').replace(/\s+/g, ' ').trim());
-  }
-  return pages;
+  try {
+    const pages: string[] = [];
+    for (let number = 1; number <= pdf.numPages; number += 1) {
+      const content = await (await pdf.getPage(number)).getTextContent();
+      pages.push(content.items.map((item) => ('str' in item ? item.str : '')).join(' ').replace(/\s+/g, ' ').trim());
+    }
+    return pages;
+  } finally { await pdf.loadingTask.destroy(); }
 }
 
 export async function extractTables(document: OpenDocument): Promise<ExtractedTable[]> {
   const pdf = await openPdf(document);
-  const tables: ExtractedTable[] = [];
-  for (let number = 1; number <= pdf.numPages; number += 1) {
-    const content = await (await pdf.getPage(number)).getTextContent();
-    const table = tableFromTextItems(number, content.items.filter((item): item is TextItem => 'str' in item));
-    if (table) tables.push(table);
-  }
-  return tables;
+  try {
+    const tables: ExtractedTable[] = [];
+    for (let number = 1; number <= pdf.numPages; number += 1) {
+      const content = await (await pdf.getPage(number)).getTextContent();
+      const table = tableFromTextItems(number, content.items.filter((item): item is TextItem => 'str' in item));
+      if (table) tables.push(table);
+    }
+    return tables;
+  } finally { await pdf.loadingTask.destroy(); }
 }
 
 export function tablesToCsv(tables: ExtractedTable[]): string {
@@ -80,12 +84,15 @@ export async function optimizePdf(document: OpenDocument): Promise<Uint8Array> {
 }
 
 export async function renderPagePng(document: OpenDocument, pageNumber: number): Promise<Blob> {
-  const pdf = await openPdf(document); const page = await pdf.getPage(pageNumber);
-  const viewport = page.getViewport({ scale: 1.5 });
-  const canvas = globalThis.document.createElement('canvas');
-  canvas.width = Math.ceil(viewport.width); canvas.height = Math.ceil(viewport.height);
-  const context = canvas.getContext('2d');
-  if (!context) throw new Error('Your browser cannot create an image export.');
-  await page.render({ canvas, canvasContext: context, viewport }).promise;
-  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image export failed.')), 'image/png'));
+  const pdf = await openPdf(document);
+  try {
+    const page = await pdf.getPage(pageNumber);
+    const viewport = page.getViewport({ scale: 1.5 });
+    const canvas = globalThis.document.createElement('canvas');
+    canvas.width = Math.ceil(viewport.width); canvas.height = Math.ceil(viewport.height);
+    const context = canvas.getContext('2d');
+    if (!context) throw new Error('Your browser cannot create an image export.');
+    await page.render({ canvas, canvasContext: context, viewport }).promise;
+    return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image export failed.')), 'image/png'));
+  } finally { await pdf.loadingTask.destroy(); }
 }

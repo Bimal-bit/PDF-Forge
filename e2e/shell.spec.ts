@@ -44,8 +44,8 @@ test('creates review annotations and exposes XFDF exchange', async ({ page }) =>
   await page.getByRole('button', { name: 'Approved stamp' }).click();
   await page.getByRole('button', { name: 'Measure' }).click();
   await expect(page.getByLabel('Annotation comment').last()).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Export XFDF' })).toBeVisible();
-  await expect(page.getByText('Import XFDF', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Export PDFForge XFDF' })).toBeVisible();
+  await expect(page.getByText('Import PDFForge XFDF', { exact: true })).toBeVisible();
 });
 
 test('exposes M6 page management and repeating marks', async ({ page }) => {

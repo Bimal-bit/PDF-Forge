@@ -1,6 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { offlineOcrAssets } from './ocrAssets';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), offlineOcrAssets(), {
+    name: 'offline-asset-list',
+    generateBundle(_options, bundle) {
+      const assets = Object.keys(bundle).filter((name) => name.startsWith('assets/') || name.startsWith('ocr/')).map((name) => `/${name}`);
+      assets.push('/fonts/NotoSans-Regular.ttf');
+      this.emitFile({ type: 'asset', fileName: 'precache.json', source: JSON.stringify(assets) });
+    },
+  }],
 });

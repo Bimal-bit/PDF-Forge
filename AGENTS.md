@@ -19,5 +19,10 @@ Run `npm run test:all` before every milestone commit.
 - React 18 + strict TypeScript + Vite provides the client application.
 - Zustand stores UI/document state. Immer patches make state changes undoable and redoable without an artificial history cap.
 - The `idb` adapter persists opened browser-local document data for automatic recovery. The document bytes never leave the browser.
-- Components are split between `Ribbon` for commands and `Panels` for the workspace. Milestone 2 will replace the placeholder page canvas with pdf.js rendering and a virtualized viewer.
+- Components are split between `Ribbon` for commands and `Panels` for the workspace. The pdf.js viewer shares its loaded document with lazy thumbnails and search. Visited main-viewer canvases remain allocated.
+- Recovery records persist source bytes, object edits, page settings, and selected page. Version history remains pending.
+- Production builds emit an offline asset list for the same-origin service worker. Browser tests also build and launch a production preview to verify offline recovery.
 - Design takes its cues from the supplied PDFForge mock: warm paper surfaces, restrained orange accents, compact Word-style ribbon, and a generous document canvas.
+
+- Tesseract OCR cores, English/Spanish model data, and the Unicode font are bundled locally and included in production precaching.
+- Certificate signing uses local P12/PFX data with network chain fetching disabled. Secure redaction/sanitization uses the user-approved rendered-image output and includes current edits.

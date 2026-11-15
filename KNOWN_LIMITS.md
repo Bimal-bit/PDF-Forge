@@ -1,20 +1,42 @@
 # Known limits
 
-M4 supports single-run overlay editing and basic inserted text, images, shapes, tables, and links. Rich document-wide reflow, advanced typography, freeform object manipulation, OCR/conversion, and advanced accessibility features remain scheduled for later milestones.
+Updated on 15 November 2026. The requested completion pass adds rich block editing, catalog-preserving page assembly, advanced forms, local certificate signing, offline OCR, current-edit security exports, and additional formats. The full original product checklist is maintained in `FEATURE_CHECKLIST.md`.
 
-This M2 build intentionally contains the foundation plus local PDF rendering, thumbnail navigation, outline navigation, text selection, and text search. The following requested capabilities are not yet in the UI because their scheduled milestones have not been implemented:
+## Editing and document structures
 
-- M9 supports browser-local extraction and conversion to text, HTML, current-page PNG, and reliably detected table CSV, plus repacking/optimization and extracted-text comparison. It does not expose scan OCR: an offline recognition engine and language data must be bundled before image-only PDFs can be truthfully recognised.
+- Home formats whole text blocks with regular/bold/italic font variants, underline, strikeout, color, alignment, spacing, indentation, lists, and styles. Paragraph grouping uses text geometry and can need manual correction in complex columns. Reflow wraps within a block width. Mixed formatting inside one block, cross-page document reflow, format painter, superscript/subscript, and original embedded-font reuse remain unfinished.
+- Normal edited exports retain the source document catalog. Reorder and duplication preserve original page references, metadata, bookmarks, name trees, field registrations, and page labels. Deleted-page destinations are redirected to the first surviving page. Duplicate pages share the PDFForge source-page object layer and rotation, while existing PDF form fields receive independent copied registrations.
+- Complex PDF structures such as article threads, structure-tree parent indices, portfolios, XFA, and certification permissions still need broader assembly validation. Editing an already signed PDF can invalidate prior signatures. Signing an unchanged file uses the original bytes to preserve earlier incremental signatures.
+- Main pages and thumbnails render lazily. Visited canvases remain allocated, so sustained scrolling through large scans still needs memory benchmarking.
 
-- M10's accessibility checker evaluates available text and PDFForge-created objects, not arbitrary PDF tag trees, visual reading order, or contrast in embedded page graphics. The on-device AI panel is deterministic text analysis rather than generative AI. Spanish currently localizes the navigation shell; document content and every detailed tool label remain in their source language.
-- Full end-user documentation, fixture suite, and complete feature checklist (M11).
+## Forms and signing
 
-- Thumbnail generation currently favors a simple one-canvas-per-page implementation; extremely large documents may take longer to populate the thumbnail rail even though the main viewer renders lazily.
+- New text, checkbox, radio, dropdown, list, ISO-date text, and reset-button fields export as AcroForms. Existing supported AcroForms can be detected and filled. Required/read-only flags, multiline text, maximum length, new-field geometry, JSON export, and JSON/CSV import are available.
+- Explicit tab-order editing, layout-based field detection on flat PDFs, XFA editing, FDF exchange, multi-selection list values, custom button actions, and existing radio-widget geometry editing remain unfinished.
+- P12/PFX signing creates a CMS/PAdES B-B signature locally. Verification checks CMS integrity, byte coverage, and embedded certificate dates. Issuer trust, revocation, trusted timestamps, and long-term validation require additional trust data or an external validation workflow. These network-dependent services are excluded by the app's browser-local requirement.
+- Typed visible signatures remain available. Drawn, uploaded/camera, saved-signature, and audit-trail workflows remain unfinished.
+- CSV cells retain edge trimming. Large mail merges prepare recipient exports concurrently and use separate downloads, so memory and browser download permissions can limit large batches.
 
-- M5 annotation placement uses deliberate default positions rather than drag handles or freehand drawing. XFDF exchange supports PDFForge highlights, notes, stamps, and measurements; other vendor annotation types are ignored.
+## Redaction and sanitization
 
-- M6 split exports the currently selected page. Range-based splitting and batch-folder processing remain future work.
+- The user approved rebuilding secure exports from rendered images. Both operations first export all pending edits, form values, annotations, marks, rotations, and the page plan.
+- Text redaction covers the complete text runs intersecting an exact case-insensitive match. It then writes fresh page images and independently verifies the result has no extractable text. This removes hidden source text, annotations, forms, attachments, scripts, and source metadata from the output. Neighboring content within the same matched run can also be covered.
+- Secure copies are flattened images at twice PDF point resolution. Searchability, interactive fields, vector fidelity, accessibility tags, bookmarks, and certificate signatures are removed by that operation. Scan-only text needs OCR before text matching. Area/regex redaction, arbitrary image-text recognition during redaction, and adversarial visual-leakage testing remain unfinished.
+- Password-protected `.pdfg` packages remain available. Standard encrypted PDF output and PDF permission controls remain unfinished.
 
-- M7 supports PDFForge-created text and checkbox AcroForm fields, local CSV mail merge, and visible typed signatures. It does not yet validate existing third-party fields, create a PKCS#7/CMS signature dictionary, use a certificate, or provide certificate validation.
+## OCR and formats
 
-- M8 exact-text redaction deliberately refuses content encoded with custom fonts, complex encodings, images, vector outlines, or text split between PDF operators. It does not offer a visual-region redaction tool. Password-protected `.pdfg` packages use strong local encryption and can be reopened by PDFForge, but are not interoperable password-protected PDF files.
+- OCR uses bundled English and Spanish LSTM models, including a combined language mode. It runs in a local worker with progress and cancellation. Recognition accuracy depends on scan quality. Extra languages, deskew controls, confidence correction, handwriting recognition, and deduplication on already searchable pages remain unfinished.
+- TXT, HTML, Markdown, DOCX, page PNG/JPEG/WebP, detected-table CSV/XLSX, and a ZIP of all page PNGs are available. Text-oriented exports use current object edits and the page plan. DOCX preserves supported block formatting where it can associate extracted lines with blocks. Exact reconstruction of original page layout, images, complex tables, and mixed typography in DOCX remains unfinished.
+- PNG/JPEG/WebP, TXT, Markdown, HTML, and DOCX import create PDFs locally. Text/document imports preserve readable text with basic wrapping. Original DOCX/HTML layout, embedded images in those document formats, complete Markdown syntax, and arbitrary HTML styling remain unfinished.
+- Table extraction is a geometry heuristic and can misclassify prose or split cells. XLSX uses literal text cells. Human review remains necessary for complex tables.
+- Optimization currently repacks object streams. Print PDF flattens forms and sets print scaling. Image downsampling levels and linearization remain unfinished. Some comparison, table-extraction, optimization, accessibility, and local-insight tools still use source-based analysis and need complete current-edit parity.
+
+## Other product and acceptance work
+
+- Annotation placement uses default positions. PDF annotation appearance streams are included for supported highlights, notes, stamps, and measurements. Freehand drawing, threaded comments, and general vendor XFDF interchange remain unfinished. PDFForge annotation XML uses its own schema.
+- Range splitting, batch watermark/compression/stamping, object drag handles, comprehensive Word shortcuts, a complete command registry, document version history, full localization, WCAG AA verification, and the other unfinished checklist rows remain tracked separately.
+- Production precaching includes OCR cores, language models, and the Unicode font, increasing offline installation size. Cross-version PWA updates, install icons, and cross-browser acceptance still need additional coverage.
+- The automated suite uses Chromium and generated PDFs. Complex real-world PDFs and independent viewer validation remain ongoing acceptance work.
+
+- The bundled Noto Sans font covers additional Latin, Greek, and Cyrillic text. Full CJK and specialized-script font coverage, and styled Unicode fallback fonts, require additional font assets.

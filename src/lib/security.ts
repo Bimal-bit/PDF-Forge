@@ -1,4 +1,4 @@
-import { PDFArray, PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib';
+import { PDFArray, PDFDict, PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib';
 import type { OpenDocument } from '../types';
 
 const encoder = new TextEncoder();
@@ -27,27 +27,57 @@ export function redactContentStream(content: string, terms: string[]): { content
 
 export async function redactPdf(document: OpenDocument, terms: string[]): Promise<Uint8Array> {
   const source = await PDFDocument.load(document.data.slice(0));
-  const clean = await PDFDocument.create();
-  const pages = await clean.copyPages(source, source.getPageIndices());
-  pages.forEach((page) => clean.addPage(page));
+  if (!terms.some((term) => term.trim())) throw new Error('Enter the exact text to redact.');
   let replacements = 0;
-  for (const page of clean.getPages()) {
+  for (const page of source.getPages()) {
+    const resources = page.node.Resources();
+    if (resources?.lookupMaybe(PDFName.of('XObject'), PDFDict)?.keys().length) throw new Error('Redaction cannot verify pages containing images or nested content.');
+    const fonts = resources?.lookupMaybe(PDFName.of('Font'), PDFDict);
+    for (const key of fonts?.keys() ?? []) {
+      const font = fonts!.lookup(key, PDFDict);
+      const base = font.get(PDFName.of('BaseFont'))?.toString() ?? '';
+      const encoding = font.get(PDFName.of('Encoding'))?.toString();
+      const standardFont = /^\/(Helvetica|Courier)(-Bold|-Oblique|-BoldOblique)?$|^\/Times-(Roman|Bold|Italic|BoldItalic)$/.test(base);
+      if (font.get(PDFName.of('Subtype'))?.toString() !== '/Type1' || !standardFont ||
+          (encoding && encoding !== '/WinAnsiEncoding') || font.has(PDFName.of('ToUnicode')) ||
+          font.has(PDFName.of('FontDescriptor'))) {
+        throw new Error('Redaction cannot verify this PDF font encoding.');
+      }
+    }
+    page.node.delete(PDFName.of('Annots'));
+    page.node.delete(PDFName.of('AA'));
+    page.node.delete(PDFName.of('Metadata'));
     const contents = page.node.Contents();
     if (!contents) continue;
     const streams = contents instanceof PDFArray ? Array.from({ length: contents.size() }, (_, index) => contents.lookup(index, PDFRawStream)) : [contents as PDFRawStream];
-    const scrubbed = streams.map((stream) => redactContentStream(decoder.decode(decodePDFRawStream(stream).decode()), terms));
+    const scrubbed = streams.map((stream) => {
+      const decoded = decodePDFRawStream(stream).decode();
+      if (decoded.some((byte) => byte > 127)) throw new Error('Redaction cannot verify non-ASCII content streams.');
+      const content = decoder.decode(decoded);
+      if (/\bBI\s/.test(content)) throw new Error('Redaction cannot verify inline images.');
+      if (/\\/.test(content)) throw new Error('Redaction cannot verify escaped PDF strings.');
+      return redactContentStream(content, terms);
+    });
     replacements += scrubbed.reduce((total, entry) => total + entry.replacements, 0);
-    const dictionary = streams[0].dict.clone(clean.context); dictionary.delete(PDFName.of('Filter')); dictionary.delete(PDFName.of('DecodeParms'));
-    const stream = PDFRawStream.of(dictionary, encoder.encode(scrubbed.map((entry) => entry.content).join('\n')));
-    page.node.set(PDFName.of('Contents'), clean.context.register(stream));
-    page.node.delete(PDFName.of('Annots'));
+    const stream = source.context.flateStream(scrubbed.map((entry) => entry.content).join('\n'));
+    page.node.set(PDFName.of('Contents'), source.context.register(stream));
   }
   if (!replacements) throw new Error('No matching plain-text content was found to redact.');
-  return clean.save();
+  // Copy after replacing the source references so discarded streams and annotations
+  // never enter the output context, including its unreferenced indirect objects.
+  const clean = await PDFDocument.create();
+  const pages = await clean.copyPages(source, source.getPageIndices());
+  pages.forEach((page) => clean.addPage(page));
+  const bytes = await clean.save();
+  if (!await verifyRedaction(bytes, terms)) throw new Error('Redaction verification failed.');
+  return bytes;
 }
 
 export async function sanitizePdf(document: OpenDocument): Promise<Uint8Array> {
   const source = await PDFDocument.load(document.data.slice(0));
+  source.getPages().forEach((page) => {
+    for (const key of ['Annots', 'AA', 'Metadata', 'PieceInfo']) page.node.delete(PDFName.of(key));
+  });
   const clean = await PDFDocument.create();
   const pages = await clean.copyPages(source, source.getPageIndices());
   pages.forEach((page) => { page.node.delete(PDFName.of('Annots')); clean.addPage(page); });
@@ -66,8 +96,18 @@ export async function extractPdfText(bytes: Uint8Array): Promise<string> {
 }
 
 export async function verifyRedaction(bytes: Uint8Array, terms: string[]): Promise<boolean> {
-  const text = (await extractPdfText(bytes)).toLocaleLowerCase();
-  return terms.filter(Boolean).every((term) => !text.includes(term.toLocaleLowerCase()));
+  const pdf = await PDFDocument.load(bytes);
+  const parts = [await extractPdfText(bytes)];
+  for (const [, object] of pdf.context.enumerateIndirectObjects()) {
+    parts.push(contentText(object.toString()));
+    if (object instanceof PDFRawStream) {
+      try { parts.push(contentText(decoder.decode(decodePDFRawStream(object).decode()))); }
+      catch { return false; }
+    }
+  }
+  const text = parts.join('\n').toLocaleLowerCase();
+  const compact = text.replace(/\s/g, '');
+  return terms.filter(Boolean).every((term) => !compact.includes(term.toLocaleLowerCase().replace(/\s/g, '')));
 }
 
 export async function encryptPdfPackage(pdf: Uint8Array, password: string): Promise<Uint8Array> {

@@ -1,6 +1,6 @@
 import { produceWithPatches, applyPatches, enablePatches, type Patch } from 'immer';
 import { create } from 'zustand';
-import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, PageSettings, RibbonTab, Theme } from '../types';
+import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, PageSettings, RecoveryDocument, RibbonTab, Theme } from '../types';
 
 interface HistoryEntry { patches: Patch[]; inverse: Patch[] }
 interface State extends AppSnapshot {
@@ -10,6 +10,7 @@ interface State extends AppSnapshot {
   history: HistoryEntry[];
   future: HistoryEntry[];
   setDocument: (document: OpenDocument) => void;
+  restoreDocument: (document: RecoveryDocument) => void;
   setTab: (tab: RibbonTab) => void;
   setTheme: (theme: Theme) => void;
   setZoom: (zoom: number) => void;
@@ -49,6 +50,7 @@ function tracked(set: (partial: State | Partial<State> | ((state: State) => Stat
 export const useAppStore = create<State>((set) => ({
   ...initial, history: [], future: [], isDragging: false,
   setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.pageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null }; draft.selectedObjectId = undefined; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
+  restoreDocument: (document) => set({ document, objects: document.objects ?? [], pageSettings: document.pageSettings ?? initial.pageSettings, selectedPage: document.selectedPage ?? 1, selectedObjectId: undefined, history: [], future: [], notice: `${document.name} recovered locally` }),
   setTab: (activeTab) => tracked(set, (draft) => { draft.activeTab = activeTab; }),
   setTheme: (theme) => tracked(set, (draft) => { draft.theme = theme; }),
   setZoom: (zoom) => tracked(set, (draft) => { draft.zoom = Math.max(10, Math.min(500, zoom)); }),
@@ -60,10 +62,18 @@ export const useAppStore = create<State>((set) => ({
   deletePage: () => tracked(set, (draft) => { if (draft.pageSettings.order.length < 2) return; draft.pageSettings.order.splice(draft.selectedPage - 1, 1); draft.selectedPage = Math.min(draft.selectedPage, draft.pageSettings.order.length); }),
   duplicatePage: () => tracked(set, (draft) => { const source = draft.pageSettings.order[draft.selectedPage - 1]; if (!source) return; draft.pageSettings.order.splice(draft.selectedPage, 0, source); draft.selectedPage += 1; }),
   updatePageSettings: (settings) => tracked(set, (draft) => { Object.assign(draft.pageSettings, settings); }),
-  addTextObject: (page) => tracked(set, (draft) => { if (!draft.document) return; draft.objects.push({ id: crypto.randomUUID(), type: 'text', page: page ?? draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737' }); }),
+  addTextObject: (page) => tracked(set, (draft) => { if (!draft.document) return; const id = crypto.randomUUID(); draft.selectedObjectId = id; draft.objects.push({ id, type: 'text', page: page ?? draft.pageSettings.order[draft.selectedPage - 1] ?? draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737', width: 300 }); }),
   updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') object.text = text; }),
   addObject: (object) => tracked(set, (draft) => { draft.objects.push(object); draft.selectedObjectId = object.id; }),
-  importAnnotations: (annotations) => tracked(set, (draft) => { draft.objects.push(...annotations); draft.selectedObjectId = annotations.at(-1)?.id; }),
+  importAnnotations: (annotations) => tracked(set, (draft) => {
+    const ids = new Set(draft.objects.map((object) => object.id));
+    for (const annotation of annotations) {
+      const object = { ...annotation, id: ids.has(annotation.id) ? crypto.randomUUID() : annotation.id };
+      ids.add(object.id);
+      draft.objects.push(object);
+      draft.selectedObjectId = object.id;
+    }
+  }),
   updateObject: (id, patch) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object) Object.assign(object, patch); }),
   selectObject: (selectedObjectId) => set({ selectedObjectId }),
   removeObject: (id) => tracked(set, (draft) => { draft.objects = draft.objects.filter((object) => object.id !== id); }),
