@@ -34,7 +34,7 @@
 
 ## Milestone plan
 
-M1 through M6 are complete. M7 through M11 remain planned exactly as specified in the task brief.
+M1 through M7 are complete. M8 through M11 remain planned exactly as specified in the task brief.
 
 ## M2 — Browser-local rendering and navigation
 
@@ -42,3 +42,9 @@ M1 through M6 are complete. M7 through M11 remain planned exactly as specified i
 - **Performance:** The main document viewer waits to render offscreen pages until they approach the viewport. The first two pages are immediately available, keeping a long PDF responsive during initial load.
 - **Selection and search:** pdf.js generates the selectable text layer; search extracts text locally, uses case-insensitive matching, and navigates to the first matching page.
 - **Outline:** Outline destinations are resolved locally through pdf.js and scroll the active page into view. Documents without bookmarks say so plainly.
+
+## M7 — Forms, mail merge, signatures, and integrity records
+
+- **Forms:** PDFForge text and checkbox fields are held in the local object layer and written as standard AcroForm controls on export. Signature fields are deliberate visible-signature lines, not cryptographic signature dictionaries.
+- **Mail merge:** A local CSV's header names are available as `{{column}}` tokens in text, links, and text/signature fields. Each data row produces a separate browser-local PDF download; recipient data is never uploaded or persisted.
+- **Signing boundary:** Certificate-backed digital PDF signatures require user-held certificates and a standards-compliant incremental-signing implementation. PDFForge does not expose a misleading “digitally signed” action until that is available.

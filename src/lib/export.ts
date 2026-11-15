@@ -1,5 +1,5 @@
 import { PDFArray, PDFDocument, PDFName, PDFString, PDFFont, StandardFonts, degrees, rgb } from 'pdf-lib';
-import type { AnnotationObject, EditorObject, OpenDocument, PageSettings } from '../types';
+import type { AnnotationObject, EditorObject, FormObject, OpenDocument, PageSettings } from '../types';
 
 function hexColor(value: string) {
   const hex = value.replace('#', '');
@@ -16,6 +16,7 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
   const copied = await pdf.copyPages(source, order.map((page) => page - 1));
   copied.forEach((page) => pdf.addPage(page));
   const font = await pdf.embedFont(StandardFonts.Helvetica);
+  const form = pdf.getForm();
   for (const [outputIndex, sourcePage] of order.entries()) {
     const page = pdf.getPage(outputIndex);
     const rotation = settings.rotations[sourcePage] ?? 0;
@@ -37,10 +38,22 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
       const annotation = pdf.context.obj({ Type: 'Annot', Subtype: 'Link', Rect: [object.x, object.y, object.x + font.widthOfTextAtSize(object.label, object.fontSize), object.y + object.fontSize], Border: [0, 0, 0], A: { Type: 'Action', S: 'URI', URI: PDFString.of(object.url) } });
       const annotations = page.node.Annots() ?? pdf.context.obj([]) as PDFArray; annotations.push(pdf.context.register(annotation)); page.node.set(PDFName.of('Annots'), annotations);
     }
+    if (object.type === 'form') addFormField(form, page, object, font);
     if (object.type === 'highlight' || object.type === 'note' || object.type === 'stamp' || object.type === 'measure') addPdfAnnotation(pdf, page.node, object);
     }
   }
   return pdf.save();
+}
+
+function addFormField(form: ReturnType<PDFDocument['getForm']>, page: ReturnType<PDFDocument['getPage']>, object: FormObject, font: PDFFont) {
+  const options = { x: object.x, y: object.y, width: object.width, height: object.height, textColor: rgb(.18, .16, .14), borderColor: rgb(.65, .55, .35), borderWidth: 1, font, fontSize: 10 };
+  if (object.kind === 'checkbox') { const field = form.createCheckBox(`PDFForge.${object.id}`); if (object.checked) field.check(); field.addToPage(page, options); return; }
+  if (object.kind === 'signature') {
+    page.drawLine({ start: { x: object.x, y: object.y + 5 }, end: { x: object.x + object.width, y: object.y + 5 }, color: rgb(.4, .37, .33), thickness: 1 });
+    page.drawText(object.value || 'Sign here', { x: object.x + 4, y: object.y + 10, size: Math.min(16, object.height - 12), font, color: rgb(.18, .29, .4) });
+    return;
+  }
+  const field = form.createTextField(`PDFForge.${object.id}`); field.setText(object.value); field.addToPage(page, options);
 }
 
 function drawPageMarks(page: ReturnType<PDFDocument['getPage']>, font: PDFFont, number: number, settings: PageSettings) {

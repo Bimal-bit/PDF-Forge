@@ -94,6 +94,12 @@ function ObjectView({ object, zoom }: { object: EditorObject; zoom: number }) {
   if (object.type === 'image') return <img className="image-object" src={object.dataUrl} alt="Inserted" style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale }} />;
   if (object.type === 'table') return <table className="table-object" style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale }}>{<tbody>{object.cells.map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody>}</table>;
   if (object.type === 'link') return <a className="link-object" href={object.url} target="_blank" rel="noreferrer" style={{ left: object.x * scale, bottom: object.y * scale, fontSize: object.fontSize * scale }}>{object.label}</a>;
+  if (object.type === 'form') {
+    const style = { left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale };
+    if (object.kind === 'checkbox') return <span className="form-checkbox" style={style}>{object.checked ? '✓' : ''}</span>;
+    if (object.kind === 'signature') return <span className="form-signature" style={style}><em>{object.value || 'Sign here'}</em></span>;
+    return <span className="form-text" style={style}>{object.value || object.label}</span>;
+  }
   if (object.type === 'highlight') return <span className="annotation-highlight" title={`${object.author}: ${object.comment}`} style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale, background: object.color }} />;
   if (object.type === 'note') return <span className="annotation-note" title={`${object.author}: ${object.comment}`} style={{ left: object.x * scale, bottom: object.y * scale }}>💬</span>;
   if (object.type === 'stamp') return <span className="annotation-stamp" style={{ left: object.x * scale, bottom: object.y * scale }}>{object.label}</span>;

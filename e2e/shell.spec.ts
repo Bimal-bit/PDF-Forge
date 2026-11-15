@@ -61,3 +61,16 @@ test('exposes M6 page management and repeating marks', async ({ page }) => {
   await page.getByRole('button', { name: 'Duplicate page' }).click();
   await page.getByRole('button', { name: 'Rotate page' }).click();
 });
+
+test('adds local form fields and exposes CSV mail merge', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'forms.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Insert', exact: true }).click();
+  await page.getByRole('button', { name: 'Add text field' }).click();
+  await page.getByRole('button', { name: 'Add checkbox' }).click();
+  await page.getByRole('button', { name: 'Add signature field' }).click();
+  await expect(page.getByLabel('Field value')).toBeVisible();
+  await expect(page.getByLabel('Signer name')).toBeVisible();
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
+  await expect(page.getByText('Mail merge CSV', { exact: true })).toBeVisible();
+});
