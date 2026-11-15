@@ -1,0 +1,9 @@
+node_modules
+dist
+playwright-report
+test-results
+*.tsbuildinfo
+npm-install.log
+npm-install.err
+playwright-install.log
+playwright-install.err
