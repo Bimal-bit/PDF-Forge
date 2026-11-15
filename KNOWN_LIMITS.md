@@ -1,10 +1,10 @@
 # Known limits
 
-M4 supports single-run overlay editing and basic inserted text, images, shapes, tables, and links. Rich document-wide reflow, advanced typography, freeform object manipulation, redaction/security, OCR/conversion, and advanced accessibility features remain scheduled for later milestones.
+M4 supports single-run overlay editing and basic inserted text, images, shapes, tables, and links. Rich document-wide reflow, advanced typography, freeform object manipulation, OCR/conversion, and advanced accessibility features remain scheduled for later milestones.
 
 This M2 build intentionally contains the foundation plus local PDF rendering, thumbnail navigation, outline navigation, text selection, and text search. The following requested capabilities are not yet in the UI because their scheduled milestones have not been implemented:
 
-- Redaction/security, OCR/conversion, and advanced accessibility features (M8–M10).
+- OCR/conversion and advanced accessibility features (M9–M10).
 - Full end-user documentation, fixture suite, and complete feature checklist (M11).
 
 - Thumbnail generation currently favors a simple one-canvas-per-page implementation; extremely large documents may take longer to populate the thumbnail rail even though the main viewer renders lazily.
@@ -14,3 +14,5 @@ This M2 build intentionally contains the foundation plus local PDF rendering, th
 - M6 split exports the currently selected page. Range-based splitting and batch-folder processing remain future work.
 
 - M7 supports PDFForge-created text and checkbox AcroForm fields, local CSV mail merge, and visible typed signatures. It does not yet validate existing third-party fields, create a PKCS#7/CMS signature dictionary, use a certificate, or provide certificate validation.
+
+- M8 exact-text redaction deliberately refuses content encoded with custom fonts, complex encodings, images, vector outlines, or text split between PDF operators. It does not offer a visual-region redaction tool. Password-protected `.pdfg` packages use strong local encryption and can be reopened by PDFForge, but are not interoperable password-protected PDF files.

@@ -34,7 +34,7 @@
 
 ## Milestone plan
 
-M1 through M7 are complete. M8 through M11 remain planned exactly as specified in the task brief.
+M1 through M8 are complete. M9 through M11 remain planned exactly as specified in the task brief.
 
 ## M2 — Browser-local rendering and navigation
 
@@ -48,3 +48,9 @@ M1 through M7 are complete. M8 through M11 remain planned exactly as specified i
 - **Forms:** PDFForge text and checkbox fields are held in the local object layer and written as standard AcroForm controls on export. Signature fields are deliberate visible-signature lines, not cryptographic signature dictionaries.
 - **Mail merge:** A local CSV's header names are available as `{{column}}` tokens in text, links, and text/signature fields. Each data row produces a separate browser-local PDF download; recipient data is never uploaded or persisted.
 - **Signing boundary:** Certificate-backed digital PDF signatures require user-held certificates and a standards-compliant incremental-signing implementation. PDFForge does not expose a misleading “digitally signed” action until that is available.
+
+## M8 — Redaction and local security
+
+- **Redaction:** The tool only accepts exact text found in plain PDF content streams. It creates a new PDF, removes matching literal/hex text content, drops annotations, and verifies the target cannot be extracted from the resulting content streams before download. It intentionally refuses a redaction when it cannot verify removal.
+- **Sanitization:** Sanitized exports are rebuilt browser-locally without annotations, forms, catalog actions, name trees, embedded metadata, or inherited document metadata.
+- **Password boundary:** pdf-lib cannot write standards-compliant encrypted PDFs. PDFForge therefore exports an honestly-labelled `.pdfg` package, encrypted locally with AES-256-GCM and a PBKDF2-derived key, rather than claiming an ordinary PDF has a password.
