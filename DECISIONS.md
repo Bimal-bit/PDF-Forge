@@ -1,5 +1,11 @@
 # Decisions
 
+## M4 — In-place editing and inserted objects
+
+- **Editing model:** Double-clicking an extracted text run places a metric-sized editable overlay on top of it. The exported PDF paints a white cover and replacement text because arbitrary existing PDF content streams cannot be safely rewritten with pdf-lib.
+- **Font fidelity:** Built-in Helvetica, Times, and Courier families are matched directly; unfamiliar embedded fonts are exported with Helvetica and visibly labelled as a fallback.
+- **Insert scope:** Text, PNG/JPEG images, rectangle shapes, simple tables, and URI links are visible in the object layer and included by the export engine. Rich formatting, positioning handles, and arbitrary table layouts remain future work.
+
 ## M3 — Browser-local export engine
 
 - **Export format:** pdf-lib loads the original browser-local bytes, appends the object layer to the relevant page content streams, and downloads a new PDF. No server or remote conversion is involved.
@@ -16,7 +22,7 @@
 
 ## Milestone plan
 
-M1 through M3 are complete. M4 through M11 remain planned exactly as specified in the task brief.
+M1 through M4 are complete. M5 through M11 remain planned exactly as specified in the task brief.
 
 ## M2 — Browser-local rendering and navigation
 

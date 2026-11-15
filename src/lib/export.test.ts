@@ -17,4 +17,17 @@ describe('PDF export engine', () => {
     const decoded = streams.map((stream) => new TextDecoder().decode(decodePDFRawStream(stream).decode())).join('');
     expect(decoded).toContain('4D6572676564206F7665726C6179');
   });
+
+  it('exports shapes, tables, and link annotations alongside text', async () => {
+    const source = await PDFDocument.create(); source.addPage([300, 300]); const bytes = await source.save();
+    const data = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+    const exported = await exportPdf({ id: 'test', name: 'objects.pdf', size: data.byteLength, modifiedAt: 0, data }, [
+      { id: 'shape', type: 'shape', page: 1, x: 20, y: 20, width: 40, height: 30, color: '#d65737' },
+      { id: 'table', type: 'table', page: 1, x: 70, y: 20, width: 100, height: 40, cells: [['A', 'B'], ['C', 'D']] },
+      { id: 'link', type: 'link', page: 1, x: 30, y: 130, label: 'Docs', url: 'https://example.com', fontSize: 12 },
+    ]);
+    const reopened = await PDFDocument.load(exported);
+    expect(reopened.getPage(0).node.Annots()?.size()).toBe(1);
+    expect(reopened.getPage(0).node.Contents()).toBeDefined();
+  });
 });

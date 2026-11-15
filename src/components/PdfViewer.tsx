@@ -1,20 +1,22 @@
 import { TextLayer, type PDFDocumentProxy, type PDFPageProxy } from 'pdfjs-dist';
 import { useEffect, useRef, useState } from 'react';
 import { openPdf } from '../lib/pdf';
+import { matchPdfFont } from '../lib/font';
 import type { OpenDocument } from '../types';
-import type { TextObject } from '../types';
+import type { EditorObject, TextObject } from '../types';
 
 interface PdfViewerProps {
   document: OpenDocument;
   zoom: number;
   selectedPage: number;
-  objects: TextObject[];
+  objects: EditorObject[];
+  onCreateTextObject: (object: TextObject) => void;
   onDocumentLoaded: (pdf: PDFDocumentProxy) => void;
 }
 
 const RENDER_SCALE = 1.5;
 
-export function PdfViewer({ document, zoom, selectedPage, objects, onDocumentLoaded }: PdfViewerProps) {
+export function PdfViewer({ document, zoom, selectedPage, objects, onCreateTextObject, onDocumentLoaded }: PdfViewerProps) {
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [error, setError] = useState<string>();
   const pageRefs = useRef(new Map<number, HTMLElement>());
@@ -38,14 +40,15 @@ export function PdfViewer({ document, zoom, selectedPage, objects, onDocumentLoa
   if (error) return <div className="viewer-message" role="alert">{error}</div>;
   if (!pdf) return <div className="viewer-message">Preparing local PDF…</div>;
   return <div className="page-stack" aria-label="Rendered PDF pages">
-    {Array.from({ length: pdf.numPages }, (_, index) => <PdfPage key={index + 1} pdf={pdf} pageNumber={index + 1} zoom={zoom} objects={objects.filter((object) => object.page === index + 1)} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
+    {Array.from({ length: pdf.numPages }, (_, index) => <PdfPage key={index + 1} pdf={pdf} pageNumber={index + 1} zoom={zoom} objects={objects.filter((object) => object.page === index + 1)} onCreateTextObject={onCreateTextObject} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
   </div>;
 }
 
-function PdfPage({ pdf, pageNumber, zoom, objects, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; zoom: number; objects: TextObject[]; pageRef: (node: HTMLElement | null) => void }) {
+function PdfPage({ pdf, pageNumber, zoom, objects, onCreateTextObject, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; zoom: number; objects: EditorObject[]; onCreateTextObject: (object: TextObject) => void; pageRef: (node: HTMLElement | null) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(pageNumber <= 2);
+  const [editing, setEditing] = useState<TextObject>();
 
   useEffect(() => {
     const node = canvasRef.current?.parentElement;
@@ -67,10 +70,25 @@ function PdfPage({ pdf, pageNumber, zoom, objects, pageRef }: { pdf: PDFDocument
       textRef.current.replaceChildren();
       textRef.current.style.width = canvas.style.width; textRef.current.style.height = canvas.style.height;
       renderTask = page.render({ canvas, viewport, transform: [RENDER_SCALE, 0, 0, RENDER_SCALE, 0, 0] });
-      await Promise.all([renderTask.promise, new TextLayer({ textContentSource: await page.getTextContent(), container: textRef.current, viewport }).render()]);
+      const textLayer = new TextLayer({ textContentSource: await page.getTextContent(), container: textRef.current, viewport });
+      await Promise.all([renderTask.promise, textLayer.render()]);
+      textLayer.textDivs.forEach((div, index) => div.addEventListener('dblclick', () => {
+        const pageRect = canvas.getBoundingClientRect(); const rect = div.getBoundingClientRect(); const style = getComputedStyle(div);
+        const font = matchPdfFont(style.fontFamily);
+        setEditing({ id: crypto.randomUUID(), type: 'text', page: pageNumber, text: textLayer.textContentItemsStr[index] ?? '', x: (rect.left - pageRect.left) * 100 / zoom, y: (pageRect.bottom - rect.bottom) * 100 / zoom, fontSize: Number.parseFloat(style.fontSize) * 100 / zoom || 12, color: '#292724', fontFamily: font.family, cover: { width: rect.width * 100 / zoom + 4, height: rect.height * 100 / zoom + 4 }, fallback: font.fallback });
+      }));
     }).catch((reason: unknown) => { if (!cancelled && !(reason instanceof Error && reason.name === 'RenderingCancelledException')) console.warn('Unable to render PDF page', reason); });
     return () => { cancelled = true; renderTask?.cancel(); };
   }, [pdf, pageNumber, visible, zoom]);
 
-  return <article ref={pageRef} className="pdf-page" aria-label={`Page ${pageNumber}`}><canvas ref={canvasRef} /><div ref={textRef} className="text-layer" />{objects.map((object) => <span key={object.id} className="text-object" style={{ left: object.x * zoom / 100, bottom: object.y * zoom / 100, fontSize: object.fontSize * zoom / 100, color: object.color }}>{object.text}</span>)}{!visible && <span className="page-placeholder">Page {pageNumber}</span>}<span className="page-number">{pageNumber}</span></article>;
+  return <article ref={pageRef} className="pdf-page" aria-label={`Page ${pageNumber}`}><canvas ref={canvasRef} /><div ref={textRef} className="text-layer" />{objects.map((object) => <ObjectView key={object.id} object={object} zoom={zoom} />)}{editing && <textarea aria-label="Edit PDF text" className="inplace-editor" autoFocus defaultValue={editing.text} style={{ left: editing.x * zoom / 100, bottom: editing.y * zoom / 100, width: editing.cover!.width * zoom / 100, height: editing.cover!.height * zoom / 100, fontSize: editing.fontSize * zoom / 100 }} onBlur={(event) => { onCreateTextObject({ ...editing, text: event.target.value }); setEditing(undefined); }} onKeyDown={(event) => { if (event.key === 'Escape') setEditing(undefined); }} />}{!visible && <span className="page-placeholder">Page {pageNumber}</span>}<span className="page-number">{pageNumber}</span></article>;
+}
+
+function ObjectView({ object, zoom }: { object: EditorObject; zoom: number }) {
+  const scale = zoom / 100;
+  if (object.type === 'text') return <span className="text-object" style={{ left: object.x * scale, bottom: object.y * scale, fontSize: object.fontSize * scale, color: object.color, fontFamily: object.fontFamily }}>{object.text}</span>;
+  if (object.type === 'shape') return <span className="shape-object" style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale, borderColor: object.color }} />;
+  if (object.type === 'image') return <img className="image-object" src={object.dataUrl} alt="Inserted" style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale }} />;
+  if (object.type === 'table') return <table className="table-object" style={{ left: object.x * scale, bottom: object.y * scale, width: object.width * scale, height: object.height * scale }}>{<tbody>{object.cells.map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody>}</table>;
+  return <a className="link-object" href={object.url} target="_blank" rel="noreferrer" style={{ left: object.x * scale, bottom: object.y * scale, fontSize: object.fontSize * scale }}>{object.label}</a>;
 }

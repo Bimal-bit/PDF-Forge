@@ -32,15 +32,19 @@ export function Ribbon() {
 }
 
 function RibbonTools({ tab }: { tab: RibbonTab }) {
-  const { setZoom, zoom, toggleRightPanel, addTextObject, document } = useAppStore();
+  const { setZoom, zoom, toggleRightPanel, addTextObject, addObject, document, selectedPage } = useAppStore();
   const tools: Record<RibbonTab, string[]> = {
-    File: [], Home: [], Insert: ['Add text overlay'], Layout: [], Review: [], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: [],
+    File: [], Home: [], Insert: ['Add text overlay', 'Add shape', 'Add table', 'Add link'], Layout: [], Review: [], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: [],
   };
   const activate = (tool: string) => {
     if (tool === 'Add text overlay') return addTextObject();
+    if (tool === 'Add shape') return addObject({ id: crypto.randomUUID(), type: 'shape', page: selectedPage, x: 72, y: 72, width: 140, height: 80, color: '#d65737' });
+    if (tool === 'Add table') return addObject({ id: crypto.randomUUID(), type: 'table', page: selectedPage, x: 72, y: 72, width: 220, height: 90, cells: [['Header 1', 'Header 2'], ['Cell 1', 'Cell 2']] });
+    if (tool === 'Add link') return addObject({ id: crypto.randomUUID(), type: 'link', page: selectedPage, x: 72, y: 72, label: 'https://example.com', url: 'https://example.com', fontSize: 12 });
     if (tool === 'Zoom out') return setZoom(zoom - 10);
     if (tool === 'Zoom in') return setZoom(zoom + 10);
     if (tool === 'Properties') return toggleRightPanel();
   };
-  return <div className="tool-strip" aria-label={`${tab} tools`}>{tools[tab].map((tool) => <button key={tool} disabled={tool === 'Add text overlay' && !document} onClick={() => activate(tool)}>{tool}</button>)}<span className="tool-hint">{tab === 'Insert' ? 'Add an exportable text object.' : 'Local browser workspace'}</span></div>;
+  const addImage = async (event: ChangeEvent<HTMLInputElement>) => { const file = event.target.files?.[0]; if (!file) return; addObject({ id: crypto.randomUUID(), type: 'image', page: selectedPage, x: 72, y: 72, width: 180, height: 120, dataUrl: await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(reader.error); reader.readAsDataURL(file); }) }); event.target.value = ''; };
+  return <div className="tool-strip" aria-label={`${tab} tools`}>{tools[tab].map((tool) => <button key={tool} disabled={tool.startsWith('Add ') && !document} onClick={() => activate(tool)}>{tool}</button>)}{tab === 'Insert' && <label className="insert-image">Add image<input aria-label="Add image" type="file" accept="image/png,image/jpeg" disabled={!document} onChange={(event) => void addImage(event)} /></label>}<span className="tool-hint">{tab === 'Insert' ? 'Objects stay local and export with the PDF.' : 'Local browser workspace'}</span></div>;
 }

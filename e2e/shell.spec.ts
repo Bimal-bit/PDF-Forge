@@ -24,7 +24,12 @@ test('exports a PDF with a text object', async ({ page }) => {
   await page.getByLabel('Open PDF').setInputFiles({ name: 'sample.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
   await page.getByRole('button', { name: 'Insert', exact: true }).click();
   await page.getByRole('button', { name: 'Add text overlay' }).click();
+  await page.getByRole('button', { name: 'Add shape' }).click();
+  await page.getByRole('button', { name: 'Add table' }).click();
+  await page.getByRole('button', { name: 'Add link' }).click();
   await page.getByLabel('Overlay text').fill('Exported note');
+  await expect(page.getByText('Header 1')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'https://example.com' })).toBeVisible();
   const download = page.waitForEvent('download');
   await page.getByLabel('Export PDF').click();
   expect((await download).suggestedFilename()).toBe('sample-edited.pdf');
