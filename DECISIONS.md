@@ -1,5 +1,11 @@
 # Decisions
 
+## M5 — Annotations, comments, stamps, measurement, and XFDF
+
+- **Annotation model:** Highlights, sticky-note comments, predefined text stamps, and linear measurements live in the browser-local object layer, so undo/redo and automatic recovery apply consistently.
+- **Exchange:** XFDF is generated and parsed entirely in the browser. It preserves PDFForge-created annotation geometry and content; unsupported third-party XFDF annotation types are ignored.
+- **PDF export:** M5 writes standard PDF annotation dictionaries for the four supported annotation types, while the local viewer renders a matching object-layer representation.
+
 ## M4 — In-place editing and inserted objects
 
 - **Editing model:** Double-clicking an extracted text run places a metric-sized editable overlay on top of it. The exported PDF paints a white cover and replacement text because arbitrary existing PDF content streams cannot be safely rewritten with pdf-lib.

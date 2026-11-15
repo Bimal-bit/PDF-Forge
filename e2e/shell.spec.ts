@@ -34,3 +34,16 @@ test('exports a PDF with a text object', async ({ page }) => {
   await page.getByLabel('Export PDF').click();
   expect((await download).suggestedFilename()).toBe('sample-edited.pdf');
 });
+
+test('creates review annotations and exposes XFDF exchange', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'review.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Review', exact: true }).click();
+  await page.getByRole('button', { name: 'Highlight' }).click();
+  await page.getByRole('button', { name: 'Add comment' }).click();
+  await page.getByRole('button', { name: 'Approved stamp' }).click();
+  await page.getByRole('button', { name: 'Measure' }).click();
+  await expect(page.getByLabel('Annotation comment').last()).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Export XFDF' })).toBeVisible();
+  await expect(page.getByText('Import XFDF', { exact: true })).toBeVisible();
+});

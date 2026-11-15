@@ -1,5 +1,5 @@
 import { PDFArray, PDFDocument, PDFName, PDFString, StandardFonts, rgb } from 'pdf-lib';
-import type { EditorObject, OpenDocument } from '../types';
+import type { AnnotationObject, EditorObject, OpenDocument } from '../types';
 
 function hexColor(value: string) {
   const hex = value.replace('#', '');
@@ -28,8 +28,28 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[])
       const annotation = pdf.context.obj({ Type: 'Annot', Subtype: 'Link', Rect: [object.x, object.y, object.x + font.widthOfTextAtSize(object.label, object.fontSize), object.y + object.fontSize], Border: [0, 0, 0], A: { Type: 'Action', S: 'URI', URI: PDFString.of(object.url) } });
       const annotations = page.node.Annots() ?? pdf.context.obj([]) as PDFArray; annotations.push(pdf.context.register(annotation)); page.node.set(PDFName.of('Annots'), annotations);
     }
+    if (object.type === 'highlight' || object.type === 'note' || object.type === 'stamp' || object.type === 'measure') addPdfAnnotation(pdf, page.node, object);
   }
   return pdf.save();
+}
+
+function addPdfAnnotation(pdf: PDFDocument, page: ReturnType<PDFDocument['getPage']>['node'], annotation: AnnotationObject) {
+  const base = { Type: 'Annot', P: page, NM: PDFString.of(annotation.id) };
+  let value: Record<string, unknown>;
+  if (annotation.type === 'highlight') value = { ...base, Subtype: 'Highlight', Rect: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], QuadPoints: [annotation.x, annotation.y + annotation.height, annotation.x + annotation.width, annotation.y + annotation.height, annotation.x, annotation.y, annotation.x + annotation.width, annotation.y], C: [.96, .72, .1], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author) };
+  else if (annotation.type === 'note') value = { ...base, Subtype: 'Text', Rect: [annotation.x, annotation.y, annotation.x + 18, annotation.y + 18], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author), Name: 'Comment' };
+  else if (annotation.type === 'stamp') value = { ...base, Subtype: 'Stamp', Rect: [annotation.x, annotation.y, annotation.x + 110, annotation.y + 32], Contents: PDFString.of(annotation.label), Name: annotation.label };
+  else value = { ...base, Subtype: 'Line', Rect: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], L: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], Contents: PDFString.of(measurementLabel(annotation)), T: PDFString.of('PDFForge') };
+  const annotations = page.Annots() ?? pdf.context.obj([]) as PDFArray;
+  annotations.push(pdf.context.register(pdf.context.obj(value as never)));
+  page.set(PDFName.of('Annots'), annotations);
+}
+
+export function measurementLabel(annotation: Extract<AnnotationObject, { type: 'measure' }>) {
+  const points = Math.hypot(annotation.width, annotation.height);
+  if (annotation.units === 'in') return `${(points / 72).toFixed(2)} in`;
+  if (annotation.units === 'cm') return `${(points / 28.3465).toFixed(2)} cm`;
+  return `${points.toFixed(1)} pt`;
 }
 
 export function downloadPdf(bytes: Uint8Array, name: string): void {

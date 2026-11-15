@@ -4,6 +4,7 @@ import type { RibbonTab } from '../types';
 import { useAppStore } from '../store/useAppStore';
 import { toPdfDocument } from '../lib/file';
 import { downloadPdf, exportPdf } from '../lib/export';
+import { annotationsFromXfdf, annotationsToXfdf } from '../lib/xfdf';
 
 const tabs: RibbonTab[] = ['File', 'Home', 'Insert', 'Layout', 'Review', 'View', 'Tools'];
 
@@ -32,19 +33,25 @@ export function Ribbon() {
 }
 
 function RibbonTools({ tab }: { tab: RibbonTab }) {
-  const { setZoom, zoom, toggleRightPanel, addTextObject, addObject, document, selectedPage } = useAppStore();
+  const { setZoom, zoom, toggleRightPanel, addTextObject, addObject, document, selectedPage, objects, importAnnotations, setNotice } = useAppStore();
   const tools: Record<RibbonTab, string[]> = {
-    File: [], Home: [], Insert: ['Add text overlay', 'Add shape', 'Add table', 'Add link'], Layout: [], Review: [], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: [],
+    File: [], Home: [], Insert: ['Add text overlay', 'Add shape', 'Add table', 'Add link'], Layout: [], Review: ['Highlight', 'Add comment', 'Approved stamp', 'Measure'], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: [],
   };
   const activate = (tool: string) => {
     if (tool === 'Add text overlay') return addTextObject();
     if (tool === 'Add shape') return addObject({ id: crypto.randomUUID(), type: 'shape', page: selectedPage, x: 72, y: 72, width: 140, height: 80, color: '#d65737' });
     if (tool === 'Add table') return addObject({ id: crypto.randomUUID(), type: 'table', page: selectedPage, x: 72, y: 72, width: 220, height: 90, cells: [['Header 1', 'Header 2'], ['Cell 1', 'Cell 2']] });
     if (tool === 'Add link') return addObject({ id: crypto.randomUUID(), type: 'link', page: selectedPage, x: 72, y: 72, label: 'https://example.com', url: 'https://example.com', fontSize: 12 });
+    if (tool === 'Highlight') return addObject({ id: crypto.randomUUID(), type: 'highlight', page: selectedPage, x: 72, y: 72, width: 160, height: 20, color: '#f6d365', author: 'PDFForge', comment: 'Highlight' });
+    if (tool === 'Add comment') return addObject({ id: crypto.randomUUID(), type: 'note', page: selectedPage, x: 72, y: 72, author: 'PDFForge', comment: 'New comment' });
+    if (tool === 'Approved stamp') return addObject({ id: crypto.randomUUID(), type: 'stamp', page: selectedPage, x: 72, y: 72, label: 'APPROVED' });
+    if (tool === 'Measure') return addObject({ id: crypto.randomUUID(), type: 'measure', page: selectedPage, x: 72, y: 72, width: 144, height: 0, units: 'in' });
     if (tool === 'Zoom out') return setZoom(zoom - 10);
     if (tool === 'Zoom in') return setZoom(zoom + 10);
     if (tool === 'Properties') return toggleRightPanel();
   };
   const addImage = async (event: ChangeEvent<HTMLInputElement>) => { const file = event.target.files?.[0]; if (!file) return; addObject({ id: crypto.randomUUID(), type: 'image', page: selectedPage, x: 72, y: 72, width: 180, height: 120, dataUrl: await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(reader.error); reader.readAsDataURL(file); }) }); event.target.value = ''; };
-  return <div className="tool-strip" aria-label={`${tab} tools`}>{tools[tab].map((tool) => <button key={tool} disabled={tool.startsWith('Add ') && !document} onClick={() => activate(tool)}>{tool}</button>)}{tab === 'Insert' && <label className="insert-image">Add image<input aria-label="Add image" type="file" accept="image/png,image/jpeg" disabled={!document} onChange={(event) => void addImage(event)} /></label>}<span className="tool-hint">{tab === 'Insert' ? 'Objects stay local and export with the PDF.' : 'Local browser workspace'}</span></div>;
+  const exportXfdf = () => { const text = annotationsToXfdf(objects.filter((object): object is import('../types').AnnotationObject => ['highlight', 'note', 'stamp', 'measure'].includes(object.type))); const link = globalThis.document.createElement('a'); link.href = URL.createObjectURL(new Blob([text], { type: 'application/vnd.adobe.xfdf+xml' })); link.download = 'annotations.xfdf'; link.click(); URL.revokeObjectURL(link.href); };
+  const importXfdf = async (event: ChangeEvent<HTMLInputElement>) => { const file = event.target.files?.[0]; if (!file) return; try { const annotations = annotationsFromXfdf(await file.text()); importAnnotations(annotations); setNotice(`${annotations.length} annotation${annotations.length === 1 ? '' : 's'} imported.`); } catch { setNotice('Could not import that XFDF file.'); } event.target.value = ''; };
+  return <div className="tool-strip" aria-label={`${tab} tools`}>{tools[tab].map((tool) => <button key={tool} disabled={!document && (tool.startsWith('Add ') || tool === 'Highlight' || tool === 'Approved stamp' || tool === 'Measure')} onClick={() => activate(tool)}>{tool}</button>)}{tab === 'Insert' && <label className="insert-image">Add image<input aria-label="Add image" type="file" accept="image/png,image/jpeg" disabled={!document} onChange={(event) => void addImage(event)} /></label>}{tab === 'Review' && <><button disabled={!document} onClick={exportXfdf}>Export XFDF</button><label className="insert-image">Import XFDF<input aria-label="Import XFDF" type="file" accept=".xfdf,application/vnd.adobe.xfdf+xml,text/xml" disabled={!document} onChange={(event) => void importXfdf(event)} /></label></>}<span className="tool-hint">{tab === 'Review' ? 'Annotations stay local and can be shared as XFDF.' : tab === 'Insert' ? 'Objects stay local and export with the PDF.' : 'Local browser workspace'}</span></div>;
 }

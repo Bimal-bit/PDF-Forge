@@ -1,6 +1,6 @@
 import { produceWithPatches, applyPatches, enablePatches, type Patch } from 'immer';
 import { create } from 'zustand';
-import type { AppSnapshot, EditorObject, OpenDocument, RibbonTab, Theme } from '../types';
+import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, RibbonTab, Theme } from '../types';
 
 interface HistoryEntry { patches: Patch[]; inverse: Patch[] }
 interface State extends AppSnapshot {
@@ -18,6 +18,7 @@ interface State extends AppSnapshot {
   addTextObject: () => void;
   updateTextObject: (id: string, text: string) => void;
   addObject: (object: EditorObject) => void;
+  importAnnotations: (annotations: AnnotationObject[]) => void;
   updateObject: (id: string, patch: Partial<EditorObject>) => void;
   selectObject: (id?: string) => void;
   removeObject: (id: string) => void;
@@ -50,6 +51,7 @@ export const useAppStore = create<State>((set) => ({
   addTextObject: () => tracked(set, (draft) => { if (!draft.document) return; draft.objects.push({ id: crypto.randomUUID(), type: 'text', page: draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737' }); }),
   updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') object.text = text; }),
   addObject: (object) => tracked(set, (draft) => { draft.objects.push(object); draft.selectedObjectId = object.id; }),
+  importAnnotations: (annotations) => tracked(set, (draft) => { draft.objects.push(...annotations); draft.selectedObjectId = annotations.at(-1)?.id; }),
   updateObject: (id, patch) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object) Object.assign(object, patch); }),
   selectObject: (selectedObjectId) => set({ selectedObjectId }),
   removeObject: (id) => tracked(set, (draft) => { draft.objects = draft.objects.filter((object) => object.id !== id); }),
