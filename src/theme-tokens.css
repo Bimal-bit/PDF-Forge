@@ -1,0 +1,45 @@
+﻿/* Shared colors from the supplied Design8 theme guide. */
+.app {
+  --app-bg: #ede9e1;
+  --surface: #fbfaf7;
+  --sunken: #f6f3ee;
+  --control-bg: #fff;
+  --line: #e4dfd6;
+  --control-border: #dad4c9;
+  --ink: #1b1b22;
+  --muted: #5e5e6b;
+  --accent: #4f3fd1;
+  --accent-soft: #e9e5fa;
+  --accent-ink: #3b2fb0;
+  --button-ink: #fff;
+  --segment-bg: #eae5db;
+  --warning-bg: #fff4d6;
+  --warning-ink: #5c3f00;
+  --error-ink: #9b2c1b;
+  --success-ink: #1e6b45;
+  --focus-ring: #e1dcfa;
+  --panel-shadow: #281e0a26;
+  color-scheme: light;
+}
+.app.theme-dark {
+  --app-bg: #14141a;
+  --surface: #1c1c24;
+  --sunken: #17171e;
+  --control-bg: #1c1c24;
+  --line: #2c2c37;
+  --control-border: #3a3a47;
+  --ink: #f2efe8;
+  --muted: #a5a2b0;
+  --accent: #8e83f0;
+  --accent-soft: #2a2652;
+  --accent-ink: #c9c2ff;
+  --button-ink: #14141a;
+  --segment-bg: #2c2c37;
+  --warning-bg: #3a2e10;
+  --warning-ink: #f5d98a;
+  --error-ink: #ffb4a6;
+  --success-ink: #8fd6ac;
+  --focus-ring: #2a2652;
+  --panel-shadow: #00000070;
+  color-scheme: dark;
+}

@@ -40,7 +40,7 @@ function ObjectEditor({ objects }: { objects: import('../types').EditorObject[] 
 
 function Navigator({ document, pdf, outline, selectedPage, onSelectPage }: { document?: { name: string; data: ArrayBuffer }; pdf?: PDFDocumentProxy; outline: OutlineItem[]; selectedPage: number; onSelectPage: (page: number) => void }) {
   const { leftPanel, setLeftPanel } = useAppStore();
-  return <aside className="left-panel" aria-label="Document navigation"><div className="panel-tabs"><button aria-label="Thumbnails" className={leftPanel === 'thumbnails' ? 'selected' : ''} onClick={() => setLeftPanel('thumbnails')}><FileText size={17} /></button><button aria-label="Outline" className={leftPanel === 'outline' ? 'selected' : ''} onClick={() => setLeftPanel('outline')}><ListTree size={17} /></button></div>
+  return <aside className="left-panel" aria-label="Document navigation"><div className="panel-tabs"><button aria-label="Thumbnails" className={leftPanel === 'thumbnails' ? 'selected' : ''} onClick={() => setLeftPanel('thumbnails')}><FileText size={14} aria-hidden="true" />Pages</button><button aria-label="Outline" className={leftPanel === 'outline' ? 'selected' : ''} onClick={() => setLeftPanel('outline')}><ListTree size={14} aria-hidden="true" />Outline</button></div>
     {leftPanel === 'thumbnails' ? <Thumbnails document={document} pdf={pdf} selectedPage={selectedPage} onSelectPage={onSelectPage} /> : <Outline pdf={pdf} outline={outline} onSelectPage={onSelectPage} />}
   </aside>;
 }

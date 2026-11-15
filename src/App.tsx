@@ -4,10 +4,12 @@ import { Panels } from './components/Panels';
 import { Ribbon } from './components/Ribbon';
 import { loadLatestDocument, saveDocument } from './lib/storage';
 import { useAppStore } from './store/useAppStore';
+import { saveTheme } from './lib/theme';
 
 export default function App() {
   const { document, objects, pageSettings, restoreDocument, notice, setNotice, theme, undo, redo } = useAppStore();
   const [saveStatus, setSaveStatus] = useState('Ready');
+  useEffect(() => { saveTheme(theme); }, [theme]);
   useEffect(() => {
     let live = true;
     void loadLatestDocument().then((saved) => {

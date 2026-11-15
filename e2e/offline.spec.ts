@@ -28,9 +28,11 @@ test('reloads the production application and recovers edits offline', async ({ p
   await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await page.getByRole('button', { name: 'Toggle theme', exact: true }).click();
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Your PDFs, finally editable.' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Toggle theme', exact: true })).toHaveAttribute('aria-pressed', 'true');
   const guide = page.waitForEvent('download');
   await page.getByRole('link', { name: 'Docs', exact: true }).first().click();
   expect((await guide).suggestedFilename()).toBe('PDFForge-User-Guide.md');

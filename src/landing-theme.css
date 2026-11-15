@@ -1,0 +1,71 @@
+﻿/* Both landing modes use the same Design8 palette as the editor. */
+.app-welcome { --landing-bg: #f7f3ec; --landing-dots: #e0d8ca; --card-edit: #e9e5fa; --card-sign: #ffe8d2; --card-scan: #ddf1e5; --card-organize: #fff3c9; }
+.app.theme-dark.app-welcome { --landing-bg: #14141a; --landing-dots: #2c2c37; --card-edit: #242139; --card-sign: #39291f; --card-scan: #1c302a; --card-organize: #353019; }
+.app.app-welcome { background: var(--landing-bg); }
+.app .landing { background: var(--landing-bg); color: var(--ink); }
+.landing .landing-nav { display: grid; grid-template-columns: 1fr auto 1fr; }
+.landing-nav-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+.app .landing-nav nav { background: var(--control-bg); border-color: var(--line); }
+.app .landing-nav nav a { color: var(--muted); }
+.app .landing-nav nav a:hover { color: var(--accent); }
+.app .landing-brand > span { background: var(--accent); color: var(--button-ink); }
+.app .landing-editor-button { background: var(--ink); color: var(--surface); }
+.app .landing-hero { background-image: radial-gradient(var(--landing-dots) 1px, transparent 1px); }
+.app .landing-private { background: var(--control-bg); color: var(--ink); border-color: var(--line); }
+.app .landing-private > span { background: var(--accent); color: var(--button-ink); }
+.app .landing h1 em { color: var(--accent); }
+.app .landing h1 svg { stroke: var(--accent); }
+.app .landing-description, .app .landing-footnote, .app .landing-exports, .app .landing-steps p { color: var(--muted); }
+.app .landing-primary { background: var(--accent); color: var(--button-ink); }
+.app .landing a.landing-secondary { background: var(--control-bg); color: var(--ink); border-color: var(--control-border); }
+.app .landing-preview { background: var(--surface); border-color: var(--line); box-shadow: 0 2px 4px var(--panel-shadow), 0 40px 90px var(--panel-shadow); }
+.app .landing-preview-toolbar { color: var(--muted); border-color: var(--line); }
+.app .landing-preview-toolbar > span:first-child { color: var(--accent); }
+.app .landing-preview-ai { background: var(--accent-soft); color: var(--accent-ink); }
+.app .landing-preview-pages { background: var(--sunken); border-color: var(--line); }
+.app .landing-preview-pages i:nth-child(2) { outline-color: var(--accent); }
+.app .landing-preview-canvas { background: var(--app-bg); }
+.app .landing-preview-paper { background: white; color: #1b1b22; color-scheme: light; }
+.app .landing-signed { background: var(--surface); border-color: var(--line); }
+.app .landing-signed small { color: var(--muted); }
+.app .landing-format { background: var(--control-bg); border-color: var(--line); color: var(--ink); }
+.app .landing-marquee { border-color: var(--line); }
+.app .landing-marquee i, .app .landing-section-heading > p, .app .landing-step-number { color: var(--accent); }
+.app .landing-section-heading em, .app .landing-how em { background-image: linear-gradient(90deg,var(--accent),var(--accent-ink),var(--accent)); }
+.app .landing-card { border-color: var(--line); }
+.app .landing-card p { color: var(--muted); }
+.app .landing-card-edit { background: var(--card-edit); }
+.app .landing-card-sign { background: var(--card-sign); }
+.app .landing-card-scan { background: var(--card-scan); }
+.app .landing-card-organize { background: var(--card-organize); }
+.app .landing-card-convert { background: var(--surface); }
+.app .landing-edit-example, .app .landing-scan-example > span:last-child { color: #1b1b22; }
+.app .landing-convert-example > div { color: var(--muted); }
+.app .landing-convert-example i { background: var(--accent-soft); }
+.app .landing-convert-example > div:last-child i, .app .landing-step-line::after { background: var(--accent); }
+.app .landing-step-line { background: var(--control-border); }
+.app .landing-footer { background: var(--landing-bg); color: var(--muted); border-color: var(--line); }
+.app .landing-drop { border-color: var(--accent); background: var(--landing-bg); color: var(--accent); }
+.app .landing-progress { background: var(--accent); }
+.app .landing .intro-logo { background: var(--accent); color: var(--button-ink); }
+.app .landing-privacy .landing-primary { background: white; color: #3b2fb0; }
+.theme-dark .landing-font { background: #3a2e10; border-color: #6b541b; }
+.theme-dark .landing-font strong, .theme-dark .landing-font em { color: #f5d98a; }
+.theme-dark .landing-redacted { border: 1px solid var(--control-border); }
+.theme-dark .landing-card-redact { background: var(--surface); color: var(--ink); }
+.theme-dark .landing-sign-example { background: #ffffff08; color: #ffc898; border-color: #a7734c; }
+.theme-dark .landing-card-edit::after { color: var(--accent); }
+.theme-dark .landing-card-sign::after { background: var(--surface); color: #ffc898; }
+.theme-dark .landing-card-organize::after { color: #f5d98a; }
+.theme-dark .landing-privacy { border: 1px solid var(--control-border); background: #2a2652; }
+.theme-dark .landing-privacy .landing-primary { background: var(--accent); color: var(--button-ink); }
+.theme-dark .landing-privacy p { color: #c9c2ff; }
+.theme-dark .landing-signed > span { background: #1c302a; color: #8fd6ac; }
+@media (max-width: 820px) { .landing .landing-nav { grid-template-columns: 1fr auto; } }
+@media (max-width: 390px) { .landing-nav-actions { gap: 8px; } .landing .landing-editor-button { padding-inline: 16px; } }
+@media (max-width: 360px) {
+  .landing .landing-nav { gap: 8px; padding-inline: 16px; }
+  .landing .landing-brand { gap: 8px; font-size: 16px; }
+  .landing .landing-brand > span { width: 30px; height: 30px; }
+  .landing .landing-editor-button { padding-inline: 12px; font-size: 12px; }
+}

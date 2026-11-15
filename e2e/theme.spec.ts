@@ -67,6 +67,79 @@ for (const width of [900, 390]) {
   });
 }
 
+for (const width of [900, 390]) {
+  test(`dark landing fits a ${width}px viewport`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 720 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Toggle theme', exact: true }).click();
+    await expect(page.locator('.landing')).toHaveCSS('background-color', 'rgb(20, 20, 26)');
+    await expect(page.getByRole('button', { name: 'Toggle theme', exact: true })).toBeInViewport();
+    await expect(page.getByRole('button', { name: 'Open editor', exact: true })).toBeInViewport();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    await page.locator('#privacy').scrollIntoViewIfNeeded();
+    await expect(page.locator('#privacy button')).toBeInViewport();
+  });
+}
+
+test('theme preference survives refresh and carries from landing into the editor', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const toggle = page.getByRole('button', { name: 'Toggle theme', exact: true });
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await page.reload();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.landing-preview-paper')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  const pdf = await PDFDocument.create();
+  pdf.addPage([300, 400]);
+  await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'theme.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
+  await expect(page.getByLabel('Rendered PDF pages')).toBeVisible();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.canvas')).toHaveCSS('background-color', 'rgb(20, 20, 26)');
+  await expect(page.locator('.right-panel')).toHaveCSS('background-color', 'rgb(28, 28, 36)');
+  await expect(page.locator('.pdf-page')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await toggle.click();
+  await expect(page.locator('.canvas')).toHaveCSS('background-color', 'rgb(237, 233, 225)');
+  await page.reload();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+});
+
+test('theme toggle works when local preference storage is unavailable', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Storage unavailable', 'SecurityError'); } });
+  });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const toggle = page.getByRole('button', { name: 'Toggle theme', exact: true });
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  expect(errors).toEqual([]);
+});
+
+test('Design8 ribbon style presets format the selected text block', async ({ page }) => {
+  await page.goto('/');
+  const pdf = await PDFDocument.create();
+  pdf.addPage([300, 400]);
+  await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'styles.pdf', mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
+  await page.getByRole('button', { name: 'Insert', exact: true }).click();
+  await page.getByRole('button', { name: 'Add text overlay', exact: true }).click();
+  await page.getByLabel('Overlay text').fill('Design8 heading');
+  await page.getByRole('button', { name: 'Home', exact: true }).click();
+  await page.getByRole('button', { name: 'Heading', exact: true }).click();
+  await expect(page.getByLabel('Text style', { exact: true })).toHaveValue('Heading 1');
+  await expect(page.getByLabel('Font size', { exact: true })).toHaveValue('28');
+  await expect(page.locator('.text-object')).toHaveCSS('font-weight', '700');
+  await page.getByRole('button', { name: 'Caption', exact: true }).click();
+  await expect(page.getByLabel('Text style', { exact: true })).toHaveValue('Caption');
+  await expect(page.locator('.text-object')).toHaveCSS('font-style', 'italic');
+});
+
 test('landing navigation, tour, documentation and privacy picker work locally', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');

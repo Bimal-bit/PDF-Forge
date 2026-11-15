@@ -1,0 +1,21 @@
+﻿/* Two-row command groups mirror the Design8 ribbon. */
+.app .format-controls { align-items: stretch; gap: 0; height: 72px; }
+.app .format-controls .format-group { display: flex; flex: none; flex-direction: column; justify-content: flex-start; align-items: stretch; gap: 4px; min-width: 0; margin: 0 12px 0 0; padding: 0 12px 0 0; border: 0; border-right: 1px solid var(--line); }
+.app .format-controls .format-group:last-child { margin-right: 0; border-right: 0; }
+.app .format-row { display: flex; align-items: center; gap: 6px; height: 28px; }
+.app .format-controls label { display: flex; align-items: center; justify-content: space-between; gap: 5px; height: 28px; color: var(--muted); font-size: 11px; }
+.app .format-controls select, .app .format-controls input { height: 28px; padding: 3px 7px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--control-bg); color: var(--ink); font: 12px Inter, sans-serif; }
+.app .format-controls select[aria-label='Font family'] { width: 125px; font-family: Newsreader, serif; font-size: 14px; }
+.app .format-controls input[type=number] { width: 54px; }
+.app .format-controls input[type=color] { width: 28px; height: 26px; padding: 3px; cursor: pointer; }
+.app .format-controls .format-emphasis button { display: grid; place-items: center; width: 28px; height: 26px; padding: 0; border-color: transparent; background: transparent; border-radius: 6px; }
+.app .format-controls button[aria-pressed=true] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+.app .format-selection { width: 140px; justify-content: center !important; }
+.app .format-selection label { height: auto; display: grid; gap: 5px; }
+.app .format-selection select { width: 115px; }
+.app .ribbon-group-label { margin-top: auto; text-align: center; font: 10px/1 Inter, sans-serif; color: var(--muted); }
+.app .format-controls .format-style { width: 64px; height: 28px; padding: 0 5px; font: 400 14px Newsreader, serif; }
+.app .format-style:first-child { font-weight: 600; }
+.app .format-style:last-child { font-style: italic; font-size: 12px; }
+.app .format-styles > select { height: 28px; width: 100%; }
+.app .format-controls button { height: 28px; padding: 3px 8px; font-size: 11px; }

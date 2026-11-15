@@ -1,4 +1,4 @@
-import { Download, FileText, Search, FilePlus2, Moon, Redo2, Sun, Undo2 } from 'lucide-react';
+import { Download, FileText, Search, FilePlus2, Redo2, Undo2 } from 'lucide-react';
 import { lazy, Suspense, useState, type ChangeEvent } from 'react';
 import type { RibbonTab } from '../types';
 import { useAppStore } from '../store/useAppStore';
@@ -16,6 +16,7 @@ import { editedTextPages } from '../lib/conversion';
 import { secureExport } from '../lib/secureExport';
 import { TextFormatting } from './TextFormatting';
 import { ProductivityPanels } from './ProductivityPanels';
+import { ThemeToggle } from './ThemeToggle';
 
 const OcrPanel = lazy(() => import('./OcrPanel').then((module) => ({ default: module.OcrPanel })));
 const CertificatePanel = lazy(() => import('./CertificatePanel').then((module) => ({ default: module.CertificatePanel })));
@@ -24,7 +25,7 @@ const tabs: RibbonTab[] = ['File', 'Home', 'Insert', 'Layout', 'Review', 'View',
 const tabLabels: Record<'en' | 'es', Record<RibbonTab, string>> = { en: { File: 'File', Home: 'Home', Insert: 'Insert', Layout: 'Layout', Review: 'Review', View: 'View', Tools: 'Tools' }, es: { File: 'Archivo', Home: 'Inicio', Insert: 'Insertar', Layout: 'Diseño', Review: 'Revisar', View: 'Ver', Tools: 'Herramientas' } };
 
 export function Ribbon() {
-  const { activeTab, setTab, setDocument, setNotice, undo, redo, history, future, theme, setTheme, document, objects, pageSettings } = useAppStore();
+  const { activeTab, setTab, setDocument, setNotice, undo, redo, history, future, document, objects, pageSettings } = useAppStore();
   const [ocrPanel, setOcrPanel] = useState(false);
   const [certificatePanel, setCertificatePanel] = useState(false);
   const [report, setReport] = useState<AccessibilityReport>();
@@ -46,7 +47,7 @@ export function Ribbon() {
         <button aria-label="Redo" title="Redo (Ctrl+Y)" onClick={redo} disabled={!future.length}><Redo2 size={16} /></button>
         <label className="open-button"><FilePlus2 size={16} /> Open PDF<input aria-label="Open PDF" type="file" accept="application/pdf,.pdf" onChange={openFile} /></label>
         <button aria-label="Export PDF" title="Export PDF" disabled={!document} onClick={() => { if (document) void exportPdf(document, objects, pageSettings).then((bytes) => { downloadPdf(bytes, document.name); setNotice('Edited PDF downloaded.'); }).catch(() => setNotice('PDF export failed.')); }}><Download size={16} /><span>Export</span></button>
-        <label className="language-picker">Language<select aria-label="Language" value={language} onChange={(event) => { const next = event.target.value as 'en' | 'es'; setLanguage(next); globalThis.document.documentElement.lang = next; }}><option value="en">English</option><option value="es">Español</option></select></label><button aria-label="Toggle theme" title="Toggle theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}</button>
+        <label className="language-picker">Language<select aria-label="Language" value={language} onChange={(event) => { const next = event.target.value as 'en' | 'es'; setLanguage(next); globalThis.document.documentElement.lang = next; }}><option value="en">English</option><option value="es">Español</option></select></label><ThemeToggle />
       </div>
     </div>
     <nav className="tabs" aria-label="Ribbon tabs">{tabs.map((tab) => <button key={tab} className={activeTab === tab ? 'active' : ''} onClick={() => setTab(tab)}>{tabLabels[language][tab]}</button>)}</nav>

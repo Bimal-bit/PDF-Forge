@@ -1,5 +1,6 @@
 import { produceWithPatches, applyPatches, enablePatches, type Patch } from 'immer';
 import { create } from 'zustand';
+import { getSavedTheme } from '../lib/theme';
 import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, PageSettings, RecoveryDocument, RibbonTab, Theme } from '../types';
 
 interface HistoryEntry { patches: Patch[]; inverse: Patch[] }
@@ -36,7 +37,7 @@ interface State extends AppSnapshot {
   redo: () => void;
 }
 
-const initial: AppSnapshot = { activeTab: 'Home', theme: 'light', zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [], pageSettings: { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null } };
+const initial: AppSnapshot = { activeTab: 'Home', theme: getSavedTheme(), zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [], pageSettings: { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null } };
 
 enablePatches();
 

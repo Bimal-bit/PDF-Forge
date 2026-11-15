@@ -5,7 +5,9 @@ import { toPdfDocument } from '../lib/file';
 import { useAppStore } from '../store/useAppStore';
 import { LandingFeatures, LandingSteps } from './LandingFeatures';
 import { LandingPreview } from './LandingPreview';
+import { ThemeToggle } from './ThemeToggle';
 import '../landing.css';
+import '../landing-theme.css';
 
 export function Welcome() {
   const { setDocument, setNotice, isDragging, setDragging } = useAppStore();
@@ -72,9 +74,12 @@ export function Welcome() {
             Docs
           </a>
         </nav>
-        <button className="landing-editor-button" onClick={openPicker}>
-          Open editor
-        </button>
+        <div className="landing-nav-actions">
+          <ThemeToggle />
+          <button className="landing-editor-button" onClick={openPicker}>
+            Open editor
+          </button>
+        </div>
       </header>
       <main>
         <section className="landing-hero" aria-labelledby="landing-title">

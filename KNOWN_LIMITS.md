@@ -41,4 +41,4 @@ Updated on 15 November 2026. The requested completion pass adds rich block editi
 
 - The bundled Noto Sans font covers additional Latin, Greek, and Cyrillic text. Full CJK and specialized-script font coverage, and styled Unicode fallback fonts, require additional font assets.
 
-- The supplied website is implemented as the landing page before a PDF opens, including its intro and 3D visual motifs. Watch the tour opens the three-step walkthrough, and Docs downloads the local Markdown user guide. The footer's Source label awaits a repository URL. Decorative motion is disabled when the browser requests reduced motion.
+- The Design8 website is implemented as the landing page before a PDF opens, including its intro and 3D visual motifs. The landing and editor share light/dark mode with a locally saved preference. The outer dark palette adapts the board's inside-app dark colors. Watch the tour opens the three-step walkthrough, and Docs downloads the local Markdown user guide. The footer's Source label awaits a repository URL. Decorative motion is disabled when the browser requests reduced motion.
