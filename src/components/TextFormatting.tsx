@@ -1,6 +1,8 @@
 ﻿import { Bold, Italic, Strikethrough, Underline } from 'lucide-react';
 import type { TextObject } from '../types';
 import { useAppStore } from '../store/useAppStore';
+import { useSmartTextMatch } from './useSmartTextMatch';
+import { EditingLibrary } from './EditingLibrary';
 import '../ribbon-formatting.css';
 
 const styles: Record<string, Partial<TextObject>> = {
@@ -18,12 +20,10 @@ const emphasis = [
 ] as const;
 
 export function TextFormatting() {
-  const { objects, selectedObjectId, selectObject, updateObject } = useAppStore();
-  const texts = objects.filter((object): object is TextObject => object.type === 'text');
+  const { objects, pageSettings, selectedObjectId, selectObject } = useAppStore();
+  const texts = objects.filter((object): object is TextObject => object.type === 'text' && (!pageSettings.order.length || pageSettings.order.includes(object.page)));
   const selected = texts.find((object) => object.id === selectedObjectId) ?? texts.at(-1);
-  const update = (patch: Partial<TextObject>) => {
-    if (selected) updateObject(selected.id, patch);
-  };
+  const { update, match, busy, matchCount } = useSmartTextMatch(selected);
   const applyStyle = (style: string) =>
     update({ ...styles[style], style: style as TextObject['style'] });
 
@@ -48,6 +48,11 @@ export function TextFormatting() {
           </select>
         </label>
         <span className="ribbon-group-label">Selection</span>
+      </div>
+      <div className="format-group format-library">
+        <button disabled={!selected || busy} aria-pressed={matchCount !== undefined} title="Match the supported font family, bold/italic, and size within 5% or 0.5 pt across current pages" onClick={() => void match()}>{busy ? 'Matching…' : matchCount === undefined ? 'Smart text match' : `${matchCount} blocks matched`}</button>
+        <EditingLibrary selected={selected} onApply={update} />
+        <span className="ribbon-group-label">Reusable editing</span>
       </div>
       <fieldset className="format-group" aria-label="Font formatting" disabled={!selected}>
         <div className="format-row">

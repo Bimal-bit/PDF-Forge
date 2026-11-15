@@ -35,6 +35,12 @@ export interface TextObject {
   style?: 'Body' | 'Heading 1' | 'Heading 2' | 'Heading 3' | 'Caption';
 }
 
+export type TextFormat = Pick<TextObject, 'fontFamily' | 'fontSize' | 'color' | 'bold' | 'italic' | 'underline' | 'strike' | 'letterSpacing' | 'alignment' | 'lineHeight' | 'list' | 'indent' | 'style'>;
+export type StyleKind = 'paragraph' | 'character';
+export interface SavedStyle { id: string; kind: 'style'; name: string; styleKind: StyleKind; format: TextFormat }
+export interface SavedSnippet { id: string; kind: 'snippet'; name: string; text: string; format: TextFormat }
+export type EditingLibraryEntry = SavedStyle | SavedSnippet;
+
 export interface ShapeObject { id: string; type: 'shape'; page: number; x: number; y: number; width: number; height: number; color: string }
 export interface ImageObject { id: string; type: 'image'; page: number; x: number; y: number; width: number; height: number; dataUrl: string }
 export interface TableObject { id: string; type: 'table'; page: number; x: number; y: number; width: number; height: number; cells: string[][] }

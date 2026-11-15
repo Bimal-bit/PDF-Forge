@@ -26,6 +26,20 @@ Home selects the text block to format. Change font family, size, bold, italic, u
 
 Reflow wraps within the block width. Inserted blocks grow upward from their bottom position. Geometry-based paragraph grouping can need correction in complex columns. Normal edits cover source content visually, while the original source layer remains in an ordinary edited export.
 
+### Match similar text
+
+Select a text block in Home and choose **Smart text match**. The button shows the number of matching blocks across current pages. Font family, bold/italic, and size within 5% or 0.5 points determine the group. Choose formatting or apply a saved style to update the group together. Undo reverses each group formatting operation in one step. Click the matched-block button to leave the group.
+
+Matching uses the supported fallback font families and groups compatible source lines into paragraphs. Source ink colors and embedded-font identity can change during replacement. Blocks whose covers would overlap unmatched text are skipped. Angled source text and vertical writing require manual editing. Changing text, selection, page order, history, or ribbon tabs ends the group.
+
+### Save styles and snippets
+
+Choose **Home → Styles & snippets**. In **Styles**, enter a name, choose Paragraph or Character, and select **Save selected style**. Paragraph presets capture font and paragraph settings. Character presets apply font settings to entire blocks and preserve alignment, indentation, lists, and line spacing. Apply a saved style to the selected block or active matched group.
+
+In **Snippets**, enter a name and text, or choose **Use selected text**. **Save snippet** stores its text and current formatting. Set X, Y, and Width in PDF points measured from the bottom left, then choose **Insert** beside a saved snippet. It inserts on the current page and supports workspace undo, recovery, and export.
+
+The library is shared across files in this browser profile and site. Saves and deletions persist immediately. Each save creates a separate record. Clearing site storage removes the library along with recovery data. Signature snippets store reusable text.
+
 ## Insert objects and annotations
 
 Insert adds text, images, rectangles, tables, links, form fields, and typed signature lines. Objects use default geometry, with field geometry available in the form properties. The sidebar edits supported values and removes objects.

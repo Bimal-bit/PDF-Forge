@@ -49,4 +49,19 @@ describe('app history', () => {
     useAppStore.getState().removeObject(first.id);
     expect(useAppStore.getState().objects).toEqual([second]);
   });
+
+  it('applies a matched group as one undoable change without copying source geometry', () => {
+    useAppStore.getState().setDocument({ id: 'batch', name: 'batch.pdf', size: 0, modifiedAt: 0, data: new ArrayBuffer(0) });
+    const seed = { id: 'seed', type: 'text' as const, page: 1, x: 30, y: 300, fontSize: 12, color: '#000000', text: 'Seed' };
+    const addition = { ...seed, id: 'new', page: 2, text: 'Other page' };
+    useAppStore.getState().addObject(seed);
+    const historySize = useAppStore.getState().history.length;
+    useAppStore.getState().formatTextObjects(['seed', 'new'], [addition], { bold: true, color: '#123456' });
+    expect(useAppStore.getState().history).toHaveLength(historySize + 1);
+    expect(useAppStore.getState().objects).toEqual([{ ...seed, bold: true, color: '#123456' }, { ...addition, bold: true, color: '#123456' }]);
+    useAppStore.getState().undo();
+    expect(useAppStore.getState().objects).toEqual([seed]);
+    useAppStore.getState().redo();
+    expect(useAppStore.getState().objects).toHaveLength(2);
+  });
 });

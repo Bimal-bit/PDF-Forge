@@ -4,6 +4,7 @@ import { openPdf } from '../lib/pdf';
 import { paragraphAt } from '../lib/paragraphs';
 import type { TextItem } from 'pdfjs-dist/types/src/display/api';
 import { matchPdfFont } from '../lib/font';
+import { pdfTextAppearance } from '../lib/smartTextMatch';
 import { measurementLabel } from '../lib/export';
 import type { OpenDocument } from '../types';
 import type { EditorObject, TextObject } from '../types';
@@ -99,13 +100,14 @@ function PdfPage({ pdf, pageNumber, sourcePage, rotation, zoom, objects, onCreat
       renderedText.textDivs.forEach((div, index) => div.addEventListener('dblclick', () => {
         const pageRect = canvas.getBoundingClientRect(); const rect = div.getBoundingClientRect(); const style = getComputedStyle(div);
         const font = matchPdfFont(style.fontFamily);
+        const appearance = textItems[index] ? pdfTextAppearance(page, textItems[index], content.styles) : { fontFamily: font.family, fallback: font.fallback };
         const points = [[rect.left - pageRect.left, rect.top - pageRect.top], [rect.right - pageRect.left, rect.bottom - pageRect.top]].map(([x, y]) => viewport.convertToPdfPoint(x, y));
         const x = Math.min(...points.map((point) => point[0]));
         const y = Math.min(...points.map((point) => point[1]));
         const width = Math.abs(points[1][0] - points[0][0]);
         const height = Math.abs(points[1][1] - points[0][1]);
         const paragraph = paragraphAt(textItems, index);
-        setEditing({ id: crypto.randomUUID(), type: 'text', page: sourcePage, text: paragraph.text || renderedText.textContentItemsStr[index] || '', x: paragraph.x ?? x, y: paragraph.y ?? y, fontSize: paragraph.fontSize, color: '#292724', fontFamily: font.family, width: paragraph.width || width + 4, height: paragraph.height || height + 4, cover: { width: paragraph.width || width + 4, height: paragraph.height || height + 4 }, fallback: font.fallback });
+        setEditing({ id: crypto.randomUUID(), type: 'text', page: sourcePage, text: paragraph.text || renderedText.textContentItemsStr[index] || '', x: paragraph.x ?? x, y: paragraph.y ?? y, fontSize: paragraph.fontSize, color: '#292724', ...appearance, width: paragraph.width || width + 4, height: paragraph.height || height + 4, cover: { width: paragraph.width || width + 4, height: paragraph.height || height + 4 } });
       }));
     }).catch((reason: unknown) => { if (!cancelled && !(reason instanceof Error && reason.name === 'RenderingCancelledException')) console.warn('Unable to render PDF page', reason); });
     return () => { cancelled = true; renderTask?.cancel(); textLayer?.cancel(); };

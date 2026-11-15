@@ -1,13 +1,19 @@
-import { openDB } from 'idb';
-import type { OpenDocument, RecoveryDocument, AppSnapshot } from '../types';
+import { openDB, type DBSchema } from 'idb';
+import type { OpenDocument, RecoveryDocument, AppSnapshot, EditingLibraryEntry } from '../types';
 
 const DB_NAME = 'pdfforge';
 const STORE_NAME = 'documents';
 
-async function database() {
-  return openDB(DB_NAME, 1, {
-    upgrade(db) {
-      db.createObjectStore(STORE_NAME);
+interface LocalDatabase extends DBSchema {
+  documents: { key: string; value: RecoveryDocument };
+  editingLibrary: { key: string; value: EditingLibraryEntry };
+}
+
+export async function database() {
+  return openDB<LocalDatabase>(DB_NAME, 2, {
+    upgrade(db, oldVersion) {
+      if (oldVersion < 1) db.createObjectStore(STORE_NAME);
+      if (oldVersion < 2) db.createObjectStore('editingLibrary');
     },
   });
 }

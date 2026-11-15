@@ -133,3 +133,65 @@ Implementation scope and verification are recorded below in milestone order. The
 - PDF intake parses document structure and checks for pages before replacing the workspace. Damaged and password-protected files report an error while preserving current edits. Parsing stays browser-local.
 - The fixture generator ran successfully in an isolated test directory. All five outputs parsed with the expected page counts, including 300 pages, and the form sample retained both fields.
 - Final validation passed with npm run test:all and npm run build: lint, strict TypeScript, 51 unit tests, and 55 Chromium browser tests, including production offline recovery and document paint. Light/dark production editor screenshots were visually inspected with no uncaught browser errors. Existing dependency annotation and bundle-size warnings remain.
+
+## M17 - Smart text matching and reusable editing
+
+- The user selected editing first, specifically smart text match, reusable styles, and snippets. This milestone implements those workflows. The remaining requested capabilities are ordered in M18–M26 below.
+- Home provides Smart text match after selecting or creating a text block. A local extraction pass compares the supported Helvetica, Times, and Courier fallback families, bold/italic, and font size within 5% or 0.5 points, whichever is larger. Compatible source lines are grouped into paragraph blocks. The active page plan limits matching to surviving source pages and processes duplicate source pages once.
+- Matching prepares a group. The next formatting operation creates its replacement blocks and updates existing matches in one undoable action. Further formatting applies to the group until text, selection, page order, history, or ribbon navigation changes. Concurrent document changes discard a pending match result. Proposed source covers that intersect unmatched text are skipped. Source text at an angle within a page, vertical writing, original embedded-font identity, and original source ink colors require additional extraction work. Source replacement uses the existing white-cover and supported-font export model.
+- Home’s Styles & snippets library persists records in a separate IndexedDB store, shared across files in the same browser profile and origin. Schema version 2 upgrades existing document recovery records in place. Saves and deletions use individual transactions. Library management persists immediately. Applying a style and inserting a snippet participate in workspace undo and recovery.
+- Paragraph presets capture supported font and paragraph formatting. Character presets capture font formatting and apply to entire text blocks. Mixed inline formatting remains pending. Presets omit source text, IDs, geometry, and cover data. Applying a preset resets explicitly saved properties, while character presets preserve paragraph settings.
+- Text snippets retain their text and supported formatting. Users can enter text or copy the selected block, then insert on the current page with X, Y, and width in PDF points measured from the bottom left. Signature snippets are reusable text. Each save creates an independent library record, including when names repeat.
+- Final validation passed with npm run test:all and npm run build, including lint, strict TypeScript, 59 unit tests, and 63 Chromium browser tests. Coverage includes grouped formatting/undo/export, cross-file presets, positioned snippets/recovery, storage failures, schema migration, keyboard dismissal, responsive layouts, and production offline use without external requests. Light/dark library layouts were visually inspected. One existing landing keyboard-picker test timed out once, then passed five isolated repeats and the complete final rerun. Existing dependency annotation and bundle-size build warnings remain. The pre-existing package-lock.json edits are excluded from the milestone commit.
+
+## Ordered requested roadmap
+
+The following milestones record requested scope awaiting implementation and validation. Every increment needs a complete UI path, tests, and browser-local processing before its controls become available.
+
+### M18 - Advanced editing and layout
+
+- Linked text-box flow, two/three-column blocks, drop caps, and vector equations from LaTeX.
+- Flowchart shapes and connectors that follow moved shapes.
+- Image crop, rotation, shape masks, background removal, brightness, and contrast.
+- Tracked text changes with authors and individual accept/reject actions.
+
+### M19 - Navigation and reading
+
+- Two-page/two-file split views with synchronized scrolling, multiple file tabs, and moving pages between tabs.
+- Document mini-map with location/search hits, full-screen presentation with a laser pointer, and page-color inversion for night reading.
+- User bookmarks with a shortcut, zoom to selection, and a magnifier lens.
+
+### M20 - Browser-local document assistance
+
+- Page-linked document Q&A, page/section summaries, redaction suggestions, profile-based form filling, and document-type detection.
+- Layout-preserving translation, readability/tone analysis, image alt-text, accessibility tagging, and structured extraction into tables.
+- Any model inference and model assets must satisfy the existing browser-local/offline architecture. Generative features need an implementation and evaluated output before being presented as AI capabilities.
+
+### M21 - Signing and workflow
+
+- Signing roles/order, reusable named-field templates, ready-to-send checks, exportable timestamped change logs, and dated approval stamps.
+- Signature request links need a design that meets the requested device privacy and the existing server-free architecture. Remote delivery and multi-person coordination remain pending that design.
+
+### M22 - Local organizing and search
+
+- Tags, folders, favorites, recents, and full-text search across saved files.
+- Duplicate/blank-page finding and removal, content-based invoice/chapter/form splitting, content-derived filenames, and printing range/layout presets.
+
+### M23 - Capture and export profiles
+
+- Camera/phone capture with auto-crop, straightening, and cleanup. Batch image-to-PDF/PDF-to-image workflows with quality controls.
+- One-slide-per-page presentation export, spreadsheet table export improvements, print bleed/crop-mark/color checks, reusable export/compression profiles, and a hostable single-page web-view artifact.
+
+### M24 - Privacy and security tools
+
+- Metadata-removal preview, hidden comments/edits/layers/attachments scanning, visible/invisible watermarks, and secure deletion of browser recovery/version records.
+- Standard password-protected copies, expiry, and copying restrictions need format support and an explicit account of what exported files can enforce. The local-only toggle must preserve browser-local document processing in every setting.
+
+### M25 - Productivity and customization
+
+- Ribbon/quick-access customization, recorded macros, shortcut editing, client/project workspaces, focus mode, and an undo-history panel.
+- Browser-local voice dictation for text/comments, theme/accent controls, a dyslexia-friendly font option, and searchable help with tool-location guidance.
+
+### M26 - Accessibility and language reach
+
+- Screen-reader/reading-order editing, a color-blind-safe palette, large touch targets, pinch zoom, two-finger undo, right-to-left support, and additional interface languages.
