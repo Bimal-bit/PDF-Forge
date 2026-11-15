@@ -10,3 +10,5 @@ This M2 build intentionally contains the foundation plus local PDF rendering, th
 - Thumbnail generation currently favors a simple one-canvas-per-page implementation; extremely large documents may take longer to populate the thumbnail rail even though the main viewer renders lazily.
 
 - M5 annotation placement uses deliberate default positions rather than drag handles or freehand drawing. XFDF exchange supports PDFForge highlights, notes, stamps, and measurements; other vendor annotation types are ignored.
+
+- M6 split exports the currently selected page. Range-based splitting and batch-folder processing remain future work.

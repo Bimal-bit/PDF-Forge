@@ -1,6 +1,6 @@
 import { produceWithPatches, applyPatches, enablePatches, type Patch } from 'immer';
 import { create } from 'zustand';
-import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, RibbonTab, Theme } from '../types';
+import type { AnnotationObject, AppSnapshot, EditorObject, OpenDocument, PageSettings, RibbonTab, Theme } from '../types';
 
 interface HistoryEntry { patches: Patch[]; inverse: Patch[] }
 interface State extends AppSnapshot {
@@ -15,7 +15,13 @@ interface State extends AppSnapshot {
   setZoom: (zoom: number) => void;
   setLeftPanel: (panel: AppSnapshot['leftPanel']) => void;
   setSelectedPage: (page: number) => void;
-  addTextObject: () => void;
+  initializePages: (count: number) => void;
+  movePage: (direction: -1 | 1) => void;
+  rotatePage: () => void;
+  deletePage: () => void;
+  duplicatePage: () => void;
+  updatePageSettings: (settings: Partial<Omit<PageSettings, 'order' | 'rotations'>>) => void;
+  addTextObject: (page?: number) => void;
   updateTextObject: (id: string, text: string) => void;
   addObject: (object: EditorObject) => void;
   importAnnotations: (annotations: AnnotationObject[]) => void;
@@ -29,7 +35,7 @@ interface State extends AppSnapshot {
   redo: () => void;
 }
 
-const initial: AppSnapshot = { activeTab: 'Home', theme: 'light', zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [] };
+const initial: AppSnapshot = { activeTab: 'Home', theme: 'light', zoom: 100, leftPanel: 'thumbnails', rightPanelOpen: true, selectedPage: 1, objects: [], pageSettings: { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null } };
 
 enablePatches();
 
@@ -42,13 +48,19 @@ function tracked(set: (partial: State | Partial<State> | ((state: State) => Stat
 
 export const useAppStore = create<State>((set) => ({
   ...initial, history: [], future: [], isDragging: false,
-  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.selectedObjectId = undefined; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
+  setDocument: (document) => tracked(set, (draft) => { draft.document = document; draft.objects = []; draft.pageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null }; draft.selectedObjectId = undefined; draft.selectedPage = 1; draft.notice = `${document.name} opened locally`; }),
   setTab: (activeTab) => tracked(set, (draft) => { draft.activeTab = activeTab; }),
   setTheme: (theme) => tracked(set, (draft) => { draft.theme = theme; }),
   setZoom: (zoom) => tracked(set, (draft) => { draft.zoom = Math.max(10, Math.min(500, zoom)); }),
   setLeftPanel: (leftPanel) => set({ leftPanel }),
   setSelectedPage: (selectedPage) => set({ selectedPage }),
-  addTextObject: () => tracked(set, (draft) => { if (!draft.document) return; draft.objects.push({ id: crypto.randomUUID(), type: 'text', page: draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737' }); }),
+  initializePages: (count) => set((state) => state.pageSettings.order.length ? state : { pageSettings: { ...state.pageSettings, order: Array.from({ length: count }, (_, index) => index + 1) } }),
+  movePage: (direction) => tracked(set, (draft) => { const index = draft.selectedPage - 1; const target = index + direction; if (target < 0 || target >= draft.pageSettings.order.length) return; [draft.pageSettings.order[index], draft.pageSettings.order[target]] = [draft.pageSettings.order[target], draft.pageSettings.order[index]]; draft.selectedPage = target + 1; }),
+  rotatePage: () => tracked(set, (draft) => { const source = draft.pageSettings.order[draft.selectedPage - 1]; if (!source) return; draft.pageSettings.rotations[source] = ((draft.pageSettings.rotations[source] ?? 0) + 90) % 360; }),
+  deletePage: () => tracked(set, (draft) => { if (draft.pageSettings.order.length < 2) return; draft.pageSettings.order.splice(draft.selectedPage - 1, 1); draft.selectedPage = Math.min(draft.selectedPage, draft.pageSettings.order.length); }),
+  duplicatePage: () => tracked(set, (draft) => { const source = draft.pageSettings.order[draft.selectedPage - 1]; if (!source) return; draft.pageSettings.order.splice(draft.selectedPage, 0, source); draft.selectedPage += 1; }),
+  updatePageSettings: (settings) => tracked(set, (draft) => { Object.assign(draft.pageSettings, settings); }),
+  addTextObject: (page) => tracked(set, (draft) => { if (!draft.document) return; draft.objects.push({ id: crypto.randomUUID(), type: 'text', page: page ?? draft.selectedPage, text: 'Text overlay', x: 72, y: 72, fontSize: 14, color: '#d65737' }); }),
   updateTextObject: (id, text) => tracked(set, (draft) => { const object = draft.objects.find((entry) => entry.id === id); if (object?.type === 'text') object.text = text; }),
   addObject: (object) => tracked(set, (draft) => { draft.objects.push(object); draft.selectedObjectId = object.id; }),
   importAnnotations: (annotations) => tracked(set, (draft) => { draft.objects.push(...annotations); draft.selectedObjectId = annotations.at(-1)?.id; }),

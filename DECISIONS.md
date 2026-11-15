@@ -1,5 +1,11 @@
 # Decisions
 
+## M6 — Page management, document assembly, and repeating marks
+
+- **Page plan:** Reorder, rotation, deletion, and duplication are held as a browser-local page sequence until export. Duplicates retain their original PDF page content and PDFForge object layer.
+- **Assembly:** Merge and split use pdf-lib copies in the browser; source bytes are neither uploaded nor retained beyond the current browser session.
+- **Marks:** Headers, footers, watermarks, and Bates numbers are painted into exported copies only. `{page}` in a header or footer expands to the exported page number, while Bates values use six-digit padding.
+
 ## M5 — Annotations, comments, stamps, measurement, and XFDF
 
 - **Annotation model:** Highlights, sticky-note comments, predefined text stamps, and linear measurements live in the browser-local object layer, so undo/redo and automatic recovery apply consistently.
@@ -28,7 +34,7 @@
 
 ## Milestone plan
 
-M1 through M4 are complete. M5 through M11 remain planned exactly as specified in the task brief.
+M1 through M6 are complete. M7 through M11 remain planned exactly as specified in the task brief.
 
 ## M2 — Browser-local rendering and navigation
 

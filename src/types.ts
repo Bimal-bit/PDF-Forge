@@ -34,6 +34,15 @@ export interface MeasureAnnotation { id: string; type: 'measure'; page: number; 
 export type AnnotationObject = HighlightAnnotation | NoteAnnotation | StampAnnotation | MeasureAnnotation;
 export type EditorObject = TextObject | ShapeObject | ImageObject | TableObject | LinkObject | AnnotationObject;
 
+export interface PageSettings {
+  order: number[];
+  rotations: Record<number, number>;
+  header: string;
+  footer: string;
+  watermark: string;
+  batesStart: number | null;
+}
+
 export interface AppSnapshot {
   activeTab: RibbonTab;
   theme: Theme;
@@ -43,4 +52,5 @@ export interface AppSnapshot {
   selectedPage: number;
   objects: EditorObject[];
   selectedObjectId?: string;
+  pageSettings: PageSettings;
 }

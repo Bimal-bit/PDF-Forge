@@ -47,3 +47,17 @@ test('creates review annotations and exposes XFDF exchange', async ({ page }) =>
   await expect(page.getByRole('button', { name: 'Export XFDF' })).toBeVisible();
   await expect(page.getByText('Import XFDF', { exact: true })).toBeVisible();
 });
+
+test('exposes M6 page management and repeating marks', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'pages.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\n4 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Rotate page' })).toBeVisible();
+  await expect(page.getByText('Merge PDFs', { exact: true })).toBeVisible();
+  await page.getByLabel('Header').fill('Case {page}');
+  await page.getByLabel('Footer').fill('Private');
+  await page.getByLabel('Watermark').fill('DRAFT');
+  await page.getByLabel('Bates start').fill('10');
+  await page.getByRole('button', { name: 'Duplicate page' }).click();
+  await page.getByRole('button', { name: 'Rotate page' }).click();
+});

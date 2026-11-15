@@ -1,5 +1,5 @@
-import { PDFArray, PDFDocument, PDFName, PDFString, StandardFonts, rgb } from 'pdf-lib';
-import type { AnnotationObject, EditorObject, OpenDocument } from '../types';
+import { PDFArray, PDFDocument, PDFName, PDFString, PDFFont, StandardFonts, degrees, rgb } from 'pdf-lib';
+import type { AnnotationObject, EditorObject, OpenDocument, PageSettings } from '../types';
 
 function hexColor(value: string) {
   const hex = value.replace('#', '');
@@ -7,12 +7,21 @@ function hexColor(value: string) {
   return rgb(((parsed >> 16) & 255) / 255, ((parsed >> 8) & 255) / 255, (parsed & 255) / 255);
 }
 
-export async function exportPdf(document: OpenDocument, objects: EditorObject[]): Promise<Uint8Array> {
-  const pdf = await PDFDocument.load(document.data.slice(0));
+const emptySettings: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
+
+export async function exportPdf(document: OpenDocument, objects: EditorObject[], settings: PageSettings = emptySettings): Promise<Uint8Array> {
+  const source = await PDFDocument.load(document.data.slice(0));
+  const order = settings.order.length ? settings.order : Array.from({ length: source.getPageCount() }, (_, index) => index + 1);
+  const pdf = await PDFDocument.create();
+  const copied = await pdf.copyPages(source, order.map((page) => page - 1));
+  copied.forEach((page) => pdf.addPage(page));
   const font = await pdf.embedFont(StandardFonts.Helvetica);
-  for (const object of objects) {
-    const page = pdf.getPage(object.page - 1);
-    if (!page) continue;
+  for (const [outputIndex, sourcePage] of order.entries()) {
+    const page = pdf.getPage(outputIndex);
+    const rotation = settings.rotations[sourcePage] ?? 0;
+    if (rotation) page.setRotation(degrees(rotation));
+    drawPageMarks(page, font, outputIndex + 1, settings);
+    for (const object of objects.filter((entry) => entry.page === sourcePage)) {
     if (object.type === 'text') {
       if (object.cover) page.drawRectangle({ x: object.x - 2, y: object.y - 2, width: object.cover.width, height: object.cover.height, color: rgb(1, 1, 1) });
       page.drawText(object.text, { x: object.x, y: object.y, size: object.fontSize, font, color: hexColor(object.color) });
@@ -29,8 +38,28 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[])
       const annotations = page.node.Annots() ?? pdf.context.obj([]) as PDFArray; annotations.push(pdf.context.register(annotation)); page.node.set(PDFName.of('Annots'), annotations);
     }
     if (object.type === 'highlight' || object.type === 'note' || object.type === 'stamp' || object.type === 'measure') addPdfAnnotation(pdf, page.node, object);
+    }
   }
   return pdf.save();
+}
+
+function drawPageMarks(page: ReturnType<PDFDocument['getPage']>, font: PDFFont, number: number, settings: PageSettings) {
+  const { width, height } = page.getSize();
+  const text = (value: string, x: number, y: number, size = 9, opacity = 1) => { if (value) page.drawText(value.split('{page}').join(String(number)), { x, y, size, font, color: rgb(.3, .28, .25), opacity }); };
+  text(settings.header, 36, height - 24);
+  text(settings.footer, 36, 16);
+  if (settings.batesStart !== null) text(String(settings.batesStart + number - 1).padStart(6, '0'), width - 78, 16);
+  if (settings.watermark) page.drawText(settings.watermark, { x: width * .2, y: height * .48, size: Math.min(48, width / 8), font, color: rgb(.72, .25, .18), opacity: .18, rotate: degrees(35) });
+}
+
+export async function mergePdfs(documents: OpenDocument[]): Promise<Uint8Array> {
+  const merged = await PDFDocument.create();
+  for (const document of documents) { const input = await PDFDocument.load(document.data.slice(0)); const pages = await merged.copyPages(input, input.getPageIndices()); pages.forEach((page) => merged.addPage(page)); }
+  return merged.save();
+}
+
+export async function splitPdf(document: OpenDocument, pageNumbers: number[]): Promise<Uint8Array> {
+  return exportPdf(document, [], { ...emptySettings, order: pageNumbers });
 }
 
 function addPdfAnnotation(pdf: PDFDocument, page: ReturnType<PDFDocument['getPage']>['node'], annotation: AnnotationObject) {

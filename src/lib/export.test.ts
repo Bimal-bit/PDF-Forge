@@ -1,6 +1,6 @@
 import { decodePDFRawStream, PDFArray, PDFDocument, PDFRawStream, StandardFonts } from 'pdf-lib';
 import { describe, expect, it } from 'vitest';
-import { exportPdf } from './export';
+import { exportPdf, mergePdfs, splitPdf } from './export';
 
 describe('PDF export engine', () => {
   it('round-trips a source PDF and merges its text object layer', async () => {
@@ -29,5 +29,15 @@ describe('PDF export engine', () => {
     const reopened = await PDFDocument.load(exported);
     expect(reopened.getPage(0).node.Annots()?.size()).toBe(1);
     expect(reopened.getPage(0).node.Contents()).toBeDefined();
+  });
+
+  it('applies a page plan, page marks, and browser-local merge/split', async () => {
+    const source = await PDFDocument.create(); source.addPage([300, 300]); source.addPage([300, 300]); const bytes = await source.save();
+    const data = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+    const document = { id: 'test', name: 'pages.pdf', size: data.byteLength, modifiedAt: 0, data };
+    const planned = await exportPdf(document, [], { order: [2, 1, 2], rotations: { 2: 90 }, header: 'Header {page}', footer: 'Footer', watermark: 'CONFIDENTIAL', batesStart: 40 });
+    expect((await PDFDocument.load(planned)).getPageCount()).toBe(3);
+    expect((await PDFDocument.load(await splitPdf(document, [2]))).getPageCount()).toBe(1);
+    expect((await PDFDocument.load(await mergePdfs([document, document]))).getPageCount()).toBe(4);
   });
 });

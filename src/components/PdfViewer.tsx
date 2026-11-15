@@ -11,13 +11,14 @@ interface PdfViewerProps {
   zoom: number;
   selectedPage: number;
   objects: EditorObject[];
+  pageOrder: number[];
   onCreateTextObject: (object: TextObject) => void;
   onDocumentLoaded: (pdf: PDFDocumentProxy) => void;
 }
 
 const RENDER_SCALE = 1.5;
 
-export function PdfViewer({ document, zoom, selectedPage, objects, onCreateTextObject, onDocumentLoaded }: PdfViewerProps) {
+export function PdfViewer({ document, zoom, selectedPage, objects, pageOrder, onCreateTextObject, onDocumentLoaded }: PdfViewerProps) {
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [error, setError] = useState<string>();
   const pageRefs = useRef(new Map<number, HTMLElement>());
@@ -40,12 +41,13 @@ export function PdfViewer({ document, zoom, selectedPage, objects, onCreateTextO
 
   if (error) return <div className="viewer-message" role="alert">{error}</div>;
   if (!pdf) return <div className="viewer-message">Preparing local PDF…</div>;
+  const pages = pageOrder.length ? pageOrder : Array.from({ length: pdf.numPages }, (_, index) => index + 1);
   return <div className="page-stack" aria-label="Rendered PDF pages">
-    {Array.from({ length: pdf.numPages }, (_, index) => <PdfPage key={index + 1} pdf={pdf} pageNumber={index + 1} zoom={zoom} objects={objects.filter((object) => object.page === index + 1)} onCreateTextObject={onCreateTextObject} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
+    {pages.map((sourcePage, index) => <PdfPage key={`${sourcePage}-${index}`} pdf={pdf} pageNumber={index + 1} sourcePage={sourcePage} zoom={zoom} objects={objects.filter((object) => object.page === sourcePage)} onCreateTextObject={onCreateTextObject} pageRef={(node) => { if (node) pageRefs.current.set(index + 1, node); }} />)}
   </div>;
 }
 
-function PdfPage({ pdf, pageNumber, zoom, objects, onCreateTextObject, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; zoom: number; objects: EditorObject[]; onCreateTextObject: (object: TextObject) => void; pageRef: (node: HTMLElement | null) => void }) {
+function PdfPage({ pdf, pageNumber, sourcePage, zoom, objects, onCreateTextObject, pageRef }: { pdf: PDFDocumentProxy; pageNumber: number; sourcePage: number; zoom: number; objects: EditorObject[]; onCreateTextObject: (object: TextObject) => void; pageRef: (node: HTMLElement | null) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(pageNumber <= 2);
@@ -62,7 +64,7 @@ function PdfPage({ pdf, pageNumber, zoom, objects, onCreateTextObject, pageRef }
     if (!visible || !canvasRef.current || !textRef.current) return;
     let cancelled = false;
     let renderTask: ReturnType<PDFPageProxy['render']> | undefined;
-    void pdf.getPage(pageNumber).then(async (page) => {
+    void pdf.getPage(sourcePage).then(async (page) => {
       if (cancelled || !canvasRef.current || !textRef.current) return;
       const viewport = page.getViewport({ scale: zoom / 100 });
       const canvas = canvasRef.current;
@@ -80,7 +82,7 @@ function PdfPage({ pdf, pageNumber, zoom, objects, onCreateTextObject, pageRef }
       }));
     }).catch((reason: unknown) => { if (!cancelled && !(reason instanceof Error && reason.name === 'RenderingCancelledException')) console.warn('Unable to render PDF page', reason); });
     return () => { cancelled = true; renderTask?.cancel(); };
-  }, [pdf, pageNumber, visible, zoom]);
+  }, [pdf, pageNumber, sourcePage, visible, zoom]);
 
   return <article ref={pageRef} className="pdf-page" aria-label={`Page ${pageNumber}`}><canvas ref={canvasRef} /><div ref={textRef} className="text-layer" />{objects.map((object) => <ObjectView key={object.id} object={object} zoom={zoom} />)}{editing && <textarea aria-label="Edit PDF text" className="inplace-editor" autoFocus defaultValue={editing.text} style={{ left: editing.x * zoom / 100, bottom: editing.y * zoom / 100, width: editing.cover!.width * zoom / 100, height: editing.cover!.height * zoom / 100, fontSize: editing.fontSize * zoom / 100 }} onBlur={(event) => { onCreateTextObject({ ...editing, text: event.target.value }); setEditing(undefined); }} onKeyDown={(event) => { if (event.key === 'Escape') setEditing(undefined); }} />}{!visible && <span className="page-placeholder">Page {pageNumber}</span>}<span className="page-number">{pageNumber}</span></article>;
 }

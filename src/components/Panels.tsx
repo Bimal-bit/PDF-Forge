@@ -8,7 +8,7 @@ import { useAppStore } from '../store/useAppStore';
 import { toPdfDocument } from '../lib/file';
 
 export function Panels() {
-  const { document, isDragging, setDragging, setDocument, setNotice, rightPanelOpen, toggleRightPanel, zoom, selectedPage, setSelectedPage, objects, addObject } = useAppStore();
+  const { document, isDragging, setDragging, setDocument, setNotice, rightPanelOpen, toggleRightPanel, zoom, selectedPage, setSelectedPage, objects, addObject, pageSettings, initializePages } = useAppStore();
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [outline, setOutline] = useState<OutlineItem[]>([]);
   const [query, setQuery] = useState('');
@@ -21,7 +21,7 @@ export function Panels() {
     <Navigator document={document} pdf={pdf} outline={outline} selectedPage={selectedPage} onSelectPage={setSelectedPage} />
     <section className={`canvas ${isDragging ? 'dragging' : ''}`} aria-label="Document canvas">
       <div className="ruler">0 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
-      {document ? <><SearchBox document={document} query={query} setQuery={setQuery} hits={hits} setHits={setHits} onSelectPage={setSelectedPage} /><PdfViewer document={document} zoom={zoom} selectedPage={selectedPage} objects={objects} onCreateTextObject={addObject} onDocumentLoaded={(loaded) => { setPdf(loaded); void loaded.getOutline().then((items) => setOutline(items ?? [])); }} /></> : <div className="drop-zone"><Upload size={28} /><h1>Open a PDF to begin</h1><p>Drop a PDF here, or use the Open PDF button above.</p><span>Files stay in your browser.</span></div>}
+      {document ? <><SearchBox document={document} query={query} setQuery={setQuery} hits={hits} setHits={setHits} onSelectPage={setSelectedPage} /><PdfViewer document={document} zoom={zoom} selectedPage={selectedPage} objects={objects} pageOrder={pageSettings.order} onCreateTextObject={addObject} onDocumentLoaded={(loaded) => { setPdf(loaded); initializePages(loaded.numPages); void loaded.getOutline().then((items) => setOutline(items ?? [])); }} /></> : <div className="drop-zone"><Upload size={28} /><h1>Open a PDF to begin</h1><p>Drop a PDF here, or use the Open PDF button above.</p><span>Files stay in your browser.</span></div>}
       {isDragging && <div className="drop-overlay">Drop PDF to open</div>}
     </section>
     {rightPanelOpen && <aside className="right-panel" aria-label="Properties"><button className="close-panel" onClick={toggleRightPanel}><PanelRightClose size={16} /> Hide panel</button><p className="panel-label">DOCUMENT</p><dl><dt>Status</dt><dd>{document ? 'Rendered locally' : 'No document'}</dd><dt>Pages</dt><dd>{pdf?.numPages ?? '—'}</dd><dt>Zoom</dt><dd>{zoom}%</dd><dt>Autosave</dt><dd>Every 5 seconds</dd></dl></aside>}
