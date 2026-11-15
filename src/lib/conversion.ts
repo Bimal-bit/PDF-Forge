@@ -2,6 +2,7 @@ import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { openPdf } from './pdf';
 import { unicodeFont } from './fonts';
 import { wrapText } from './textLayout';
+import { editedPageText } from './pageText';
 import type { EditorObject, OpenDocument, PageSettings } from '../types';
 
 export async function editedTextPages(document: OpenDocument, objects: EditorObject[], settings: PageSettings): Promise<string[]> {
@@ -12,15 +13,7 @@ export async function editedTextPages(document: OpenDocument, objects: EditorObj
     for (const source of order) {
       const content = await (await pdf.getPage(source)).getTextContent();
       const overlays = objects.filter((object) => object.page === source);
-      const segments = content.items.filter((item) => 'str' in item).filter((item) => !overlays.some((object) => object.type === 'text' && object.cover &&
-        item.transform[4] >= object.x - 3 && item.transform[4] <= object.x + object.cover.width && item.transform[5] >= object.y - 3 && item.transform[5] <= object.y + object.cover.height))
-        .map((item) => ({ text: item.str, y: item.transform[5], x: item.transform[4] }));
-      for (const object of overlays) {
-        if (object.type === 'text') segments.push({ text: object.text, x: object.x, y: object.y + (object.height ?? object.cover?.height ?? 0) });
-        if (object.type === 'form') segments.push({ text: object.kind === 'checkbox' ? object.checked ? '[x]' : '[ ]' : object.value, x: object.x, y: object.y });
-        if (object.type === 'table') segments.push({ text: object.cells.map((row) => row.join('\t')).join('\n'), x: object.x, y: object.y });
-      }
-      pages.push(segments.sort((left, right) => Math.abs(left.y - right.y) > 3 ? right.y - left.y : left.x - right.x).map((segment) => segment.text).join('\n'));
+      pages.push(editedPageText(content.items.filter((item) => 'str' in item), overlays));
     }
     return pages;
   } finally { await pdf.loadingTask.destroy(); }
@@ -44,7 +37,7 @@ export async function exportXlsx(tables: { page: number; rows: string[][] }[]): 
   const files: Record<string, Uint8Array> = {};
   files['[Content_Types].xml'] = xml(`<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${sheets.map((_, index) => `<Override PartName="/xl/worksheets/sheet${index + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`);
   files['_rels/.rels'] = xml('<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
-  files['xl/workbook.xml'] = xml(`<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((table, index) => `<sheet name="Page ${table.page}" sheetId="${index + 1}" r:id="rId${index + 1}"/>`).join('')}</sheets></workbook>`);
+  files['xl/workbook.xml'] = xml(`<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((table, index) => `<sheet name="Page ${table.page} Table ${index + 1}" sheetId="${index + 1}" r:id="rId${index + 1}"/>`).join('')}</sheets></workbook>`);
   files['xl/_rels/workbook.xml.rels'] = xml(`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, index) => `<Relationship Id="rId${index + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${index + 1}.xml"/>`).join('')}</Relationships>`);
   sheets.forEach((table, index) => {
     files[`xl/worksheets/sheet${index + 1}.xml`] = xml(`<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${table.rows.map((row, rowIndex) => `<row r="${rowIndex + 1}">${row.map((cell, column) => {

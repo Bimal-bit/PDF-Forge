@@ -14,7 +14,7 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 | 300-page navigation | Partial | Generated-document smoke test covers opening and last-page navigation. Lazy thumbnails share the viewer worker. Visited page canvases remain allocated. Complex scanned-document performance is unverified. |
 | Zoom and view modes | Partial | 10–500% zoom. Fit width/page and two-page mode are absent. Ruler ticks are decorative. |
 | Outline | Partial | Existing-bookmark navigation follows the page plan. No bookmark editor or page-label editor. |
-| Find and replace | Partial | Case-insensitive source-text search and first-result navigation. No replacement, regex, whole-word option, result cycling, or overlay-text search. |
+| Find and replace | Partial | Case-insensitive search of current source/replacement text, inserted text/links/tables, and detected form values, following the page plan. No replacement, regex, whole-word option, or result cycling. |
 | PDF export | Done within current scope | Current edits and catalog-preserving reorder/duplication export. Metadata, bookmarks, names, labels, and existing field registrations have round-trip coverage. Specialized PDF structures need broader validation. |
 | In-place editing | Partial | Geometry-based paragraph grouping and width-based reflow. Replacement overlays preserve the source layer. Embedded-font reuse, complex reading order, and cross-page reflow remain unfinished. |
 | Rich formatting and styles | Partial | Block font/size, bold/italic, underline/strike, color, alignment/justify, line/character spacing, indent, bullets/numbering, styles, and clear formatting. Mixed inline styles, format painter, and super/subscript remain unfinished. |
@@ -31,7 +31,7 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 | Metadata, attachments, OCG | Missing | No document metadata editor, embedded-file panel, or optional-content layer viewer. |
 | Annotations | Partial | Highlights, notes, stamps, and measurements include PDF appearance streams. Drawing gestures and the remaining annotation types are unfinished. |
 | Comments and exchange | Partial | Author/comment editing and PDFForge-specific XML in an XFDF envelope. General vendor interoperability is unfinished. No threads, replies, status/filters, summary export, JSON exchange, or flatten option. |
-| Comparison | Partial | Page-level multiset word changes. Reordered words can compare equal. No visual/side-by-side comparison or change navigation. |
+| Comparison | Partial | Current-page text comparison detects changed word order, added/removed words, and missing blank pages. Case and punctuation are ignored. No visual/side-by-side comparison or change navigation. |
 | Reading tools | Missing | Reading mode, text-to-speech, and focus ruler. |
 | Forms | Partial | Text, checkbox, radio, dropdown, list, date, and reset-button creation. Existing-field detection/filling, properties, JSON export, and JSON/CSV import. Tab order, flat-field detection, XFA, and FDF remain unfinished. |
 | Mail merge | Partial | CSV token substitution with quoted multiline cells, escaped quotes, and individual PDF downloads. Cells retain edge trimming. Large batches export concurrently and can hit memory/download limits. No JSON or ZIP bundling. |
@@ -44,7 +44,7 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 | OCR | Done within bundled-language scope | English, Spanish, and combined offline recognition, searchable text layer, worker progress, and cancellation. Extra languages and correction/deskew workflows remain unfinished. |
 | Conversion | Partial | Current-edit TXT, HTML, Markdown, DOCX, PNG/JPEG/WebP page images, table CSV/XLSX, and PNG ZIP. Exact DOCX layout reconstruction and reliable complex-table detection remain unfinished. |
 | Other exports/imports | Partial | Image, TXT, Markdown, HTML, and DOCX import with basic readable layout. Print PDF flattens forms and sets print scaling. Complex imported document layouts remain unfinished. |
-| Compression | Partial | Object-stream repacking and size feedback. No quality levels, image downsampling, unused-object cleanup, or linearization. |
+| Compression | Partial | Current-edit object-stream repacking and size feedback against that edited export. No quality levels, image downsampling, unused-object cleanup, or linearization. |
 | AI | Partial | Deterministic local extractive insight. API keys, generative Q&A, rewriting, translation, grammar fixes, structured extraction, and image descriptions are absent. |
 | PWA/offline | Partial | Production service worker, build-generated asset precaching, and manifest. A Chromium test covers offline reload and edit recovery with no external requests. Installation icons, explicit install UI, and cross-version update behavior remain unfinished. |
 | URL intake | Missing | No open-from-URL workflow. |
@@ -55,6 +55,7 @@ Reviewed on 15 November 2026 against the supplied PDFForge task. Milestone commi
 
 ## Verification boundaries
 
+- M15 audit validation passed with lint, strict TypeScript, 48 unit tests, 48 Chromium browser tests, and the production build. Regressions cover optimization, current-text search/comparison, form clearing, table exports, Unicode marks, recovery scrolling, concurrent OCR edits, and signing after page deletion.
 - Validation results are reported with the delivered changes. The production bundle still triggers Vite's size warning. Checks cover supported inputs and implemented scope.
 - Regression tests exercise recovery after refresh, reordered in-place edits, duplicate-page forms and signatures, command filtering, redaction stream removal, large-document navigation, and tablet rendering.
 - Many original browser tests check control availability. Complete outcome coverage for every requested feature remains unfinished.

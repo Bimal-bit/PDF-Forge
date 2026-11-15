@@ -12,6 +12,8 @@ PDFForge processes documents in your browser. The application bundles its PDF re
 
 The current browser profile owns the recovery data. Clearing its site storage removes that recovery data. Unsaved edits inside the five-second interval can be lost on a crash.
 
+Find in document searches the current page sequence, including supported replacement text, inserted text, links, tables, and detected field values. Covered source text is excluded from this search. Matching ignores case; replace, regex, and result cycling remain unfinished.
+
 ## Edit text and formatting
 
 Double-click document text to edit a geometry-grouped paragraph. Click outside the editor to commit it. The object sidebar also edits text directly and supports multiline values.
@@ -40,6 +42,8 @@ Tools, then Detect form fields loads supported existing AcroForms into the sideb
 
 The sidebar sets values, choice options, required/read-only flags, multiline text, maximum character count, and new-field geometry. Date fields store an ISO date. Reset buttons reset fields in PDF readers that support standard ResetForm actions.
 
+Select Choose to clear a radio, dropdown, or list selection. Clear Maximum characters to remove an existing text-field limit.
+
 Tools exports form values as JSON. Import form data accepts a JSON object or the first data row of a CSV. Keys use the existing PDF field name or the new field label. Duplicate labels receive an ID suffix in exported data so both values survive.
 
 Mail merge CSV replaces `{{column}}` tokens in text, links, and form values and downloads one PDF per row. Quoted multiline cells and escaped quotes are supported. Cell edges are trimmed.
@@ -53,6 +57,8 @@ Verification reports signed-byte integrity, coverage, and certificate validity d
 ## Recognize scanned pages
 
 Tools, then Offline OCR supports English, Spanish, and a combined mode. Recognize document adds a searchable text layer with local worker progress. Cancel OCR stops the operation and discards partial results.
+
+If you edit the document while recognition runs, PDFForge preserves those edits and discards the stale OCR result. Run recognition again to include the updated content.
 
 Recognition depends on scan quality. Inspect the recognized text before relying on it. Already searchable pages can receive duplicate text when OCR is applied again. The first offline installation caches the bundled engines and models and therefore downloads more application assets than the basic editor.
 
@@ -69,6 +75,8 @@ Secure output is flattened. It loses searchable text, interactive fields, tags, 
 Tools exports TXT, HTML, Markdown, DOCX, PNG, JPEG, WebP, table CSV/XLSX, and a ZIP of all page PNGs. Export print PDF flattens form appearances and sets viewer print scaling to None. Text/document and image exports include the supported current edits and page plan.
 
 Import document accepts PNG, JPEG, WebP, TXT, Markdown, HTML, and DOCX. Document imports preserve readable text with basic layout. Original complex layouts, embedded images in DOCX/HTML, and mixed typography need further conversion work. Table detection is heuristic and can misclassify prose.
+
+Optimize PDF repacks the current edited PDF and reports its size change against that edited export. Compare PDF checks current page text against another local PDF, including word order and page count. It ignores case and punctuation and does not compare visual layout.
 
 ## Samples and validation
 

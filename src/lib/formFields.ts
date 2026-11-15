@@ -14,13 +14,13 @@ export function writeFormField(form: PDFForm, page: PDFPage, object: FormObject,
   } else if (object.kind === 'dropdown') {
     const dropdown = existing instanceof PDFDropdown ? existing : form.createDropdown(name);
     if (!existing) dropdown.addOptions(object.options ?? ['Option 1', 'Option 2']);
-    if (object.value && dropdown.getOptions().includes(object.value)) dropdown.select(object.value);
+    if (object.value && dropdown.getOptions().includes(object.value)) dropdown.select(object.value); else dropdown.clear();
     if (!existing) dropdown.addToPage(page, options);
     field = dropdown;
   } else if (object.kind === 'list') {
     const list = existing instanceof PDFOptionList ? existing : form.createOptionList(name);
     if (!existing) list.addOptions(object.options ?? ['Option 1', 'Option 2']);
-    if (object.value && list.getOptions().includes(object.value)) list.select(object.value);
+    if (object.value && list.getOptions().includes(object.value)) list.select(object.value); else list.clear();
     if (!existing) list.addToPage(page, options);
     field = list;
   } else if (object.kind === 'radio') {
@@ -35,7 +35,7 @@ export function writeFormField(form: PDFForm, page: PDFPage, object: FormObject,
         page.drawText(value, { x: x + 23, y: object.y + 5, size, font });
       });
     }
-    if (object.value && group.getOptions().includes(object.value)) group.select(object.value);
+    if (object.value && group.getOptions().includes(object.value)) group.select(object.value); else group.clear();
     field = group;
   } else if (object.kind === 'button') {
     const button = existing instanceof PDFButton ? existing : form.createButton(name);
@@ -45,6 +45,9 @@ export function writeFormField(form: PDFForm, page: PDFPage, object: FormObject,
   } else {
     const text = existing instanceof PDFTextField ? existing : form.createTextField(name);
     if (object.multiline) text.enableMultiline(); else text.disableMultiline();
+    // Clear the previous limit before applying a new one or a longer value.
+    text.removeMaxLength();
+    text.setText('');
     if (object.maxLength && object.maxLength > 0) text.setMaxLength(object.maxLength);
     text.setText(object.value);
     if (!existing) text.addToPage(page, options);
@@ -73,7 +76,7 @@ export async function detectFormFields(document: OpenDocument): Promise<FormObje
     const pageIndex = pages.findIndex((page) => page.ref === widget.P() || page.node.Annots()?.asArray().some((reference) => pdf.context.lookup(reference) === widget.dict));
     if (pageIndex < 0) continue;
     const rectangle = widget.getRectangle();
-    objects.push({ id: crypto.randomUUID(), type: 'form', kind, page: pageIndex + 1, ...rectangle, label: field.getName(), existingName: field.getName(), value, checked, options, required: field.isRequired(), readOnly: field.isReadOnly(), multiline: field instanceof PDFTextField && field.isMultiline() });
+    objects.push({ id: crypto.randomUUID(), type: 'form', kind, page: pageIndex + 1, ...rectangle, label: field.getName(), existingName: field.getName(), value, checked, options, required: field.isRequired(), readOnly: field.isReadOnly(), multiline: field instanceof PDFTextField && field.isMultiline(), maxLength: field instanceof PDFTextField ? field.getMaxLength() : undefined });
   }
   return objects;
 }

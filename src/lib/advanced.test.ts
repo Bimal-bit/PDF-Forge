@@ -15,6 +15,10 @@ describe('M9 local document tools', () => {
   it('reports local text additions and removals', () => {
     expect(comparePageText('alpha beta', 'alpha gamma', 1)).toMatchObject({ equal: false, added: ['gamma'], removed: ['beta'] });
   });
+  it('detects changed word order even when the word counts match', () => {
+    expect(comparePageText('dog bites man', 'man bites dog', 1).equal).toBe(false);
+    expect(comparePageText('ALPHA beta', 'alpha\n beta', 1).equal).toBe(true);
+  });
   it('escapes extracted text in standalone HTML', () => {
     expect(textToHtml(['<script>'], 'A & B')).toContain('&lt;script&gt;');
   });

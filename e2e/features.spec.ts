@@ -143,7 +143,10 @@ test('detects existing fields, imports local values, and preserves them after re
 
 test('signs a PDF with a local P12 certificate and verifies its CMS signature', async ({ page }) => {
   test.setTimeout(60000);
-  await open(page);
+  await open(page, 2);
+  await page.getByLabel('Go to page 2', { exact: true }).click();
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
+  await page.getByRole('button', { name: 'Delete page', exact: true }).click();
   const keys = forge.pki.rsa.generateKeyPair(2048); const certificate = forge.pki.createCertificate();
   certificate.publicKey = keys.publicKey; certificate.serialNumber = '01';
   certificate.validity.notBefore = new Date('2025-01-01'); certificate.validity.notAfter = new Date('2035-01-01');
@@ -155,7 +158,9 @@ test('signs a PDF with a local P12 certificate and verifies its CMS signature', 
   await page.getByLabel('Signing certificate').setInputFiles({ name: 'test.p12', mimeType: 'application/x-pkcs12', buffer: Buffer.from(forge.asn1.toDer(p12).getBytes(), 'binary') });
   await page.getByLabel('Certificate password', { exact: true }).fill('test-password');
   const pending = page.waitForEvent('download'); await page.getByRole('button', { name: 'Sign and download', exact: true }).click();
-  const reports = await verifyPdfSignatures(await bytes(await pending));
+  const signed = await bytes(await pending);
+  expect((await PDFDocument.load(signed)).getPageCount()).toBe(1);
+  const reports = await verifyPdfSignatures(signed);
   expect(reports[0]).toMatchObject({ valid: true, coversWholeFile: true });
   await expect(page.getByText('Signature integrity valid', { exact: true })).toBeVisible();
 });

@@ -26,7 +26,7 @@ export function ConversionTools() {
       } else {
         const bytes = await exportPdf(document, objects, pageSettings);
         const current = { ...document, data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer };
-        if (format === 'xlsx') download(await exportXlsx(await extractTables(current)), `${name}.xlsx`);
+        if (format === 'xlsx') download(await exportXlsx(await extractTables(document, objects, pageSettings)), `${name}.xlsx`);
         else if (format === 'print') {
           const { PDFDocument, PrintScaling } = await import('pdf-lib');
           const print = await PDFDocument.load(bytes);

@@ -1,7 +1,9 @@
 import { PDFDocument } from 'pdf-lib';
 import type { TextItem } from 'pdfjs-dist/types/src/display/api';
-import type { OpenDocument } from '../types';
+import type { EditorObject, OpenDocument, PageSettings } from '../types';
 import { openPdf } from './pdf';
+import { visibleSourceItems } from './pageText';
+import { editedTextPages } from './conversion';
 
 export interface ExtractedTable { page: number; rows: string[][] }
 export interface Comparison { page: number; equal: boolean; added: string[]; removed: string[] }
@@ -39,14 +41,17 @@ export async function extractDocumentText(document: OpenDocument): Promise<strin
   } finally { await pdf.loadingTask.destroy(); }
 }
 
-export async function extractTables(document: OpenDocument): Promise<ExtractedTable[]> {
+export async function extractTables(document: OpenDocument, objects: EditorObject[] = [], settings?: PageSettings): Promise<ExtractedTable[]> {
   const pdf = await openPdf(document);
   try {
     const tables: ExtractedTable[] = [];
-    for (let number = 1; number <= pdf.numPages; number += 1) {
-      const content = await (await pdf.getPage(number)).getTextContent();
-      const table = tableFromTextItems(number, content.items.filter((item): item is TextItem => 'str' in item));
+    const order = settings?.order.length ? settings.order : Array.from({ length: pdf.numPages }, (_, index) => index + 1);
+    for (const [index, source] of order.entries()) {
+      const content = await (await pdf.getPage(source)).getTextContent();
+      const overlays = objects.filter((object) => object.page === source);
+      const table = tableFromTextItems(index + 1, visibleSourceItems(content.items.filter((item): item is TextItem => 'str' in item), overlays));
       if (table) tables.push(table);
+      for (const object of overlays) if (object.type === 'table') tables.push({ page: index + 1, rows: object.cells });
     }
     return tables;
   } finally { await pdf.loadingTask.destroy(); }
@@ -70,12 +75,19 @@ export function comparePageText(left: string, right: string, page: number): Comp
   leftWords.forEach((word) => leftPool.set(word, (leftPool.get(word) ?? 0) + 1));
   const removed = leftWords.filter((word) => { const count = rightPool.get(word) ?? 0; if (!count) return true; rightPool.set(word, count - 1); return false; });
   const added = rightWords.filter((word) => { const count = leftPool.get(word) ?? 0; if (!count) return true; leftPool.set(word, count - 1); return false; });
-  return { page, equal: !added.length && !removed.length, added, removed };
+  return { page, equal: leftWords.length === rightWords.length && leftWords.every((word, index) => word === rightWords[index]), added, removed };
 }
 
-export async function compareDocuments(left: OpenDocument, right: OpenDocument): Promise<Comparison[]> {
-  const [leftPages, rightPages] = await Promise.all([extractDocumentText(left), extractDocumentText(right)]);
-  return Array.from({ length: Math.max(leftPages.length, rightPages.length) }, (_, index) => comparePageText(leftPages[index] ?? '', rightPages[index] ?? '', index + 1));
+export async function compareDocuments(left: OpenDocument, right: OpenDocument, objects: EditorObject[] = [], settings?: PageSettings): Promise<Comparison[]> {
+  const unedited: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
+  const [leftPages, rightPages] = await Promise.all([
+    editedTextPages(left, objects, settings ?? unedited),
+    editedTextPages(right, [], unedited),
+  ]);
+  return Array.from({ length: Math.max(leftPages.length, rightPages.length) }, (_, index) => {
+    const comparison = comparePageText(leftPages[index] ?? '', rightPages[index] ?? '', index + 1);
+    return { ...comparison, equal: comparison.equal && index < leftPages.length && index < rightPages.length };
+  });
 }
 
 export async function optimizePdf(document: OpenDocument): Promise<Uint8Array> {

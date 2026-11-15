@@ -36,7 +36,7 @@ Opening a PDF reads it in the browser only. Autosave uses that browser’s Index
 
 In-place edits paint overlays over source text. Original text remains extractable. Redaction and sanitization use the approved rendered-image method and include all pending edits and page settings. Secure copies lose searchable text, interactive fields, tags, bookmarks, and signatures. Password protection creates `.pdfg` packages. Tools provides P12/PFX signing and local integrity verification. Issuer trust/revocation checks and standard encrypted PDF output remain unfinished.
 
-Text/document and page-image exports include the supported current edits and page plan. Imports of DOCX, HTML, Markdown, text, and images produce basic readable PDFs. Some legacy analysis/optimization tools remain source-based. Review [KNOWN_LIMITS.md](KNOWN_LIMITS.md) for the remaining conversion and security limitations.
+Text/document and page-image exports include the supported current edits and page plan. Optimization also preserves the current edited export. Search, comparison, table extraction, and accessibility follow the page plan and supported object edits. Imports of DOCX, HTML, Markdown, text, and images produce basic readable PDFs. Review [KNOWN_LIMITS.md](KNOWN_LIMITS.md) for the remaining analysis, conversion, and security limitations.
 
 ## New workflows
 

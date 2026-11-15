@@ -14,12 +14,18 @@ function hexColor(value: string) {
 
 const emptySettings: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
 
+export async function exportDocument(document: OpenDocument, objects: EditorObject[], settings: PageSettings): Promise<OpenDocument> {
+  const bytes = await exportPdf(document, objects, settings);
+  return { ...document, size: bytes.byteLength, data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer };
+}
+
 export async function exportPdf(document: OpenDocument, objects: EditorObject[], settings: PageSettings = emptySettings): Promise<Uint8Array> {
   const source = await PDFDocument.load(document.data.slice(0), { updateMetadata: false });
   const order = settings.order.length ? settings.order : Array.from({ length: source.getPageCount() }, (_, index) => index + 1);
   const pdf = source;
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fonts = new Map<string, PDFFont>([['Helvetica', font]]);
+  const markFont = await supportedFont(pdf, fonts, settings.header + settings.footer + settings.watermark, font);
   for (const object of objects) {
     if (object.type === 'form' && object.existingName && object.kind !== 'signature') {
       const form = pdf.getForm();
@@ -32,7 +38,7 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
     const page = pdf.getPage(outputIndex);
     const rotation = settings.rotations[sourcePage] ?? 0;
     if (rotation) page.setRotation(degrees((page.getRotation().angle + rotation) % 360));
-    drawPageMarks(page, font, outputIndex + 1, settings);
+    drawPageMarks(page, markFont, outputIndex + 1, settings);
     for (const object of objects.filter((entry) => entry.page === sourcePage)) {
     if (object.type === 'text') {
       const family = standardFontName(object);

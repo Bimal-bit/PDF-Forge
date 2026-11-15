@@ -18,7 +18,8 @@ export function OcrPanel({ onClose }: { onClose: () => void }) {
       const bytes = await exportPdf(document, objects, pageSettings);
       const current = { ...document, data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer };
       const result = await recognizePdf(current, language, setProgress, operation.signal);
-      if (useAppStore.getState().document?.id !== document.id) throw new Error('The open document changed during OCR.');
+      const latest = useAppStore.getState();
+      if (latest.document !== document || latest.objects !== objects || latest.pageSettings !== pageSettings) throw new Error('The document changed during OCR. No OCR results were applied; run recognition again to include your edits.');
       setDocument({ ...document, id: crypto.randomUUID(), data: result.buffer.slice(result.byteOffset, result.byteOffset + result.byteLength) as ArrayBuffer, size: result.byteLength });
       setNotice('OCR completed. Recognized text is searchable in this document.');
     } catch (error) { setNotice(error instanceof Error ? error.message : 'OCR failed.'); }

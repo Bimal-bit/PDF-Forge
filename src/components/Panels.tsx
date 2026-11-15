@@ -3,6 +3,7 @@ import type { DragEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { findMatches } from '../lib/pdf';
+import { editedPageText } from '../lib/pageText';
 import { FormProperties } from './FormProperties';
 import { PdfViewer } from './PdfViewer';
 import { useAppStore } from '../store/useAppStore';
@@ -92,7 +93,7 @@ function OutlineItemView({ item, pdf, onSelectPage }: { item: OutlineItem; pdf: 
 }
 
 function SearchBox({ pdf, query, setQuery, hits, setHits, onSelectPage }: { pdf?: PDFDocumentProxy; query: string; setQuery: (value: string) => void; hits: SearchHit[]; setHits: (hits: SearchHit[]) => void; onSelectPage: (page: number) => void }) {
-  const { pageSettings } = useAppStore();
+  const { pageSettings, objects } = useAppStore();
   useEffect(() => {
     let alive = true;
     setHits([]);
@@ -104,14 +105,15 @@ function SearchBox({ pdf, query, setQuery, hits, setHits, onSelectPage }: { pdf?
         for (const [index, source] of order.entries()) {
           if (!alive) return;
           const content = await (await pdf.getPage(source)).getTextContent();
-          const count = findMatches(content.items.map((item) => ('str' in item ? item.str : '')).join(' '), query).length;
+          const text = editedPageText(content.items.filter((item) => 'str' in item), objects.filter((object) => object.page === source));
+          const count = findMatches(text.replace(/\s+/g, ' '), query.replace(/\s+/g, ' ')).length;
           if (count) results.push({ page: index + 1, count });
         }
         if (alive) setHits(results);
       })().catch(() => { if (alive) setHits([]); });
     }, 200);
     return () => { alive = false; window.clearTimeout(timer); };
-  }, [pdf, query, pageSettings.order, setHits]);
+  }, [pdf, query, pageSettings.order, objects, setHits]);
   const total = hits.reduce((sum, hit) => sum + hit.count, 0);
   return <div className="search-box"><Search size={14} /><input aria-label="Find text in document" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find in document" />{query && <><span>{total} match{total === 1 ? '' : 'es'}</span><button aria-label="Clear search" onClick={() => setQuery('')}><X size={13} /></button></>}{hits.length > 0 && <button className="next-match" onClick={() => onSelectPage(hits[0].page)}>Go to page {hits[0].page}</button>}</div>;
 }

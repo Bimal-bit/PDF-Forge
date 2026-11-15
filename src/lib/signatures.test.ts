@@ -21,7 +21,8 @@ describe('local certificate signing', () => {
     expect(reports).toHaveLength(1);
     expect(reports[0]).toMatchObject({ valid: true, coversWholeFile: true, certificateCurrent: true });
     const tampered = bytes.slice();
-    const index = new TextDecoder().decode(tampered).indexOf('Testing');
+    // A one-byte encoding keeps character offsets aligned with PDF byte offsets.
+    const index = new TextDecoder('latin1').decode(tampered).indexOf('Testing');
     expect(index).toBeGreaterThan(0);
     tampered[index] = 'X'.charCodeAt(0);
     expect((await verifyPdfSignatures(tampered))[0].valid).toBe(false);

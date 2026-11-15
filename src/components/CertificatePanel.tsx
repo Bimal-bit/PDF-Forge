@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PDFDocument } from 'pdf-lib';
 import { useAppStore } from '../store/useAppStore';
 import { downloadPdf, exportPdf } from '../lib/export';
 import { signPdf, verifyPdfSignatures, type SignatureReport } from '../lib/signatures';
@@ -14,7 +15,9 @@ export function CertificatePanel({ onClose }: { onClose: () => void }) {
     if (!document || !certificate) return;
     setBusy(true);
     try {
+      const originalPageCount = (await PDFDocument.load(document.data.slice(0))).getPageCount();
       const unchanged = !objects.length && !pageSettings.header && !pageSettings.footer && !pageSettings.watermark && pageSettings.batesStart === null &&
+        (!pageSettings.order.length || pageSettings.order.length === originalPageCount) &&
         Object.values(pageSettings.rotations).every((rotation) => !rotation) && pageSettings.order.every((page, index) => page === index + 1);
       const current = unchanged ? new Uint8Array(document.data.slice(0)) : await exportPdf(document, objects, pageSettings);
       const bytes = await signPdf(current, new Uint8Array(await certificate.arrayBuffer()), password, reason);
