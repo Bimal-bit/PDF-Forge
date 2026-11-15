@@ -36,6 +36,13 @@
 
 M1 through M8 are complete. M9 through M11 remain planned exactly as specified in the task brief.
 
+## M10 — Accessibility, local assistance, and application delivery
+
+- **Accessibility checker:** The checker assesses extracted text and PDFForge's object layer, flags scan-only pages and unlabelled inserted images, and explicitly leaves visual reading-order review to users.
+- **Assistant:** The panel is local deterministic text analysis, visibly labelled as such. It does not make an AI claim that implies remote inference, does not upload documents, and produces a short extractive insight with recurring terms.
+- **PWA and performance:** A same-origin service worker caches the application shell and successful local asset responses. The existing lazy page viewer remains the document performance boundary; opened PDF bytes remain browser-local.
+- **Internationalization:** The navigation shell has English and Spanish labels with the document `lang` attribute updated on selection. Full content/document translation is outside the app's editing scope.
+
 ## M9 — Local conversion, table extraction, optimization, and comparison
 
 - **Conversions:** Browser-local pdf.js text extraction produces TXT and semantic, escaped HTML; current-page PNG exports are rendered into an in-memory canvas. No conversion service receives document content.

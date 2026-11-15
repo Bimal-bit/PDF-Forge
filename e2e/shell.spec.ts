@@ -97,3 +97,14 @@ test('exposes local M9 conversion, extraction, optimization, and comparison tool
   await expect(page.getByRole('button', { name: 'Optimize PDF' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Compare PDF' })).toBeVisible();
 });
+
+test('runs local accessibility and productivity tools', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Open PDF').setInputFiles({ name: 'm10.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
+  await page.getByRole('button', { name: 'Check accessibility' }).click();
+  await expect(page.getByLabel('Accessibility report')).toBeVisible();
+  await page.keyboard.press('Control+k');
+  await expect(page.getByLabel('Command palette')).toBeVisible();
+  await expect(page.getByLabel('Language')).toBeVisible();
+});

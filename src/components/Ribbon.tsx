@@ -8,11 +8,19 @@ import { exportMailMerge, parseCsv } from '../lib/forms';
 import { annotationsFromXfdf, annotationsToXfdf } from '../lib/xfdf';
 import { decryptPdfPackage, encryptPdfPackage, redactPdf, sanitizePdf, verifyRedaction } from '../lib/security';
 import { compareDocuments, extractDocumentText, extractTables, optimizePdf, renderPagePng, tablesToCsv, textToHtml } from '../lib/advanced';
+import { checkAccessibility, localDocumentInsight, type AccessibilityReport } from '../lib/accessibility';
+import { ProductivityPanels } from './ProductivityPanels';
 
 const tabs: RibbonTab[] = ['File', 'Home', 'Insert', 'Layout', 'Review', 'View', 'Tools'];
+const tabLabels: Record<'en' | 'es', Record<RibbonTab, string>> = { en: { File: 'File', Home: 'Home', Insert: 'Insert', Layout: 'Layout', Review: 'Review', View: 'View', Tools: 'Tools' }, es: { File: 'Archivo', Home: 'Inicio', Insert: 'Insertar', Layout: 'Diseño', Review: 'Revisar', View: 'Ver', Tools: 'Herramientas' } };
 
 export function Ribbon() {
   const { activeTab, setTab, setDocument, setNotice, undo, redo, history, future, theme, setTheme, document, objects, pageSettings } = useAppStore();
+  const [report, setReport] = useState<AccessibilityReport>();
+  const [assistantText, setAssistantText] = useState<string>();
+  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const runAccessibility = () => { if (!document) return setNotice('Open a PDF before running an accessibility check.'); void checkAccessibility(document, objects).then((result) => { setAssistantText(undefined); setReport(result); }).catch(() => setNotice('Could not inspect this PDF for accessibility.')); };
+  const runAssistant = () => { if (!document) return setNotice('Open a PDF before using the local AI panel.'); void extractDocumentText(document).then((pages) => { setReport(undefined); setAssistantText(localDocumentInsight(pages)); }).catch(() => setNotice('Could not analyze this PDF locally.')); };
   const openFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -27,23 +35,26 @@ export function Ribbon() {
         <button aria-label="Redo" title="Redo (Ctrl+Y)" onClick={redo} disabled={!future.length}><Redo2 size={16} /></button>
         <label className="open-button"><FilePlus2 size={16} /> Open PDF<input aria-label="Open PDF" type="file" accept="application/pdf,.pdf" onChange={openFile} /></label>
         <button aria-label="Export PDF" title="Export PDF" disabled={!document} onClick={() => { if (document) void exportPdf(document, objects, pageSettings).then((bytes) => { downloadPdf(bytes, document.name); setNotice('Edited PDF downloaded.'); }).catch(() => setNotice('PDF export failed.')); }}><Download size={16} /></button>
-        <button aria-label="Toggle theme" title="Toggle theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}</button>
+        <label className="language-picker">Language<select aria-label="Language" value={language} onChange={(event) => { const next = event.target.value as 'en' | 'es'; setLanguage(next); globalThis.document.documentElement.lang = next; }}><option value="en">English</option><option value="es">Español</option></select></label><button aria-label="Toggle theme" title="Toggle theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}</button>
       </div>
     </div>
-    <nav className="tabs" aria-label="Ribbon tabs">{tabs.map((tab) => <button key={tab} className={activeTab === tab ? 'active' : ''} onClick={() => setTab(tab)}>{tab}</button>)}</nav>
-    <RibbonTools tab={activeTab} />
+    <nav className="tabs" aria-label="Ribbon tabs">{tabs.map((tab) => <button key={tab} className={activeTab === tab ? 'active' : ''} onClick={() => setTab(tab)}>{tabLabels[language][tab]}</button>)}</nav>
+    <RibbonTools tab={activeTab} onAccessibility={runAccessibility} onAssistant={runAssistant} />
+    <ProductivityPanels report={report} assistantText={assistantText} onClose={() => { setReport(undefined); setAssistantText(undefined); }} onAccessibility={runAccessibility} onAssistant={runAssistant} onAddText={() => useAppStore.getState().addTextObject()} onExportText={() => setTab('Tools')} />
   </header>;
 }
 
-function RibbonTools({ tab }: { tab: RibbonTab }) {
+function RibbonTools({ tab, onAccessibility, onAssistant }: { tab: RibbonTab; onAccessibility: () => void; onAssistant: () => void }) {
   const { setZoom, zoom, toggleRightPanel, addTextObject, addObject, document, setDocument, selectedPage, objects, importAnnotations, setNotice, movePage, rotatePage, deletePage, duplicatePage, pageSettings, updatePageSettings } = useAppStore();
   const [redactionText, setRedactionText] = useState('');
   const [password, setPassword] = useState('');
   const sourcePage = pageSettings.order[selectedPage - 1] ?? selectedPage;
   const tools: Record<RibbonTab, string[]> = {
-    File: [], Home: [], Insert: ['Add text overlay', 'Add shape', 'Add table', 'Add link', 'Add text field', 'Add checkbox', 'Add signature field'], Layout: [], Review: ['Highlight', 'Add comment', 'Approved stamp', 'Measure'], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: ['Export text', 'Export HTML', 'Export page PNG', 'Extract tables CSV', 'Optimize PDF', 'Compare PDF', 'Move page up', 'Move page down', 'Rotate page', 'Duplicate page', 'Delete page', 'Split current page'],
+    File: [], Home: [], Insert: ['Add text overlay', 'Add shape', 'Add table', 'Add link', 'Add text field', 'Add checkbox', 'Add signature field'], Layout: [], Review: ['Highlight', 'Add comment', 'Approved stamp', 'Measure'], View: ['Zoom out', 'Zoom in', 'Properties'], Tools: ['Check accessibility', 'Open AI panel', 'Export text', 'Export HTML', 'Export page PNG', 'Extract tables CSV', 'Optimize PDF', 'Compare PDF', 'Move page up', 'Move page down', 'Rotate page', 'Duplicate page', 'Delete page', 'Split current page'],
   };
   const activate = (tool: string) => {
+    if (tool === 'Check accessibility') return onAccessibility();
+    if (tool === 'Open AI panel') return onAssistant();
     if (tool === 'Export text') return void exportText();
     if (tool === 'Export HTML') return void exportHtml();
     if (tool === 'Export page PNG') return void exportPng();

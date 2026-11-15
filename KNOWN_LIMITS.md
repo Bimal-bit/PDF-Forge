@@ -5,6 +5,8 @@ M4 supports single-run overlay editing and basic inserted text, images, shapes, 
 This M2 build intentionally contains the foundation plus local PDF rendering, thumbnail navigation, outline navigation, text selection, and text search. The following requested capabilities are not yet in the UI because their scheduled milestones have not been implemented:
 
 - M9 supports browser-local extraction and conversion to text, HTML, current-page PNG, and reliably detected table CSV, plus repacking/optimization and extracted-text comparison. It does not expose scan OCR: an offline recognition engine and language data must be bundled before image-only PDFs can be truthfully recognised.
+
+- M10's accessibility checker evaluates available text and PDFForge-created objects, not arbitrary PDF tag trees, visual reading order, or contrast in embedded page graphics. The on-device AI panel is deterministic text analysis rather than generative AI. Spanish currently localizes the navigation shell; document content and every detailed tool label remain in their source language.
 - Full end-user documentation, fixture suite, and complete feature checklist (M11).
 
 - Thumbnail generation currently favors a simple one-canvas-per-page implementation; extremely large documents may take longer to populate the thumbnail rail even though the main viewer renders lazily.
