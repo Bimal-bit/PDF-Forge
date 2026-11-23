@@ -1,0 +1,320 @@
+.app:has(.insert-toolbar) {
+  grid-template-rows: 218px minmax(0, 1fr) 30px;
+}
+.app .tool-strip:has(.insert-toolbar) {
+  height: 128px;
+  padding: 0;
+  display: block;
+  overflow: visible;
+}
+.insert-toolbar {
+  display: flex;
+  flex-direction: column;
+  height: 128px;
+  width: 100%;
+  max-width: 100vw;
+  min-width: 0;
+  color: var(--ink);
+}
+.insert-command-scroll {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  height: 94px;
+  min-height: 94px;
+  overflow-x: auto;
+  padding: 5px 12px;
+  scrollbar-width: thin;
+}
+.insert-command-group {
+  display: grid;
+  flex: none;
+  grid-template-rows: 28px 28px 15px;
+  align-content: center;
+  gap: 4px 6px;
+  padding: 0 12px;
+  border-right: 1px solid var(--line);
+}
+.insert-group-label {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  align-self: end;
+  white-space: nowrap;
+}
+.app .insert-toolbar button,
+.app .insert-file-button,
+.insert-shape-picker {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--control-border);
+  border-radius: 5px;
+  background: var(--control-bg);
+  color: var(--ink);
+  font:
+    11px Inter,
+    sans-serif;
+  white-space: nowrap;
+}
+.insert-toolbar svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--accent-ink);
+}
+.insert-content-group {
+  grid-template-columns: 110px 110px;
+}
+.insert-content-group > :first-child {
+  grid-row: 1 / 3;
+  flex-direction: column;
+  justify-content: center;
+}
+.insert-content-group > :first-child svg {
+  height: 24px;
+  width: 24px;
+}
+.insert-content-group > :nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+.insert-content-group > :nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+.insert-structure-group {
+  grid-template-columns: 106px;
+}
+.insert-visual-group {
+  grid-template-columns: 145px 144px;
+}
+.insert-visual-group > :nth-child(3) {
+  grid-column: 2;
+  grid-row: 1;
+}
+.insert-visual-group > :nth-child(4) {
+  grid-column: 2;
+  grid-row: 2;
+}
+.insert-shape-picker {
+  padding: 0 5px;
+}
+.insert-toolbar select {
+  min-width: 0;
+  border: 1px solid var(--control-border);
+  border-radius: 4px;
+  background: var(--control-bg);
+  color: var(--ink);
+  font:
+    11px Inter,
+    sans-serif;
+  padding: 3px 5px;
+}
+.insert-shape-picker select {
+  border: 0;
+  width: 114px;
+}
+.insert-fields-group {
+  grid-template-columns: repeat(4, 112px);
+  border: 0;
+}
+.insert-context-bar {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--sunken);
+  font-size: 11px;
+}
+.insert-context-bar label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  white-space: nowrap;
+}
+.insert-context-bar select {
+  height: 24px;
+}
+.insert-object-picker select {
+  max-width: 180px;
+}
+.app .insert-context-bar button {
+  min-height: 24px;
+  padding: 2px 8px;
+}
+.insert-page-badge {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-radius: 4px;
+  padding: 4px 7px;
+  white-space: nowrap;
+}
+.insert-context-hint {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.insert-file-button.disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.insert-file-button:focus-within,
+.insert-toolbar :is(button, select):focus-visible,
+.insert-command-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.insert-file-button input {
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.insert-dialog-body {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+.insert-dimensions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.insert-cell-grid {
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: auto;
+  background: var(--line);
+  max-height: 260px;
+}
+.advanced-editor .insert-cell-grid label {
+  margin: 0;
+  padding: 8px;
+  background: var(--surface);
+}
+.insert-cell-grid label > span {
+  font-size: 10px;
+  color: var(--muted);
+}
+.advanced-editor .insert-cell-grid textarea {
+  min-height: 54px;
+  resize: vertical;
+}
+.advanced-editor .insert-cell-grid .insert-header-cell {
+  background: var(--accent-soft);
+}
+.advanced-editor .insert-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.advanced-editor .insert-check input {
+  width: 15px;
+  min-height: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+}
+.insert-placement {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.insert-placement legend {
+  font-size: 11px;
+  color: var(--muted);
+}
+.insert-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.insert-error,
+.insert-table-error {
+  color: var(--warning-ink);
+  background: var(--warning-bg);
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.insert-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--muted);
+}
+.advanced-editor .insert-dialog-actions button {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+@media (max-width: 1000px) {
+  .insert-context-hint {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  .insert-page-badge {
+    display: none;
+  }
+  .insert-context-bar {
+    gap: 6px;
+    padding: 2px 8px;
+  }
+  .insert-object-picker select {
+    max-width: 120px;
+  }
+  .insert-object-picker {
+    font-size: 0;
+  }
+  .insert-dimensions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .insert-toolbar {
+    height: 150px;
+  }
+  .app:has(.insert-toolbar) {
+    grid-template-rows: 240px minmax(0, 1fr) 30px;
+  }
+  .app .tool-strip:has(.insert-toolbar) {
+    height: 150px;
+  }
+  .insert-context-bar {
+    flex-wrap: wrap;
+    align-content: center;
+  }
+}
+
+.table-csv-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.table-csv-tools > p { flex-basis: 100%; margin: 0; }
+.advanced-editor .table-csv-import { display: flex; align-items: center; padding: 6px 12px; margin: 0; border: 1px solid var(--control-border); border-radius: 8px; background: var(--control-bg); cursor: pointer; }
+.table-csv-import input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.table-csv-import:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.insert-object-size { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.insert-object-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.advanced-editor .insert-remove-object { color: var(--warning-ink); }

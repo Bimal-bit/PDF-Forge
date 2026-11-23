@@ -1,0 +1,18 @@
+{
+  "family": "Fira Sans",
+  "id": "fira-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/fira-sans/-/fira-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "3e38d8c01fe97529fbf0a086bf958d724b723ca7fc8be77b4ba5745f6259b6ca",
+    "700-normal": "c753d7153cac2cfeb877264d18f11197ca672d3e04ba1472154a54777a4e354d",
+    "400-italic": "455e296f048c1d5f813bc278bf06e48d5963e68cef81100c28da5bfc29bd0fad",
+    "700-italic": "f1602cdc43705c82f64cbaa7ea448a5533f2292f60355c71c84ffb0c1d720b01"
+  },
+  "ttfSha256": {
+    "400-normal": "8a550e2dd1c05bb343c75aaebdcd4cdfbc61c2e57f7f936491379b1b61ff75b0",
+    "700-normal": "8f08201d2cad044654cfd230aa4a240f23aa358673324896ab315b0b74da3162",
+    "400-italic": "63f9829de5ea6ffc3af96d1ab0197d5e20bba624fa8d545f39e895162cf000a1",
+    "700-italic": "cc33281dcef41196a2d514425cf8da723f3a4125487ca13b1d900e49154832b2"
+  }
+}

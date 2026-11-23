@@ -1,24 +1,39 @@
-import { ArrowRight, FileText, LockKeyhole } from 'lucide-react';
-import { useRef, type ChangeEvent, type DragEvent } from 'react';
+import { ArrowRight, FileText, LockKeyhole, Menu } from 'lucide-react';
+import { useEffect, useRef, useState, type ChangeEvent, type DragEvent } from 'react';
 import guideUrl from '../../USER_GUIDE.md?url';
-import { toPdfDocument } from '../lib/file';
+import { documentAccept } from '../lib/openDocument';
+import { useLocalDocumentOpen } from './useLocalDocumentOpen';
 import { useAppStore } from '../store/useAppStore';
 import { LandingFeatures, LandingSteps } from './LandingFeatures';
 import { LandingPreview } from './LandingPreview';
 import { ThemeToggle } from './ThemeToggle';
+import { LandingTools } from './LandingTools';
 import '../landing.css';
 import '../landing-theme.css';
 
 export function Welcome() {
-  const { setDocument, setNotice, isDragging, setDragging } = useAppStore();
+  const { isDragging, setDragging } = useAppStore();
+  const { openFile, createBlank, busy } = useLocalDocumentOpen();
+  const [menu, setMenu] = useState(false);
   const picker = useRef<HTMLInputElement>(null);
-  const openFile = async (file: File) => {
-    try {
-      setDocument(await toPdfDocument(file));
-    } catch (error) {
-      setNotice(error instanceof Error ? error.message : 'Unable to open that file.');
-    }
-  };
+  const imagePicker = useRef<HTMLInputElement>(null);
+  const navigation = useRef<HTMLElement>(null);
+  const menuToggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menu) return;
+    const outside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !navigation.current?.contains(event.target)) setMenu(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setMenu(false); menuToggle.current?.focus(); }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('keydown', escape);
+    };
+  }, [menu]);
   const choose = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) void openFile(file);
@@ -38,7 +53,7 @@ export function Welcome() {
   const dragLeave = (event: DragEvent<HTMLElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDragging(false);
   };
-  const openPicker = () => picker.current?.click();
+  const openPicker = () => { if (!busy) picker.current?.click(); };
 
   return (
     <div
@@ -55,18 +70,22 @@ export function Welcome() {
         className="landing-file-input"
         aria-label="Open PDF"
         type="file"
-        accept="application/pdf,.pdf"
+        accept={documentAccept}
+        disabled={busy}
         onChange={choose}
         tabIndex={-1}
       />
-      <header className="landing-nav landing-container">
+      <input ref={imagePicker} className="landing-file-input" aria-label="Open image for OCR" type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" onChange={choose} disabled={busy} tabIndex={-1} />
+      <a className="skip-link" href="#toolbox">Skip to tools</a>
+      <header ref={navigation} className={`landing-nav landing-container${menu ? ' menu-open' : ''}`}>
         <a className="landing-brand" href="#welcome">
           <span>
             <FileText size={19} aria-hidden="true" />
           </span>
           PDFForge
         </a>
-        <nav aria-label="Main navigation">
+        <nav id="landing-menu" aria-label="Main navigation" onClick={() => setMenu(false)}>
+          <a href="#toolbox">Tools</a>
           <a href="#features">Features</a>
           <a href="#how-it-works">How it works</a>
           <a href="#privacy">Privacy</a>
@@ -76,7 +95,8 @@ export function Welcome() {
         </nav>
         <div className="landing-nav-actions">
           <ThemeToggle />
-          <button className="landing-editor-button" onClick={openPicker}>
+          <button ref={menuToggle} className="landing-menu-toggle" aria-label="Toggle navigation" aria-expanded={menu} aria-controls="landing-menu" onClick={() => setMenu(!menu)}><Menu size={20} /></button>
+          <button className="landing-editor-button" onClick={openPicker} disabled={busy}>
             Open editor
           </button>
         </div>
@@ -97,18 +117,18 @@ export function Welcome() {
               </em>
             </h1>
             <p className="landing-description landing-rise">
-              Double-click a line and just type. A calm, Word-style workspace for editing, signing,
+              Click a line and just type. A calm, Word-style workspace for editing, signing,
               redacting and converting.
             </p>
             <div className="landing-actions landing-rise">
-              <button className="landing-primary" onClick={openPicker}>
+              <button className="landing-primary" onClick={openPicker} disabled={busy}>
                 Open a PDF
               </button>
               <a className="landing-secondary" href="#how-it-works">
                 Watch the tour
               </a>
             </div>
-            <p className="landing-footnote">No account · Works offline · Open source</p>
+            <p className="landing-footnote">No account · Works offline · PDF, PNG, JPG &amp; WebP</p>
             <LandingPreview />
             <div className="landing-exports">
               <span>Export to</span>
@@ -135,6 +155,7 @@ export function Welcome() {
           </div>
         </div>
         <LandingFeatures />
+        <LandingTools onOpen={openPicker} onImage={() => imagePicker.current?.click()} onBlank={() => void createBlank()} busy={busy} />
         <LandingSteps />
         <section
           className="landing-container landing-privacy-section"
@@ -152,7 +173,7 @@ export function Welcome() {
               Your files never <em>leave your device.</em>
             </h2>
             <p>No servers, no accounts, no waiting for an upload.</p>
-            <button className="landing-primary" onClick={openPicker}>
+            <button className="landing-primary" onClick={openPicker} disabled={busy}>
               Open a PDF <ArrowRight size={17} aria-hidden="true" />
             </button>
           </div>
@@ -168,9 +189,10 @@ export function Welcome() {
           <span>Source</span>
         </div>
       </footer>
+      {busy && <div className="local-open-status" role="status">Opening your file locally…</div>}
       {isDragging && (
         <div className="landing-drop" role="status">
-          Drop PDF to open
+          Drop a PDF or image to open
         </div>
       )}
     </div>

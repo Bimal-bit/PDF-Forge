@@ -1,0 +1,18 @@
+{
+  "family": "Ubuntu",
+  "id": "ubuntu",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/ubuntu/-/ubuntu-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "dabae363ac0ae6c3b2a137a32f7132b42520a8af252f87aa6c2198f2a79cf91c",
+    "700-normal": "3658a0717e347c1db8d80dd565584b9dc56769fbf87909c50a4a7740206ec5f7",
+    "400-italic": "bc79d1b312559bbb2fec09c60895b411a60403586df8907fc022afaae3be7971",
+    "700-italic": "c43326719ec42ca99c5f6ee1c6107ebe59f636812c4a0e93a58a2e7051db4930"
+  },
+  "ttfSha256": {
+    "400-normal": "a765dfb5147c5fe38880655d59ff4373d0e1a451b10c380b2222ba7c8624244a",
+    "700-normal": "6cc9fa397671d8217e3f89463e3bde8761cbde6a2db8c0e1f9269893eaffd70d",
+    "400-italic": "2079ffd5c9545170c8aa3886088aa306af2b87bb330adbd5d0e92d8c0160b346",
+    "700-italic": "4afac4a248d7abb736e9de955e2b74b3528017285688863241595bc37fb4b7a2"
+  }
+}

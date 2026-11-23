@@ -1,0 +1,54 @@
+/* global console, document, Buffer */
+import { chromium, expect } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+const errors = [];
+page.on('pageerror', (error) => errors.push(error.stack ?? error.message));
+await page.emulateMedia({ reducedMotion: 'reduce' });
+await page.goto('http://127.0.0.1:5173');
+await mkdir('docs/images', { recursive: true });
+await page.screenshot({ path: 'docs/images/mobile-landing.png', fullPage: true });
+await page.getByRole('button', { name: 'Start a blank PDF', exact: false }).click();
+await page.getByRole('article', { name: 'Page 1', exact: true }).locator('canvas').waitFor();
+await page.getByRole('button', { name: 'Add text', exact: true }).click();
+await page.screenshot({ path: 'docs/images/mobile-editor.png' });
+await page.getByLabel('Mobile workspace').getByRole('button', { name: 'Inspector', exact: true }).click();
+await page.screenshot({ path: 'docs/images/mobile-inspector.png' });
+await page.getByRole('button', { name: 'Hide properties panel', exact: true }).click();
+await page.getByLabel('Toggle theme', { exact: true }).click();
+await page.screenshot({ path: 'docs/images/mobile-dark.png' });
+await page.setViewportSize({ width: 1440, height: 1000 });
+await expect.poll(async () => (await page.getByRole('article', { name: 'Page 1', exact: true }).boundingBox()).width).toBeGreaterThan(800);
+await expect(page.getByRole('article', { name: 'Page 1', exact: true })).toHaveAttribute('data-rendered', 'true');
+await page.screenshot({ path: 'docs/images/mobile-desktop-review.png' });
+await page.setViewportSize({ width: 900, height: 900 });
+await expect.poll(async () => (await page.getByRole('article', { name: 'Page 1', exact: true }).boundingBox()).width).toBeLessThan(400);
+await page.screenshot({ path: 'docs/images/mobile-tablet-review.png' });
+const scan = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+scan.on('pageerror', (error) => errors.push(error.stack ?? error.message));
+await scan.emulateMedia({ reducedMotion: 'reduce' });
+await scan.goto('http://127.0.0.1:5173');
+const png = await scan.evaluate(() => {
+  const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 400;
+  const context = canvas.getContext('2d'); context.fillStyle = 'white'; context.fillRect(0, 0, 1200, 400);
+  context.font = 'bold 54px Arial'; context.fillStyle = 'black'; context.fillText('INVOICE TOTAL 12345', 60, 180);
+  return canvas.toDataURL('image/png').split(',')[1];
+});
+await scan.getByLabel('Open image for OCR', { exact: true }).setInputFiles({ name: 'invoice.png', mimeType: 'image/png', buffer: Buffer.from(png, 'base64') });
+await scan.getByLabel('OCR result', { exact: true }).selectOption('editable');
+await scan.getByRole('button', { name: 'Recognize document', exact: true }).click();
+await scan.getByLabel('OCR line 1', { exact: true }).waitFor({ timeout: 100000 });
+await scan.getByLabel('OCR line 1', { exact: true }).fill('INVOICE TOTAL 54321');
+await scan.screenshot({ path: 'docs/images/mobile-ocr-review.png' });
+await scan.getByRole('button', { name: 'Apply editable text', exact: true }).click();
+try { await expect(scan.locator('.text-object')).toContainText('54321'); }
+catch (error) { await scan.screenshot({ path: 'docs/images/mobile-ocr-apply-error.png' }); console.log(await scan.locator('.notice').textContent()); throw error; }
+await scan.screenshot({ path: 'docs/images/mobile-ocr-result.png' });
+await scan.setViewportSize({ width: 844, height: 390 });
+await expect(scan.getByRole('button', { name: 'Show ribbon tools', exact: true })).toBeVisible();
+await expect.poll(async () => (await scan.getByRole('article', { name: 'Page 1', exact: true }).boundingBox()).width).toBeGreaterThan(800);
+await expect(scan.getByRole('article', { name: 'Page 1', exact: true })).toHaveAttribute('data-rendered', 'true');
+await scan.screenshot({ path: 'docs/images/mobile-landscape.png' });
+console.log(JSON.stringify({ errors, width: await page.evaluate(() => document.documentElement.scrollWidth) }));
+await browser.close();

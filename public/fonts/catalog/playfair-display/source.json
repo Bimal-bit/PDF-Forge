@@ -1,0 +1,18 @@
+{
+  "family": "Playfair Display",
+  "id": "playfair-display",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/playfair-display/-/playfair-display-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "1fe9ad5d8b2ebd8ecb8fbd05bed1e3fdfa52dae3f1a04e1c219918442fe9394d",
+    "700-normal": "28453852ea165c47b5a941be00e418402e1407002ed87507f062a1e316328fe6",
+    "400-italic": "eabce94d4a69e439cd050755c31f9894ac8a78f93e58b063c6c01f370474e1de",
+    "700-italic": "de2f4041e7ef84f418bd0144484e521e8df849aff47762230c981704b9661877"
+  },
+  "ttfSha256": {
+    "400-normal": "97e23e074d04665181bfc54e06d00a0511c0ac2010d6a88305fd0c366022a5d8",
+    "700-normal": "28d8820b7306b3d5129b508f173f1c2b6a138bf0d7b6361472590b3dc29058b5",
+    "400-italic": "405f7fe60762bdcfd49b4fdebaf9ebf97c2ad65a232d0571ed80f27f227c8d4c",
+    "700-italic": "65fd821d5fa45890778331a90805452e9e163617681a48f0a5dff62193d98cbe"
+  }
+}

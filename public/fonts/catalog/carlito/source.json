@@ -1,0 +1,18 @@
+{
+  "family": "Carlito",
+  "id": "carlito",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/carlito/-/carlito-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "a29c4a4e61863753cf6a10831efaa05f849dcaa8f580422dbc41bc058c3b6b64",
+    "700-normal": "af249cfe4107221070ff077c29a043004e8f2efea977dcbaaf217a24f3b7680e",
+    "400-italic": "6bbdd83c5797d207bd2027f2687a70e428513c56130feaad1ffc0a1a7ace7c07",
+    "700-italic": "e1bbd00245b0b22d0c540413ac73a91f7afff587899260a683acec3564f06ac3"
+  },
+  "ttfSha256": {
+    "400-normal": "6de2134bfea8447fe8c72dc3c115c97c3967d69c47d6cc3596654a6e69a17b93",
+    "700-normal": "e121f3963c774f6e618eb453e371457e718bfc303a9236d4d4f2fdf009b40ce9",
+    "400-italic": "2d11b739778e135592a94e91e80f2018fba10cf8f7509066a459fec846281374",
+    "700-italic": "9750a4d78271f4effce426a0131dcaad01c752786dfd3ebc3be6361e451ac1b4"
+  }
+}

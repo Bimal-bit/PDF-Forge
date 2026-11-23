@@ -3,6 +3,11 @@ import { EditorDialog } from './EditorDialog';
 import { useAppStore } from '../store/useAppStore';
 import { layoutTextFrames, textChain } from '../lib/textFlow';
 import type { TextObject } from '../types';
+import { FormatNumberInput } from './FormatNumberInput';
+import { nativeSourceText } from '../lib/textFormatting';
+import { useInsertion } from './useInsertion';
+import { insertionSize } from '../lib/insertion';
+import { revealTextObject } from './revealTextObject';
 
 export function TextLayoutTools() {
   const {
@@ -12,7 +17,6 @@ export function TextLayoutTools() {
     pageSettings,
     document,
     selectObject,
-    addObject,
     updateObject,
     updateTextObject,
     linkTextObjects,
@@ -21,14 +25,18 @@ export function TextLayoutTools() {
   } = useAppStore();
   const [open, setOpen] = useState(false);
   const [targetId, setTargetId] = useState('');
+  const [preset, setPreset] = useState('compact');
+  const insertion = useInsertion('bottom');
   const texts = objects.filter(
     (object): object is TextObject =>
       object.type === 'text' && pageSettings.order.includes(object.page),
   );
   const selected = texts.find((object) => object.id === selectedObjectId) ?? texts.at(-1);
+  const native = Boolean(selected && nativeSourceText(selected, objects));
   const targets = texts.filter(
     (object) =>
       object.id !== selected?.id &&
+      !nativeSourceText(object, objects) &&
       !objects.some((entry) => entry.type === 'text' && entry.nextTextId === object.id) &&
       !textChain(objects, object.id).some((entry) => entry.id === selected?.id),
   );
@@ -38,6 +46,7 @@ export function TextLayoutTools() {
     [objects, pageSettings.order],
   );
   const overflow = selected ? layouts.get(selected.id)?.overflow : '';
+  const sourceParagraph = Boolean(selected?.cover && !native && !layouts.has(selected.id));
   const label = (object: TextObject) =>
     `${pageSettings.order.includes(object.page) ? `Page ${pageSettings.order.indexOf(object.page) + 1}` : 'Removed page'} · ${object.text.slice(0, 32) || 'Empty box'}`;
   const continuation = objects.find(
@@ -54,29 +63,67 @@ export function TextLayoutTools() {
       {open && (
         <EditorDialog title="Text flow & columns" onClose={() => setOpen(false)}>
           <button
-            onClick={() =>
-              addObject({
-                id: crypto.randomUUID(),
-                type: 'text',
-                page: pageSettings.order[selectedPage - 1] ?? selectedPage,
-                text: '',
-                x: 72,
-                y: 72,
-                width: 200,
-                height: 160,
-                fontSize: 12,
-                color: '#292724',
-              })
-            }
+            disabled={!insertion.bounds}
+            onClick={() => {
+              try {
+                const bounds = insertion.bounds!;
+                const size = insertionSize(
+                  bounds,
+                  preset === 'compact' ? 200 : bounds.width,
+                  preset === 'compact' ? 160 : bounds.height,
+                );
+                const columns = preset === 'two' ? 2 : preset === 'three' ? 3 : 1;
+                insertion.commit({
+                  id: crypto.randomUUID(),
+                  type: 'text',
+                  page: pageSettings.order[selectedPage - 1] ?? selectedPage,
+                  text: '',
+                  ...insertion.point(size.width, size.height),
+                  ...size,
+                  columns,
+                  columnGap: Math.min(18, Math.max(0, size.width / columns - 24)),
+                  fontSize: 12,
+                  color: '#292724',
+                });
+              } catch (failure) {
+                setNotice(
+                  failure instanceof Error ? failure.message : 'Could not insert a text frame.',
+                );
+              }
+            }}
           >
             Add text box
           </button>
+          <label>
+            New frame preset
+            <select
+              aria-label="New frame preset"
+              value={preset}
+              onChange={(event) => setPreset(event.target.value)}
+            >
+              <option value="compact">Compact box</option>
+              <option value="page">Page frame</option>
+              <option value="two">Two-column page frame</option>
+              <option value="three">Three-column page frame</option>
+            </select>
+          </label>
           <label>
             Text box
             <select
               aria-label="Layout text box"
               value={selected?.id ?? ''}
-              onChange={(event) => selectObject(event.target.value)}
+              onChange={(event) => {
+                const target = texts.find((object) => object.id === event.target.value);
+                selectObject(event.target.value);
+                if (target) {
+                  const displayPage =
+                    pageSettings.order[selectedPage - 1] === target.page
+                      ? selectedPage
+                      : pageSettings.order.indexOf(target.page) + 1;
+                  useAppStore.getState().setSelectedPage(displayPage);
+                  revealTextObject(target.id, displayPage);
+                }
+              }}
             >
               <option value="" disabled>
                 Choose a text box
@@ -102,20 +149,17 @@ export function TextLayoutTools() {
                 {(['x', 'y', 'width', 'height'] as const).map((property) => (
                   <label key={property}>
                     {property.toUpperCase()}
-                    <input
-                      aria-label={`Text frame ${property}`}
-                      type="number"
-                      min={property === 'width' || property === 'height' ? 20 : 0}
+                    <FormatNumberInput
+                      key={`${selected.id}-${property}`}
+                      label={`Text frame ${property}`}
+                      min={property === 'width' || property === 'height' ? 20 : -14400}
                       max={14400}
-                      value={selected[property] ?? (property === 'height' ? 160 : 300)}
-                      onChange={(event) =>
-                        update({
-                          [property]: Math.max(
-                            property === 'width' || property === 'height' ? 20 : 0,
-                            Math.min(14400, Number(event.target.value) || 0),
-                          ),
-                        })
+                      disabled={
+                        (native && (property === 'width' || property === 'height')) ||
+                        (sourceParagraph && property === 'height')
                       }
+                      value={selected[property] ?? (property === 'height' ? 160 : 300)}
+                      onChange={(value) => update({ [property]: value })}
                     />
                   </label>
                 ))}
@@ -125,6 +169,7 @@ export function TextLayoutTools() {
                   Columns
                   <select
                     aria-label="Text columns"
+                    disabled={native}
                     value={selected.columns ?? 1}
                     onChange={(event) =>
                       update({
@@ -140,23 +185,21 @@ export function TextLayoutTools() {
                 </label>
                 <label>
                   Column gap
-                  <input
-                    aria-label="Column gap"
-                    type="number"
-                    min="0"
-                    max="100"
+                  <FormatNumberInput
+                    key={selected.id}
+                    label="Column gap"
+                    min={0}
+                    max={100}
+                    disabled={native || (selected.columns ?? 1) === 1}
                     value={selected.columnGap ?? 18}
-                    onChange={(event) =>
-                      update({
-                        columnGap: Math.max(0, Math.min(100, Number(event.target.value) || 0)),
-                      })
-                    }
+                    onChange={(value) => update({ columnGap: value })}
                   />
                 </label>
                 <label>
                   Drop cap
                   <select
                     aria-label="Drop cap"
+                    disabled={native}
                     value={selected.dropCapLines ?? 0}
                     onChange={(event) =>
                       update({
@@ -184,6 +227,7 @@ export function TextLayoutTools() {
                     Continue into
                     <select
                       aria-label="Continue into text box"
+                      disabled={native}
                       value={target?.id ?? ''}
                       onChange={(event) => setTargetId(event.target.value)}
                     >
@@ -198,7 +242,7 @@ export function TextLayoutTools() {
                     </select>
                   </label>
                   <button
-                    disabled={!target}
+                    disabled={!target || native}
                     onClick={() => {
                       if (!target) return;
                       try {
@@ -220,6 +264,18 @@ export function TextLayoutTools() {
                 <p role="status" className="editing-warning">
                   {overflow.length} characters overflow this story. Enlarge the frames or link
                   another box to fit the text for export.
+                </p>
+              )}
+              {native && (
+                <p className="editing-help">
+                  Source runs retain their original placement and font resources. Create a text box
+                  for columns and linked text flow. X and Y can reposition this replacement.
+                </p>
+              )}
+              {sourceParagraph && (
+                <p className="editing-help">
+                  Matched source paragraphs grow with their content. Height applies after choosing
+                  columns, a drop cap, or a linked continuation.
                 </p>
               )}
             </>

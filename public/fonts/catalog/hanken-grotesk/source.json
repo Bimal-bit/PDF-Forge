@@ -1,0 +1,18 @@
+{
+  "family": "Hanken Grotesk",
+  "id": "hanken-grotesk",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/hanken-grotesk/-/hanken-grotesk-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "787b3fdd0b7e6d59ae7ce14ce7a41d1a44616584b4c919b527da951972d5d87d",
+    "700-normal": "d85de6e272296d06f8205ad11e27140274e0ef97050232777d146eabb71c312d",
+    "400-italic": "53168ef35821f9ec781d281e9efefb097833a1f60760552ac9cba4f4ccc43aa6",
+    "700-italic": "7cdbb67d8fb22723d96e29e7465033bab52a102c7cb07e4e2260d6a0168ff7e9"
+  },
+  "ttfSha256": {
+    "400-normal": "8213dff2742070ab549a30ff1278393711351308f78d8c36ee709a286707796d",
+    "700-normal": "15723a14830c4963e73a9517809a6bb480d7d1b1d7a1a94a82abdab9a758158f",
+    "400-italic": "4e9d87bc7349b060e6f66e244860d46a3fbbca50e6504db432413093fbc246be",
+    "700-italic": "9443dfaf23e8848dc7240ec2bbd5d2f59e3f178fc996f6a6752311864143efc9"
+  }
+}

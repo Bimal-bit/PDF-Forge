@@ -1,0 +1,18 @@
+{
+  "family": "Mulish",
+  "id": "mulish",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/mulish/-/mulish-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "95efc771d19900052b360dce91f4043b488b0df7335f7cabf0e03cb69b690027",
+    "700-normal": "f3bfe7eca43b99826926cefbd1663105ce79031fb69435e0f8d20ef05b95bf10",
+    "400-italic": "e1ba733040548f48ca77a5e2a053bab810b9e4d44d036316865ea912840e4e55",
+    "700-italic": "3e231479384503a42ca9d2f0f6a6b620e06cc7c0ca22b04a3adf725cde8986fd"
+  },
+  "ttfSha256": {
+    "400-normal": "c2622b0c8638f0b8f6cbfc46ed982edbe853ff9c0425d3cd5079e843a17b1cca",
+    "700-normal": "1059955b6359b7778c5140d1946a0bbf9e170c45e8cea8a19173901a1d8be88e",
+    "400-italic": "408e3b36421a8ec6b2d1b693bc6dd2ad6eefc8f538a10f79bf6dddfa08b9e06a",
+    "700-italic": "2eb1b34312c621fa8fed47692468c627a0cc6b022f00da25e385dafe73743158"
+  }
+}

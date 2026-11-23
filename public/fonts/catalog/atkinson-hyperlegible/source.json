@@ -1,0 +1,18 @@
+{
+  "family": "Atkinson Hyperlegible",
+  "id": "atkinson-hyperlegible",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/atkinson-hyperlegible/-/atkinson-hyperlegible-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "d64ba838ef5472bba248620ec4fd8b5aa7cf0db2908e0bb230600caf279ba7bc",
+    "700-normal": "140e2bd25a7315c8a062508391426b0d8c3297400c947b8d847be28f73a199f0",
+    "400-italic": "bc8825fd435d4aa8e31449937826d583a7daaae15a83832c91b38375131ebf08",
+    "700-italic": "73e0c9e1e284128dda599558f7c15bd5f3c056442c31dfae950528a16b3835cf"
+  },
+  "ttfSha256": {
+    "400-normal": "fe92adff3973fdf321be871ed707ea071441098c52515523a6b9ebe1b91437eb",
+    "700-normal": "789de7deeb3dc526d7a4c81b1f34049c0878a1c989609bde2a993ee01ed70741",
+    "400-italic": "423ba4770664c8795e90e4d2939116f55dc88fe2c572ad08759e3348e1541ab1",
+    "700-italic": "5e7f26dab63ba2ef2f9b883b14334ef8f7fd873da8fdb2c953689377bf9fa7d6"
+  }
+}

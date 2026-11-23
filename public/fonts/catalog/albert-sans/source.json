@@ -1,0 +1,18 @@
+{
+  "family": "Albert Sans",
+  "id": "albert-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/albert-sans/-/albert-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "59e53b4a6c96f13f12fa4db8fd163c4f7c5d304d8dc3f9eac6db7b67f429867f",
+    "700-normal": "504be3ae4e3c1ae0c607c0fcf7a7e02a5f9484418d0300488cf480dd208e2d83",
+    "400-italic": "a31cbeca2db3313728c339977bb856d579bae66f186c76419ee9332f983cb1fb",
+    "700-italic": "b968fa6100fd592a82473aadfc1aaaeb3e02ceebe4b2c7b2cd54de57be2cebbe"
+  },
+  "ttfSha256": {
+    "400-normal": "c669fcd7cf6cff11bf65eb4ccfc0da5e110c452dd3d34a818f9cf97531e6a48b",
+    "700-normal": "2bc8d3ef6310925ed4e70ab92c15e8ebfb45dd206389be18d29cf4bdba5a3935",
+    "400-italic": "7ac02dc00071564f2b423bc22f6979ea49b638392746ed8c5f9c614454209130",
+    "700-italic": "524edc4dad114f438c3f0f4c80251d3b376d6fddf92b0d68c101fb14d7874254"
+  }
+}

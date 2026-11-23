@@ -1,3 +1,5 @@
+import { FormatNumberInput } from './FormatNumberInput';
+import { finishInsertion } from './insertionEffects';
 import { useMemo, useState } from 'react';
 import { EditorDialog } from './EditorDialog';
 import { EquationView } from './EquationView';
@@ -14,10 +16,14 @@ export function EquationTools() {
     selectedPage,
     pageSettings,
     selectedObjectId,
-    addObject,
+    addObject: addEditorObject,
     updateObject,
     selectObject,
   } = useAppStore();
+  const addObject = (object: Parameters<typeof addEditorObject>[0]) => {
+    addEditorObject(object);
+    finishInsertion();
+  };
   const [open, setOpen] = useState(false);
   const [editingId, setEditingId] = useState('');
   const [draft, setDraft] = useState(initial);
@@ -92,24 +98,13 @@ export function EquationTools() {
             {(['x', 'y', 'fontSize'] as const).map((property) => (
               <label key={property}>
                 {property === 'fontSize' ? 'Font size' : property.toUpperCase()}
-                <input
-                  aria-label={`Equation ${property}`}
-                  type="number"
-                  min={property === 'fontSize' ? 6 : 0}
+                <FormatNumberInput
+                  key={`${editingId}-${property}`}
+                  label={`Equation ${property}`}
+                  min={property === 'fontSize' ? 6 : -14400}
                   max={property === 'fontSize' ? 144 : 14400}
                   value={draft[property]}
-                  onChange={(event) =>
-                    setDraft({
-                      ...draft,
-                      [property]: Math.max(
-                        property === 'fontSize' ? 6 : 0,
-                        Math.min(
-                          property === 'fontSize' ? 144 : 14400,
-                          Number(event.target.value) || 0,
-                        ),
-                      ),
-                    })
-                  }
+                  onChange={(value) => setDraft({ ...draft, [property]: value })}
                 />
               </label>
             ))}

@@ -1,0 +1,18 @@
+{
+  "family": "Josefin Sans",
+  "id": "josefin-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/josefin-sans/-/josefin-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "242e98782313218a60ac5397a94a49bbe4cf3dbf4ca31039acacd801d957b13a",
+    "700-normal": "a3c6a58cd814957f4d0f30bd99afae615e74cba87dbef88a276593bcb3b3568b",
+    "400-italic": "c63f65e35ef4d0144fd09560526de5ab8b4cbfe930f810d0902ae3a87562e6a7",
+    "700-italic": "15d34e49da4b82c618fb3bb4224bc9a117d5e74a43eb36fc75261c4310868960"
+  },
+  "ttfSha256": {
+    "400-normal": "3ba5d880132830b8992944302f1d6c3d1bb00c8fa902a86e6d2689f679540950",
+    "700-normal": "dd4ed7e13ceaf8c9976f841f5819bc11b3241f6912631ab65950263906bd4b74",
+    "400-italic": "1f19d45ef9cf6d22862e9fadb55a4d9ac4587c6ec8b175cdd65432795754c45f",
+    "700-italic": "0d9ad845ebfe5e0d4ba3c3ecb594cd91f2a34abdfbd0b1f14466728e8735b58c"
+  }
+}

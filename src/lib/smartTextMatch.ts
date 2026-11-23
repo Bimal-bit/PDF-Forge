@@ -5,6 +5,8 @@ import { matchPdfFont } from './font';
 import { openPdf } from './pdf';
 import { paragraphAt } from './paragraphs';
 import { visibleSourceItems } from './pageText';
+import { catalogFont, fontIdentity, originalFontFamily } from './fontNames';
+import { preserveSourceFont } from './sourceFonts';
 
 export function pdfTextAppearance(
   page: PDFPageProxy,
@@ -14,16 +16,23 @@ export function pdfTextAppearance(
   const font = page.commonObjs.has(item.fontName)
     ? (page.commonObjs.get(item.fontName) as {
         fallbackName?: string;
+        data?: Uint8Array;
+        name?: string;
+        cssFontInfo?: { fontFamily?: string; fontWeight?: string; italicAngle?: string };
         bold?: boolean;
         black?: boolean;
         italic?: boolean;
       })
     : undefined;
+  const name = font?.name ?? font?.cssFontInfo?.fontFamily ?? font?.fallbackName ?? styles[item.fontName]?.fontFamily ?? '';
+  const match = matchPdfFont(name);
+  const catalog = catalogFont(name);
   return {
-    fontFamily: matchPdfFont(font?.fallbackName ?? styles[item.fontName]?.fontFamily ?? '').family,
-    fallback: true,
-    bold: Boolean(font?.bold || font?.black),
-    italic: Boolean(font?.italic),
+    fontFamily: catalog?.family ?? (font?.data?.length ? originalFontFamily(name) : match.family),
+    sourceFontName: name,
+    fallback: !catalog && !/^(Helvetica|Times|Courier)(?:-|$)/i.test(name),
+    bold: Boolean(font?.bold || font?.black || /bold|black|heavy|demi/i.test(name) || Number(font?.cssFontInfo?.fontWeight) >= 600),
+    italic: Boolean(font?.italic || /italic|oblique/i.test(name) || Number(font?.cssFontInfo?.italicAngle || 0)),
   };
 }
 
@@ -32,8 +41,8 @@ export function hasSimilarFont(
   candidate: Pick<TextObject, 'fontFamily' | 'fontSize' | 'bold' | 'italic'>,
 ): boolean {
   return (
-    matchPdfFont(seed.fontFamily ?? 'Helvetica').family ===
-      matchPdfFont(candidate.fontFamily ?? 'Helvetica').family &&
+    fontIdentity(seed.fontFamily ?? 'Helvetica') ===
+      fontIdentity(candidate.fontFamily ?? 'Helvetica') &&
     Boolean(seed.bold) === Boolean(candidate.bold) &&
     Boolean(seed.italic) === Boolean(candidate.italic) &&
     Math.abs(seed.fontSize - candidate.fontSize) <= Math.max(0.5, seed.fontSize * 0.05)
@@ -122,15 +131,17 @@ export async function findSimilarText(
       const content = await page.getTextContent();
       await page.getOperatorList();
       const items = content.items.filter((item): item is TextItem => 'str' in item);
-      additions.push(
-        ...matchingPageBlocks(
+      const blocks = matchingPageBlocks(
           pageNumber,
           items,
           seed,
           objects.filter((object) => object.page === pageNumber),
           (item) => pdfTextAppearance(page, item, content.styles),
-        ),
-      );
+        );
+      for (const block of blocks) {
+        const item = items.find((run) => run.str.trim() && run.transform[4] >= block.x && run.transform[4] <= block.x + (block.width ?? 0) && run.transform[5] >= block.y && run.transform[5] <= block.y + (block.height ?? 0) && hasSimilarFont(block, { ...pdfTextAppearance(page, run, content.styles), fontSize: run.height }));
+        additions.push(item ? await preserveSourceFont(page, item, block,document) : block);
+      }
     }
     signal.throwIfAborted();
     return { ids: [...ids, ...additions.map((object) => object.id)], additions };

@@ -1,0 +1,18 @@
+{
+  "family": "PT Serif",
+  "id": "pt-serif",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/pt-serif/-/pt-serif-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "4271064a37f3ffc0aac5f3806db8a72acc23e19447d1804e4e80d8796cbf6330",
+    "700-normal": "bf23a7a4eebedbb87d4084a69496b29815914a18e339a00f5dc73a03c9c9328f",
+    "400-italic": "cb373bde18855c82a0ebf2946ea661ebd0be58a7fbabdf20f7744ecd9c0a9cfd",
+    "700-italic": "3cb3cfab3c562cbbb5a53accf433f65ed1cd0403ea3bdd6ceeb73bf87f23521c"
+  },
+  "ttfSha256": {
+    "400-normal": "eda5d2c172d509b73a76168980808d2c34273eed2347678b5838272c7dc1d207",
+    "700-normal": "dc8373ece02dbd20422008206fac7da92fcd39e8a00d2d83eb684010dc7d0c91",
+    "400-italic": "d2ed6295aa9828fd1866f1131405d00d9c47f7414d09317f652de7249facfd15",
+    "700-italic": "f45e7c9de64918bf2e43bd6a4fd8140710d5caed38ab61e4207d409c3700dbd9"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Caladea",
+  "id": "caladea",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/caladea/-/caladea-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "367a4c4dd45c762f6f680ccedbbf18be9d10e13b068aad2813ece1dba881369b",
+    "700-normal": "6a6549b8ec8be5ad7db66f28dee13ea008710379e7bd992870eb2d7ac14c9c3a",
+    "400-italic": "6d439cdc4db2e6cc3252e4dfec76438a4180ec872ff9394ce4dc8792d26d58d1",
+    "700-italic": "097d08d9ec3e2304f083e066a72acae181f400832249a07b334f30a53c20ebc7"
+  },
+  "ttfSha256": {
+    "400-normal": "f4092cb47b5161e58d3c608c28c2a31f8c4e1831a4c182551db55d9abe5fab32",
+    "700-normal": "38ba337792634acfc89189da044c382a2df0aa0d1c9fb791486e325a3fdd34ef",
+    "400-italic": "a9eb14d59336689df91eac71698fcb2a4d5d58095b80e6b2766571c0fb75d6ce",
+    "700-italic": "c63d9ebed04413f49bb67e4eea45a1a3c1afb8971b556813d5cc807297cfaa99"
+  }
+}

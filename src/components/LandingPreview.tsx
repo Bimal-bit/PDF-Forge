@@ -13,7 +13,7 @@ export function LandingPreview() {
           <span>Home</span>
           <span>Insert</span>
           <span>Review</span>
-          <span className="landing-preview-ai">Ask AI</span>
+          <span className="landing-preview-ai">On your device</span>
         </div>
         <div className="landing-preview-workspace">
           <div className="landing-preview-pages">

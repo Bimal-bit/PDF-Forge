@@ -1,0 +1,18 @@
+{
+  "family": "Source Code Pro",
+  "id": "source-code-pro",
+  "version": "5.3.1",
+  "source": "https://registry.npmjs.org/@fontsource/source-code-pro/-/source-code-pro-5.3.1.tgz",
+  "sha256": {
+    "400-normal": "75aa8cacfd459d58d7c093f3ff0ab8745cc878dfc93c5d4cda052791aeace878",
+    "700-normal": "34faf509fa4130733093f36100f76670ff7d93d4889746de11a62a0fe8d82084",
+    "400-italic": "62cfd505807fcb0647885704753f297cb20fef708fbc2b4627fb36667fe78c71",
+    "700-italic": "18180587ce834101ff702f4077ab745a448f035ba2c79c143498d05890f563f1"
+  },
+  "ttfSha256": {
+    "400-normal": "ac43bb5cc618859d7b4302575ff63f4dd273a1c6f13be7e4cad921f6ad2238e4",
+    "700-normal": "299b7c033e30ea4de25f34840ac593c2a1711e2ad87f8f262cb5c3ce4db8ff5f",
+    "400-italic": "b10f70344e49e06e783731c9ec484a1cfeeea9ea648af63d72f2248dd437260b",
+    "700-italic": "59414ce172d5ed434dcd31c819b6c555dc07de15ddd89df111794fa6dbb3a927"
+  }
+}

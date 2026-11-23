@@ -1,0 +1,18 @@
+{
+  "family": "Cabin",
+  "id": "cabin",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/cabin/-/cabin-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "77f442b8d11d3f4fad140744b15500493939a8be0542814ca9eb63164fbdfacd",
+    "700-normal": "2721cbdaf3cafa9f5f2964f94a436afb6540326958a43447a25dc253f3c2005b",
+    "400-italic": "dbfd04746d93eee810274a8a0d7784e64ab84636a62a0d9b9d10e49bae168b5d",
+    "700-italic": "a71999edcde170b43779c7281713ef198473cb7fff5f2dfc1b0a4f6dc501e7a9"
+  },
+  "ttfSha256": {
+    "400-normal": "59e8b272e11820415a05ca2d6a63cd9a1917ac7c5b312d4425352cd00e456882",
+    "700-normal": "df6a632959f68b53d9e5f7fd51d4c234734bf4e84e046f4bab34f8128c36dfbf",
+    "400-italic": "cffb597fc10fba6f20a22f0e914314b210f82d4582ea182fcd6df7b126f10fa1",
+    "700-italic": "2a64dd56ee9a0c3a929f9c41ae11a2b9746ff07d62e9dea87c3441ecb1b54ca0"
+  }
+}

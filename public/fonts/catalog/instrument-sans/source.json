@@ -1,0 +1,18 @@
+{
+  "family": "Instrument Sans",
+  "id": "instrument-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/instrument-sans/-/instrument-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "9a91efaa3599a6ef01b2f49e9ec670e3a2f39baeef09c73198f1052cf3bb0850",
+    "700-normal": "bcf650536cae57403741af193e1e237c245f8929b936f03601279079a64fd699",
+    "400-italic": "b089ac6fca39eb8d49d166db9e33574fb891223cfa5d63b3b3be1668f1cfe28b",
+    "700-italic": "77be5291bd5cc2cf5cb1b55b97d9ce9427ece3acb9067942470a19b6a02f4c4c"
+  },
+  "ttfSha256": {
+    "400-normal": "cfa69ec75390b7792f173e2016103ec926c9cac346d4dffe07c1dc27f5cf6b3e",
+    "700-normal": "35f4432d044bdd19924fcd45e631deb593aa94ed2e482d3ecdd31c157d1ba645",
+    "400-italic": "f8de18d5d83bb7116ed607f498d91b02eca665883eb53d7f029dba21a1928e4d",
+    "700-italic": "67d09f1d3f258aa3219bba1feb6a477646d2fcb3832e0568b09e7e856adf879f"
+  }
+}

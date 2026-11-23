@@ -1,0 +1,18 @@
+{
+  "family": "Overpass",
+  "id": "overpass",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/overpass/-/overpass-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "f835f9c7e1266a33b93fe8865a1ddc8d40e7db6a80b494a4716cdebc72f973eb",
+    "700-normal": "6a855eb539e6f098452ffccb297fa3188969078ac4005af853b8872868e30170",
+    "400-italic": "6a898c7c321e7ab60cff27e22f300eb9bf8f697e302f836a9bf2213c808789b8",
+    "700-italic": "9fd70b37e5da36f568047d0a063abfdcc756f0d78be37c9c6bc62a1b5c3b0eba"
+  },
+  "ttfSha256": {
+    "400-normal": "5f4e4719cfc40e7eb9ceadd8682f068c75dc652c575d12c864144557b8fa18b5",
+    "700-normal": "49ce9b7f5028499fb415219917a83db69f3e008142f9f721e59f2c16dff5bec5",
+    "400-italic": "368ce7b96dd54f1c1113e81e2a4ed8086e0c81f7012a238688316c5d7626e012",
+    "700-italic": "6007df62cac5c9640e5bac34e0b0cc0a03d9aed165417fde3599d496cf19202d"
+  }
+}

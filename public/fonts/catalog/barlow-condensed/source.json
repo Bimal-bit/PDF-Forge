@@ -1,0 +1,18 @@
+{
+  "family": "Barlow Condensed",
+  "id": "barlow-condensed",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/barlow-condensed/-/barlow-condensed-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "7fff1bb22e5773f0d1a55d3093068b6dac4539e8bb3ac23fb9f0a729df2c7bb4",
+    "700-normal": "3787a5a419171630e6890cfa47c4da067474d005cd0ff8dc11ec090fdc3ee2b8",
+    "400-italic": "6296ca0857e312134865254fbdea079f91ad3baaec646f0a294c26877a9e622d",
+    "700-italic": "3e91132781a58039c31d419b741d75de86107897428f95680323ff5ce279fee6"
+  },
+  "ttfSha256": {
+    "400-normal": "72c8f13a5ee5de45d1f1d01cad15f64ff728256ea404ac638407eafdfbe79bc0",
+    "700-normal": "e62a0ebb00a32b018f1622fc2aca5703cf93ffb30880873684977654a0506b0e",
+    "400-italic": "a7bbdc76234e02167853d524ddf91bb55dc60c2e9ec9ae53bfdb4b85d1db30a1",
+    "700-italic": "dc39eb5c6dc40e5881e3e45ece8c618895b0e9f2385fa1e6a1a6e17ba45196e8"
+  }
+}

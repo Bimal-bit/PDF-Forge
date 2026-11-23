@@ -1,0 +1,18 @@
+{
+  "family": "Rambla",
+  "id": "rambla",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/rambla/-/rambla-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "7c852c25498a31ecba8d03614a7375aff0a653911fb8210e3e5ea1a586f374e8",
+    "700-normal": "5280b1cb3b361f813c5695d6532de015c79fbaa282b62b3fb45c7c87ce898290",
+    "400-italic": "cab8e26c91a950872e2b68ab3c5c82fed4949a45f70bef5226ba4a4b563cccad",
+    "700-italic": "fff01fbc4acf339394dd728386dd71668b2461ab3c5fb46083c51a6de8e6bc7b"
+  },
+  "ttfSha256": {
+    "400-normal": "dce8308837ae2846e79d06aa81fbeb0b7ea0f5a064e389346d4add5fddd91d4a",
+    "700-normal": "47a0de00dd0f535db274e20150fd785720c9fcf6dd57344b797521dca6fdef39",
+    "400-italic": "66209a63e5bf2893a703c710526c348ded9f5de7f3b787d1782a0d6ec02c44ba",
+    "700-italic": "0a41811fd957c111d4e01a2a75b70a1a9498b963dd092582bd06a03269bbca78"
+  }
+}

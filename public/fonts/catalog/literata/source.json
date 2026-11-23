@@ -1,0 +1,18 @@
+{
+  "family": "Literata",
+  "id": "literata",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/literata/-/literata-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "a60c193b55766b68b922e2327e15c2d8c145532f283a27c3411b9c47a8583d18",
+    "700-normal": "1f2985e0fc368aac76f95b847cd05ef6ec4bac2733a648098c62edf990756cf5",
+    "400-italic": "1e98bfbbb4eb8177b9c21b3fd526e1118c4835d21ff870c0d1c25b1ef4409fba",
+    "700-italic": "8a42dbed45f1855e2dcad9709173019013991c32aa71356e80a1e0ee9bb76763"
+  },
+  "ttfSha256": {
+    "400-normal": "9ea3384c9eb17e758eea5c043994f8ca8ba6d663854522a9fd06058f871812fa",
+    "700-normal": "6e89cb6a5359b54b578c22e4a539f4dbbe0811cf0c9ac3d044893dc20c8f56aa",
+    "400-italic": "e30d07d82662908de528d899a3ffe05d95e4d57b9d57c5555741864530a23c3b",
+    "700-italic": "44a86e1b8cec855786fb49c2f6b1d028689a4e6befc977c156c4d11b2a799091"
+  }
+}

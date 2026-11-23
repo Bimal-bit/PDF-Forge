@@ -6,7 +6,7 @@ GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', i
 export function openPdf(document: OpenDocument): Promise<PDFDocumentProxy> {
   // Slice so pdf.js can transfer its private copy to the worker without changing
   // the browser-local data retained for recovery.
-  return getDocument({ data: new Uint8Array(document.data.slice(0)) }).promise;
+  return getDocument({ data: new Uint8Array(document.data.slice(0)), fontExtraProperties: true }).promise;
 }
 
 export function findMatches(text: string, query: string): number[] {

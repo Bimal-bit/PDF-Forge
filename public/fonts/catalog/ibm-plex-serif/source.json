@@ -1,0 +1,18 @@
+{
+  "family": "IBM Plex Serif",
+  "id": "ibm-plex-serif",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/ibm-plex-serif/-/ibm-plex-serif-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "cb2c5eee2c0a43ff30d2365407c7bc8b20e3bd90720a4a64102ba0b328022a02",
+    "700-normal": "886ea167faf6610c3448a7dd058dbe7c7438f710229c9ff52343ef006960939c",
+    "400-italic": "d3f861b1ca55e50ca94de4c1756cb0d67c73de615172adf6b5b2078d939c723a",
+    "700-italic": "8cf0a1103f7785a0b457568d47467d40f2283c9f743a82a80c77b8acf6e7db47"
+  },
+  "ttfSha256": {
+    "400-normal": "c56358def115531372130e36662e8ea6bdbed75b830d36a94e48e043a332d93f",
+    "700-normal": "71c93dce2dd4201f8f0bb3bcb74d5611509c22ab81bb2514eab45e952c81e8e1",
+    "400-italic": "cdb2ce3a0b7fda223617d405e539fc576ed5c9fbe736ac0c7d50cf13d21e88ab",
+    "700-italic": "c3aa9fec222bf37c2e6ae9a5d62aefe2daa7f73d562ca6039e65c91b860a9e4b"
+  }
+}

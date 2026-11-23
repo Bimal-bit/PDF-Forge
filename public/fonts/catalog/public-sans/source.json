@@ -1,0 +1,18 @@
+{
+  "family": "Public Sans",
+  "id": "public-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/public-sans/-/public-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "36274b5787b4f03b27e65ae971d6c808a96838ccd60c9dabaee154889b6bba82",
+    "700-normal": "dace741613696827f61dbee2d984e8685f14a2846136783f3ad1c8950914bf1d",
+    "400-italic": "e9110763c65b780c1282c9ee7c7acf152b16aec93d75ba2e6e8831f74c7233a7",
+    "700-italic": "8e0990d15e994ed1c52a5c8e9912f7a900578cff18ced1ca3885ce7476a7d5f7"
+  },
+  "ttfSha256": {
+    "400-normal": "9e8c2a34f17d1d4d8791b5bc2a2279bcc0eebc49ef438d2a05bc5289c61eda1a",
+    "700-normal": "ed2d9deec89c487c94fce45cb72a830f2244415c2f7fcb106dae7df6c5b70ad2",
+    "400-italic": "48341422116d99f747f2d77ddedbf6dddbab3c04e4ba322d26c983291cf65471",
+    "700-italic": "cf039a445c7edc70a8a4c6cca9aedf6f5c96a010aaf6f6f76a5e631245cd6e33"
+  }
+}

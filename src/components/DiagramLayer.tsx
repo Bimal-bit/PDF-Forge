@@ -97,6 +97,7 @@ export function DiagramLayer({
           .map((object) => (
             <g
               key={object.id}
+              data-editor-object-id={object.id}
               role="button"
               tabIndex={0}
               aria-label={`Move shape ${object.label || object.shapeKind || 'rectangle'}`}

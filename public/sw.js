@@ -1,5 +1,5 @@
 /* global self, caches, fetch, URL, Response */
-const CACHE = 'pdfforge-shell-v3';
+const CACHE = 'pdfforge-shell-v5';
 self.addEventListener('install', (event) => event.waitUntil((async () => {
   const response = await fetch('/precache.json', { cache: 'no-store' });
   if (!response.ok) throw new Error('Could not load the offline asset list.');

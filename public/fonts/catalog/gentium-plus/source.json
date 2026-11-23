@@ -1,0 +1,18 @@
+{
+  "family": "Gentium Plus",
+  "id": "gentium-plus",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/gentium-plus/-/gentium-plus-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "b02c235f6c229e2691c6c5ff46853d864c269b3184f5e476d0c348ce796540b9",
+    "700-normal": "efde37030e7fa10387b646b886087ddc74bba35aa5a5a105f0b5501876a803ad",
+    "400-italic": "341871b46c4d92b8c525147b4b6c714fb55c1c4a6434cc632d54bad1ba08a219",
+    "700-italic": "5c2324d598c65074ec48b1cba2b7bcaa8b155bf682a0d0c5eb27831281a8ce7f"
+  },
+  "ttfSha256": {
+    "400-normal": "48b108a4756fc6f55b1768e71ab3db4543bdec3d20e5d8833d4fffbdcc0257a8",
+    "700-normal": "d2d2a72dbd96b7619f17fae6f1faaf10459e7df25294a5126264d574306f4de4",
+    "400-italic": "4c446be4083dbeeb36644ffe166920e978e9aa3da49f163bfe98b471837da4a5",
+    "700-italic": "8464b49b706f3ae55a9a0712273707e897412f0c1236e0014713a9bc1f4efaaf"
+  }
+}

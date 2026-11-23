@@ -1,0 +1,18 @@
+{
+  "family": "Raleway",
+  "id": "raleway",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/raleway/-/raleway-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "2318962e7930f55b45907ee85a6b6165ca3bba437b05ca17068a5c876d3de18b",
+    "700-normal": "05844cd75b25917a8463edbffc9a952205d327775c54a6697745ababb14a10d7",
+    "400-italic": "8ff3768f98c46cf7065282cdf624c8fd880d6336286080766d1405ee47f8a5db",
+    "700-italic": "93630c9e7ff7629af6caaa8c74fe3cab29396dac32b2d3685e708d39f701c071"
+  },
+  "ttfSha256": {
+    "400-normal": "72466f38a6ed35b78ee46e1a8833e57960124df7ef212aefeaa4a0a10f9f5310",
+    "700-normal": "a40afc29530ce71caca5936b968102071a90d0da4ef5d661e4a8e4c948f6b76b",
+    "400-italic": "3016438f20fc4bb9aa400b09e0d0c30b3b3a89e6f2469e8f7e6b05bad4d80cd8",
+    "700-italic": "c5f44dd16683d0d8c2283bbc162fe4599138f10ca60046e94de497f2057b46c8"
+  }
+}

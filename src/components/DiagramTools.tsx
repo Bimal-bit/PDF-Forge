@@ -1,3 +1,5 @@
+import { FormatNumberInput } from './FormatNumberInput';
+import { finishInsertion } from './insertionEffects';
 import { useState } from 'react';
 import { EditorDialog } from './EditorDialog';
 import { useAppStore } from '../store/useAppStore';
@@ -10,11 +12,15 @@ export function DiagramTools() {
     selectedObjectId,
     selectedPage,
     pageSettings,
-    addObject,
+    addObject: addEditorObject,
     selectObject,
     updateObject,
     removeObject,
   } = useAppStore();
+  const addObject = (object: Parameters<typeof addEditorObject>[0]) => {
+    addEditorObject(object);
+    finishInsertion();
+  };
   const [open, setOpen] = useState(false);
   const [kind, setKind] = useState<NonNullable<ShapeObject['shapeKind']>>('rectangle');
   const [fromId, setFromId] = useState('');
@@ -111,20 +117,13 @@ export function DiagramTools() {
                 {(['x', 'y', 'width', 'height'] as const).map((property) => (
                   <label key={property}>
                     {property.toUpperCase()}
-                    <input
-                      aria-label={`Shape ${property}`}
-                      type="number"
-                      min={property === 'x' || property === 'y' ? 0 : 20}
-                      max="14400"
+                    <FormatNumberInput
+                      key={`${selected.id}-${property}`}
+                      label={`Shape ${property}`}
+                      min={property === 'x' || property === 'y' ? -14400 : 20}
+                      max={14400}
                       value={selected[property]}
-                      onChange={(event) =>
-                        updateObject(selected.id, {
-                          [property]: Math.max(
-                            property === 'x' || property === 'y' ? 0 : 20,
-                            Math.min(14400, Number(event.target.value) || 0),
-                          ),
-                        })
-                      }
+                      onChange={(value) => updateObject(selected.id, { [property]: value })}
                     />
                   </label>
                 ))}

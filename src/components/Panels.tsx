@@ -1,121 +1,163 @@
-import { FileText, ListTree, PanelRightClose, Search, X } from 'lucide-react';
-import type { DragEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type DragEvent } from 'react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
-import { findMatches } from '../lib/pdf';
-import { editedPageText } from '../lib/pageText';
-import { layoutTextFrames } from '../lib/textFlow';
-import { FormProperties } from './FormProperties';
 import { PdfViewer } from './PdfViewer';
 import { useAppStore } from '../store/useAppStore';
-import { toPdfDocument } from '../lib/file';
+import { useLocalDocumentOpen } from './useLocalDocumentOpen';
+import { useViewStore } from '../store/useViewStore';
+import { useViewFit } from './useViewFit';
+import { DocumentNavigator } from './DocumentNavigator';
+import { DocumentToolbar } from './DocumentToolbar';
+import { DocumentSearch, type SearchHit } from './DocumentSearch';
+import { PropertiesPanel } from './PropertiesPanel';
+import type { OutlineItem } from './OutlinePanel';
+import '../workspace.css';
+import { useCompactWorkspace, useShortWorkspace } from './useCompactWorkspace';
 
 export function Panels() {
-  const { document, isDragging, setDragging, setDocument, setNotice, rightPanelOpen, toggleRightPanel, zoom, selectedPage, setSelectedPage, objects, addObject, pageSettings, initializePages } = useAppStore();
+  const state = useAppStore();
+  const view = useViewStore();
+  const opener = useLocalDocumentOpen();
+  const compact = useCompactWorkspace();
+  const short = useShortWorkspace();
+  const { mobilePanel, setMobilePanel } = view;
   const [pdf, setPdf] = useState<PDFDocumentProxy>();
   const [outline, setOutline] = useState<OutlineItem[]>([]);
+  const [outlineLoaded, setOutlineLoaded] = useState(false);
   const [query, setQuery] = useState('');
   const [hits, setHits] = useState<SearchHit[]>([]);
-  useEffect(() => { setPdf(undefined); setOutline([]); setQuery(''); setHits([]); }, [document?.id]);
-  const drop = async (event: DragEvent<HTMLElement>) => {
-    event.preventDefault(); setDragging(false); const file = event.dataTransfer.files[0]; if (!file) return;
-    try { setDocument(await toPdfDocument(file)); } catch (error) { setNotice(error instanceof Error ? error.message : 'Unable to open that file.'); }
-  };
-  return <main className="workspace" onDragOver={(e) => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={drop}>
-    <Navigator document={document} pdf={pdf} outline={outline} selectedPage={selectedPage} onSelectPage={setSelectedPage} />
-    <section className={`canvas ${isDragging ? 'dragging' : ''}`} aria-label="Document canvas">
-      <div className="ruler">0 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
-      {document && <><SearchBox pdf={pdf} query={query} setQuery={setQuery} hits={hits} setHits={setHits} onSelectPage={setSelectedPage} /><PdfViewer document={document} zoom={zoom} selectedPage={selectedPage} objects={objects} pageOrder={pageSettings.order} rotations={pageSettings.rotations} onCreateTextObject={addObject} onDocumentLoaded={(loaded) => { setPdf(loaded); initializePages(loaded.numPages); void loaded.getOutline().then((items) => { if (useAppStore.getState().document?.id === document.id) setOutline(items ?? []); }).catch(() => undefined); }} /></>}
-      {isDragging && <div className="drop-overlay">Drop PDF to open</div>}
-    </section>
-    {rightPanelOpen && <aside className="right-panel" aria-label="Properties"><button className="close-panel" onClick={toggleRightPanel}><PanelRightClose size={16} /> Hide panel</button><p className="panel-label">DOCUMENT</p><dl><dt>Status</dt><dd>{document ? 'Rendered locally' : 'No document'}</dd><dt>Pages</dt><dd>{pdf?.numPages ?? '—'}</dd><dt>Zoom</dt><dd>{zoom}%</dd><dt>Autosave</dt><dd>Every 5 seconds</dd></dl>{objects.length > 0 && <ObjectEditor objects={objects} />}</aside>}
-  </main>;
-}
-
-interface SearchHit { page: number; count: number }
-interface OutlineItem { title: string; dest?: string | unknown[] | null; items: OutlineItem[] }
-
-function ObjectEditor({ objects }: { objects: import('../types').EditorObject[] }) {
-  const { updateTextObject, updateObject, removeObject } = useAppStore();
-  return <aside className="object-editor-panel" aria-label="Export objects"><p className="panel-label">OBJECTS & COMMENTS</p>{objects.map((object) => <div className="object-editor" key={object.id}>{object.type === 'shape' && <strong>{object.label || object.shapeKind || 'Rectangle'}</strong>}{object.type === 'connector' && <strong>Shape connector</strong>}{object.type === 'image' && <strong>Inserted image</strong>}{object.type === 'equation' && <><strong>Equation</strong><code className="equation-source-label">{object.latex}</code></>}{object.type === 'text' && (object.nextTextId || objects.some((entry) => entry.type === 'text' && entry.nextTextId === object.id)) && <span className="field-kind">Linked story contribution</span>}{object.type === 'text' && <><label>Text<textarea aria-label="Overlay text" value={object.text} onChange={(event) => updateTextObject(object.id, event.target.value)} /></label>{object.fallback && <span className="fallback-warning">Fallback font: {object.fontFamily ?? 'Helvetica'}</span>}</>}{object.type === 'form' && <><label>Field label<input aria-label="Form field label" value={object.label} onChange={(event) => updateObject(object.id, { label: event.target.value })} /></label>{object.kind === 'checkbox' ? <label className="check-control"><input aria-label="Checkbox value" type="checkbox" checked={object.checked} onChange={(event) => updateObject(object.id, { checked: event.target.checked })} /> Checked</label> : <label>{object.kind === 'signature' ? 'Signer name' : 'Field value'}<input aria-label={object.kind === 'signature' ? 'Signer name' : 'Field value'} value={object.value} onChange={(event) => updateObject(object.id, { value: event.target.value })} /></label>}<FormProperties object={object} /><span className="field-kind">{object.kind === 'signature' ? 'Visible signature, not certificate signing' : `PDF ${object.kind} field`}</span></>}{object.type === 'link' && <label>Link URL<input aria-label="Link URL" value={object.url} onChange={(event) => updateObject(object.id, { url: event.target.value })} /></label>}{(object.type === 'highlight' || object.type === 'note') && <><label>Comment<textarea aria-label="Annotation comment" value={object.comment} onChange={(event) => updateObject(object.id, { comment: event.target.value })} /></label><label>Author<input aria-label="Annotation author" value={object.author} onChange={(event) => updateObject(object.id, { author: event.target.value })} /></label></>}{object.type === 'stamp' && <label>Stamp<select aria-label="Stamp label" value={object.label} onChange={(event) => updateObject(object.id, { label: event.target.value as 'APPROVED' | 'DRAFT' | 'CONFIDENTIAL' })}><option>APPROVED</option><option>DRAFT</option><option>CONFIDENTIAL</option></select></label>}{object.type === 'measure' && <label>Units<select aria-label="Measure units" value={object.units} onChange={(event) => updateObject(object.id, { units: event.target.value as 'pt' | 'in' | 'cm' })}><option value="pt">Points</option><option value="in">Inches</option><option value="cm">Centimeters</option></select></label>}<button onClick={() => removeObject(object.id)}>Remove</button></div>)}</aside>;
-}
-
-function Navigator({ document, pdf, outline, selectedPage, onSelectPage }: { document?: { name: string; data: ArrayBuffer }; pdf?: PDFDocumentProxy; outline: OutlineItem[]; selectedPage: number; onSelectPage: (page: number) => void }) {
-  const { leftPanel, setLeftPanel } = useAppStore();
-  return <aside className="left-panel" aria-label="Document navigation"><div className="panel-tabs"><button aria-label="Thumbnails" className={leftPanel === 'thumbnails' ? 'selected' : ''} onClick={() => setLeftPanel('thumbnails')}><FileText size={14} aria-hidden="true" />Pages</button><button aria-label="Outline" className={leftPanel === 'outline' ? 'selected' : ''} onClick={() => setLeftPanel('outline')}><ListTree size={14} aria-hidden="true" />Outline</button></div>
-    {leftPanel === 'thumbnails' ? <Thumbnails document={document} pdf={pdf} selectedPage={selectedPage} onSelectPage={onSelectPage} /> : <Outline pdf={pdf} outline={outline} onSelectPage={onSelectPage} />}
-  </aside>;
-}
-
-function Thumbnails({ document, pdf, selectedPage, onSelectPage }: { document?: { name: string }; pdf?: PDFDocumentProxy; selectedPage: number; onSelectPage: (page: number) => void }) {
-  const { pageSettings } = useAppStore();
-  if (!document) return <p className="empty-panel">Open a PDF to see pages</p>;
-  if (!pdf) return <p className="empty-panel">Loading page thumbnails?</p>;
-  const order = pageSettings.order.length ? pageSettings.order : Array.from({ length: pdf.numPages }, (_, index) => index + 1);
-  return <><p className="panel-label">PAGES</p><div className="thumbnail-list">{order.map((source, index) => <Thumbnail key={`${source}-${index}`} pdf={pdf} source={source} rotation={pageSettings.rotations[source] ?? 0} page={index + 1} selected={selectedPage === index + 1} onClick={() => onSelectPage(index + 1)} />)}</div></>;
-}
-
-function Thumbnail({ pdf, source, rotation, page, selected, onClick }: { pdf: PDFDocumentProxy; source: number; rotation: number; page: number; selected: boolean; onClick: () => void }) {
-  const canvas = useRef<HTMLCanvasElement>(null);
-  const [visible, setVisible] = useState(false);
+  const canvas = useRef<HTMLElement>(null);
+  useViewFit(pdf, canvas);
+  useEffect(() => { useViewStore.setState({ mobileToolsOpen: !short }); }, [short]);
   useEffect(() => {
-    const node = canvas.current;
-    if (!node) return;
-    const observer = new IntersectionObserver((entries) => { if (entries[0]?.isIntersecting) setVisible(true); }, { rootMargin: '200px' });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+    if (compact) useViewStore.getState().setZoomMode('width');
+    setMobilePanel(undefined);
+  }, [compact, state.document?.id, setMobilePanel]);
   useEffect(() => {
-    if (!visible) return;
-    let alive = true;
-    let task: ReturnType<import('pdfjs-dist').PDFPageProxy['render']> | undefined;
-    void pdf.getPage(source).then(async (pdfPage) => {
-      if (!alive || !canvas.current) return;
-      const viewport = pdfPage.getViewport({ scale: .18, rotation: (pdfPage.rotate + rotation) % 360 });
-      canvas.current.width = viewport.width; canvas.current.height = viewport.height;
-      task = pdfPage.render({ canvas: canvas.current, viewport });
-      await task.promise;
-    }).catch(() => undefined);
-    return () => { alive = false; task?.cancel(); };
-  }, [pdf, source, rotation, visible]);
-  return <button className={`thumbnail ${selected ? 'active' : ''}`} aria-label={`Go to page ${page}`} onClick={onClick}><canvas ref={canvas} className="mini-page" /><span>{page}</span></button>;
-}
-
-function Outline({ pdf, outline, onSelectPage }: { pdf?: PDFDocumentProxy; outline: OutlineItem[]; onSelectPage: (page: number) => void }) {
-  if (!pdf) return <p className="empty-panel">Open a PDF to view its outline</p>;
-  if (!outline.length) return <p className="empty-panel">This document has no outline.</p>;
-  return <><p className="panel-label">OUTLINE</p>{outline.map((item, index) => <OutlineItemView key={`${item.title}-${index}`} item={item} pdf={pdf} onSelectPage={onSelectPage} />)}</>;
-}
-
-function OutlineItemView({ item, pdf, onSelectPage }: { item: OutlineItem; pdf: PDFDocumentProxy; onSelectPage: (page: number) => void }) {
-  const order = useAppStore((state) => state.pageSettings.order);
-  const navigate = async () => { if (!item.dest) return; const destination = typeof item.dest === 'string' ? await pdf.getDestination(item.dest) : item.dest; const ref = destination?.[0]; if (ref == null) return; const source = typeof ref === 'number' ? ref + 1 : (await pdf.getPageIndex(ref)) + 1; const index = order.indexOf(source); if (index >= 0) onSelectPage(index + 1); };
-  return <div className="outline-item"><button onClick={() => void navigate()}>{item.title || 'Untitled section'}</button>{item.items.map((child, index) => <OutlineItemView key={`${child.title}-${index}`} item={child} pdf={pdf} onSelectPage={onSelectPage} />)}</div>;
-}
-
-function SearchBox({ pdf, query, setQuery, hits, setHits, onSelectPage }: { pdf?: PDFDocumentProxy; query: string; setQuery: (value: string) => void; hits: SearchHit[]; setHits: (hits: SearchHit[]) => void; onSelectPage: (page: number) => void }) {
-  const { pageSettings, objects } = useAppStore();
+    if (!view.searchFocusRequest) return;
+    const frame = requestAnimationFrame(() =>
+      globalThis.document
+        .querySelector<HTMLInputElement>('[aria-label="Find text in document"]')
+        ?.focus(),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [view.searchFocusRequest]);
   useEffect(() => {
-    let alive = true;
+    const keys = (event: KeyboardEvent) => {
+      if (globalThis.document.querySelector('dialog[open], .command-backdrop')) return;
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'f') {
+        event.preventDefault();
+        useViewStore.getState().openSearch();
+      }
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        useViewStore.setState({ readingFocus: false });
+        setMobilePanel(undefined);
+      }
+    };
+    window.addEventListener('keydown', keys);
+    return () => window.removeEventListener('keydown', keys);
+  }, [setMobilePanel]);
+  useEffect(() => {
+    setPdf(undefined);
+    setOutline([]);
+    setOutlineLoaded(false);
+    setQuery('');
     setHits([]);
-    if (!pdf || !query.trim()) return;
-    const timer = window.setTimeout(() => {
-      void (async () => {
-        const results: SearchHit[] = [];
-        const order = pageSettings.order.length ? pageSettings.order : Array.from({ length: pdf.numPages }, (_, index) => index + 1);
-        const layouts = layoutTextFrames(objects, order);
-        for (const [index, source] of order.entries()) {
-          if (!alive) return;
-          const content = await (await pdf.getPage(source)).getTextContent();
-          const text = editedPageText(content.items.filter((item) => 'str' in item), objects.filter((object) => object.page === source), layouts);
-          const count = findMatches(text.replace(/\s+/g, ' '), query.replace(/\s+/g, ' ')).length;
-          if (count) results.push({ page: index + 1, count });
-        }
-        if (alive) setHits(results);
-      })().catch(() => { if (alive) setHits([]); });
-    }, 200);
-    return () => { alive = false; window.clearTimeout(timer); };
-  }, [pdf, query, pageSettings.order, objects, setHits]);
-  const total = hits.reduce((sum, hit) => sum + hit.count, 0);
-  return <div className="search-box"><Search size={14} /><input aria-label="Find text in document" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find in document" />{query && <><span>{total} match{total === 1 ? '' : 'es'}</span><button aria-label="Clear search" onClick={() => setQuery('')}><X size={13} /></button></>}{hits.length > 0 && <button className="next-match" onClick={() => onSelectPage(hits[0].page)}>Go to page {hits[0].page}</button>}</div>;
+  }, [state.document?.id]);
+  const drop = async (event: DragEvent<HTMLElement>) => {
+    event.preventDefault();
+    state.setDragging(false);
+    const file = event.dataTransfer.files[0];
+    if (!file) return;
+    await opener.openFile(file);
+  };
+  const dimensions = {
+    '--navigation-width': `${view.navigationWidth}px`,
+    '--properties-width': `${view.propertiesWidth}px`,
+  } as CSSProperties;
+  return (
+    <main
+      style={dimensions}
+      className={`workspace${!view.navigationOpen || view.readingFocus ? ' navigation-hidden' : ''}`}
+      onDragOver={(event) => {
+        if (!event.dataTransfer.types.includes('Files')) return;
+        event.preventDefault();
+        state.setDragging(true);
+      }}
+      onDragLeave={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) state.setDragging(false);
+      }}
+      onDrop={drop}
+    >
+      {!view.readingFocus && (compact ? mobilePanel === 'pages' : view.navigationOpen) && (
+        <DocumentNavigator pdf={pdf} outline={outline} loaded={outlineLoaded} />
+      )}
+      <div className="canvas-shell">
+        {compact && <div className="mobile-workspace-actions" aria-label="Mobile workspace">
+          <button aria-label={view.mobileToolsOpen ? 'Hide ribbon tools' : 'Show ribbon tools'} aria-expanded={view.mobileToolsOpen} onClick={() => useViewStore.setState({ mobileToolsOpen: !view.mobileToolsOpen })}>Tools</button>
+          <button aria-pressed={mobilePanel === 'pages'} onClick={() => setMobilePanel(mobilePanel === 'pages' ? undefined : 'pages')}>Pages</button>
+          <button aria-pressed={mobilePanel === 'properties'} onClick={() => setMobilePanel(mobilePanel === 'properties' ? undefined : 'properties')}>Inspector</button>
+          <button onClick={() => { setMobilePanel(undefined); view.openSearch(); }}>Find text</button>
+          <button onClick={() => { setMobilePanel(undefined); useViewStore.setState({ ocrOpen: true, ocrEditable: true }); }}>Scan text</button>
+        </div>}
+        <DocumentToolbar />
+        {view.readingFocus && (
+          <div className="view-focus-banner">
+            <span>Reading focus</span>
+            <button onClick={view.toggleFocus}>Exit reading focus (Esc)</button>
+          </div>
+        )}
+        {view.searchOpen && !view.readingFocus && (
+          <DocumentSearch
+            pdf={pdf}
+            query={query}
+            setQuery={setQuery}
+            hits={hits}
+            setHits={setHits}
+            onSelectPage={state.setSelectedPage}
+          />
+        )}
+        <section
+          ref={canvas}
+          className={`canvas ${state.isDragging ? 'dragging' : ''}`}
+          id="document-canvas"
+          aria-label="Document canvas"
+          tabIndex={0}
+        >
+          {state.document && (
+            <PdfViewer
+              document={state.document}
+              zoom={state.zoom}
+              selectedPage={state.selectedPage}
+              objects={state.objects}
+              pageOrder={state.pageSettings.order}
+              rotations={state.pageSettings.rotations}
+              onCreateTextObject={state.addObject}
+              onDocumentLoaded={(loaded) => {
+                setPdf(loaded);
+                state.initializePages(loaded.numPages);
+                const id = state.document?.id;
+                void loaded
+                  .getOutline()
+                  .then((items) => {
+                    if (useAppStore.getState().document?.id === id) {
+                      setOutline(items ?? []);
+                      setOutlineLoaded(true);
+                    }
+                  })
+                  .catch(() => {
+                    if (useAppStore.getState().document?.id === id) {
+                      setOutlineLoaded(true);
+                      state.setNotice('Could not load this document outline.');
+                    }
+                  });
+              }}
+            />
+          )}
+          {state.isDragging && <div className="drop-overlay">Drop a PDF or image to open</div>}
+        </section>
+      </div>
+      {!view.readingFocus && (compact ? mobilePanel === 'properties' : state.rightPanelOpen) && <PropertiesPanel ready={Boolean(pdf)} onClose={compact ? () => setMobilePanel(undefined) : undefined} />}
+      {compact && mobilePanel && !view.readingFocus && <button className="mobile-panel-backdrop" aria-label="Close workspace panel" onClick={() => setMobilePanel(undefined)} />}
+    </main>
+  );
 }

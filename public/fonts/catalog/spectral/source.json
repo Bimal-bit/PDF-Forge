@@ -1,0 +1,18 @@
+{
+  "family": "Spectral",
+  "id": "spectral",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/spectral/-/spectral-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "cf8daee3b83c1e662196c6e34e444bc41344d54bfeb4fb5351e197de6ce94539",
+    "700-normal": "5276f202cce67e8caa9f697800e11cfc9d708da67d47f6f5507dcadcf1e11c11",
+    "400-italic": "db397149a9f73fd6a41dd2fdf3314cf8a9daf0485134465cc268cac578766b71",
+    "700-italic": "0c2722ef57c7ce87c9dc93a18107939e48fb1540ad14809b47957d1f4b2aa794"
+  },
+  "ttfSha256": {
+    "400-normal": "95f01a6f2c33c7bf2a9676cb8dc42f16f99e90f24805a99fe4e0f40640e28c1b",
+    "700-normal": "d0a5263e62181ab60f088eb95630ec1766a1c0bbcb72fb37f87c79bd8b16d935",
+    "400-italic": "f749049c9e52731d45923d3cbb771146bfaab3a762177f27705f477ff3ac6a73",
+    "700-italic": "4a85d8da51a04b4906aaeb114b468f67574dd49544a38156c3f955163ee5771c"
+  }
+}

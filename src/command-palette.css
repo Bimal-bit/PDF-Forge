@@ -1,0 +1,31 @@
+.app dialog.command-palette {
+  position: fixed;
+  inset: min(14dvh, 110px) auto auto 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  width: min(480px, calc(100vw - 24px));
+  max-height: calc(100dvh - 32px);
+  padding: 18px;
+  overflow-y: auto;
+  animation: none;
+  color: var(--ink);
+  background: var(--surface);
+}
+.command-palette::backdrop { background: #14141a85; }
+.command-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.command-heading strong { font-size: 14px; }
+.app .command-heading button { display: grid; place-items: center; flex: none; width: 32px; min-height: 32px; margin: 0; padding: 0; border: 1px solid var(--line); }
+.command-search-field { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+.app .command-search-field input { min-width: 0; font-size: 16px; padding: 11px; }
+.command-result-count { margin: 16px 0 8px; color: var(--muted); font-size: 11px; }
+.command-results { display: grid; gap: 3px; }
+.app .command-results button { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; padding: 12px; min-height: 44px; font-size: 13px; }
+.app .command-results button[aria-current=true] { color: var(--accent-ink); background: var(--accent-soft); }
+.command-results kbd { color: inherit; font-size: 15px; }
+.command-empty { margin: 8px 0 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.command-hint { padding-top: 14px; margin: 14px 0 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.command-announcement { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-height: 500px) {
+  .app dialog.command-palette { top: 12px; padding: 12px; }
+  .command-heading { margin-bottom: 8px; }
+}

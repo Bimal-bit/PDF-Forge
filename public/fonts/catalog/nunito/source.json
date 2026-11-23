@@ -1,0 +1,18 @@
+{
+  "family": "Nunito",
+  "id": "nunito",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/nunito/-/nunito-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "a5906e15ceb68f73d3b2c2076b4057c3f6ed401186d56283b45ce12944ca0735",
+    "700-normal": "fa89300b9bbb3bd0f60d6991aa055965d98e2ccca27bf8688fe0c39cdc796846",
+    "400-italic": "983e9c4b4a8f3bb81190009facbccbe5ecf9f55a758ae95c4759a00f715312d1",
+    "700-italic": "e666bd4b48ad20e5385e1f1ec1607d68b85380cfe04064fbb5a2bfdc8200deaf"
+  },
+  "ttfSha256": {
+    "400-normal": "83a4b5665671ac8900a88e0efed3638ebec96e41a7480c406b9549f55c1922fc",
+    "700-normal": "77b4b94012a0d1dab2803bac72ece1304e31a7934573f7c6b6ae5bf09fadcf5e",
+    "400-italic": "722f2c1c4f7056a86ffa1282df50be83d3ba80884fc5a58826210cfeced6d66d",
+    "700-italic": "ee8d7f69bbd8c313bdcfeeeed4a32e80bc0ada66a32bdae9c0a56c8e8a05f4ea"
+  }
+}

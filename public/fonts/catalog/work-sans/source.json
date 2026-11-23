@@ -1,0 +1,18 @@
+{
+  "family": "Work Sans",
+  "id": "work-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/work-sans/-/work-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "418b06936717d2e9b6c7a1fb61acb7e2f40030be4b230452f96505230e7b6b41",
+    "700-normal": "c1e51267967030c3d8893931aa3b2e087b9caf44332cf7c384f4f4c22da0dadc",
+    "400-italic": "5606e3c83b0f0ddd405b9e931ec2fa01c52942b0d39a740afa9471de55a8863e",
+    "700-italic": "007fd9077386a2efc1905642899f07fc079d4507641f4805c50778d13c43fd2b"
+  },
+  "ttfSha256": {
+    "400-normal": "77956580e7e40c861d494f9b1ec63080864de00826549faeef3227f45f9cdd48",
+    "700-normal": "19d8346cecef6702da618329f62744e8a6b2d290ce72f04c12e603f0a5fa0a8a",
+    "400-italic": "b36b624f1f9b70b2c4770dcbe014c9a553e5f7fd5bb595a0f16662e1cb1658cc",
+    "700-italic": "3efb44f97ffabeb66173e465b430dca8bef76cf7c70acd241f4e366f685a463d"
+  }
+}

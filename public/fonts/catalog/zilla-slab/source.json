@@ -1,0 +1,18 @@
+{
+  "family": "Zilla Slab",
+  "id": "zilla-slab",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/zilla-slab/-/zilla-slab-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "ab2607313bc04e82a53aca235853a0b83463e99b3ae88b17cc963e371f8fe91c",
+    "700-normal": "896b6ebb8cd10aca90bdff88a5a1b648cbc0d50751740bd5a6d012007aef9ebe",
+    "400-italic": "1285db803447f43de11d51677826b43cd0b9a4ddf76adc5a1c2514b8c0e6c00a",
+    "700-italic": "81dad87e98f037656238d0e49e98bbe93be520917c71e3871cb232226f98d6cc"
+  },
+  "ttfSha256": {
+    "400-normal": "8c195cf094726e3385c436a33d28998c2b15c257ecc40f6824c78d00aef9789a",
+    "700-normal": "7a320a7868d64eaf538309e61ba128e5901f6b8baee34ab3241a75aa14dd335a",
+    "400-italic": "36bda992f8f4ae4292aa68b14d4ad4cffec6b2ed30d8345c604e10afa895127b",
+    "700-italic": "90d8cec77ce994ed1b94e46c42e58a3db4d80ac5a8f873da19ceb463ebfca405"
+  }
+}

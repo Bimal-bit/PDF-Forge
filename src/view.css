@@ -1,0 +1,25 @@
+.app .tool-strip:has(.view-toolbar) { padding: 0; overflow: hidden; }
+.view-toolbar { display: flex; align-items: stretch; gap: 0; width: 100%; min-width: 0; overflow-x: auto; padding: 9px 12px 7px; scrollbar-width: thin; }
+.view-group { flex: none; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; padding: 0 12px; border-right: 1px solid var(--line); }
+.view-group:last-child { border: 0; }
+.view-group > span { text-align: center; font-size: 10px; color: var(--muted); }
+.view-group-controls { display: flex; align-items: center; gap: 4px; min-height: 35px; }
+.app .view-group button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 32px; height: 33px; padding: 6px 8px; white-space: nowrap; }
+.app .view-group button[aria-pressed=true] { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.view-number { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); white-space: nowrap; }
+.view-number input { width: 61px; height: 33px; border: 1px solid var(--control-border); border-radius: 7px; padding: 4px 5px; color: var(--ink); background: var(--control-bg); font: inherit; }
+.view-group[aria-label='Page navigation'] input { width: 53px; }
+.app .workspace.navigation-hidden { grid-template-columns: minmax(0, 1fr) auto; }
+.canvas-shell { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.app .canvas-shell .canvas { flex: 1; min-width: 0; min-height: 0; display: block; place-items: normal; padding: 24px 30px 30px; overflow-anchor: none; scroll-behavior: auto; }
+.app .canvas-shell .page-stack { display: flex; flex-direction: column; align-items: safe center; width: 100%; min-width: 0; gap: 25px; padding: 0 0 18px; }
+.app .canvas-shell .pdf-page { flex: none; min-height: 0; }
+.app .page-placeholder { display: grid; position: absolute; inset: 0; width: auto; height: auto; }
+.app .canvas-shell .search-box { position: relative; inset: auto; flex: none; align-self: stretch; width: 100%; min-height: 39px; margin: 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; padding: 7px 12px; flex-wrap: wrap; }
+.app .search-box input { flex: 1; min-width: 100px; max-width: 250px; }
+.app .search-box button { white-space: nowrap; }
+.app .pdf-page.night-reading { filter: invert(1) hue-rotate(180deg); box-shadow: none; }
+.app .pdf-page.night-reading .page-number { filter: invert(1) hue-rotate(180deg); }
+.view-focus-banner { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 14px; background: var(--surface); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.view-focus-banner button { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
+@media (max-width: 1000px) { .app .canvas-shell .canvas { padding-inline: 18px; } }

@@ -9,6 +9,32 @@ export interface OpenDocument {
   data: ArrayBuffer;
 }
 
+export interface LocalFontFace {
+  id: string;
+  family: string;
+  name: string;
+  dataUrl: string;
+  bold: boolean;
+  italic: boolean;
+}
+
+export interface SourceTextLayout {
+  baselineOffset: number;
+  ascent: number;
+  horizontalScale: number;
+  rotation: number;
+  fontFamily: string;
+  bold: boolean;
+  italic: boolean;
+  cssFamily?: string;
+  fontFaceId?: string;
+  wordSpacing?: number;
+  splitItems?: { fontName:string; text:string; x:number; y:number; items:{text:string;x:number;y:number;width:number;size:number;horizontalScale:number;rotation:number}[] };
+  underline?: { offset: number; thickness: number };
+  strike?: { offset: number; thickness: number };
+  fontResource?: { path: string[]; codes: Record<string, { hex: string; width: number }> };
+}
+
 export interface TextObject {
   id: string;
   type: 'text';
@@ -19,7 +45,10 @@ export interface TextObject {
   fontSize: number;
   color: string;
   fontFamily?: string;
-  cover?: { width: number; height: number; x?: number; y?: number };
+  fontFace?: LocalFontFace;
+  sourceFontName?: string;
+  sourceLayout?: SourceTextLayout;
+  cover?: { width: number; height: number; x?: number; y?: number; rotation?: number; color?: string };
   fallback?: boolean;
   width?: number;
   height?: number;
@@ -38,6 +67,7 @@ export interface TextObject {
   dropCapLines?: 0 | 2 | 3;
   nextTextId?: string;
   sourceText?: string;
+  ocr?: { text: string; appearance: string };
 }
 
 export interface TextChange {
@@ -46,7 +76,7 @@ export interface TextChange {
   status: 'pending' | 'accepted' | 'rejected';
 }
 
-export type TextFormat = Pick<TextObject, 'fontFamily' | 'fontSize' | 'color' | 'bold' | 'italic' | 'underline' | 'strike' | 'letterSpacing' | 'alignment' | 'lineHeight' | 'list' | 'indent' | 'style'>;
+export type TextFormat = Pick<TextObject, 'fontFamily' | 'fontFace' | 'fontSize' | 'color' | 'bold' | 'italic' | 'underline' | 'strike' | 'letterSpacing' | 'alignment' | 'lineHeight' | 'list' | 'indent' | 'style'>;
 export type StyleKind = 'paragraph' | 'character';
 export interface SavedStyle { id: string; kind: 'style'; name: string; styleKind: StyleKind; format: TextFormat }
 export interface SavedSnippet { id: string; kind: 'snippet'; name: string; text: string; format: TextFormat }
@@ -56,16 +86,16 @@ export interface ShapeObject { id: string; type: 'shape'; page: number; x: numbe
 export interface ConnectorObject { id: string; type: 'connector'; page: number; fromId: string; toId: string; color: string; arrow: boolean }
 export interface EquationObject { id: string; type: 'equation'; page: number; x: number; y: number; latex: string; fontSize: number; color: string }
 export interface ImageObject { id: string; type: 'image'; page: number; x: number; y: number; width: number; height: number; dataUrl: string }
-export interface TableObject { id: string; type: 'table'; page: number; x: number; y: number; width: number; height: number; cells: string[][] }
-export interface LinkObject { id: string; type: 'link'; page: number; x: number; y: number; label: string; url: string; fontSize: number }
+export interface TableObject { id: string; type: 'table'; page: number; x: number; y: number; width: number; height: number; cells: string[][]; headerRow?: boolean; fontFamily?: 'Noto Sans' }
+export interface LinkObject { id: string; type: 'link'; page: number; x: number; y: number; label: string; url: string; fontSize: number; fontFamily?: 'Noto Sans' }
 export interface FormObject {
   id: string; type: 'form'; kind: 'text' | 'checkbox' | 'signature' | 'radio' | 'dropdown' | 'list' | 'date' | 'button';
   page: number; x: number; y: number; width: number; height: number; label: string; value: string;
   checked?: boolean; options?: string[]; required?: boolean; readOnly?: boolean; multiline?: boolean;
   maxLength?: number; existingName?: string;
 }
-export interface HighlightAnnotation { id: string; type: 'highlight'; page: number; x: number; y: number; width: number; height: number; color: string; comment: string; author: string }
-export interface NoteAnnotation { id: string; type: 'note'; page: number; x: number; y: number; comment: string; author: string }
+export interface HighlightAnnotation { id: string; type: 'highlight'; page: number; x: number; y: number; width: number; height: number; color: string; comment: string; author: string; resolved?: boolean }
+export interface NoteAnnotation { id: string; type: 'note'; page: number; x: number; y: number; comment: string; author: string; resolved?: boolean }
 export interface StampAnnotation { id: string; type: 'stamp'; page: number; x: number; y: number; label: 'APPROVED' | 'DRAFT' | 'CONFIDENTIAL' }
 export interface MeasureAnnotation { id: string; type: 'measure'; page: number; x: number; y: number; width: number; height: number; units: 'pt' | 'in' | 'cm' }
 export type AnnotationObject = HighlightAnnotation | NoteAnnotation | StampAnnotation | MeasureAnnotation;

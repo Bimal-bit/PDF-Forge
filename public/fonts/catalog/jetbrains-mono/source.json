@@ -1,0 +1,18 @@
+{
+  "family": "JetBrains Mono",
+  "id": "jetbrains-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/jetbrains-mono/-/jetbrains-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "14425ba9c695763c1547f48a206b7aa60350a33ae23de09f0407877f3fcd89eb",
+    "700-normal": "d0d4e818808f2a0ba39b2b09d1989366f63494e295f003c7ef436697378507e8",
+    "400-italic": "87ddac4a62229787528cf4ac3fa58137b62a9aec364c44fc0f40470bcda9efba",
+    "700-italic": "2cd42fe8f872ef7e06156fe04338b23fc4ec532e66450c8e931db43473c0306c"
+  },
+  "ttfSha256": {
+    "400-normal": "2908b44c040565cac89fb97eee1b2d1ca27224d0394c8a1450440ad7ecd52522",
+    "700-normal": "eccbfa4d45de88feed00fec372b0841adb8de68705bd15acfff0ce4812d57b4b",
+    "400-italic": "a2dc894367daf83e17004011f853e4d5666a04561585a63852d92e335c01f6fd",
+    "700-italic": "c5a5057aa041889409889b8da2306d36be821d6fe2db2f3968d650b8c03260b8"
+  }
+}

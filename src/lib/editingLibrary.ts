@@ -4,6 +4,7 @@ import { database } from './storage';
 export function textFormat(object?: TextObject, kind: StyleKind = 'paragraph'): TextFormat {
   const character: TextFormat = {
     fontFamily: object?.fontFamily ?? 'Helvetica',
+    ...(object?.fontFace ? { fontFace: object.fontFace } : {}),
     fontSize: object?.fontSize ?? 12,
     color: object?.color ?? '#292724',
     bold: object?.bold ?? false,

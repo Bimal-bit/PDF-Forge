@@ -16,7 +16,7 @@ export function parseCsv(text: string): MergeRow[] {
   });
 }
 
-function csvRecords(text: string): string[][] {
+export function csvRecords(text: string, keepEmptyRows = false): string[][] {
   const records: string[][] = [];
   let row: string[] = [];
   let value = '';
@@ -35,7 +35,7 @@ function csvRecords(text: string): string[][] {
       value = '';
       closedQuote = false;
       if (character !== ',') {
-        if (row.length > 1 || row[0].trim()) records.push(row);
+        if (keepEmptyRows || row.length > 1 || row[0].trim()) records.push(row);
         row = [];
         if (character === '\r' && text[index + 1] === '\n') index += 1;
       }
@@ -50,7 +50,8 @@ function csvRecords(text: string): string[][] {
   }
   if (quoted) throw new Error('A quoted CSV value is unfinished.');
   row.push(value);
-  if (row.length > 1 || row[0].trim()) records.push(row);
+  const finalEmptyRow = keepEmptyRows && (closedQuote || Boolean(text.length && !/[\r\n]$/.test(text)));
+  if (row.length > 1 || row[0].trim() || finalEmptyRow) records.push(row);
   return records;
 }
 

@@ -173,7 +173,7 @@ test('landing reports invalid input and accepts a dropped PDF', async ({ page })
     return value;
   }, data);
   await page.locator('.landing').dispatchEvent('dragover', { dataTransfer: transfer });
-  await expect(page.getByRole('status')).toHaveText('Drop PDF to open');
+  await expect(page.getByRole('status')).toHaveText('Drop a PDF or image to open');
   await page.locator('.landing').dispatchEvent('drop', { dataTransfer: transfer });
   await expect(page.getByLabel('Rendered PDF pages')).toBeVisible();
   await expect(page.locator('.landing-drop')).toHaveCount(0);

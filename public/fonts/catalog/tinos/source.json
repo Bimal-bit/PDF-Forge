@@ -1,0 +1,18 @@
+{
+  "family": "Tinos",
+  "id": "tinos",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/tinos/-/tinos-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "18505b57c8a016326da164a1e9a14e8d1c5081ae78e9fe7b57bb66a330ea4ef9",
+    "700-normal": "4132bff0c1156d037289c3372cab59f16e4b0967b71d6cd219ce67619d02de73",
+    "400-italic": "55fe58e551b07fc6586e4e632d10ebf50339fe1f0f4ec97cb55a2abc7d18ff79",
+    "700-italic": "6b199a846d3766e7d35961162b6dc399cda36ff60d3f26ef022be685b609425e"
+  },
+  "ttfSha256": {
+    "400-normal": "838f348e0014a3b184831649c343a00136a60d82d51a8b3e00e2b302790c100e",
+    "700-normal": "a3ecdb65329eaa46189be8552aed3a14fa9900bf741c3f66dfd8482949ed7d4a",
+    "400-italic": "a129eeb0ae49f0947313a9728cc92adcd1ca8235cd53a118a25fa73d851314d3",
+    "700-italic": "0d213fa5e115cb82a797fc88342be2a541677063f055af844fe26348ad5697b5"
+  }
+}

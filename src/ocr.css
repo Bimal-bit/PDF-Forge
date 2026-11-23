@@ -1,0 +1,27 @@
+.ocr-intro, .ocr-boundary { color: var(--muted); line-height: 1.7; font-size: 13px; }
+.ocr-boundary { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--sunken); }
+.ocr-options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ocr-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 16px 0; }
+.ocr-actions button { min-height: 42px; }
+.ocr-actions button:first-child { background: var(--accent); color: var(--button-ink); border-color: var(--accent); }
+.ocr-advanced { border: 1px solid var(--line); border-radius: 10px; padding: 5px 12px; margin-block: 8px; }
+.ocr-advanced summary { min-height: 38px; display: flex; align-items: center; cursor: pointer; color: var(--accent); font-size: 13px; }
+.ocr-advanced summary::after { content: '+'; margin-left: auto; }
+.ocr-advanced[open] summary::after { content: '−'; }
+.advanced-editor label.ocr-enhance { display: flex; flex-direction: row; align-items: center; }
+.advanced-editor .ocr-enhance input { width: 18px; min-height: 18px; flex: none; }
+.ocr-review-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.ocr-review-heading h3 { margin: 8px 0; }
+.ocr-review-heading > span, .ocr-lines label > span { color: var(--muted); font-size: 11px; }
+.ocr-lines { max-height: 35dvh; overflow-y: auto; padding: 0 6px; }
+.ocr-line { padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.ocr-font-review > button { min-height: 38px; }
+.ocr-font-body { margin-block: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--sunken); }
+.ocr-font-body p, .ocr-font-body figcaption { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.ocr-font-body figure { margin: 10px 0; overflow: auto; }
+.ocr-font-body img, .ocr-font-body canvas { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); }
+.ocr-font-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ocr-font-controls label { min-width: 80px; flex: 1; }
+.ocr-font-controls button[aria-pressed=true] { background: var(--accent-soft); border-color: var(--accent); }
+.advanced-editor progress { width: 100%; accent-color: var(--accent); margin-top: 16px; }
+@media (max-width: 480px) { .ocr-options { grid-template-columns: 1fr; gap: 0; } }

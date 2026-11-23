@@ -2,6 +2,8 @@ import type { TextObject } from '../types';
 import type { TextFrameLayout } from '../lib/textFlow';
 import { flowLineX } from '../lib/drawTextFlow';
 import { useAppStore } from '../store/useAppStore';
+import { textFontCss } from '../lib/textFonts';
+import { coverStyle } from '../lib/inlineText';
 
 export function TextFrameView({
   object,
@@ -22,20 +24,10 @@ export function TextFrameView({
       className="text-block-object"
       style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none' }}
     >
-      {object.cover && (
-        <span
-          style={{
-            position: 'absolute',
-            left: ((object.cover.x ?? object.x) - 2) * scale,
-            bottom: ((object.cover.y ?? object.y) - 2) * scale,
-            width: object.cover.width * scale,
-            height: object.cover.height * scale,
-            background: 'white',
-          }}
-        />
-      )}
+      {object.cover && <span style={coverStyle(object, zoom)} />}
       <svg
         className={`text-object flow-text-object${selectedObjectId === object.id ? ' selected-frame' : ''}${pending ? ' tracked-text-object' : ''}`}
+        data-text-object-id={object.id}
         aria-label={`Text frame ${layout.visibleText.slice(0, 40)}`}
         role="button"
         tabIndex={0}
@@ -53,10 +45,7 @@ export function TextFrameView({
           overflow: 'visible',
           pointerEvents: 'auto',
           color: object.color,
-          fontFamily:
-            object.fontFamily === 'Times-Roman'
-              ? 'Times New Roman, serif'
-              : (object.fontFamily ?? 'Helvetica'),
+          fontFamily: textFontCss(object),
           fontWeight: object.bold ? 'bold' : 'normal',
           fontStyle: object.italic ? 'italic' : 'normal',
           fontKerning: 'none',

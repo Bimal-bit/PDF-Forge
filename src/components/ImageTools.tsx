@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { FormatNumberInput } from './FormatNumberInput';
+import { useEffect, useRef, useState } from 'react';
 import { EditorDialog } from './EditorDialog';
 import { useAppStore } from '../store/useAppStore';
 import { defaultImageEdits, editImage, type ImageEdits } from '../lib/imageEditing';
@@ -17,16 +18,25 @@ export function ImageTools() {
   const [preview, setPreview] = useState<string>();
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
+  const session = useRef(0);
+  useEffect(
+    () => () => {
+      session.current += 1;
+    },
+    [],
+  );
   useEffect(() => {
     setPreview(undefined);
   }, [edits, selected?.id, selected?.dataUrl]);
   const change = (patch: Partial<ImageEdits>) => setEdits((current) => ({ ...current, ...patch }));
   const run = async (apply: boolean) => {
     if (!selected || !document || busy) return;
+    const ticket = session.current;
     setBusy(true);
     setMessage('');
     try {
       const result = await editImage(selected.dataUrl, edits);
+      if (ticket !== session.current) return;
       const current = useAppStore.getState();
       if (
         current.document !== document ||
@@ -50,18 +60,35 @@ export function ImageTools() {
         setMessage('Preview ready. Apply to update the document.');
       }
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Could not edit this image.');
+      if (ticket === session.current)
+        setMessage(error instanceof Error ? error.message : 'Could not edit this image.');
     } finally {
-      setBusy(false);
+      if (ticket === session.current) setBusy(false);
     }
   };
   return (
     <>
-      <button disabled={!document} onClick={() => setOpen(true)}>
+      <button
+        disabled={!document}
+        onClick={() => {
+          session.current += 1;
+          setEdits(defaultImageEdits);
+          setPreview(undefined);
+          setMessage('');
+          setBusy(false);
+          setOpen(true);
+        }}
+      >
         Image tools
       </button>
       {open && (
-        <EditorDialog title="Image tools" onClose={() => setOpen(false)}>
+        <EditorDialog
+          title="Image tools"
+          onClose={() => {
+            session.current += 1;
+            setOpen(false);
+          }}
+        >
           <label>
             Inserted image
             <select
@@ -75,7 +102,7 @@ export function ImageTools() {
               }}
             >
               <option value="" disabled>
-                Insert a PNG or JPEG first
+                Insert a PNG, JPEG, or WebP first
               </option>
               {images.map((object, index) => (
                 <option key={object.id} value={object.id}>
@@ -104,20 +131,12 @@ export function ImageTools() {
                   {(['left', 'top', 'width', 'height'] as const).map((property) => (
                     <label key={property}>
                       Crop {property} (%)
-                      <input
-                        aria-label={`Crop ${property}`}
-                        type="number"
+                      <FormatNumberInput
+                        label={`Crop ${property}`}
                         min={property === 'width' || property === 'height' ? 1 : 0}
-                        max="100"
+                        max={100}
                         value={edits[property]}
-                        onChange={(event) =>
-                          change({
-                            [property]: Math.max(
-                              property === 'width' || property === 'height' ? 1 : 0,
-                              Math.min(100, Number(event.target.value) || 0),
-                            ),
-                          })
-                        }
+                        onChange={(value) => change({ [property]: value })}
                       />
                     </label>
                   ))}
@@ -158,20 +177,12 @@ export function ImageTools() {
                   {(['brightness', 'contrast'] as const).map((property) => (
                     <label key={property}>
                       {property}
-                      <input
-                        aria-label={`Image ${property}`}
-                        type="number"
-                        min="-100"
-                        max="100"
+                      <FormatNumberInput
+                        label={`Image ${property}`}
+                        min={-100}
+                        max={100}
                         value={edits[property]}
-                        onChange={(event) =>
-                          change({
-                            [property]: Math.max(
-                              -100,
-                              Math.min(100, Number(event.target.value) || 0),
-                            ),
-                          })
-                        }
+                        onChange={(value) => change({ [property]: value })}
                       />
                     </label>
                   ))}
@@ -198,17 +209,12 @@ export function ImageTools() {
                     </label>
                     <label>
                       Tolerance
-                      <input
-                        aria-label="Background tolerance"
-                        type="number"
-                        min="0"
-                        max="255"
+                      <FormatNumberInput
+                        label="Background tolerance"
+                        min={0}
+                        max={255}
                         value={edits.tolerance}
-                        onChange={(event) =>
-                          change({
-                            tolerance: Math.max(0, Math.min(255, Number(event.target.value) || 0)),
-                          })
-                        }
+                        onChange={(value) => change({ tolerance: value })}
                       />
                     </label>
                   </div>

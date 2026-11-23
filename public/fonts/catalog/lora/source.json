@@ -1,0 +1,18 @@
+{
+  "family": "Lora",
+  "id": "lora",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/lora/-/lora-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "ac079950fd9885261c0f73d9e87233f31b5427333ce0eb20e26c119458493c40",
+    "700-normal": "c05fd5289492ed310ed882259b944ca5287e76e572a65d92d3941f9f44f0342a",
+    "400-italic": "723cc14fe86bc9fadb2f5f34efb421d246edb240a18d2a7828d2edc041d79996",
+    "700-italic": "5be7722fced443a25698c6f77d12a04a2cffa921771d81f2d6f5516a381f134b"
+  },
+  "ttfSha256": {
+    "400-normal": "cfcde1c8bee97b17369e412a778fae1fd37d267caf280597ff47c5462b59209b",
+    "700-normal": "b99785407e19a1285265988d5e00fb2c871ca14a3d49183221f8e7f628464606",
+    "400-italic": "18d2959341c2f9fb0b9465daac48ba593bc5586b020d270f6d94898234807b21",
+    "700-italic": "1aca20b77f45fbbe46a7ee0bd00cc4269b1d7ce349572931376efea0d95a473f"
+  }
+}

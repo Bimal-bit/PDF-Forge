@@ -1,0 +1,18 @@
+{
+  "family": "Figtree",
+  "id": "figtree",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/figtree/-/figtree-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "8f98dd642986f1fa39c45b89665a57372897c235b36028e0e4a136e43dc5f8ab",
+    "700-normal": "7ec4f08d09f91d349917dd6592f6aaae66d8fe1bbd58fa24707961e79236616e",
+    "400-italic": "3a2b7966f6d36cb6b6d1b71ca83668a9234e8cf1b9adaf733d7439885c314d57",
+    "700-italic": "9d0a2a92613201db6fa0c5a7c9e21939b29e5b8e6d9f9946ab21673584e617cf"
+  },
+  "ttfSha256": {
+    "400-normal": "20194040c7a1c4c18a94fecd1dc595985efb7ee8f61bc02cca45bf98cc426f28",
+    "700-normal": "04a0137dfd9503f6a50d621aa4cb5730de42d1d2c00bd1b1523b1efe05f68f03",
+    "400-italic": "3a86c7e33a105c571c8158ca3f4679198f33a3fc3f6cb9d7aca1ffb2e126056c",
+    "700-italic": "5984cd6e7e564c69d4d9d2cc71d057f09ff03a659421570ae0afd8c2fa7a3b3f"
+  }
+}

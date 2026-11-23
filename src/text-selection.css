@@ -1,0 +1,37 @@
+.pdf-page.selecting-text > .text-layer:not(.selection-layer),
+.pdf-page.selecting-text > .object-layer,
+.pdf-page.selecting-text > .object-layer * {
+  user-select: none;
+  pointer-events: none !important;
+}
+.pdf-page .selection-layer {
+  z-index: 3;
+  opacity: 1;
+  user-select: text;
+  cursor: text;
+}
+.selection-layer .selectable-run {
+  cursor: text;
+  color: transparent !important;
+  caret-color: transparent;
+}
+.selection-layer .selection-object-position {
+  pointer-events: none;
+}
+.selection-layer .selection-object-text {
+  --font-height: initial;
+  transform-origin: inherit;
+}
+.selection-layer .selected-text-run {
+  background: #6b5ce233;
+}
+.selection-layer ::selection {
+  color: transparent;
+  background: #6b5ce266;
+}
+.pdf-page .page-number {
+  user-select: none;
+}
+.home-selection-tools button {
+  white-space: nowrap;
+}

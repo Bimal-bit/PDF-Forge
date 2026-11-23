@@ -1,0 +1,18 @@
+{
+  "family": "Roboto Mono",
+  "id": "roboto-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/roboto-mono/-/roboto-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "e03013e0baa5690a803c188da2214d920c3245b25ad78421ecc8ae86cd842ae9",
+    "700-normal": "283fbef73f42c21722c5a3efc7a44b0c38aac1ada665602b2144c13ed58c0e99",
+    "400-italic": "e4a744be99f104ecbd224af9a91da2a7cadd76e1b9cde550b26e341d2e465349",
+    "700-italic": "21eb25612d5c76e78c41bacf87adf6dbb44f20e4ee7f75be6c260e512310c087"
+  },
+  "ttfSha256": {
+    "400-normal": "68a3ce60af30d4df7fb5f5702c8c8655b00a8775f9e8949070b636365023ee6f",
+    "700-normal": "69e6133b0758b911e0be50b1972714a65fe19ce376c1c666e2c7470606173d0a",
+    "400-italic": "6721fc812e249c4334db429b8eb925037742a078a2305525cbdc7f8c66b95b58",
+    "700-italic": "7ed47412728701aff7c9fedeaa70bd2a06e0302b091acfc4b6fecae2e56e0f27"
+  }
+}

@@ -15,6 +15,10 @@ import {
 } from '../lib/editingLibrary';
 import { useAppStore } from '../store/useAppStore';
 import '../editing-library.css';
+import { copiedTextFormat } from '../lib/homeText';
+import { useTextSelectionStore } from '../store/useTextSelectionStore';
+import { useTextEditStore } from '../store/useTextEditStore';
+import { revealTextObject } from './revealTextObject';
 
 export function EditingLibrary({
   selected,
@@ -58,6 +62,17 @@ export function EditingLibrary({
 
   const save = async () => {
     if (!name.trim() || (tab === 'style' ? !selected : !text.trim())) return;
+    let format: TextFormat;
+    try {
+      format = selected
+        ? copiedTextFormat(selected, tab === 'style' ? styleKind : 'paragraph')
+        : textFormat(undefined);
+    } catch (error) {
+      setMessage(
+        error instanceof Error ? error.message : 'Choose a usable font before saving this entry.',
+      );
+      return;
+    }
     const entry: EditingLibraryEntry =
       tab === 'style'
         ? {
@@ -65,14 +80,14 @@ export function EditingLibrary({
             kind: 'style',
             name: name.trim(),
             styleKind,
-            format: textFormat(selected, styleKind),
+            format,
           }
         : {
             id: crypto.randomUUID(),
             kind: 'snippet',
             name: name.trim(),
             text,
-            format: textFormat(selected),
+            format,
           };
     setBusy(true);
     try {
@@ -100,7 +115,7 @@ export function EditingLibrary({
   };
   const insert = (entry: SavedSnippet) => {
     if (!document) return;
-    addObject({
+    const object: TextObject = {
       ...entry.format,
       ...position,
       id: crypto.randomUUID(),
@@ -108,7 +123,23 @@ export function EditingLibrary({
       page: pageSettings.order[selectedPage - 1] ?? selectedPage,
       text: entry.text,
       fallback: false,
-    });
+    };
+    let format: TextFormat;
+    try {
+      format = copiedTextFormat(object);
+    } catch (error) {
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : 'Choose a usable font before inserting this snippet.',
+      );
+      return;
+    }
+    useTextSelectionStore.getState().setMode('edit');
+    useTextEditStore.getState().setDraft(undefined);
+    window.getSelection()?.removeAllRanges();
+    addObject({ ...object, ...format });
+    revealTextObject(object.id, selectedPage);
     setMessage(`${entry.name} inserted on page ${selectedPage}.`);
   };
 
@@ -269,8 +300,25 @@ export function EditingLibrary({
                         onClick={() => {
                           if (entry.kind === 'snippet') insert(entry);
                           else {
-                            onApply({ ...entry.format, fallback: false });
-                            setMessage(`${entry.name} applied to selected text.`);
+                            try {
+                              onApply(
+                                copiedTextFormat(
+                                  {
+                                    ...selected!,
+                                    ...entry.format,
+                                    fontFace: entry.format.fontFace,
+                                  },
+                                  entry.styleKind,
+                                ),
+                              );
+                              setMessage(`${entry.name} applied to selected text.`);
+                            } catch (error) {
+                              setMessage(
+                                error instanceof Error
+                                  ? error.message
+                                  : 'Choose a usable font before applying this style.',
+                              );
+                            }
                           }
                         }}
                       >

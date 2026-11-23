@@ -1,0 +1,18 @@
+{
+  "family": "Merriweather",
+  "id": "merriweather",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/merriweather/-/merriweather-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "66f5bd22d738a801a9e58d71920559743b0baaced04be299e3c4feca3dce3556",
+    "700-normal": "4e1ab49396c02be0d9a2a25eed7bc73781c047d85fcb5dfc2889873eaf992b09",
+    "400-italic": "051559ee0644cd647c8f654cffea1d1a5ce601e573af21d0984528563fb476f6",
+    "700-italic": "e5adfc7eac419ec5624f00612ff7d27f0e5d4bfd898cddc88b610e9e533b641c"
+  },
+  "ttfSha256": {
+    "400-normal": "b5f20618155160eadd7d1a0899dfed986ff531ce989e6f6d24a6dfae14db0774",
+    "700-normal": "523451a8b8244f9fcb81f3aef72e175c30ca2f97865cb7a3c0f5849f6715c4e6",
+    "400-italic": "6205df77dd6ee88872fb4bdc1db80966a344e9b312babc56f0970d3855a80c9f",
+    "700-italic": "42870a14eb9ff98037bd9aa2591e7f545bc89ba7ea074ed20bc355a8830777bd"
+  }
+}

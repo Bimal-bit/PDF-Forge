@@ -1,0 +1,18 @@
+{
+  "family": "Libre Franklin",
+  "id": "libre-franklin",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/libre-franklin/-/libre-franklin-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "50a24a85106ad722ab9d1353977c1f7b3b3d18465a807c0d6f1551b57a705f41",
+    "700-normal": "8ef7121d145d9e99857854efd61831391e1a8b0a91ff255f18907a1f5b9d6943",
+    "400-italic": "a3d7ad6c5c01339ccf0f7261fad35415175f080fb378b7e840d8eadd62db0548",
+    "700-italic": "a2abdfbeaa0a253d7b364ab922a6c2a2812f846b956be52c337bce7f854fab33"
+  },
+  "ttfSha256": {
+    "400-normal": "bb3368df7ff164ad9ef1e228c93b2d7129ec287c4e820ef1b7ddfb855e980a0f",
+    "700-normal": "b932a31af8cd23c443c92d19bfa55e7d0d1c2aa74c9f1596abd2b48387c0d79d",
+    "400-italic": "e7cd2986cbeb911aa4a9ab9c1a4b0ffcf43681672b145b153e4ef2cbf9be277d",
+    "700-italic": "605d9c1370c6d90266304cec17e10f3fc884363db406e2d92a5177695c7db84a"
+  }
+}

@@ -11,6 +11,12 @@ import { useAppStore } from '../store/useAppStore';
 const frame = (id: string, text: string, patch: Partial<TextObject> = {}): TextObject => ({ id, type: 'text', page: 1, text, x: 30, y: 100, width: 100, height: 50, fontSize: 12, color: '#000000', ...patch });
 
 describe('advanced text layout', () => {
+  it('retains source paragraph layout until columns or a continuation explicitly enable frame flow', () => {
+    const source = frame('source', 'A matched source paragraph', { cover: { width: 100, height: 50 } });
+    expect(layoutTextFrames([source]).size).toBe(0);
+    expect(layoutTextFrames([{ ...source, columns: 2 }]).has('source')).toBe(true);
+    expect(layoutTextFrames([frame('inserted', source.text)]).has('inserted')).toBe(true);
+  });
   it('wraps at the actual unkerned PDF glyph advances', async () => {
     const pdf = await PDFDocument.create();
     const font = await pdf.embedFont('Helvetica');
@@ -46,7 +52,10 @@ describe('advanced text layout', () => {
     expect(() => linkTextFrames(objects, 'b', 'a')).toThrow('itself');
     expect(objects.map((object) => object.text)).toEqual(['First', 'Second']);
     delete objects[0].nextTextId;
-    expect(layoutTextFrames(objects).size).toBe(0);
+    const independent = layoutTextFrames(objects);
+    expect(independent.size).toBe(2);
+    expect(independent.get('a')!.visibleText).toBe('First');
+    expect(independent.get('b')!.visibleText).toBe('Second');
   });
 });
 

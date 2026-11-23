@@ -1,0 +1,18 @@
+{
+  "family": "Josefin Slab",
+  "id": "josefin-slab",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/josefin-slab/-/josefin-slab-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "248a603b50674b82c502a9b0236bbc4dd7895f6120539c555d3e57d14a66b2cd",
+    "700-normal": "63f69e6742591ccd19f9012d4594aa561386a146fe51f2052abb963c23bde2fd",
+    "400-italic": "f2c521bb0d25b27b60285ace2a189f29b8ef83ce9dc793f127df4fc879a7bb85",
+    "700-italic": "09074c9f7cf8c79ba6f175257b74e430b3268a97ff76f879fd2c32d60545dd3c"
+  },
+  "ttfSha256": {
+    "400-normal": "8c562a9e6372bc20370139775bf4b6844f6a82ba28a9ed12a3effcb0131184de",
+    "700-normal": "69f6b68084a33e1469beee468a57686ddc9ac500064f354d68d482473e9f8135",
+    "400-italic": "95cb2af04efbf4188ac7e545aa58a5ed5288e735edd6212f34fa06b375be44e5",
+    "700-italic": "1dae26c4892b5bb1e0a34d79c7e25fc9e79147e0ef18d5a9a77c626db51d8835"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Roboto",
+  "id": "roboto",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/roboto/-/roboto-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "425c0713a8176f92273d378599c7eac57de7fafabd4bd0ed457b70eb8f80d371",
+    "700-normal": "b9d66d1708156f765ada51939bc24ed259dafa69eb631b36e443680fe9e15879",
+    "400-italic": "5d0e978b6560631da2504e1612e91ee1ff959c04adae245eb320ac90cad2ba2f",
+    "700-italic": "cc04783263e416f8ee2a218fde6ffd532d6b81636d3187d30e39e4ad05736d5e"
+  },
+  "ttfSha256": {
+    "400-normal": "9692ac5f35f61109f6029b0cd1a2697a76d7c7672476dcca2e9a93bd751dad8f",
+    "700-normal": "7ec30e6d2815b10fdc24379d5e5accae2200f02abac61bd7930d578625c4c14d",
+    "400-italic": "ccdebc11869a4c999c207656dd9db9c93cad4df77adc17a99d95766409033b5a",
+    "700-italic": "4895dc011ea6e7c9bb2fc195a508d7f5265b3e137753bcb45f33420dec9f6671"
+  }
+}

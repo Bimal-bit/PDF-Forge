@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test, type Download, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { PDFDocument, PDFArray, PDFRawStream, StandardFonts, decodePDFRawStream } from 'pdf-lib';
@@ -27,9 +28,9 @@ test('optimization retains edits, rotation, and the page plan', async ({ page })
   await page.getByRole('button', { name: 'Add text overlay', exact: true }).click();
   await page.getByLabel('Overlay text').fill('Keep this edit');
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Rotate page', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Rotate page');
+  await runPageCommand(page, 'Move page down');
+  await runPageCommand(page, 'Duplicate page');
   const pending = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Optimize PDF', exact: true }).click();
   const pdf = await PDFDocument.load(await downloaded(await pending));
@@ -49,10 +50,12 @@ test('search follows replacement text and inserted links after page changes', as
   await page.getByLabel('Find text in document').fill('Visible replacement');
   await expect(page.locator('.search-box')).toContainText('1 match');
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
   await expect(page.locator('.search-box')).toContainText('Go to page 2');
   await page.getByRole('button', { name: 'Insert', exact: true }).click();
   await page.getByRole('button', { name: 'Add link', exact: true }).click();
+  await page.getByLabel('Link destination', { exact: true }).fill('https://example.com');
+  await page.getByRole('button', { name: 'Insert link', exact: true }).click();
   await page.getByLabel('Find text in document').fill('example.com');
   await expect(page.locator('.search-box')).toContainText('1 match');
 });
@@ -85,7 +88,7 @@ test('existing form selections and maximum length can be cleared', async ({ page
 test('comparison and accessibility inspect the edited page plan', async ({ page }) => {
   await open(page);
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Delete page', exact: true }).click();
+  await runPageCommand(page, 'Delete page');
   await page.getByRole('button', { name: 'Check accessibility', exact: true }).click();
   await expect(page.getByLabel('Accessibility report')).toContainText('1 pages');
   await page.getByLabel('Close panel', { exact: true }).click();
@@ -119,9 +122,10 @@ test('table exports include inserted tables in output page order', async ({ page
   await open(page);
   await page.getByRole('button', { name: 'Insert', exact: true }).click();
   await page.getByRole('button', { name: 'Add table', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert table', exact: true }).click();
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
+  await runPageCommand(page, 'Duplicate page');
   const csvDownload = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Extract tables CSV', exact: true }).click();
   const csv = (await downloaded(await csvDownload)).toString('utf8');
@@ -158,7 +162,7 @@ test('recovery scrolls to the saved selected page after the PDF loads', async ({
   await expect.poll(() => page.getByRole('article', { name: 'Page 2', exact: true }).evaluate((element) => {
     const canvas = element.closest('.canvas')!.getBoundingClientRect();
     const rect = element.getBoundingClientRect();
-    return rect.top >= canvas.top - 1 && rect.bottom <= canvas.bottom + 1;
+    return rect.top >= canvas.top - 1 && rect.top < canvas.bottom && (rect.height > canvas.height || rect.bottom <= canvas.bottom + 1);
   })).toBe(true);
 });
 
@@ -177,9 +181,12 @@ test('OCR preserves edits made while recognition is running', async ({ page }) =
   await page.getByRole('button', { name: 'Recognize document', exact: true }).click();
   try {
     await expect(page.getByRole('button', { name: 'Cancel OCR', exact: true })).toBeVisible();
-    await page.getByLabel('Overlay text').fill('Keep the edit made during OCR');
+    // OCR is a modal dialog. Simulate a concurrent workspace mutation through the store.
+    await page.evaluate(async () => { const state = (await import('/src/store/useAppStore.ts')).useAppStore.getState(); state.updateTextObject(state.objects[0].id, 'Keep the edit made during OCR'); });
   } finally { release(); }
   await expect(page.getByRole('alert')).toContainText('No OCR results were applied', { timeout: 45000 });
+  await page.getByRole('button', { name: 'Close Offline OCR', exact: true }).click();
   await expect(page.getByLabel('Overlay text')).toHaveValue('Keep the edit made during OCR');
+  await page.getByRole('button', { name: 'Offline OCR', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Recognize document', exact: true })).toBeEnabled();
 });

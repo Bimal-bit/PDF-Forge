@@ -1,0 +1,18 @@
+{
+  "family": "Inter",
+  "id": "inter",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/inter/-/inter-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+    "700-normal": "6f56409fd3d64bb85f7d070bce20749db2d66b6d63cec586cc22d1c761be2491",
+    "400-italic": "7ea9d2f1274cebee837f0c6eebb426c18fbb2333a6b6da4d02ec5cf47db7fb8e",
+    "700-italic": "facd8f930c88e4bf79be48afe46671c9dd72f82cf5f4311acc84a48e616ea169"
+  },
+  "ttfSha256": {
+    "400-normal": "03693cc5689d8c89a20ae55fe945fe59884eec8ad7d7dabb4761e066e88f49ff",
+    "700-normal": "153817b87a52e1ca2555f42458ca223b628e646e1afaafae09197ca42972bd39",
+    "400-italic": "15d4caab6aa4efa35bb6844bafc683897d27de703c02ba7012aa6c3d99fb225a",
+    "700-italic": "fdb0143266c0a6ae73130ff7091395851705d667bc3e3364e14cf20e121c57b4"
+  }
+}

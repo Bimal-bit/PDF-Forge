@@ -1,0 +1,18 @@
+{
+  "family": "Red Hat Display",
+  "id": "red-hat-display",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/red-hat-display/-/red-hat-display-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "131f293be2bb64d87a5ea2a90dadb934df94d976071e220dd685f2a036e5cf90",
+    "700-normal": "9abd8177653672bb520e522ed9796479d67d1e71f198695d790813c1a11933a6",
+    "400-italic": "de0657eab667e72b6b468315fd93c1190b9ca6e45d0e2e5a984702daaff6cb87",
+    "700-italic": "0bec32e28c3524c32d4f6d18621d4dcce4d3ad6b99afb27fce4e65119d12a1e2"
+  },
+  "ttfSha256": {
+    "400-normal": "20549551104df2780c80afbd75b6a13cb4e49c4ccdc03f27ec4cfb722d575492",
+    "700-normal": "46bd7436e958d2d0f7642694270c6d4f597a48a01fd33ce1e4574726a8eca51b",
+    "400-italic": "24b68ce71cc6c7b10e33bd91ed78b933128ede2f39a760b65c9e5ef421d6a873",
+    "700-italic": "05e7fc76f876cd881db66fa064e17580a35fe6c8e38e35458dd2ea4c525dd3a4"
+  }
+}

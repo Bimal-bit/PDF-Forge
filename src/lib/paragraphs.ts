@@ -4,7 +4,7 @@ export function paragraphAt(items: TextItem[], selected: number) {
   const target = items[selected];
   const size = Math.max(1, target.height);
   const compatible = items.map((item, index) => ({ item, index })).filter(({ item }) =>
-    item.fontName === target.fontName && Math.abs(item.height - size) < size * .25 && Math.abs(item.transform[1]) < .01);
+    item.fontName === target.fontName && Math.abs(item.height - size) <= .01 && Math.abs(item.transform[1]) < .01);
   let lines: { y: number; items: typeof compatible }[] = [];
   for (const entry of compatible) {
     let line = lines.find((candidate) => Math.abs(candidate.y - entry.item.transform[5]) < size * .35 && candidate.items.some(({ item }) =>
@@ -31,5 +31,6 @@ export function paragraphAt(items: TextItem[], selected: number) {
     text: block.map((line) => line.items.sort((a, b) => a.item.transform[4] - b.item.transform[4]).map(({ item }) => item.str).join(' ').replace(/\s+/g, ' ').trim()).join('\n'),
     x, y, width: Math.max(...runs.map((item) => item.transform[4] + item.width)) - x + 4,
     height: Math.max(...runs.map((item) => item.transform[5])) + size - y, fontSize: size,
+    lineHeight: block.length > 1 ? (block[0].y - block.at(-1)!.y) / ((block.length - 1) * size) : 1.2,
   };
 }

@@ -1,0 +1,18 @@
+{
+  "family": "Rubik",
+  "id": "rubik",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/rubik/-/rubik-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "82ac0e78285c43d0cd203427c57ab30fb07b18f8e6166045f729442eb1abfa26",
+    "700-normal": "e423f8ae1668156addf5e32f1056d5b22b5b113a9a23afd364df84a6fa88602d",
+    "400-italic": "6f2f041a86279a1329ba7aeedd89a5b86b7d7c373a809590edeb482c0b866ece",
+    "700-italic": "f60727dd408cc6e965ebca6a934d93236df4412cdd16d52d53e4fbe1adda293b"
+  },
+  "ttfSha256": {
+    "400-normal": "b1dd1a00ef8502f4b3b6272260fd4c44aae352d6eb9f745348b2d308267e5fea",
+    "700-normal": "a47907a5499e82fd4359136cf6930f50f166a54662b6353dddf4a1a328516871",
+    "400-italic": "b44089c8a6e877c9484517f33a162b072ec73cf994d1b939f77f2f6cd5aa8eef",
+    "700-italic": "b03241f09525155684fbc5d8e23fa258bd57439837ea83aeebca5b155a8933f4"
+  }
+}

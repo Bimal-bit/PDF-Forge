@@ -72,12 +72,20 @@ export function openDocument(bytes: Uint8Array, name: string): OpenDocument {
 }
 
 export async function importDocument(file: File): Promise<OpenDocument> {
+  if (file.size > 20 * 1024 * 1024) throw new Error('Import a document of 20 MB or smaller.');
   const extension = file.name.split('.').at(-1)?.toLowerCase();
   if (['png', 'jpg', 'jpeg', 'webp'].includes(extension ?? '')) {
     const bitmap = await createImageBitmap(file);
-    const canvas = document.createElement('canvas'); canvas.width = bitmap.width; canvas.height = bitmap.height;
-    canvas.getContext('2d')!.drawImage(bitmap, 0, 0); bitmap.close();
-    const bytes = await fetch(canvas.toDataURL('image/png')).then((response) => response.arrayBuffer());
+    if (bitmap.width * bitmap.height > 16_000_000) { bitmap.close(); throw new Error('Import an image with at most 16 million pixels.'); }
+    const canvas = document.createElement('canvas');
+    let bytes: ArrayBuffer;
+    try {
+      canvas.width = bitmap.width; canvas.height = bitmap.height;
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('This browser cannot import images.');
+      context.drawImage(bitmap, 0, 0);
+      bytes = await fetch(canvas.toDataURL('image/png')).then((response) => response.arrayBuffer());
+    } finally { bitmap.close(); canvas.width = 0; canvas.height = 0; }
     const pdf = await PDFDocument.create(); const image = await pdf.embedPng(bytes);
     const scale = Math.min(1, 1200 / Math.max(image.width, image.height));
     pdf.addPage([image.width * scale, image.height * scale]).drawImage(image, { x: 0, y: 0, width: image.width * scale, height: image.height * scale });

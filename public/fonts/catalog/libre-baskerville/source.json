@@ -1,0 +1,18 @@
+{
+  "family": "Libre Baskerville",
+  "id": "libre-baskerville",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/libre-baskerville/-/libre-baskerville-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "3eb80fbca70498126925ce16ff5c20b2fa35e67ae7123ddb46302d2778dfbf0e",
+    "700-normal": "96fa63376eed93029fa2514a02f5cb80276b016e239426858787de6e794d8619",
+    "400-italic": "efb7e5f4376a557314f5bb9f5197ef837d86c0ab38e1a50a0ff5c60c3400c629",
+    "700-italic": "41cee933f4b0f98abfdcee0f5188f96e885f40fff88c7fe771ba95c0e1309579"
+  },
+  "ttfSha256": {
+    "400-normal": "efc67097ba648d90f33322e77fa153db6a5f43ff869e22709804eb080b17ab02",
+    "700-normal": "f61d04ae069de6a3e6e6a1c00bb4aaba910e5cbc776d6a14daf64d833341e62a",
+    "400-italic": "f0bf66ad9fdb5333dbba6c4a07bb24e6f5b23758946e8352e7a70dd61f81f262",
+    "700-italic": "0639360324078d1c7200ab91207613f733f2da91297a036a16fef3be6c475a19"
+  }
+}

@@ -1,25 +1,61 @@
 import { useAppStore } from '../store/useAppStore';
 import { parseCsv } from '../lib/forms';
-import { formDataEntries } from '../lib/formFields';
+import { prepareFormValues } from '../lib/formImport';
 import type { FormObject } from '../types';
+import type { ToolRunner } from './useToolRunner';
 
-export function FormDataTools() {
-  const { objects, updateObject, setNotice, document } = useAppStore();
-  return <label className="insert-image">Import form data<input aria-label="Import form data" type="file" accept=".json,.csv" disabled={!document} onChange={(event) => {
-    const file = event.target.files?.[0]; if (!file) return;
-    void file.text().then((text) => {
-      const data: unknown = file.name.toLowerCase().endsWith('.csv') ? parseCsv(text)[0] : JSON.parse(text);
-      if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('Choose a form JSON object or a CSV with one data row.');
-      let count = 0;
-      const fields = objects.filter((object): object is FormObject => object.type === 'form');
-      for (const { object, key } of formDataEntries(fields)) {
-        const value = (data as Record<string, unknown>)[key];
-        if (typeof value !== 'string' && typeof value !== 'boolean' && typeof value !== 'number') continue;
-        updateObject(object.id, object.kind === 'checkbox' ? { checked: value === true || value === 'true' || value === '1' || value === 1 } : { value: String(value) });
-        count += 1;
-      }
-      setNotice(`${count} form fields filled from local data.`);
-    }).catch((error: unknown) => setNotice(error instanceof Error ? error.message : 'Could not import form data.'));
-    event.target.value = '';
-  }} /></label>;
+export function FormDataTools({ runner }: { runner: ToolRunner }) {
+  const { document, objects, pageSettings } = useAppStore();
+  const available = objects.some(
+    (object) =>
+      object.type === 'form' &&
+      !object.readOnly &&
+      object.kind !== 'button' &&
+      pageSettings.order.includes(object.page),
+  );
+  return (
+    <label className={`tools-file${!available || runner.busy ? ' disabled' : ''}`}>
+      Import form data
+      <input
+        aria-label="Import form data"
+        type="file"
+        accept=".json,.csv"
+        disabled={!document || !available || Boolean(runner.busy)}
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file) return;
+          void runner.run(
+            'Importing form data',
+            async (snapshot) => {
+              if (file.size > 1024 * 1024)
+                throw new Error('Form data files must be 1 MB or smaller.');
+              const text = (await file.text()).replace(/^\uFEFF/, '');
+              let data: unknown;
+              if (file.name.toLowerCase().endsWith('.csv')) {
+                const rows = parseCsv(text);
+                if (rows.length !== 1)
+                  throw new Error('Choose a form CSV with exactly one data row.');
+                data = rows[0];
+              } else data = JSON.parse(text);
+              const fields = snapshot.objects.filter(
+                (object): object is FormObject =>
+                  object.type === 'form' && snapshot.pageSettings.order.includes(object.page),
+              );
+              return prepareFormValues(fields, data);
+            },
+            (changes) => {
+              const state = useAppStore.getState();
+              state.applyFormValues(changes);
+              state.setNotice(
+                changes.length
+                  ? `${changes.length} form fields filled from local data.`
+                  : 'No editable form values changed. Check the field names in your data.',
+              );
+            },
+          );
+        }}
+      />
+    </label>
+  );
 }

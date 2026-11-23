@@ -1,0 +1,18 @@
+{
+  "family": "Jost",
+  "id": "jost",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/jost/-/jost-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "f94cffda16515fbb1667a2662d6b46f5610a942fd02fe88d67ff98f776288962",
+    "700-normal": "81da4d711250508c3f686d210ed07d5eb6229185d313fcc73fda7bf2b37d2ca5",
+    "400-italic": "5e2038b7f8d366fc1c4036228b648b9a84676155e7a6235fab9c48a42f88ab41",
+    "700-italic": "148710d2189d1bc8f5c9c6d674eff4c20096108b237ba8de75ed11db3c9f02db"
+  },
+  "ttfSha256": {
+    "400-normal": "4b4556357a843f21ec7929174fa36db347d2c9cb19c596f5e81eba3f22e4b057",
+    "700-normal": "5584166e3e561645a07e5e48ce9329ab5dad9bb6d44875ca18278cb956a6fc71",
+    "400-italic": "a9f2077c454a697d7fc7785ecc2fcc88b4bf9ba89d296b158bbd9ee9cb8e3b89",
+    "700-italic": "9060b6243944f1719194915bab9928192f535ab6e12d5384cd4d58656b449411"
+  }
+}

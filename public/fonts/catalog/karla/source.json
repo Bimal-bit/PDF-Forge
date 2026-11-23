@@ -1,0 +1,18 @@
+{
+  "family": "Karla",
+  "id": "karla",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/karla/-/karla-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "250bb48fdea5ba354fa85161f3877121ef679c6f7a1ef3d8f173fb8979628906",
+    "700-normal": "b3613b987992f48294da8bce46723ef9683a16422318cd41712421084dd4c2c4",
+    "400-italic": "3de0e923c67c125d772e2788f708b483e46d3d653da27c2a18aac857464bde44",
+    "700-italic": "b4799d450d41a9048b97d8b6a32abe75ffb9689062b0a4f58203c305c00ae30b"
+  },
+  "ttfSha256": {
+    "400-normal": "7d2fccdaa26ce475a8c2c2a48fdf4760e9b20ac69a0f66fca4f0ab846835d866",
+    "700-normal": "e4c723f2bb87d31dcde89f3e210aec7249cf86e7c5184de894626f9cc53c57d4",
+    "400-italic": "378b8579440c04e9dccc239c5c44d412d0b8009ce694416a4e9092aee18de556",
+    "700-italic": "9915a40cd34e37f8a032afdc03efb31df02280fe5818de3ee533ec8f06a38e68"
+  }
+}

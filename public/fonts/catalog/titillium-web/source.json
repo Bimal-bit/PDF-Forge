@@ -1,0 +1,18 @@
+{
+  "family": "Titillium Web",
+  "id": "titillium-web",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/titillium-web/-/titillium-web-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "861b80b49d2a634d8746e2e45c672309d9ba69a2fdd95da2af034d7a1d09b3f9",
+    "700-normal": "9e3162d81ed6681322ab34791660f1b45c79945197e7a7dbb217005b2926caf4",
+    "400-italic": "4dddc0c023c77b64963f3508bc3bfe6fee1a346f8b4fe9865807987e7448671a",
+    "700-italic": "046270a219c289573ee81e9a8d4749c9fe806f0ce139b72dc2ca563403f5bbf8"
+  },
+  "ttfSha256": {
+    "400-normal": "a330e621ebe2428edeb3efb716a06825ed0e901af03d10221376a76824f76c4a",
+    "700-normal": "a8a8a08da7963cc34216ae6317a4b5e63ecb2c71d13a26c127392bb5b8d23743",
+    "400-italic": "aae8e94e6b1e80f4f8c9f698df170c895e783f3121763bfb8f026bab90c5a353",
+    "700-italic": "1ab80b8bf7fab90c1282acea93b6772da3074c2ed6163ad0dda060347c6cb2cf"
+  }
+}

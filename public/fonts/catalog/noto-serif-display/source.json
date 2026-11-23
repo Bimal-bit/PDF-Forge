@@ -1,0 +1,18 @@
+{
+  "family": "Noto Serif Display",
+  "id": "noto-serif-display",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/noto-serif-display/-/noto-serif-display-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "c6319c298f6733178b391973cff931337653261ca41419f970b55087d44d905d",
+    "700-normal": "1d6f07e4d36c336d8676875a1afc2a68f175ee5ce31c1aa3ed5d4e3a36f992ca",
+    "400-italic": "1fff3599e152c3401a0d0672dae1a107546823cf08b91d96404bde50eafc2363",
+    "700-italic": "eda93c0cf81f1e6f49eb91f51881cb3fcd1d599a4ba857ff5058b7810fac4b6e"
+  },
+  "ttfSha256": {
+    "400-normal": "a2bc46da2be38d8eb0f80bbe663955de3c6e6800e2a1ddb8d5622a4434c542a6",
+    "700-normal": "4f03ac36ce7268b9d5e94d76d701aac16e0b447a29561b6c814bf3ac53384b7d",
+    "400-italic": "868f3d26168053773188a82df34740bc5fdd8c1a446f08bcdcd7e412edd4a67a",
+    "700-italic": "f0eb063020fe4091ca7b0ffe6efc2de3c4d95971a3ff8b0caa1afebe093e4f7d"
+  }
+}

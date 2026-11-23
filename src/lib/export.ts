@@ -1,15 +1,24 @@
-import { PDFArray, PDFDocument, PDFName, PDFString, PDFFont, StandardFonts, degrees, rgb } from 'pdf-lib';
+import { PDFArray, PDFDocument, PDFName, PDFString, PDFHexString, PDFFont, StandardFonts, degrees, rgb } from 'pdf-lib';
 import type { AnnotationObject, EditorObject, FormObject, OpenDocument, PageSettings } from '../types';
 import { writeFormField } from './formFields';
 import { applyPagePlan } from './pagePlan';
 import { prunePageFields, registerPageFields } from './formAssembly';
-import { drawTextBlock, standardFontName } from './textLayout';
+import { drawTextBlock } from './textLayout';
 import { unicodeFont } from './fonts';
 import { annotationAppearance } from './annotationAppearance';
 import { layoutTextFrames } from './textFlow';
 import { drawTextFlow } from './drawTextFlow';
 import { drawDiagram } from './diagrams';
 import { drawEquation } from './equations';
+import { embedTextFont, prepareTextFont } from './textFonts';
+import { drawOriginalFont } from './sourceFontResource';
+import { drawTable, insertUnicodeFont } from './tableLayout';
+import { normalizeLinkUrl } from './insertion';
+import { pdfColor } from './color';
+import { annotationBox, measurementLabel } from './annotations';
+import { preservesOcrPixels } from './ocrAppearance';
+import { pushGraphicsState, popGraphicsState, concatTransformationMatrix } from 'pdf-lib';
+export { measurementLabel } from './annotations';
 
 const emptySettings: PageSettings = { order: [], rotations: {}, header: '', footer: '', watermark: '', batesStart: null };
 
@@ -21,6 +30,7 @@ export async function exportDocument(document: OpenDocument, objects: EditorObje
 export async function exportPdf(document: OpenDocument, objects: EditorObject[], settings: PageSettings = emptySettings): Promise<Uint8Array> {
   const source = await PDFDocument.load(document.data.slice(0), { updateMetadata: false });
   const order = settings.order.length ? settings.order : Array.from({ length: source.getPageCount() }, (_, index) => index + 1);
+  await Promise.all(objects.filter((object) => object.type === 'text').map(prepareTextFont));
   const frameLayouts = layoutTextFrames(objects, order);
   if ([...frameLayouts.values()].some((layout) => layout.overflow)) throw new Error('Text overflows a story. Enlarge its boxes or add a continuation in Layout before exporting.');
   const pdf = source;
@@ -43,25 +53,31 @@ export async function exportPdf(document: OpenDocument, objects: EditorObject[],
     drawPageMarks(page, markFont, outputIndex + 1, settings);
     for (const object of objects.filter((entry) => entry.page === sourcePage)) {
     if (object.type === 'text') {
-      const family = standardFontName(object);
-      let textFont = fonts.get(family);
-      if (!textFont) { textFont = await pdf.embedFont(family); fonts.set(family, textFont); }
+      if (preservesOcrPixels(object)) {
+        let hiddenFont = await embedTextFont(pdf, object, fonts);
+        hiddenFont = await supportedFont(pdf, fonts, object.text, hiddenFont);
+        page.pushOperators(pushGraphicsState(), concatTransformationMatrix(object.sourceLayout?.horizontalScale ?? 1, 0, 0, 1, object.x, object.y));
+        page.drawText(object.text, { x: 0, y: 0, size: object.fontSize, font: hiddenFont, opacity: 0 });
+        page.pushOperators(popGraphicsState());
+        continue;
+      }
+      if (object.cover) page.drawRectangle({ x: (object.cover.x ?? object.x) - 2, y: (object.cover.y ?? object.y) - 2, width: object.cover.width, height: object.cover.height, color: pdfColor(object.cover.color??'#ffffff'),rotate:degrees(object.cover.rotation??0) });
+      if (!frameLayouts.has(object.id) && drawOriginalFont(page,object)) continue;
+      let textFont = await embedTextFont(pdf, object, fonts);
       const layout = frameLayouts.get(object.id);
       textFont = await supportedFont(pdf, fonts, layout?.visibleText ?? object.text, textFont);
-      if (object.cover) page.drawRectangle({ x: (object.cover.x ?? object.x) - 2, y: (object.cover.y ?? object.y) - 2, width: object.cover.width, height: object.cover.height, color: rgb(1, 1, 1) });
       if (layout) drawTextFlow(page, object, layout, textFont);
       else drawTextBlock(page, object, textFont);
     }
     if (object.type === 'shape' || object.type === 'connector') drawDiagram(page, object, objects, diagramFont);
     if (object.type === 'equation') await drawEquation(pdf, page, object, fonts);
-    if (object.type === 'table') {
-      const rowHeight = object.height / object.cells.length; const columnWidth = object.width / object.cells[0].length;
-      object.cells.forEach((row, rowIndex) => row.forEach((cell, columnIndex) => { const x = object.x + columnIndex * columnWidth; const y = object.y + object.height - (rowIndex + 1) * rowHeight; page.drawRectangle({ x, y, width: columnWidth, height: rowHeight, borderColor: rgb(.35, .33, .3), borderWidth: 1 }); page.drawText(cell, { x: x + 5, y: y + rowHeight - 15, size: 10, font }); }));
-    }
+    if (object.type === 'table') await drawTable(pdf, page, object, font, fonts);
     if (object.type === 'image') { const bytes = await fetch(object.dataUrl).then((response) => response.arrayBuffer()); const image = object.dataUrl.startsWith('data:image/png') ? await pdf.embedPng(bytes) : await pdf.embedJpg(bytes); page.drawImage(image, { x: object.x, y: object.y, width: object.width, height: object.height }); }
     if (object.type === 'link') {
-      page.drawText(object.label, { x: object.x, y: object.y, size: object.fontSize, font, color: rgb(0, .28, .68) });
-      const annotation = pdf.context.obj({ Type: 'Annot', Subtype: 'Link', Rect: [object.x, object.y, object.x + font.widthOfTextAtSize(object.label, object.fontSize), object.y + object.fontSize], Border: [0, 0, 0], A: { Type: 'Action', S: 'URI', URI: PDFString.of(object.url) } });
+      const linkFont = object.fontFamily ? await insertUnicodeFont(pdf, fonts) : await supportedFont(pdf, fonts, object.label, font);
+      const url = normalizeLinkUrl(object.url);
+      page.drawText(object.label, { x: object.x, y: object.y, size: object.fontSize, font: linkFont, color: rgb(0, .28, .68) });
+      const annotation = pdf.context.obj({ Type: 'Annot', Subtype: 'Link', Rect: [object.x, object.y, object.x + linkFont.widthOfTextAtSize(object.label, object.fontSize), object.y + object.fontSize], Border: [0, 0, 0], A: { Type: 'Action', S: 'URI', URI: PDFString.of(url) } });
       const annotations = page.node.Annots() ?? pdf.context.obj([]) as PDFArray; annotations.push(pdf.context.register(annotation)); page.node.set(PDFName.of('Annots'), annotations);
     }
     if (object.type === 'form') {
@@ -122,22 +138,17 @@ export async function splitPdf(document: OpenDocument, pageNumbers: number[], ob
 }
 
 function addPdfAnnotation(pdf: PDFDocument, page: ReturnType<PDFDocument['getPage']>['node'], annotation: AnnotationObject, font: PDFFont) {
-  const base = { Type: 'Annot', P: pdf.context.getObjectRef(page), NM: PDFString.of(annotation.id), F: 4, AP: { N: annotationAppearance(pdf, annotation, font) } };
+  const box = annotationBox(annotation);
+  const state = (annotation.type === 'note' || annotation.type === 'highlight') && annotation.resolved !== undefined ? { State: PDFString.of(annotation.resolved ? 'Completed' : 'None'), StateModel: PDFString.of('Review') } : {};
+  const base = { Type: 'Annot', P: pdf.context.getObjectRef(page), NM: PDFString.of(annotation.id), F: 4, Rect: [box.x, box.y, box.x + box.width, box.y + box.height], ...state, AP: { N: annotationAppearance(pdf, annotation, font) } };
   let value: Record<string, unknown>;
-  if (annotation.type === 'highlight') value = { ...base, Subtype: 'Highlight', Rect: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], QuadPoints: [annotation.x, annotation.y + annotation.height, annotation.x + annotation.width, annotation.y + annotation.height, annotation.x, annotation.y, annotation.x + annotation.width, annotation.y], C: [.96, .72, .1], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author) };
-  else if (annotation.type === 'note') value = { ...base, Subtype: 'Text', Rect: [annotation.x, annotation.y, annotation.x + 18, annotation.y + 18], Contents: PDFString.of(annotation.comment), T: PDFString.of(annotation.author), Name: 'Comment' };
+  if (annotation.type === 'highlight') { const color = pdfColor(annotation.color); value = { ...base, Subtype: 'Highlight', QuadPoints: [annotation.x, annotation.y + annotation.height, annotation.x + annotation.width, annotation.y + annotation.height, annotation.x, annotation.y, annotation.x + annotation.width, annotation.y], C: [color.red, color.green, color.blue], CA: .35, Contents: PDFHexString.fromText(annotation.comment), T: PDFHexString.fromText(annotation.author) }; }
+  else if (annotation.type === 'note') value = { ...base, Subtype: 'Text', Contents: PDFHexString.fromText(annotation.comment), T: PDFHexString.fromText(annotation.author), Name: 'Comment' };
   else if (annotation.type === 'stamp') value = { ...base, Subtype: 'Stamp', Rect: [annotation.x, annotation.y, annotation.x + 110, annotation.y + 32], Contents: PDFString.of(annotation.label), Name: annotation.label };
-  else value = { ...base, Subtype: 'Line', Rect: [Math.min(annotation.x, annotation.x + annotation.width), Math.min(annotation.y, annotation.y + annotation.height) - 8, Math.max(annotation.x, annotation.x + annotation.width), Math.max(annotation.y, annotation.y + annotation.height) + 16], L: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], Contents: PDFString.of(measurementLabel(annotation)), T: PDFString.of('PDFForge') };
+  else value = { ...base, Subtype: 'Line', L: [annotation.x, annotation.y, annotation.x + annotation.width, annotation.y + annotation.height], Contents: PDFString.of(measurementLabel(annotation)), T: PDFString.of('PDFForge') };
   const annotations = page.Annots() ?? pdf.context.obj([]) as PDFArray;
   annotations.push(pdf.context.register(pdf.context.obj(value as never)));
   page.set(PDFName.of('Annots'), annotations);
-}
-
-export function measurementLabel(annotation: Extract<AnnotationObject, { type: 'measure' }>) {
-  const points = Math.hypot(annotation.width, annotation.height);
-  if (annotation.units === 'in') return `${(points / 72).toFixed(2)} in`;
-  if (annotation.units === 'cm') return `${(points / 28.3465).toFixed(2)} cm`;
-  return `${points.toFixed(1)} pt`;
 }
 
 export function downloadPdf(bytes: Uint8Array, name: string): void {

@@ -1,0 +1,18 @@
+{
+  "family": "Sarabun",
+  "id": "sarabun",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/sarabun/-/sarabun-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "04548534510686923239aeda26dd40fa57bf6cc55166204ef52b483bcf9e4228",
+    "700-normal": "b7e814f0f8a07648c77837917ff896c819d44ed4688a83f49b9cb29fdf7898fb",
+    "400-italic": "c18af111fac6b8c4bf32b67eee4535fc19f92656bf399f885c08ec4f2caa315d",
+    "700-italic": "a05323b8b535219beb1c1fc07a84fd40a1aaf7456ae97b3d64d5b1f70eb69a74"
+  },
+  "ttfSha256": {
+    "400-normal": "bca31f9a5b1e35dae57344da7332db00bff43ed442203c3ed5f25999f6562c08",
+    "700-normal": "04520b0263e454801642c62740d4dbdf8201d6f81ce15e2a122a16e26d1e5464",
+    "400-italic": "a89afe7732014143627fcb18cb9550a2386bd9c29f9c5be510c1ebec39b72fcb",
+    "700-italic": "5287c9d8e3d688941f35941c7ce745f307454eb5903e49972888b6d95597d3a6"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Montserrat",
+  "id": "montserrat",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/montserrat/-/montserrat-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "e66bcd2761ab6924b25ce70dafe10e57a39193c4fea1516730bd9cb5240af6c8",
+    "700-normal": "f9d9e65b15372cebcafc3acd1e664a564c5c4b23278de4d5760de9a13c530371",
+    "400-italic": "a18fca2f8a465eaa5cb0a7431cbcb5ecdc7eb06ac751684eba790ab84d21aadc",
+    "700-italic": "795939fc9193d54e7ee22be5105fff1f422df4081bcfec808eab6ea9b1c16acc"
+  },
+  "ttfSha256": {
+    "400-normal": "11ee2024bd616a44201bfb39ccae2bf4f506f6706cb1e6db58d294fcffa3973f",
+    "700-normal": "81c154d2fca337dfd6158901874780c0e09a83c841c6360657d2e83914c4b0ea",
+    "400-italic": "d28068ceb70f16b45be29426a2fc2959f5718eb3de406c2f764a793d70f3d04d",
+    "700-italic": "1b7d1e0b6d9bfffd6a1e6e57ef621fa0f694e90d23c8e93bde66e27395a3903b"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Red Hat Mono",
+  "id": "red-hat-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/red-hat-mono/-/red-hat-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "392fbbdfabe89c965489cbb7738abce86aff180b12b75280026dfe3f6005b189",
+    "700-normal": "ba2e0090744f128536177669b27ac6a7231f4e8f2848a14469227362b88f7aa7",
+    "400-italic": "c43c41c0557a3794d7f8dcdacdad10c56e76420e21ed92060615c26347a46e30",
+    "700-italic": "25704cd09016d9c21a2b2fcb851e786cf6a15120be662879eae2e1870382f68f"
+  },
+  "ttfSha256": {
+    "400-normal": "436ed0d8080785add0b6ce3dab2b9fd5d2415024371b3b50a59defd388605ee7",
+    "700-normal": "ccc613c977c500f08a13db24cd719beac4d9cb16a2bf7a4d4fcb9af440b8b9c3",
+    "400-italic": "3104ef05f418fe619fc23f84b9a2f34d2fa4a93e15f0935ff9a7bf9004776822",
+    "700-italic": "277daa62319bff513224fae0639ed95f07162e5a7087881f6721a6ca74e4f214"
+  }
+}

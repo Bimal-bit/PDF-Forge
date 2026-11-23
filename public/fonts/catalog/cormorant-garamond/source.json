@@ -1,0 +1,18 @@
+{
+  "family": "Cormorant Garamond",
+  "id": "cormorant-garamond",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/cormorant-garamond/-/cormorant-garamond-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "8048ac209bec741e1c29cd0cfac5aac1c0c2ba8c3ddbd4a58fa9bd92ef5c63c2",
+    "700-normal": "21a0fc1c5c22708cf4aa0c147fd32982e25bf9e21efec0ca31a4495ba41753eb",
+    "400-italic": "e48e58027030df56869b795ca6f19b7012158275f7ad7cde1900b4a0b68d02e2",
+    "700-italic": "365e35e77095813205cf30a40acf3443ed05d95ffa31d1504e14213e87a3e4dc"
+  },
+  "ttfSha256": {
+    "400-normal": "b261a29a3bb7ce74361de84aed5a08365c1c87d2e950a68d7384753ff85f6502",
+    "700-normal": "5747817b01a96982c0375e3d9f3414f136cb295f85748007d37c96a889588126",
+    "400-italic": "b960a977edbecb05a7d0321d11e344760676e4a4e26b97e0aa35078a9b3ca6c7",
+    "700-italic": "7f6aa1da7ab2951311f0ae61b762a89218212dabe9470fac5c1a626206423ab6"
+  }
+}

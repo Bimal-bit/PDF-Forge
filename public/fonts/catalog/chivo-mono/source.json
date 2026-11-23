@@ -1,0 +1,18 @@
+{
+  "family": "Chivo Mono",
+  "id": "chivo-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/chivo-mono/-/chivo-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "d103882f9a90474f378c4fb156276e7f430602f6283ef75c2f00e354dae0be45",
+    "700-normal": "91bff47c6f165fed25f7657902dea6d696960462fc746de96959450a3f8df061",
+    "400-italic": "9822f480e72280937a72d07ef634ba8f6a550231a9e3f115e1314b479307540f",
+    "700-italic": "2500eb968704e5b490bc5ef93525a56aa02cd35c8360cbddfbeed751f214119d"
+  },
+  "ttfSha256": {
+    "400-normal": "5ed8da086191c478d3b0042b1fe92f2021f7cb672ab474f37e4ed7a960ff235f",
+    "700-normal": "25c5bd26206d044267152bb7ecabb233dcaa6525a161c72b10391198239e940e",
+    "400-italic": "c8414ad9bb4840fdb35b876240f241f0513734e1c40d4a1c122845bb867c882b",
+    "700-italic": "5a1f400b9a8313204d57f067413925dc5ad4297479c7e6fd9158613f86eef088"
+  }
+}

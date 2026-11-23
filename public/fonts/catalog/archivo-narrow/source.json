@@ -1,0 +1,18 @@
+{
+  "family": "Archivo Narrow",
+  "id": "archivo-narrow",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/archivo-narrow/-/archivo-narrow-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "50e835187413b9d25833ccd7c9638673e64112aafd64004f48fc613ace27e354",
+    "700-normal": "062eae97e718b8a39ff5861d08046755eaf4c6f27f9a0fe861116d9d1305d6bf",
+    "400-italic": "08d7b1aad57777e83cc4780a625894086653c0da07b42d928233e7fcaace7981",
+    "700-italic": "6267f0f7809097ec9caa86642805832e3979a0f698421b472033a0d2ca0d3d12"
+  },
+  "ttfSha256": {
+    "400-normal": "92a971aaae0223d18e07f33e5a2e784d7f11c6fa23c596a9cf7adda6013f19aa",
+    "700-normal": "0df64fbc39edf2f285b5087c036aa98581a80b26c643d495050381e0f8db9f6d",
+    "400-italic": "eb8e44525bdcc6a95706df093fcd4a29a64a2a2221627572f331bf9902ab7827",
+    "700-italic": "d2d2ec2716930dfbe463b85b25008e6680238bf37b9bc2c3897d835c0998ceea"
+  }
+}

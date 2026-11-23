@@ -1,0 +1,18 @@
+{
+  "family": "Bitter",
+  "id": "bitter",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/bitter/-/bitter-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "a9960fdb72f913dc0ccd67dbf6c520f720123bd1a4542cb05555e7ebb2dae42f",
+    "700-normal": "222764fa2fd737779886878c572108b38f675e3c04c87f82376cd56e92bac2d6",
+    "400-italic": "bcbbc8d45b61a4be0baf3a621a760c255dc3245cdf77e81b45a46d175a31f0af",
+    "700-italic": "a1d16093e322a3e5d1c443db4af62a6a5a3ee67626f3c9eabd351de0a8ce13a7"
+  },
+  "ttfSha256": {
+    "400-normal": "0a9309426886edd5836eb9ebafd46cdddec7b6993e4bbfe205caa1338d72cd37",
+    "700-normal": "ad0218b81350dec808324826784db0d631f478703b7129b512a0130aedcd8bd6",
+    "400-italic": "a1b9121f5866336f6a109c3874cf29afaf1b8605098d9be1e220c6562833dd20",
+    "700-italic": "a86bf6729e6c685c4148d44194d0584b1b8cfe63ab5642c8bdea627a586f6bd2"
+  }
+}

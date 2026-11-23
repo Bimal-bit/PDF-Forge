@@ -28,7 +28,7 @@ test('image crop, rotation, backdrop removal, and tone edits survive undo, expor
   await tools.getByRole('button', { name: 'Apply image edits', exact: true }).click();
   await expect(tools.getByRole('status')).toContainText('Image edits applied');
   await tools.getByLabel('Close Image tools').click();
-  await expect(page.locator('.image-object')).toHaveCSS('width', '120px');
+  await expect(page.locator('.image-object')).toHaveCSS('width', '144px');
   await expect(page.locator('.image-object')).toHaveCSS('height', '144px');
   const pixels = await page.locator('.image-object').evaluate(async (element: HTMLImageElement) => {
     const bitmap = await createImageBitmap(await fetch(element.src).then((response) => response.blob()));
@@ -77,7 +77,7 @@ for (const mask of ['ellipse', 'rounded']) {
 test('LaTeX equations preview, update, undo, and export as vector math', async ({ page }) => {
   await openAdvanced(page);
   await page.getByRole('button', { name: 'Layout', exact: true }).click();
-  await page.getByRole('button', { name: 'Equation editor', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert', exact: true }).click(); await page.getByRole('button', { name: 'Equation editor', exact: true }).click();
   const tools = page.getByRole('dialog', { name: 'Equation editor' });
   await tools.getByLabel('Equation LaTeX').fill('\\unknown{x}');
   await expect(tools.getByRole('alert')).toContainText('Unsupported');
@@ -88,7 +88,7 @@ test('LaTeX equations preview, update, undo, and export as vector math', async (
   await tools.getByRole('button', { name: 'Insert equation', exact: true }).click();
   await tools.getByLabel('Close Equation editor').click();
   await expect(page.locator('.equation-object')).toHaveAttribute('aria-label', latex);
-  await page.getByRole('button', { name: 'Equation editor', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert', exact: true }).click(); await page.getByRole('button', { name: 'Equation editor', exact: true }).click();
   await tools.getByLabel('Equation LaTeX').fill('x^3 + \\pi');
   await tools.getByRole('button', { name: 'Update selected equation', exact: true }).click();
   await tools.getByLabel('Close Equation editor').click();

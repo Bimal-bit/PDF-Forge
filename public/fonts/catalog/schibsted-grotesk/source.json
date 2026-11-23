@@ -1,0 +1,18 @@
+{
+  "family": "Schibsted Grotesk",
+  "id": "schibsted-grotesk",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/schibsted-grotesk/-/schibsted-grotesk-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "437cd97c802be9f10f60b4db8a723261e5c35dfe1529de0562981871028bd670",
+    "700-normal": "d656a2dcc2bf850a9af5156f2de42f6051facfbaa8d5790cf31159de39bc2568",
+    "400-italic": "b10306edd100a0706ea6060350f5a077a2e747bad1f46ec6605159719ba4a082",
+    "700-italic": "0cf55d899de73b4872bec42cf44565eeeda5a1fb24393e1d0c8b31fe363753e1"
+  },
+  "ttfSha256": {
+    "400-normal": "cd4156feaacdf1d8bd2a844e62455b8cbd5c3cd56fec433aa7b61812a8fa7a60",
+    "700-normal": "9a56825d2d5f88477704a4e6975fe3cf9a8933896346c02294f53a2027dd38d5",
+    "400-italic": "f3c0e80fdb8f0fa7ed3e7a7a14116e8f8ddb3c02c3cac5ead145983becdc4cdd",
+    "700-italic": "1f9507ec5488e5fbab4b687afe98331bcbb854b2ec10b7b41e9883740c959bc5"
+  }
+}

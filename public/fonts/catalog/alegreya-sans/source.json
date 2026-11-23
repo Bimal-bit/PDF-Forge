@@ -1,0 +1,18 @@
+{
+  "family": "Alegreya Sans",
+  "id": "alegreya-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/alegreya-sans/-/alegreya-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "b2a5a35a2563a2f9bf9fb91939fc6ea6c115e9811cda5c4a37d02f623c7c4dbe",
+    "700-normal": "5acd19a588614d23e52b741a21dd8555178ab4932c3195c6d8fb4b296f84acae",
+    "400-italic": "5dd7c3e61cb1b6539d2c51ae3bea8898b60dd45cad07dcfbcd82dad4602747f1",
+    "700-italic": "1824c26f24ca3d09c8c5585995c29a5a570dce41fad2790a9f4dd6334edac61f"
+  },
+  "ttfSha256": {
+    "400-normal": "b6e0fa5d124639f03e137d10d07340c7ef97c38d7964dd2e7abd0d4e08f8874c",
+    "700-normal": "1f9340d8ac65c584a5d4220c1304a391ea51f78099e3229ab03e870ed6de46ba",
+    "400-italic": "e81800e816e14ed7f126e2563eca210de7d49fa2fa27acc618617028f300b1fa",
+    "700-italic": "efb7714ff0fd80e48039c0757cd358e39f3c010ba0a50059b963ee7ef3fa50e8"
+  }
+}

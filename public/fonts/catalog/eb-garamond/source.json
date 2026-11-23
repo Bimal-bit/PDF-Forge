@@ -1,0 +1,18 @@
+{
+  "family": "EB Garamond",
+  "id": "eb-garamond",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/eb-garamond/-/eb-garamond-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "912929dba0faab5e151849ea5e988adba3080ad6d2bcc4dbff27aa427896498d",
+    "700-normal": "ae7cef029eea959654a474fbcaa2c202f205abfca29caaef62e9a0019c3c8370",
+    "400-italic": "fc5851c4466e73bec048bb62d65f8abadf70d602816687e6d364214e35fa8abb",
+    "700-italic": "018599ef841106727b93f494622bb55782ed532458eed143c02766faf27dc951"
+  },
+  "ttfSha256": {
+    "400-normal": "cf962c4c28980c102997103d9285c322f1a1508b71f8c6acb556f5c6e34db004",
+    "700-normal": "c53347dc1718169a0b02787b060bc7b3ea44d2631776342f468fdd588ab0d5e9",
+    "400-italic": "963a40fb60f7e031d19f2b998abda3816ffb82fa4d73a6b800ae595d6eb5517c",
+    "700-italic": "bee55a2bc55ce65884efe10d327ee1d54dbd9e6e55d65dff73a768053e442186"
+  }
+}

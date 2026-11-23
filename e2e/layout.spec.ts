@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test } from '@playwright/test';
 import { downloadPdf, openAdvanced, pageStreams } from './advanced-helpers';
 
@@ -36,7 +37,7 @@ test('linked text flows across pages, recovers, and reflows after page deletion'
   await expect(page.locator('.flow-text-object')).toHaveCount(2);
   await page.getByLabel('Go to page 1', { exact: true }).click();
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Delete page', exact: true }).click();
+  await runPageCommand(page, 'Delete page');
   await expect(page.locator('.flow-text-object')).toHaveCount(1);
   await page.getByLabel('Find text in document').fill('STARTWORD');
   await expect(page.locator('.search-box')).toContainText('3 matches');
@@ -102,7 +103,7 @@ test('overflow stays recoverable and export gives a useful correction', async ({
 test('flowchart connectors follow pointer and keyboard movement and cascade with deletion', async ({ page }) => {
   await openAdvanced(page);
   await page.getByRole('button', { name: 'Layout', exact: true }).click();
-  await page.getByRole('button', { name: 'Shapes & connectors', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert', exact: true }).click(); await page.getByRole('button', { name: 'Shapes & connectors', exact: true }).click();
   const tools = page.getByRole('dialog', { name: 'Shapes & connectors' });
   await tools.getByRole('button', { name: 'Add flowchart shape', exact: true }).click();
   await tools.getByLabel('Shape label').fill('Start');
@@ -134,14 +135,14 @@ test('flowchart connectors follow pointer and keyboard movement and cascade with
   const streams = pageStreams(await downloadPdf(await pending));
   expect(streams).toContain('436865636B');
   expect(streams).toContain(' l');
-  await page.getByRole('button', { name: 'Shapes & connectors', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert', exact: true }).click(); await page.getByRole('button', { name: 'Shapes & connectors', exact: true }).click();
   await tools.getByRole('button', { name: 'Delete selected shape', exact: true }).click();
   await tools.getByLabel('Close Shapes & connectors').click();
   await expect(connector).toHaveCount(0);
   await page.getByLabel('Undo', { exact: true }).click();
   await expect(connector).toHaveCount(1);
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Rotate page', exact: true }).click();
+  await runPageCommand(page, 'Rotate page');
   await page.getByRole('button', { name: 'View', exact: true }).click();
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
   await shape.scrollIntoViewIfNeeded();

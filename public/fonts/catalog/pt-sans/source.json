@@ -1,0 +1,18 @@
+{
+  "family": "PT Sans",
+  "id": "pt-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/pt-sans/-/pt-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "2dea6190c113af617923c6b71f7f10ffbdf72074556f79963610254fe40e49be",
+    "700-normal": "05ea99a48ece3c624fd9df15f5cf4e1d94703bde9ed2b384495900f55e28befe",
+    "400-italic": "1f275d522571c81eb7d02d47015bf4eb1c60ab7520477bd40ba39425c1df49f2",
+    "700-italic": "064f8ebfc7134cdf0da9f34199ae15cbe100ef406d85c0187246a7bd7c57d5b6"
+  },
+  "ttfSha256": {
+    "400-normal": "a75452f2856e9c9232ba88578362740274a17cb4b01662137e8ae31d2b13c038",
+    "700-normal": "cf5cb2f273f4e3d6d6254fa3a383b6685c81f85fc27e781157a906e495ae264c",
+    "400-italic": "b5654f82137ea10ad25d985230a604ecb17a4f6c423331275182457e2fe46d7c",
+    "700-italic": "ef9d26fa4a1ec52b47ec03d6830fef076d02aa9b94b30abc0452e1b412addddc"
+  }
+}

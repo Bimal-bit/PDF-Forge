@@ -3,11 +3,19 @@ import { useAppStore } from './useAppStore';
 
 describe('app history', () => {
   beforeEach(() => useAppStore.setState({ activeTab: 'Home', theme: 'light', zoom: 100, history: [], future: [] }));
-  it('undoes and redoes a tracked zoom change', () => {
+  it('keeps viewing changes out of document history and preserves redo', () => {
+    useAppStore.getState().setDocument({ id: 'view', name: 'view.pdf', size: 0, modifiedAt: 0, data: new ArrayBuffer(0) });
+    useAppStore.getState().addTextObject();
+    useAppStore.getState().undo();
+    const { history, future } = useAppStore.getState();
     useAppStore.getState().setZoom(140);
+    useAppStore.getState().setTheme('dark');
+    useAppStore.getState().setTab('View');
+    useAppStore.getState().toggleRightPanel();
     expect(useAppStore.getState().zoom).toBe(140);
-    useAppStore.getState().undo(); expect(useAppStore.getState().zoom).toBe(100);
-    useAppStore.getState().redo(); expect(useAppStore.getState().zoom).toBe(140);
+    expect(useAppStore.getState().history).toBe(history);
+    expect(useAppStore.getState().future).toBe(future);
+    useAppStore.getState().redo(); expect(useAppStore.getState().objects).toHaveLength(1);
   });
   it('keeps page operations undoable', () => {
     useAppStore.getState().initializePages(3);
@@ -61,6 +69,21 @@ describe('app history', () => {
     expect(useAppStore.getState().objects).toEqual([{ ...seed, bold: true, color: '#123456' }, { ...addition, bold: true, color: '#123456' }]);
     useAppStore.getState().undo();
     expect(useAppStore.getState().objects).toEqual([seed]);
+    useAppStore.getState().redo();
+    expect(useAppStore.getState().objects).toHaveLength(2);
+  });
+
+  it('tracks multiple selected text edits and source additions as one undoable change', () => {
+    const document = { id: 'selection', name: 'selection.pdf', size: 0, modifiedAt: 0, data: new ArrayBuffer(0) };
+    const existing = { id: 'existing', type: 'text' as const, page: 1, x: 30, y: 300, fontSize: 16, color: '#123456', text: 'First line' };
+    const source = { ...existing, id: 'source', text: 'Second line', sourceText: 'Second line', y: 270 };
+    useAppStore.getState().restoreDocument({ ...document, objects: [existing], trackChanges: true });
+    useAppStore.getState().replaceTextObjects([{ id: 'existing', text: 'FIRST LINE' }, { id: 'source', text: 'SECOND LINE' }], [source]);
+    expect(useAppStore.getState().objects).toEqual([{ ...existing, text: 'FIRST LINE' }, { ...source, text: 'SECOND LINE' }]);
+    expect(useAppStore.getState().textChanges.map((change) => [change.before, change.after])).toEqual([['Second line', 'SECOND LINE'], ['First line', 'FIRST LINE']]);
+    useAppStore.getState().undo();
+    expect(useAppStore.getState().objects).toEqual([existing]);
+    expect(useAppStore.getState().textChanges).toEqual([]);
     useAppStore.getState().redo();
     expect(useAppStore.getState().objects).toHaveLength(2);
   });

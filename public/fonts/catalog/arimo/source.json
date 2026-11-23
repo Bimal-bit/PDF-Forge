@@ -1,0 +1,18 @@
+{
+  "family": "Arimo",
+  "id": "arimo",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/arimo/-/arimo-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "c1f056f51c99a65aca53a0a80e71e67916dd7a8ed2423cd11f52193241440b20",
+    "700-normal": "181215e08de9ce411e8c9e628eea6ea8bfa45de2a955ee57fc970dd8a080a3f6",
+    "400-italic": "56da61898ceaf4ffec05922232ef957515d6debdae5bcb952667a46b6af5cd08",
+    "700-italic": "585caa2d533eff8554785869fc41a802a6865c243a83e1b5d210eb18125c032a"
+  },
+  "ttfSha256": {
+    "400-normal": "d5d3bc64ba7355c12658a3ef83696340a7c16fa932f80987726f0193cea5b7e3",
+    "700-normal": "4371d732ea86ea5b4083ef4fd45bfcfa38945d66af4817664536db50c1bbb2ea",
+    "400-italic": "5c0a2a7169d9f72d1a1a4795a516602af279a4b45d6d82e6b46f4b2da97b1a78",
+    "700-italic": "99536da6564b0a7beda7e90be54ee0bee868e8e59afd33c4cb3b36be71659ae0"
+  }
+}

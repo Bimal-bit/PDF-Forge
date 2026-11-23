@@ -1,0 +1,18 @@
+{
+  "family": "Red Hat Text",
+  "id": "red-hat-text",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/red-hat-text/-/red-hat-text-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "65129f71694b5b1ffcf50f1c9ab27fc5fe36b496f5e7c183a7ae7ca73876552c",
+    "700-normal": "86a489ec00630b2eb08850ed7d87b8793d290e2a85e5a2205e5c283da5e98ece",
+    "400-italic": "fad5fb671a19d8cd56f3985b2e9c2e00accb1ef6fd16a2acacc5ff24de9c670d",
+    "700-italic": "7f0ccab388d78a86f85313ec9daf1a2935c338859080d6e0248226a0c6c682dd"
+  },
+  "ttfSha256": {
+    "400-normal": "b08dc3e1a78475390d16936426aa25e703c7cc2613e13fc87ac943bf9d10b284",
+    "700-normal": "f63b88b6558cf42219f4e0c4c2955a5d0934c84a16e14630b481da31c6523eff",
+    "400-italic": "c2696e4587c85ff41283f4b890a30ece40666e195e25ebd9b611191edc482248",
+    "700-italic": "0800db57ed0d20a891dec540361e5ca59e184c84dfe0a8c07bb02fe5c7d5b5be"
+  }
+}

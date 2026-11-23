@@ -1,6 +1,7 @@
 import { StandardFontEmbedder } from 'pdf-lib';
 import type { EditorObject, TextObject } from '../types';
 import { standardFontName } from './textLayout';
+import { loadedTextFont } from './textFonts';
 
 export interface FlowLine {
   text: string;
@@ -36,6 +37,18 @@ function flowFont(object: TextObject) {
 }
 
 export function measureFlowText(object: TextObject, text: string, size = object.fontSize): number {
+  const custom = loadedTextFont(object);
+  if (custom)
+    return (
+      Array.from(text).reduce(
+        (sum, character) =>
+          sum +
+          (custom.glyphForCodePoint(character.codePointAt(0)!).advanceWidth * size) /
+            custom.unitsPerEm,
+        0,
+      ) +
+      Math.max(0, Array.from(text).length - 1) * (object.letterSpacing ?? 0)
+    );
   const font = flowFont(object);
   // PDF text runs advance by glyph widths without automatic kerning.
   const width = Array.from(text).reduce((sum, character) => {
@@ -89,7 +102,10 @@ function fillFrame(object: TextObject, content: string, rows: number) {
   const leading = size * (object.lineHeight ?? 1.2);
   const capRows = object.dropCapLines ?? 0;
   const capBaseline = size + Math.max(0, capRows - 1) * leading;
-  const capRatio = (flowFont(object).font.CapHeight || 700) / 1000;
+  const custom = loadedTextFont(object);
+  const capRatio = custom
+    ? (custom.capHeight || custom.ascent) / custom.unitsPerEm
+    : (flowFont(object).font.CapHeight || 700) / 1000;
   const capSize = size + (Math.max(0, capRows - 1) * leading) / capRatio;
   const cap = capRows && /^\S/u.test(content) ? Array.from(content)[0] : '';
   const capWidth = cap ? measureFlowText(object, cap, capSize) + size * 0.15 : 0;
@@ -196,7 +212,13 @@ export function layoutTextFrames(
     if (seen.has(root.id)) continue;
     const chain = textChain(objects, root.id).filter((object) => !seen.has(object.id));
     chain.forEach((object) => seen.add(object.id));
-    if (chain.length === 1 && !root.nextTextId && (root.columns ?? 1) === 1 && !root.dropCapLines)
+    if (
+      chain.length === 1 &&
+      !root.nextTextId &&
+      (root.columns ?? 1) === 1 &&
+      !root.dropCapLines &&
+      (root.height === undefined || root.sourceLayout || root.cover)
+    )
       continue;
     let remaining = chain
       .map((object) => object.text)

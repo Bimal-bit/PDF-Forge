@@ -1,0 +1,18 @@
+{
+  "family": "Newsreader",
+  "id": "newsreader",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/newsreader/-/newsreader-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "e66067814f1c672d33a457e4f4d102c818b481420e2234cf685ebdbf2f443904",
+    "700-normal": "8b5c3b65cbda1d79ed371d23df3ef1fe194e590558965cf9942042441480ec61",
+    "400-italic": "fa9b900403949d9a723106752a5c8ad2797012a0c9057427b1da2db72d552148",
+    "700-italic": "6fdfe19b1241c0882ed6ca7ba6b6d0e5137655756eeba3c568d3e4e2cb0a9a8f"
+  },
+  "ttfSha256": {
+    "400-normal": "5b5e087a712a123675b7bf050af200021fc080bcb47997b717e83a2749608ea4",
+    "700-normal": "dc001ad3288c05bcfeb58d2594fdb6bf1f84bc9bf18ea4130ea823ec347736ee",
+    "400-italic": "4d3c989a963582b09d1512639fbef6036a50e4f920ada3d15a7a20e402e38b21",
+    "700-italic": "f04e40228dd6890e107260ceff800eaabaabafa2e74b8a1eabf7f757c6e6d177"
+  }
+}

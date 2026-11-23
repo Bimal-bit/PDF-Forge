@@ -6,6 +6,7 @@ import './theme-fonts.css';
 import './theme-tokens.css';
 import './theme.css';
 import App from './App';
+import './responsive.css';
 
 if (import.meta.env.PROD && 'serviceWorker' in navigator) void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
 

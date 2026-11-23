@@ -1,0 +1,18 @@
+{
+  "family": "Poppins",
+  "id": "poppins",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/poppins/-/poppins-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "7d93459d86585bfcdbb7e0376056226adb25821ee54b96236fe2123e9560929f",
+    "700-normal": "9338e65fc077355c7a87ae0d64cc101e23b9bf8ad78ae65f0f319c857311b526",
+    "400-italic": "50d0c1742d80ac71f4cde20e8c04d41a24806af342831f479938b527fbff0972",
+    "700-italic": "4b0864712c6e7ca75f8c003f7bc1a9270af33d6becd4119463771593274c48d2"
+  },
+  "ttfSha256": {
+    "400-normal": "437c5f46a18955428bb9ac892ac7f39ef7cb9bec6a23905d4f97a2e70db32aec",
+    "700-normal": "26684507aa5e902390763ef0068a0b86613f82eff9a6a687f400123f26852e12",
+    "400-italic": "119f592136976f1a211f54c3ce66afe4f05b27bc3a78e6b2e41c48c1234c7c2a",
+    "700-italic": "9637c34d50bb59871b872273d310332e3fa6ea54184792e7677dfe161402435d"
+  }
+}

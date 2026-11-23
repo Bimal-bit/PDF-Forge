@@ -1,0 +1,18 @@
+{
+  "family": "Asap",
+  "id": "asap",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/asap/-/asap-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "ae28ffbd36f815b3e7e3f095fd8c13e5acfba9f1349b74260d5ed44ab75e0d43",
+    "700-normal": "8d02336ddd047411e88694cdabd6a99a794fa63549d57fe4dd755510e5723638",
+    "400-italic": "3fcb2ce1970dcb584b882c25ffc073f7405324130f4dc5c302bddf04acea3915",
+    "700-italic": "30c290ee332a88e11bf0907c51202eb817d592d2abcc71193a9c58388ce36e78"
+  },
+  "ttfSha256": {
+    "400-normal": "63d00a89b7ee68fc7ebb56d02ade7a97b7892c576dc61b28330def66a653f9d5",
+    "700-normal": "7cae6c3045d77a75f8a1af0be15b04b8139e6c4062f65959addeb9bd123f0f3b",
+    "400-italic": "ca16cfd7b6966597d3e78dfb62e1792c4151329b9ce1061a6a925a0c14651a91",
+    "700-italic": "b984ce3892df14ddfcac0bba27faeb41bee6bd4a1fdf084a51d878cbdaac1deb"
+  }
+}

@@ -45,8 +45,8 @@ export function LandingFeatures() {
           </div>
         </article>
         <article className="landing-card landing-card-scan">
-          <h3>Scan to searchable</h3>
-          <p>OCR turns scans into searchable text.</p>
+          <h3>Scan to editable</h3>
+          <p>Recognize image text, review it and turn it into editable text boxes.</p>
           <div className="landing-scan-example" aria-hidden="true">
             <i />
             <span>→</span>

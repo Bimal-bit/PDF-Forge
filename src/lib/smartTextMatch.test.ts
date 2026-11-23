@@ -73,6 +73,6 @@ describe('smart text matching', () => {
       pdfTextAppearance(page, item('Fallback', 30, 300), {
         f1: { fontFamily: 'monospace', ascent: .8, descent: -.2, vertical: false },
       }),
-    ).toEqual({ fontFamily: 'Courier', fallback: true, bold: false, italic: false });
+    ).toEqual({ fontFamily: 'Courier', sourceFontName: 'monospace', fallback: true, bold: false, italic: false });
   });
 });

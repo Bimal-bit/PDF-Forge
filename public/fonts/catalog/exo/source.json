@@ -1,0 +1,18 @@
+{
+  "family": "Exo",
+  "id": "exo",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/exo/-/exo-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "54be207d1f76e357721a5a6f203e5a2e62cdc6857b6ac2fb529ff675cfc337cc",
+    "700-normal": "2551840e57fde2f6a58f300f364a798be1ca8bd49753777adca5f74f41102777",
+    "400-italic": "13e208381df510134d8eb39aee7adc9e2ef843861730f110c2490cb8587297be",
+    "700-italic": "1f2ec5218e1852dc72d95cd4b8438425f97f16c4647389220a8d6cc616d774b6"
+  },
+  "ttfSha256": {
+    "400-normal": "fa57dff616415b919706eb2b1d484fee40ae04fc640b42cd1152451e83a65313",
+    "700-normal": "7d48a5324eaf477dcb69f2e9f5813bf25b127411046b1494ad0c563dc7ba212c",
+    "400-italic": "0e9e46a2b1f4aeb56a104067eab10359ac6a03e4841c539954eeb7328e049836",
+    "700-italic": "b7d2993c290a276297e3d936427a83db42dcacecd5fd165fe7b0c0e2fa9990ae"
+  }
+}

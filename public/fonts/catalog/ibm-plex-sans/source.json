@@ -1,0 +1,18 @@
+{
+  "family": "IBM Plex Sans",
+  "id": "ibm-plex-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/ibm-plex-sans/-/ibm-plex-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "3b646991d30055a93a4ecc499713d4347953a74a947ecab435ab72070cbdab0e",
+    "700-normal": "42e7b0c143c19df9d99fd896e76b48f846edf0902d200bc29796b34d12c33aa7",
+    "400-italic": "6de912e531b6c98084f1b2d5e5a91bad77be4e68bc4e396e43c46fc435e5f3d9",
+    "700-italic": "3a6a2d7d529a192d52245a69c637c2144aa8e6227ac8a9b21c878939cdc7a7e7"
+  },
+  "ttfSha256": {
+    "400-normal": "1872782504203650410eedd72d31279037355ff21e41336186b862dec220ca82",
+    "700-normal": "6a9876b3b24e7e7d7c0b4fa22dad5935ad1d4c7c395caa7b2584ae151e625b2c",
+    "400-italic": "a856e4117e9aecad8ae040420eb8d95c031bdfd27d102da656577d66ac39fc51",
+    "700-italic": "669e8fa468700eb5e0493402957f3d3ae28f9d526896569c286413bee8bf4c7f"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Fraunces",
+  "id": "fraunces",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/fraunces/-/fraunces-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "e558f39453a9c611908be04294b50dea5f21ae6c49b41c6e47f4115e91f90209",
+    "700-normal": "c38570d224b830056e69484bb9e768e1d3fa7ba4755c8891a3c6d366194d2ff3",
+    "400-italic": "475b154af19c6b4ef371db22078b5044a078ce2467e11ef22a7b87f77837caf3",
+    "700-italic": "7dc50bd3be8ae258d8ab4a8fd208745cd2b4f4a1c9fc0bab90d3170124509535"
+  },
+  "ttfSha256": {
+    "400-normal": "6f98ac8dc7f8dc8efcaa0292e4d3449c63701217840224975fd41c886055256e",
+    "700-normal": "1b794870733608f1937df4679e28c4c3a9b9eac98fc13537044ce2f8fc59f25a",
+    "400-italic": "c28a0013308da4aeb997784e1ebbab81cca96e605a7dd4d335723af008f2502f",
+    "700-italic": "94f08239398f2ed0239042645040789d7f751bb7f8f2240a8464cac4f67195cb"
+  }
+}

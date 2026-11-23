@@ -1,4 +1,4 @@
-import { StandardFonts, type PDFFont, type PDFPage, rgb } from 'pdf-lib';
+import { StandardFonts, type PDFFont, type PDFPage, rgb, pushGraphicsState, popGraphicsState, concatTransformationMatrix } from 'pdf-lib';
 import type { TextObject } from '../types';
 
 export function standardFontName(object: TextObject): StandardFonts {
@@ -43,27 +43,45 @@ export function textLines(object: TextObject, measure: (value: string) => number
   return width ? wrapText(content, Math.max(1, width - (object.indent ?? 0)), measure) : content.split('\n');
 }
 
-export function drawTextBlock(page: PDFPage, object: TextObject, font: PDFFont) {
-  const spacing = object.letterSpacing ?? 0;
-  const measure = (value: string) => font.widthOfTextAtSize(value, object.fontSize) + Math.max(0, value.length - 1) * spacing;
+export function blockTextGeometry(object: TextObject, measure: (value: string) => number) {
   const lines = textLines(object, measure);
   const size = object.fontSize;
-  const lineHeight = size * (object.lineHeight ?? 1.2);
-  const coverHeight = object.height ?? object.cover?.height ?? (object.width ? lines.length * lineHeight : undefined);
+  const leading = size * (object.lineHeight ?? 1.2);
+  const coverHeight = object.height ?? object.cover?.height ?? (object.width ? lines.length * leading : undefined);
   const baseline = coverHeight ? object.y + coverHeight - size : object.y;
+  return {
+    height: coverHeight ?? Math.max(leading, lines.length * leading),
+    lines: lines.map((text, index) => {
+      const width = measure(text);
+      const available = Math.max(1, (object.width ?? object.cover?.width ?? width) - (object.indent ?? 0));
+      let x = object.x + (object.indent ?? 0);
+      if (object.alignment === 'center') x += (available - width) / 2;
+      if (object.alignment === 'right') x += available - width;
+      const justify = object.alignment === 'justify' && index < lines.length - 1 && text.includes(' ');
+      const wordSpacing = justify ? Math.max(0, available - width) / (text.split(' ').length - 1) : 0;
+      return { text, x, y: baseline - index * leading, width: justify ? available : width, wordSpacing };
+    }),
+  };
+}
+
+export function drawTextBlock(page: PDFPage, object: TextObject, font: PDFFont) {
+  if(object.sourceLayout){
+    const source=object.sourceLayout;
+    const angle=source.rotation*Math.PI/180;
+    page.pushOperators(pushGraphicsState(),concatTransformationMatrix(Math.cos(angle)*source.horizontalScale,Math.sin(angle)*source.horizontalScale,-Math.sin(angle),Math.cos(angle),object.x,object.y+source.baselineOffset));
+    drawTextBlock(page,{...object,x:0,y:0,width:undefined,height:undefined,cover:undefined,sourceLayout:undefined,alignment:'left',indent:0,list:'none'},font);
+    page.pushOperators(popGraphicsState());
+    return;
+  }
+  const spacing = object.letterSpacing ?? 0;
+  const measure = (value: string) => Array.from(value).reduce((sum, character) => sum + font.widthOfTextAtSize(character, object.fontSize), 0) + Math.max(0, Array.from(value).length - 1) * spacing;
+  const geometry = blockTextGeometry(object, measure);
+  const size = object.fontSize;
   const color = object.color.replace('#', '');
   const value = Number.parseInt(color.length === 3 ? color.split('').map((part) => part + part).join('') : color, 16);
   const ink = rgb(((value >> 16) & 255) / 255, ((value >> 8) & 255) / 255, (value & 255) / 255);
-  lines.forEach((line, index) => {
-    const width = measure(line);
-    const available = (object.width ?? object.cover?.width ?? width) - (object.indent ?? 0);
-    let x = object.x + (object.indent ?? 0);
-    if (object.alignment === 'center') x += (available - width) / 2;
-    if (object.alignment === 'right') x += available - width;
-    const y = baseline - index * lineHeight;
-    const justify = object.alignment === 'justify' && index < lines.length - 1 && line.includes(' ');
-    const extra = justify ? Math.max(0, available - width) / (line.split(' ').length - 1) : 0;
-    if (spacing || justify) {
+  geometry.lines.forEach(({ text: line, x, y, width, wordSpacing: extra }) => {
+    if (spacing || extra) {
       let cursor = x;
       for (const character of line) {
         page.drawText(character, { x: cursor, y, size, font, color: ink });
@@ -71,7 +89,7 @@ export function drawTextBlock(page: PDFPage, object: TextObject, font: PDFFont) 
       }
     } else page.drawText(line, { x, y, size, font, color: ink });
     for (const offset of [object.underline ? -size * .12 : undefined, object.strike ? size * .3 : undefined]) {
-      if (offset !== undefined) page.drawLine({ start: { x, y: y + offset }, end: { x: x + (justify ? available : width), y: y + offset }, thickness: Math.max(.5, size / 18), color: ink });
+      if (offset !== undefined) page.drawLine({ start: { x, y: y + offset }, end: { x: x + width, y: y + offset }, thickness: Math.max(.5, size / 18), color: ink });
     }
   });
 }

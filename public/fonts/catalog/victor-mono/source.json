@@ -1,0 +1,18 @@
+{
+  "family": "Victor Mono",
+  "id": "victor-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/victor-mono/-/victor-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "1c96d4706ad792e7740ba352e709380a7328e1d5b853d4d909b771c04be1a94a",
+    "700-normal": "9761443990cb1b68fb7cf3d249e3998a644275793d6b11769e2ba8b286ae8b07",
+    "400-italic": "27cf5fb106198f946b3379454f237d209093935f23dd87fbd542c969923086d1",
+    "700-italic": "86514ab5b20d16cf53c31dcf6b9dfa699ad6a4306e79ed80bd2f78a762a0b2f2"
+  },
+  "ttfSha256": {
+    "400-normal": "b51c9f716505014499202afa303a62677532eecd84838558f31021aeeeaf6f1c",
+    "700-normal": "fcec0f3dbdd760e9474dc79f761eedc70605d44b1263d8ce549bf859bfd12060",
+    "400-italic": "cf0ba70abd49a02ef6ba7b04185648e893803798f262c5e079105e265295c5c7",
+    "700-italic": "876b47901d4e9b876514c031e793a292592fc2140630bae3abf6d617311564ce"
+  }
+}

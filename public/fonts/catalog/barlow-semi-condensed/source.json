@@ -1,0 +1,18 @@
+{
+  "family": "Barlow Semi Condensed",
+  "id": "barlow-semi-condensed",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/barlow-semi-condensed/-/barlow-semi-condensed-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "d03a7a5f6b74534c80699289d4f6495fdb09a7596774a4ede79129d2f8bb67b1",
+    "700-normal": "fb958c8c20a05552ac8a85d925d96028d52565792650e941a5fe96b6997aa5cb",
+    "400-italic": "a3b26505f3bc6da23bcf14244c0d8428e1687b845fe6240dd653ce04e63faf8a",
+    "700-italic": "dc95a9a77fa4ee13dbeb26149f93882d64157d6a361dd2ff48263aba2b47139d"
+  },
+  "ttfSha256": {
+    "400-normal": "6b1656b4db1867990655d0768e42b4b1d0552f5e409ce7bd79eac1092966def1",
+    "700-normal": "14d40d74d48cf6edf1d47af38dd9e3d5eb6109f15ab9382ee08e179390b9ba63",
+    "400-italic": "25f157c2c453f895df9be9e0dcc3b717e828110e274ee3ff500a069ba31f998e",
+    "700-italic": "78efc87bf736215f015536ec0698aa47336effd5ef6e841a42decb3e0ff9f152"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Roboto Condensed",
+  "id": "roboto-condensed",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/roboto-condensed/-/roboto-condensed-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "543c03fff71d1b39590af102e0852c2dbce46f4dbe4faaebafbef6edc82e78f5",
+    "700-normal": "ab74f0c2d7ec37e44e017b9586675dd00c519591207dc3bbc8e003c5628dc9b7",
+    "400-italic": "f3dc65744710e1db95469dd16106cf9821606f4c77c6105faa64152f74b67538",
+    "700-italic": "4a5a42627626fe0eec03c9a72e1f6efe318680a5791c4de20fa8510913544e7c"
+  },
+  "ttfSha256": {
+    "400-normal": "587b64800cb9e224b54276b03664b4e26af04a172328b7007a23057fb98953fc",
+    "700-normal": "fb1838a05ca08e6b3d911187bab53ff7faa98d4bd1553956b281a658499bcab5",
+    "400-italic": "8e7687692bda65bcc81c6a34678619fab3d02cd30fc6d35fbc34bc0d7f25fbc7",
+    "700-italic": "6d92fcdc79dd2c4055e07d87a4104e70f46367814993182dbc40c53a3fce1380"
+  }
+}

@@ -1,47 +1,153 @@
+<div align="center">
+
 # PDFForge
 
-PDFForge is a browser-local PDF editor built with React, TypeScript, pdf.js, and pdf-lib. It supports local opening/rendering, paragraph-block formatting and reflow, inserted objects, annotations, catalog-preserving page operations, advanced AcroForms, local P12 certificate signing, offline OCR, and document/image conversions. The full specification remains unfinished. See [FEATURE_CHECKLIST.md](FEATURE_CHECKLIST.md) for the audited scope.
+**A private workspace for your PDFs.**
 
-Use Node 22.12 or newer. The illustrated workflows are documented in [USER_GUIDE.md](USER_GUIDE.md).
+Edit text, organize pages, review documents, and recognize scanned text directly in your browser.
 
-![PDFForge block formatting](docs/images/formatting.png)
+[Get started](#getting-started) · [Features](#features) · [User guide](USER_GUIDE.md) · [Development](#development) · [Limitations](#important-limitations)
 
-## Run
+</div>
+
+![PDFForge workspace showing text formatting tools and a PDF document](docs/images/formatting.png)
+
+PDFForge brings PDF editing, annotation, page management, forms, and OCR into a responsive, ribbon-based workspace. Documents are processed on your device, with bundled fonts and OCR assets that support offline use.
+
+**No account, API key, document uploads, or analytics.**
+
+> **Project status:** Active development. Review the [important limitations](#important-limitations) before using exported documents in sensitive or production workflows.
+
+## Features
+
+| Capability | What you can do |
+| --- | --- |
+| Text and layout | Edit supported PDF text; format text with bundled or imported fonts; insert images, shapes, links, and tables. |
+| Page management | Reorder, rotate, duplicate, delete, extract, merge, and split pages. |
+| Navigation | Search document text and move through pages with thumbnails and bookmarks. |
+| Review and annotation | Add highlights, comments, stamps, and measurements; manage supported annotations. |
+| Forms | Create and fill supported AcroForms, and import field values from JSON or CSV. |
+| Certificate signing | Sign locally with a P12/PFX certificate and inspect signed-byte integrity. |
+| OCR | Recognize English and Spanish text, create searchable output, and review editable regions in embedded images. |
+| Import and export | Convert supported documents and images, export edited PDFs, and download text or page images. |
+| Workspace recovery | Undo and redo edits, and restore the last automatically saved workspace in the same browser. |
+
+Desktop panels adapt to compact phone and tablet layouts. See the [user guide](USER_GUIDE.md) for individual tools and workflows.
+
+## Getting started
+
+### Requirements
+
+- **Node.js 22.12 or newer** and npm.
+- A modern browser. Automated browser tests use Chromium; broader browser and device validation is ongoing.
+
+### Run locally
+
+From your local copy of the repository:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Choose **Open PDF** or drop a PDF onto the workspace. Double-click text to edit a paragraph block, then use Home for formatting and wrapping. Change inserted text, comments, fields, and signer values in the right sidebar. Page operations and conversion tools are in **Tools**. The download icon exports the edited PDF.
+Open the local address printed by Vite. No backend or environment configuration is required.
 
-IndexedDB saves source bytes, object edits, and page settings every five seconds. The footer reports save success or failure. The last saved workspace recovers after reload.
+### Edit your first document
 
-## Validate and preview
+1. Select **Open PDF** or drop a PDF onto the workspace.
+2. Use the ribbon to edit text, insert content, annotate, or organize pages.
+3. Use the download control to export the edited document.
+
+Autosave supports workspace recovery. Export a copy when you want to keep or share your changes.
+
+## Supported formats
+
+| Operation | Formats |
+| --- | --- |
+| Open and edit | PDF |
+| Import as a basic PDF | Images, TXT, Markdown, HTML, DOCX |
+| Document and data export | PDF, TXT, Markdown, HTML, DOCX, CSV, XLSX |
+| Page image export | PNG, JPEG, WebP |
+| Form data | JSON export; JSON and CSV import |
+| Signing certificate input | P12, PFX |
+
+Conversions preserve supported content and edits, but may simplify complex layouts. Password-protected `.pdfg` packages are a PDFForge-specific format; they are not standard encrypted PDFs.
+
+## Privacy and offline use
+
+All document processing runs in the browser. PDF bytes, OCR input, edits, and signing data are handled locally; the application has no document upload endpoint or remote processing service.
+
+- **Local recovery:** IndexedDB stores the opened document and supported workspace state. Autosave runs every five seconds while a document is open, and the footer reports save success or failure.
+- **Bundled assets:** Fonts, PDF processing assets, and English/Spanish OCR resources are included locally. Certificate signing does not fetch certificate chains over the network.
+- **Offline operation:** The production service worker caches application assets after an initial online load. Allow caching to finish before going offline. Dependency installation and the initial application load require a connection.
+
+Recovery belongs to the browser profile and site origin where the document was opened. Clearing site data removes recovery records; changes since the last successful save can be lost. Export important work regularly.
+
+## Important limitations
+
+PDFForge does not yet support every PDF structure or editing workflow. Check exported results, particularly for complex layouts, forms, and signed documents.
+
+| Area | Current behavior |
+| --- | --- |
+| Text editing | Normal edits use overlays. Covered source text can remain extractable in ordinary exports, and replacement text may not exactly match the original font or layout. |
+| Redaction and sanitization | Dedicated secure exports rebuild pages as flattened images with current edits included. They remove searchable text, interactive forms, accessibility tags, bookmarks, and signatures. Scan-only text needs OCR before text-based redaction. |
+| Signature verification | Local checks cover signed-byte integrity, coverage, and certificate dates. Issuer trust, revocation, trusted timestamps, and long-term validation require a separate trusted validation workflow. Editing a signed PDF can invalidate earlier signatures. |
+| Password protection | Standard password-encrypted PDF export is unavailable. Protection uses PDFForge `.pdfg` packages. |
+| Conversion and compatibility | Complex layouts, full structural reflow, and some advanced PDF features remain unsupported. Large scanned documents can consume substantial memory. Cross-browser and real-device validation is ongoing. |
+
+**To remove sensitive content, use redaction or sanitization. Covering text in an ordinary edit does not securely remove the original content.**
+
+## Development
+
+### Commands
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Check TypeScript and generate the production bundle |
+| `npm run preview` | Serve the production bundle locally |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Check TypeScript types |
+| `npm run test` | Run Vitest unit tests |
+| `npm run test:e2e` | Run Playwright browser tests |
+| `npm run test:all` | Run lint, type checks, unit tests, and browser tests |
+
+### Validation
+
+Install Chromium before your first browser-test run:
 
 ```sh
 npx playwright install chromium
 npm run test:all
 npm run build
+```
+
+The browser suite also builds and launches a production preview to check offline recovery. Development mode does not provide the production offline deployment.
+
+### Production preview
+
+```sh
+npm run build
 npm run preview
 ```
 
-Individual commands are `dev`, `build`, `preview`, `lint`, `typecheck`, `test`, `test:e2e`, and `test:all`. The validation suite runs ESLint, TypeScript, Vitest, and Chromium Playwright tests. The production build is a separate check.
+The build output is written to `dist/`. Serve the production bundle over HTTPS or localhost to enable the service worker.
 
-Tests include export/reparse, font selection, history, search, security restrictions, recovery after refresh, editing after reorder, duplicated form export, generated 300-page navigation, a tablet-width screenshot, and production offline recovery. Browser tests start the development server and build/launch an isolated production preview. Remaining complex-document, cross-browser, update-lifecycle, and security acceptance gaps are recorded in the checklist.
+### Architecture
 
-## Privacy
+PDFForge uses **React 18**, **strict TypeScript**, and **Vite**. PDF rendering uses **pdf.js**, editing uses **pdf-lib**, and OCR uses **Tesseract**. **Zustand** and **Immer** manage application state and undo/redo history; **IndexedDB** provides local recovery.
 
-Opening a PDF reads it in the browser only. Autosave uses that browser’s IndexedDB; no upload or server is involved.
+```text
+src/        Application components, processing modules, state, and unit tests
+public/     Bundled fonts, offline assets, and service worker
+scripts/    Local asset tooling and fixture generation
+fixtures/   Sample documents for development and testing
+e2e/        Playwright browser tests
+docs/       Screenshots and supporting documentation
+```
 
-In-place edits paint overlays over source text. Original text remains extractable. Redaction and sanitization use the approved rendered-image method and include all pending edits and page settings. Secure copies lose searchable text, interactive fields, tags, bookmarks, and signatures. Password protection creates `.pdfg` packages. Tools provides P12/PFX signing and local integrity verification. Issuer trust/revocation checks and standard encrypted PDF output remain unfinished.
+## Contributing
 
-Text/document and page-image exports include the supported current edits and page plan. Optimization also preserves the current edited export. Search, comparison, table extraction, and accessibility follow the page plan and supported object edits. Imports of DOCX, HTML, Markdown, text, and images produce basic readable PDFs. Review [KNOWN_LIMITS.md](KNOWN_LIMITS.md) for the remaining analysis, conversion, and security limitations.
+Keep document processing browser-local, use strict TypeScript, and include tests for user-facing features. Run the full validation suite before milestone commits and describe material assumptions in your change description.
 
-## New workflows
-
-- Choose Tools, then Offline OCR for English, Spanish, or combined recognition. Recognition uses bundled data and adds searchable text. Cancel OCR discards partial results.
-- Insert supports radio, dropdown, list, date, and reset-button fields. Tools detects existing forms and imports JSON/CSV field values. Edit properties in the object sidebar.
-- Tools, then Certificate signing accepts a P12/PFX file and password. Sign and download includes current edits. Verification reports signed-byte integrity, coverage, and certificate dates. Issuer trust requires your trusted PDF reader or trust store.
-- Tools exports DOCX, Markdown, JPEG, WebP, XLSX, and ZIP alongside PDF, TXT, HTML, PNG, and CSV. Import document accepts images, TXT, Markdown, HTML, and DOCX.
-- Sample PDFs are in fixtures. Run node scripts/generate-fixtures.mjs to regenerate them.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for engineering guidance and [USER_GUIDE.md](USER_GUIDE.md) for application workflows.

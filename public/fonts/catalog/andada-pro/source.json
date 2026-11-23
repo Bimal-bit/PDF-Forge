@@ -1,0 +1,18 @@
+{
+  "family": "Andada Pro",
+  "id": "andada-pro",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/andada-pro/-/andada-pro-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "7a25c5b7f2d395e69f83b1dced4c122c29863f1a54e2a3ad064bab1bc88a4ff1",
+    "700-normal": "0a92132d73460afa14d37f801f9be6b1be98d6f5cf51f676007723acdb714083",
+    "400-italic": "d5891fcb60d6e97cae4ea0f42560295ff1011dbbb4bb2e82178931a16c22f095",
+    "700-italic": "8fb15a6df410b2a60cde3f5cfe39407bf5a6f9601363033a85341322e1271038"
+  },
+  "ttfSha256": {
+    "400-normal": "d5df84e5b828fade57d81b43ad9db9c3bead0b81ff530b7a2452b32b258ceb5a",
+    "700-normal": "7326531ba39b1d156d967617f6b4156e77c9b459f5e57fbcd9dacd781f18401a",
+    "400-italic": "899ff9f3a17319749ff19126b0b345cefb6b090ff799f12ee500e19727f82e54",
+    "700-italic": "913d597e39ff99f0a41c192b073bf4ae0f2a01ab06480d966c33e483bf0a48d9"
+  }
+}

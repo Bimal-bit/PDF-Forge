@@ -1,0 +1,18 @@
+{
+  "family": "Gelasio",
+  "id": "gelasio",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/gelasio/-/gelasio-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "68e2b704c5624ba84e70d826e33c5fc08d75eb452f834d869abdecc39f3b26ac",
+    "700-normal": "dff91a5084db8f15e401e902acdac8768f5ae1746205c5319ad2cf3655517170",
+    "400-italic": "0a06efba3949d19ad4cb02d20d1d28f970fcd881183a927bffeb59f154aa1d04",
+    "700-italic": "33881ef5fa10796ddad4401691dbae1deb6719b0e1356545d4a5b51fabbd9455"
+  },
+  "ttfSha256": {
+    "400-normal": "e7ce4d7313291329531a6bb74b4bb09a5ad99678b199ad920fd98be01dd6d68d",
+    "700-normal": "2b9dde247c273f4fbf10e9d5ef027faca8f554da59e9fd397331505b990b776c",
+    "400-italic": "d5e31f1d5661cf213e5dba18f7cf1f2d7571be872d31fb3af96bb8ba84e169dd",
+    "700-italic": "baa949a2a52b88ff08a13d1e2cae367cc48a9e308d90a074451c107b11533279"
+  }
+}

@@ -1,51 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Welcome } from './components/Welcome';
 import { Panels } from './components/Panels';
 import { Ribbon } from './components/Ribbon';
-import { loadLatestDocument, saveDocument } from './lib/storage';
 import { useAppStore } from './store/useAppStore';
 import { saveTheme } from './lib/theme';
+import { useLocalRecovery } from './components/useLocalRecovery';
 
 export default function App() {
-  const { document, objects, pageSettings, textChanges, trackChanges, changeAuthor, restoreDocument, notice, setNotice, theme, undo, redo } = useAppStore();
-  const [saveStatus, setSaveStatus] = useState('Ready');
+  const { document, notice, setNotice, theme, undo, redo } = useAppStore();
+  const saveStatus = useLocalRecovery();
   useEffect(() => { saveTheme(theme); }, [theme]);
   useEffect(() => {
-    let live = true;
-    void loadLatestDocument().then((saved) => {
-      if (live && saved && !useAppStore.getState().document) restoreDocument(saved);
-    }).catch(() => {
-      if (live) setNotice('Local recovery is unavailable in this browser.');
-    });
-    return () => { live = false; };
-  }, [restoreDocument, setNotice]);
-
-  useEffect(() => {
-    setSaveStatus(document ? 'Unsaved changes' : 'Ready');
-  }, [document, objects, pageSettings, textChanges, trackChanges, changeAuthor]);
-
-  useEffect(() => {
-    let saving = false;
-    let live = true;
-    const timer = window.setInterval(() => {
-      const state = useAppStore.getState();
-      if (!state.document || saving) return;
-      saving = true;
-      const snapshot = { objects: state.objects, pageSettings: state.pageSettings, selectedPage: state.selectedPage, textChanges: state.textChanges, trackChanges: state.trackChanges, changeAuthor: state.changeAuthor };
-      void saveDocument(state.document, snapshot).then(() => {
-        const current = useAppStore.getState();
-        if (live && current.document === state.document && current.objects === state.objects && current.pageSettings === state.pageSettings && current.textChanges === state.textChanges && current.trackChanges === state.trackChanges && current.changeAuthor === state.changeAuthor) {
-          setSaveStatus('Saved locally');
-        }
-      }).catch(() => {
-        if (live) setSaveStatus('Local save failed');
-      }).finally(() => { saving = false; });
-    }, 5000);
-    return () => { live = false; window.clearInterval(timer); };
-  }, []);
-  useEffect(() => { const handleKeys = (event: KeyboardEvent) => { if (!event.ctrlKey && !event.metaKey) return; if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable=true]')) return; if (event.key.toLowerCase() === 'z') { event.preventDefault(); if (event.shiftKey) redo(); else undo(); } if (event.key.toLowerCase() === 'y') { event.preventDefault(); redo(); } }; window.addEventListener('keydown', handleKeys); return () => window.removeEventListener('keydown', handleKeys); }, [undo, redo]);
+    const handleKeys = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || (!event.ctrlKey && !event.metaKey)) return;
+      if (globalThis.document.querySelector('dialog[open], .command-backdrop')) return;
+      if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable=true]')) return;
+      if (event.key.toLowerCase() === 'z') {
+        event.preventDefault();
+        if (event.shiftKey) redo(); else undo();
+      }
+      if (event.key.toLowerCase() === 'y') { event.preventDefault(); redo(); }
+    };
+    window.addEventListener('keydown', handleKeys);
+    return () => window.removeEventListener('keydown', handleKeys);
+  }, [undo, redo]);
   return <div className={`app theme-${theme}${document ? '' : ' app-welcome'}`}>
-    {document ? <><Ribbon /><Panels /><footer><span role="status">{saveStatus}</span><span>100% private · no uploads</span></footer></> : <Welcome />}
+    {document ? <><a className="skip-link" href="#document-canvas">Skip to document</a><Ribbon /><Panels /><footer><span role="status">{saveStatus}</span><span>100% private · no uploads</span></footer></> : <Welcome />}
     {notice && <button className="notice" role="alert" onClick={() => setNotice(undefined)}>{notice}</button>}
   </div>;
 }

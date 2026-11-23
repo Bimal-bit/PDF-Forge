@@ -1,0 +1,18 @@
+{
+  "family": "Prompt",
+  "id": "prompt",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/prompt/-/prompt-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "76f4b0e556e9bdcdcd9c839d20f5e3420a3ccca3f2d5da2f7beefb0e95a09bcb",
+    "700-normal": "54eb2e1925b4a3edd3460b8140546fb3e7767666d7ac1c1fcc246d3f1ab8157a",
+    "400-italic": "47ebe9de907c4c2278c78d75555a934e2f87d174dbe6a42b78486aba4413aff0",
+    "700-italic": "64df16f5a0870577c1df3a2e7455f9e81855d3678a4f3a9e0d8f947e7c1832d0"
+  },
+  "ttfSha256": {
+    "400-normal": "9e38c649a187339d9bda4e1670efa8f0c2443ebbb88f05b159498a19c98764d9",
+    "700-normal": "e3c37cc36627d3e4221ee38eac599b18fd667d8451c291db1153ab5f11889924",
+    "400-italic": "71d816a49fa79dd6c2a58dc19f58eb9427cf3e5720ea32035dda1c98a09d3400",
+    "700-italic": "7b75a4170300e53d25c8afa2eb2ea97d1813decd380c2f20ad48d50941fe8dcc"
+  }
+}

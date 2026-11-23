@@ -1,0 +1,18 @@
+{
+  "family": "Arvo",
+  "id": "arvo",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/arvo/-/arvo-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "b4eb4284188dcd4a4643d900bbe50b2d6b336afeb7c126eace219276b5d30521",
+    "700-normal": "3d908a2c04ec4c59d26d1454008b2d6744480654663a5f88e439f6483976bd37",
+    "400-italic": "a9afe512bd6b72ae101dbaca00dcdb22342e3bdcb47dc288cd648d008cde70ff",
+    "700-italic": "c8a5f73fec3ebf4252cef025b6f012a1c29de0de2212909c9bef8882e57ee5b1"
+  },
+  "ttfSha256": {
+    "400-normal": "943b55ccc2f1a733189a433e72757feb97019872299d42a1c7f15fda2abaf22b",
+    "700-normal": "b6cf335970a22e08deb0bbf3794692950a0698041dcae1f780472cceef5aff63",
+    "400-italic": "70c4100ec1dfed0aee5a0be57a7aa9bf0f6d75a9779b3c3ecb66f45a7271ce2a",
+    "700-italic": "d72590a1c050b665cc3a865044b279c88d11750cbd99f1f462e47687513048da"
+  }
+}

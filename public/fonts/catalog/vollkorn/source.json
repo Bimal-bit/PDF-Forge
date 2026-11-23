@@ -1,0 +1,18 @@
+{
+  "family": "Vollkorn",
+  "id": "vollkorn",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/vollkorn/-/vollkorn-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "dce19b6da3afe25af6cee9ec697877f92d95b6ed2617da67a5e7d5b8d7a857c9",
+    "700-normal": "e9c1dd6167df498ddb111951556ae29283efcce4b7e559db3547063e9a4c63c4",
+    "400-italic": "ac791f9264b4bb19d26f5bd904836a9af5c012552eb5170d5c18ab5906ac0cf3",
+    "700-italic": "1aff7dfe309ad54096201f1432de053567a3def89a8e9abe2871b7c8e57852ff"
+  },
+  "ttfSha256": {
+    "400-normal": "36cb91cc72fe02629cb63db0c06b38a167c67c16d4bfbb61824a3ab20cd369a4",
+    "700-normal": "23ae8d57f0ad153d933b803401c6e53ddf574654a6830ccf0d30bbda55c2476d",
+    "400-italic": "aa156aef523ddd831de1e9787cb58816cbccd5fd21c14a777aea8af3c598a470",
+    "700-italic": "4d46ad790173dab282d5fffe27bb3b738fd7b03bac19ebcb0cfaa31c278a76db"
+  }
+}

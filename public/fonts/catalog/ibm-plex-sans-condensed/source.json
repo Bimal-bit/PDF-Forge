@@ -1,0 +1,18 @@
+{
+  "family": "IBM Plex Sans Condensed",
+  "id": "ibm-plex-sans-condensed",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/ibm-plex-sans-condensed/-/ibm-plex-sans-condensed-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "456bf5cda9c0b1f1ead43f01b80df5ba5af7cb41d7cbc0543091537c39fb4c89",
+    "700-normal": "4768878c107d92c528a65bba206a87cdcf2c694514e75907fb91772cf8a388a5",
+    "400-italic": "476b66380b89b1aeed53634192d0604701055da4f7ed21e54812d312a387a3e3",
+    "700-italic": "1eec0bbbd61fbccc1e34d75aa0e42894b7f027e972b8e1f8e8bfd319174c26a0"
+  },
+  "ttfSha256": {
+    "400-normal": "c446f957530776da190c12399963ce5b4cfc18f310c9c329554b9e693416ea7a",
+    "700-normal": "871a386af98754de3db1a59dd40df4bc12bf2383d58ccecfda2bc34ca18de04f",
+    "400-italic": "878d17380897c79e920479a983cb285c99d6a8f23f586b82a811f283cfbf710f",
+    "700-italic": "3b2484a10429927835fa48d1afc586bd2b151738d942665bb29690b9c294cf8d"
+  }
+}

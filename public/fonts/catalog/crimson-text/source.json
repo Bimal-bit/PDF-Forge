@@ -1,0 +1,18 @@
+{
+  "family": "Crimson Text",
+  "id": "crimson-text",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/crimson-text/-/crimson-text-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "538c7067580f457dd3dd98ebaabeb19405c12bdd01674d3db8fd9948ee73c862",
+    "700-normal": "60b9b9640fc716abd752df41f38ad81052f4905e42be2ff3c1f78e851863aee0",
+    "400-italic": "ded83489adaeec098ee0d639252e72be7de219f759b939ba4b2e606e5e68b272",
+    "700-italic": "b6034f862c66e4325fc0f87448e0fe0479fe23070b3971f7c52caac207e44d45"
+  },
+  "ttfSha256": {
+    "400-normal": "f6ddd531394df3af749b090fa77ab1fea524e47a97f0f77427b684643e4c42ee",
+    "700-normal": "9f91604efeadc31f5f6417385bb4828f52d6a26babf5c440b2a002088268b716",
+    "400-italic": "55359dcab452d170fd13ac69bbdfa85ffa1b34491a9ae8f0dd2ea8d51097be70",
+    "700-italic": "d11eaf9175e41a3cf16572636f8ec0da9eb45d22dd6eff6d4c6591907e1468af"
+  }
+}

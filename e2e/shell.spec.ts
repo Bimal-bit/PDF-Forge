@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test } from '@playwright/test';
 
 test('shows the reference landing before a file is selected', async ({ page }) => {
@@ -24,12 +25,16 @@ test('exports a PDF with a text object', async ({ page }) => {
   await page.getByLabel('Open PDF').setInputFiles({ name: 'sample.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
   await page.getByRole('button', { name: 'Insert', exact: true }).click();
   await page.getByRole('button', { name: 'Add text overlay' }).click();
+  await page.getByLabel('Overlay text').fill('Exported note');
   await page.getByRole('button', { name: 'Add shape' }).click();
   await page.getByRole('button', { name: 'Add table' }).click();
+  await page.getByRole('button', { name: 'Insert table', exact: true }).click();
   await page.getByRole('button', { name: 'Add link' }).click();
-  await page.getByLabel('Overlay text').fill('Exported note');
+  await page.getByLabel('Link destination', { exact: true }).fill('https://example.com');
+  await page.getByRole('button', { name: 'Insert link', exact: true }).click();
+
   await expect(page.getByText('Header 1')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'https://example.com' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'https://example.com/' })).toBeVisible();
   const download = page.waitForEvent('download');
   await page.getByLabel('Export PDF').click();
   expect((await download).suggestedFilename()).toBe('sample-edited.pdf');
@@ -52,14 +57,17 @@ test('exposes M6 page management and repeating marks', async ({ page }) => {
   await page.goto('/');
   await page.getByLabel('Open PDF').setInputFiles({ name: 'pages.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\n4 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 300] >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF') });
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Rotate page' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Rotate page' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Layout', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Rotate right', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Tools', exact: true }).click();
   await expect(page.getByText('Merge PDFs', { exact: true })).toBeVisible();
   await page.getByLabel('Header').fill('Case {page}');
   await page.getByLabel('Footer').fill('Private');
   await page.getByLabel('Watermark').fill('DRAFT');
   await page.getByLabel('Bates start').fill('10');
-  await page.getByRole('button', { name: 'Duplicate page' }).click();
-  await page.getByRole('button', { name: 'Rotate page' }).click();
+  await runPageCommand(page, 'Duplicate page');
+  await runPageCommand(page, 'Rotate page');
 });
 
 test('adds local form fields and exposes CSV mail merge', async ({ page }) => {

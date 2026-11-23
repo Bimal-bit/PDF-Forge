@@ -1,0 +1,18 @@
+{
+  "family": "Urbanist",
+  "id": "urbanist",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/urbanist/-/urbanist-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "526bab743f8aeba2df182767150d7a354bf57b885f6ff2eab184cd27264b90aa",
+    "700-normal": "ede48e359fb3f70d13b558e4bf8aea2697e3c86c267cfb4b360fe2d7a621df18",
+    "400-italic": "45c02697b91d86ee08783566738804eb78cde214569b7c2d077fa5d1b2cc8d98",
+    "700-italic": "25dceef6d3b91d88e95287ea912f3f31ea7d948f97d993b84db77c5e24b7d733"
+  },
+  "ttfSha256": {
+    "400-normal": "3c5474c5f6979a13b66e0c4eb4f7910c6bc2eac0bd68f6aa04267bf28a3c376d",
+    "700-normal": "878578ec2a156c93ffb5819ba2c670f5a0c273f172f2e4efc9b4da128580f7dc",
+    "400-italic": "e7209176320ea6182eef17bd6f1607b0db25f976f5fcc693d32d9cb5cf79cc9b",
+    "700-italic": "68dafbd655cacd497e0addbf47bd1ff049586b58e73342732d7c027bfb5b151b"
+  }
+}

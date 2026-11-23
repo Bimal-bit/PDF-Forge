@@ -1,0 +1,18 @@
+{
+  "family": "Barlow",
+  "id": "barlow",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/barlow/-/barlow-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "b0a8ad37ac45f5fb22ced461576db72e44e295107aad7a9c8a7a4bad728fd03b",
+    "700-normal": "2d797dd8b35dcb3413e1af9d7052b3f4f8c341a147cdcb01f4f06af80db53289",
+    "400-italic": "7a306c56f630df002deeafbd521738e20795d765feea65030def2e80f9a3d62f",
+    "700-italic": "717f61f0f8cf46b1f2aa54283e91ae39b1a80c4769ccaa761c7fab813708bcff"
+  },
+  "ttfSha256": {
+    "400-normal": "2dd6a85e2b7b47bd6d2037911080bc5dda514b5a2c6e9650b5604b09599d3d92",
+    "700-normal": "4a30cde133b0d40192ab30ef4d7822ec2e248b8cc190fad31b2c8a15bd8e48c0",
+    "400-italic": "f79d189ce17acc391d2dff40af52bc4e2fee7925352b9718de8d52ab9554e5ec",
+    "700-italic": "b7ad338419bf3c878d882a0e7e76ad01578dd4bad3b1e88fa6a7d03970112dde"
+  }
+}

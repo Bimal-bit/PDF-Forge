@@ -1,10 +1,15 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test, type Download, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { PDFArray, PDFDocument, PDFRawStream, StandardFonts, decodePDFRawStream } from 'pdf-lib';
 
 async function open(page: Page, pdf: PDFDocument, name = 'editing.pdf') {
   await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name, mimeType: 'application/pdf', buffer: Buffer.from(await pdf.save()) });
-  await expect(page.getByRole('article', { name: 'Page 1', exact: true }).locator('canvas')).toHaveJSProperty('width', Math.ceil(pdf.getPage(0).getWidth() * 1.5));
+  const paper = page.getByRole('article', { name: 'Page 1', exact: true });
+  if ((page.viewportSize()?.width ?? 1440) <= 760) {
+    await expect(paper).toHaveAttribute('data-rendered', 'true');
+    expect((await paper.boundingBox())!.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+  } else await expect(paper.locator('canvas')).toHaveJSProperty('width', Math.ceil(pdf.getPage(0).getWidth() * 1.5));
 }
 
 async function blank() {
@@ -37,8 +42,8 @@ test('smart text match restyles current pages together with atomic undo and expo
   await page.locator('.text-layer span').filter({ hasText: 'First matching line' }).dblclick();
   await page.getByLabel('Find text in document').click();
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
+  await runPageCommand(page, 'Duplicate page');
   await page.getByRole('button', { name: 'Home', exact: true }).click();
   await page.getByRole('button', { name: 'Smart text match', exact: true }).click();
   await expect(page.getByRole('button', { name: '2 blocks matched', exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -49,7 +54,7 @@ test('smart text match restyles current pages together with atomic undo and expo
   for (const block of await page.locator('.text-object').all()) await expect(block).toHaveCSS('color', 'rgb(18, 52, 86)');
   await page.getByLabel('Undo', { exact: true }).click();
   await expect(page.getByLabel('Overlay text')).toHaveCount(1);
-  await expect(page.getByLabel('Text color', { exact: true })).toHaveValue('#292724');
+  await expect(page.getByLabel('Text color', { exact: true })).toHaveValue('#000000');
   await page.getByLabel('Redo', { exact: true }).click();
   await expect(page.getByLabel('Overlay text')).toHaveCount(2);
   const pending = page.waitForEvent('download');
@@ -131,7 +136,7 @@ test('snippets insert at chosen coordinates on reordered pages and survive recov
   await page.goto('/');
   await open(page, pdf);
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
   await page.getByRole('button', { name: 'Home', exact: true }).click();
   await page.getByRole('button', { name: 'Styles & snippets', exact: true }).click();
   const library = page.getByRole('dialog', { name: 'Styles & snippets' });
@@ -221,7 +226,9 @@ for (const width of [1440, 900, 390]) {
     await open(page, await blank());
     await page.getByRole('button', { name: 'Insert', exact: true }).click();
     await page.getByRole('button', { name: 'Add text overlay', exact: true }).click();
+    if (width <= 760) await page.getByLabel('Mobile workspace').getByRole('button', { name: 'Inspector', exact: true }).click();
     await page.getByLabel('Overlay text').fill('Saved from selected text');
+    if (width <= 760) await page.getByRole('button', { name: 'Hide properties panel', exact: true }).click();
     await page.getByRole('button', { name: 'Home', exact: true }).click();
     const trigger = page.getByRole('button', { name: 'Styles & snippets', exact: true });
     await trigger.click();

@@ -1,0 +1,18 @@
+{
+  "family": "Cousine",
+  "id": "cousine",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/cousine/-/cousine-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "fb542bb367b20289e71b682dc45d8f01de5b0a0658464db9053801f30e7c13a8",
+    "700-normal": "63c3bc173bf483b579052da1a6532d84d65d0fbfdd081f1ce50d4fe895343625",
+    "400-italic": "1f797cdf757dc474a18e8b7378fb49eaab06f11c239ec40db6064cd5cb49febc",
+    "700-italic": "7ac046711b0716288354f50cf697d61743a101507e791547cf05d24db7fbaf22"
+  },
+  "ttfSha256": {
+    "400-normal": "a7f037b8fbd6109e093128feec226a75d9427b925907c2835fe551d855b25d66",
+    "700-normal": "f98360e118d92124e51ac14dc5ffcf9d0767745e60c4a5c6ebea04858b89fd96",
+    "400-italic": "f142734e8192c91ae1b63c4f7bf2a6bc0a817e127e099998c3780ab261a88a89",
+    "700-italic": "b5a935d193d477c8e5f183058018a7f55ab8a753309902bf657a201da55e1c2e"
+  }
+}

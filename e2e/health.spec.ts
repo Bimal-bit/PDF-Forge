@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test, type Download, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
@@ -19,11 +20,11 @@ test('text selection follows the source geometry and zoom preserves the editing 
   await open(page, pdf);
   const run = page.locator('.text-layer span').filter({ hasText: text });
   await expect(run).toBeVisible();
-  await expect.poll(async () => (await run.boundingBox())!.width).toBeCloseTo(font.widthOfTextAtSize(text, 24), 0);
+  await expect.poll(async () => (await run.boundingBox())?.width ?? 0).toBeCloseTo(font.widthOfTextAtSize(text, 24), 0);
   await page.getByRole('button', { name: 'View', exact: true }).click();
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
   await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
-  await expect.poll(async () => (await run.boundingBox())!.width).toBeCloseTo(font.widthOfTextAtSize(text, 24) * 1.2, 0);
+  await expect.poll(async () => (await run.boundingBox())?.width ?? 0).toBeCloseTo(font.widthOfTextAtSize(text, 24) * 1.2, 0);
   await run.dblclick();
   await page.getByLabel('Edit PDF text').fill('Same size replacement');
   await page.getByLabel('Find text in document').click();
@@ -49,13 +50,13 @@ test('text selection and in-place editing follow every page rotation', async ({ 
   ];
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
   for (const bounds of expected) {
-    await page.getByRole('button', { name: 'Rotate page', exact: true }).click();
+    await runPageCommand(page, 'Rotate page');
     await expect.poll(async () => {
       const rect = (await run.boundingBox())!; const paper = (await canvas.boundingBox())!;
       return Math.abs(rect.x - paper.x - bounds.x) < 1 && Math.abs(rect.y - paper.y - bounds.y) < 1 && Math.abs(rect.width - bounds.width) < 1 && Math.abs(rect.height - bounds.height) < 1;
     }).toBe(true);
     await run.dblclick();
-    await expect(page.getByLabel('Edit PDF text')).toHaveValue('Rotating text');
+    await expect(page.getByLabel('Edit PDF text')).toHaveText('Rotating text');
     await page.keyboard.press('Escape');
     await expect(page.getByLabel('Edit PDF text')).toHaveCount(0);
   }

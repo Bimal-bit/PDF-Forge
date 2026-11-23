@@ -1,0 +1,18 @@
+{
+  "family": "B612",
+  "id": "b612",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/b612/-/b612-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "a96e47feaec40f5b53b6c8e941e87ba7732d7935d47f2a554223585f36c6785d",
+    "700-normal": "95f39db174588831100e7e32a0329d4f91952a6c28f2fd91f207951e3a8c6788",
+    "400-italic": "47ec3f57f35c10d9282edbaee999b05b9eb6d49d253814625f81c6ea3622b604",
+    "700-italic": "6ea34d714e13ac1a2458d4c9afa880ebcdc4aa57662be072e6f068cc17e0ba60"
+  },
+  "ttfSha256": {
+    "400-normal": "c69d176667f88b8cc446277aeac68601cdfa428aa38920a5e22e7c3905d6dbb5",
+    "700-normal": "98dd2ac8770f4cae42b6814287788e6206f06107353ee15e406a5689ec2390d4",
+    "400-italic": "05554233b2ae865c3b370f8b95f7fa8513bc7a81c36d39f36683d3fe476064e6",
+    "700-italic": "7addcfe389b611c9db9bba9b91073677cca91e792aff5da7baefe673b82c084b"
+  }
+}

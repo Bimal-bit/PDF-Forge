@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test, type Page, type Download } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { PDFDocument, PDFArray, PDFRawStream, decodePDFRawStream, StandardFonts } from 'pdf-lib';
@@ -33,7 +34,7 @@ test('recovers objects and the page plan after an autosave and refresh', async (
   await page.getByLabel('Overlay text').fill('Recovered edit');
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
   await page.getByLabel('Watermark', { exact: true }).fill('DRAFT');
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Duplicate page');
   await expect(page.getByLabel('Go to page 3', { exact: true })).toBeVisible();
   await expect(page.getByRole('status')).toHaveText('Saved locally', { timeout: 8000 });
   await page.reload();
@@ -46,7 +47,7 @@ test('recovers objects and the page plan after an autosave and refresh', async (
 test('edits the original source page after reordering and reparses the export', async ({ page }) => {
   await openDocument(page);
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
   await page.getByLabel('Go to page 1', { exact: true }).click();
   const text = page.getByRole('article', { name: 'Page 1', exact: true }).locator('.text-layer span').filter({ hasText: 'Source page 2' });
   await text.dblclick();
@@ -68,7 +69,7 @@ test('exports filled fields and typed signatures after duplicating a page', asyn
   await page.getByRole('button', { name: 'Add signature field', exact: true }).click();
   await page.getByLabel('Signer name', { exact: true }).fill('Ada Lovelace');
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Duplicate page');
   await expect(page.getByLabel('Go to page 2', { exact: true })).toBeVisible();
   const pending = page.waitForEvent('download');
   await page.getByLabel('Export PDF', { exact: true }).click();
@@ -82,7 +83,7 @@ test('filters command palette actions', async ({ page }) => {
   await openDocument(page, 1);
   await page.keyboard.press('Control+k');
   await page.getByLabel('Search commands').fill('accessibility');
-  await expect(page.getByRole('dialog').getByRole('button')).toHaveCount(1);
+  await expect(page.getByRole('dialog').locator('.command-results').getByRole('button')).toHaveCount(1);
   await expect(page.getByRole('dialog').getByRole('button', { name: 'Check accessibility' })).toBeVisible();
 });
 

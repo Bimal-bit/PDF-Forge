@@ -1,0 +1,18 @@
+{
+  "family": "Noto Sans Display",
+  "id": "noto-sans-display",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/noto-sans-display/-/noto-sans-display-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "4dcbba12b060c458f654eb343c1e2d6e3d720021276ff1fc9c1a81fdc7aa5172",
+    "700-normal": "d4c452ce6bd46891d0443796df238b4b6addf39b5c6095fb42844e6d476e2903",
+    "400-italic": "d667400ce31d606c68dc329251ed93441835d20088be976f6bbcf3e32fbe2075",
+    "700-italic": "d5d10ba2f5317a93bb6694d34b6128785ad8fc0f9352527ef281f36fe340e2a8"
+  },
+  "ttfSha256": {
+    "400-normal": "a97de4e21160a69c913258484e59818fcd888bf98383b407c789c0bc42288b49",
+    "700-normal": "9ca77942e19118f97cf668b1c25c6ffdbceda5b447666750aa84b1a4da4e3c2b",
+    "400-italic": "e56c3093f4a8812610e11486114e6b7c35da7e2189949df661ad7a0191c7b56c",
+    "700-italic": "69e014f06e8fc702ef4753e6957106a2306abda4da2ae1be4cf63314f1cffb91"
+  }
+}

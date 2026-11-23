@@ -1,0 +1,18 @@
+{
+  "family": "Fira Sans Condensed",
+  "id": "fira-sans-condensed",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/fira-sans-condensed/-/fira-sans-condensed-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "73d6a1d1a9b43f27a99c2e699f39a585bbdb32710bfd5ef862ac0f34d4aa6b73",
+    "700-normal": "e94b13bb20b4d7551a411b614abbc716b4b2e74dd7bb82c83e431a390cb21516",
+    "400-italic": "06f93389f16a802ad49191fa60fd0053253c1da7d92326866ea7803946ed82ca",
+    "700-italic": "b6aff9839752fd42073a2a4846943ebaa274e757b8e5b4f047a0f56046a344e7"
+  },
+  "ttfSha256": {
+    "400-normal": "62762eb2173c3ab5e6a0b4ed08007a3c33636b326f3b5498b5be730b095cda45",
+    "700-normal": "34ba128f6cff3ade8c409ea5d374c62f96278e98c6060bb452a4c0468acb7cae",
+    "400-italic": "0ea829c3f1ce6ee47f5a94ce9be819160c93529379a75f33a6f0315db6dc59f3",
+    "700-italic": "ab6f0f251089bf3ed719027714df80239baff05a2e4ae1262c7bd563a3f16646"
+  }
+}

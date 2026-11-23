@@ -97,14 +97,14 @@ export async function optimizePdf(document: OpenDocument): Promise<Uint8Array> {
 
 export async function renderPagePng(document: OpenDocument, pageNumber: number): Promise<Blob> {
   const pdf = await openPdf(document);
+  const canvas = globalThis.document.createElement('canvas');
   try {
     const page = await pdf.getPage(pageNumber);
     const viewport = page.getViewport({ scale: 1.5 });
-    const canvas = globalThis.document.createElement('canvas');
     canvas.width = Math.ceil(viewport.width); canvas.height = Math.ceil(viewport.height);
     const context = canvas.getContext('2d');
     if (!context) throw new Error('Your browser cannot create an image export.');
     await page.render({ canvas, canvasContext: context, viewport }).promise;
-    return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image export failed.')), 'image/png'));
-  } finally { await pdf.loadingTask.destroy(); }
+    return await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image export failed.')), 'image/png'));
+  } finally { canvas.width = 0; canvas.height = 0; await pdf.loadingTask.destroy(); }
 }

@@ -1,0 +1,18 @@
+{
+  "family": "Lato",
+  "id": "lato",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/lato/-/lato-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "918b7dc3e2e2d015c16ce08b57bcb64d2253bafc1707658f361e72865498e537",
+    "700-normal": "c447dd7677b419db7b21dbdfc6277c7816a913ffda76fd2e52702df538de0e49",
+    "400-italic": "bca1d88ada544d9c80872d4da27133fab6d347361fa26e932b47ec9559088fd0",
+    "700-italic": "6c84348296ebe2e2a0830c3962eb02156419d9bc76371c2eadaf7329d827d550"
+  },
+  "ttfSha256": {
+    "400-normal": "1edaef940c1444e1d2dae2a99add51fc40da1e9bc24f4fc5c64d0700ac6b5709",
+    "700-normal": "5e6c68dd300b566830bfbe4cb0df1b7fd0d30471fefb57e712f77059c87a805f",
+    "400-italic": "351c9985652b6f6fcb073878e5035fe83b3ae8c794bcba1f6b72c02338999aeb",
+    "700-italic": "ee6947391c19d7879942fdc55aca39daeb3e5f8b8711774629122e3d1cf8c7b1"
+  }
+}

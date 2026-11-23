@@ -1,0 +1,18 @@
+{
+  "family": "Plus Jakarta Sans",
+  "id": "plus-jakarta-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "221a4135d06a4b33abbd535e9a0da4e565d19545ddd9267c4e678a916d54d9b6",
+    "700-normal": "2050755bf475817c96ac7d914c7f07cc3c2d11ff4b3fb4747b8d41de584aad17",
+    "400-italic": "e3d33148aa32c737949f4f91a0a3ef014792be66c61539455c492ec2cd4796e6",
+    "700-italic": "995c33d1ea0f192ac2d8038abbfeb04c5198fcd1e876beb69a848c7649378e54"
+  },
+  "ttfSha256": {
+    "400-normal": "ad9a623b6fa9f5bf48285597503589a6f96bb3a02d2b65130647a805bd540d41",
+    "700-normal": "e51f48799da1cefc8cf8c1c6ded06b1c42fe89d5cc13946fe7ebeab24b3894ba",
+    "400-italic": "f9050ff347da199de688c9d0ad3f7b84fc3e2f027466bd5b4dc041d480705bca",
+    "700-italic": "f44ae55e03bd585bfdfd1c0b3a64cb1bb1cfabba96134a6bd8ffce42fff95962"
+  }
+}

@@ -1,0 +1,1802 @@
+[
+  {
+    "family": "Roboto",
+    "id": "roboto",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/roboto/-/roboto-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "425c0713a8176f92273d378599c7eac57de7fafabd4bd0ed457b70eb8f80d371",
+      "700-normal": "b9d66d1708156f765ada51939bc24ed259dafa69eb631b36e443680fe9e15879",
+      "400-italic": "5d0e978b6560631da2504e1612e91ee1ff959c04adae245eb320ac90cad2ba2f",
+      "700-italic": "cc04783263e416f8ee2a218fde6ffd532d6b81636d3187d30e39e4ad05736d5e"
+    },
+    "ttfSha256": {
+      "400-normal": "9692ac5f35f61109f6029b0cd1a2697a76d7c7672476dcca2e9a93bd751dad8f",
+      "700-normal": "7ec30e6d2815b10fdc24379d5e5accae2200f02abac61bd7930d578625c4c14d",
+      "400-italic": "ccdebc11869a4c999c207656dd9db9c93cad4df77adc17a99d95766409033b5a",
+      "700-italic": "4895dc011ea6e7c9bb2fc195a508d7f5265b3e137753bcb45f33420dec9f6671"
+    }
+  },
+  {
+    "family": "Open Sans",
+    "id": "open-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/open-sans/-/open-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "0e44026ad31376af1b56593cd4acb4f353f8e8789c51759e18f64578e4ef296a",
+      "700-normal": "594a622208d1dad5d1dd58aef74f212ce7132d8f0aa5bacea6cfeb86d308c17a",
+      "400-italic": "3b50909a098195a8a3fda73fe29c260724e6f9ca624dd750cb8af7cb0c9198e2",
+      "700-italic": "f3e06f32b559ebe1a870bbe5a2c03ccbcd65986d125158870ccb9805b124011c"
+    },
+    "ttfSha256": {
+      "400-normal": "29e70a235152ed57683ddd692d7c5a4f3a54a46421a09f83510d953b08b55cbc",
+      "700-normal": "74c13419ef1837495993d62fdb0b86d3ad7e2bc6c84575e221d25eea0ea0f853",
+      "400-italic": "9e5e79051209b1d146e810c3f9e2075edb1a2c3f7f3a1618fc0e5691a63cc91b",
+      "700-italic": "998ccffebefcd5afdb2de64d45d8273cbbcb867854bf5f192096181d79ac3f62"
+    }
+  },
+  {
+    "family": "Lato",
+    "id": "lato",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/lato/-/lato-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "918b7dc3e2e2d015c16ce08b57bcb64d2253bafc1707658f361e72865498e537",
+      "700-normal": "c447dd7677b419db7b21dbdfc6277c7816a913ffda76fd2e52702df538de0e49",
+      "400-italic": "bca1d88ada544d9c80872d4da27133fab6d347361fa26e932b47ec9559088fd0",
+      "700-italic": "6c84348296ebe2e2a0830c3962eb02156419d9bc76371c2eadaf7329d827d550"
+    },
+    "ttfSha256": {
+      "400-normal": "1edaef940c1444e1d2dae2a99add51fc40da1e9bc24f4fc5c64d0700ac6b5709",
+      "700-normal": "5e6c68dd300b566830bfbe4cb0df1b7fd0d30471fefb57e712f77059c87a805f",
+      "400-italic": "351c9985652b6f6fcb073878e5035fe83b3ae8c794bcba1f6b72c02338999aeb",
+      "700-italic": "ee6947391c19d7879942fdc55aca39daeb3e5f8b8711774629122e3d1cf8c7b1"
+    }
+  },
+  {
+    "family": "Montserrat",
+    "id": "montserrat",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/montserrat/-/montserrat-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "e66bcd2761ab6924b25ce70dafe10e57a39193c4fea1516730bd9cb5240af6c8",
+      "700-normal": "f9d9e65b15372cebcafc3acd1e664a564c5c4b23278de4d5760de9a13c530371",
+      "400-italic": "a18fca2f8a465eaa5cb0a7431cbcb5ecdc7eb06ac751684eba790ab84d21aadc",
+      "700-italic": "795939fc9193d54e7ee22be5105fff1f422df4081bcfec808eab6ea9b1c16acc"
+    },
+    "ttfSha256": {
+      "400-normal": "11ee2024bd616a44201bfb39ccae2bf4f506f6706cb1e6db58d294fcffa3973f",
+      "700-normal": "81c154d2fca337dfd6158901874780c0e09a83c841c6360657d2e83914c4b0ea",
+      "400-italic": "d28068ceb70f16b45be29426a2fc2959f5718eb3de406c2f764a793d70f3d04d",
+      "700-italic": "1b7d1e0b6d9bfffd6a1e6e57ef621fa0f694e90d23c8e93bde66e27395a3903b"
+    }
+  },
+  {
+    "family": "Source Sans 3",
+    "id": "source-sans-3",
+    "version": "5.3.1",
+    "source": "https://registry.npmjs.org/@fontsource/source-sans-3/-/source-sans-3-5.3.1.tgz",
+    "sha256": {
+      "400-normal": "0f73f35e08cde0a2f10c109c6e01d71459d97e4099ecd9a50f1b6c0209e4de2b",
+      "700-normal": "ae35266f2ab0d5314ff9a04127931eb26c793e4f1269bb240046d4d2db4b7bb1",
+      "400-italic": "3c230c03425a2866e4b57954f3173fc149dba2634e9ee32c681b41d96c7f06fe",
+      "700-italic": "278bb60943203eddcd659e417535935c7a87b45bad124aa7e17b58360a03d533"
+    },
+    "ttfSha256": {
+      "400-normal": "32c8cfc8f849b82f06babc0a7669204f7f094a13b2c8484a61967d4a297ea7d5",
+      "700-normal": "479d5a5db6ca371c43ea45cf313f08dc1ca62c715291c571f66fc19ac53668f8",
+      "400-italic": "98a787a27b2fedc0e56cd0e06438365ffd76043412c6f132fe5776710f6e7d19",
+      "700-italic": "743668daf08eeda86cf0af468ca874bcbd528d5012882eb2d8b5d88f8b3e5580"
+    }
+  },
+  {
+    "family": "Raleway",
+    "id": "raleway",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/raleway/-/raleway-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "2318962e7930f55b45907ee85a6b6165ca3bba437b05ca17068a5c876d3de18b",
+      "700-normal": "05844cd75b25917a8463edbffc9a952205d327775c54a6697745ababb14a10d7",
+      "400-italic": "8ff3768f98c46cf7065282cdf624c8fd880d6336286080766d1405ee47f8a5db",
+      "700-italic": "93630c9e7ff7629af6caaa8c74fe3cab29396dac32b2d3685e708d39f701c071"
+    },
+    "ttfSha256": {
+      "400-normal": "72466f38a6ed35b78ee46e1a8833e57960124df7ef212aefeaa4a0a10f9f5310",
+      "700-normal": "a40afc29530ce71caca5936b968102071a90d0da4ef5d661e4a8e4c948f6b76b",
+      "400-italic": "3016438f20fc4bb9aa400b09e0d0c30b3b3a89e6f2469e8f7e6b05bad4d80cd8",
+      "700-italic": "c5f44dd16683d0d8c2283bbc162fe4599138f10ca60046e94de497f2057b46c8"
+    }
+  },
+  {
+    "family": "PT Sans",
+    "id": "pt-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/pt-sans/-/pt-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "2dea6190c113af617923c6b71f7f10ffbdf72074556f79963610254fe40e49be",
+      "700-normal": "05ea99a48ece3c624fd9df15f5cf4e1d94703bde9ed2b384495900f55e28befe",
+      "400-italic": "1f275d522571c81eb7d02d47015bf4eb1c60ab7520477bd40ba39425c1df49f2",
+      "700-italic": "064f8ebfc7134cdf0da9f34199ae15cbe100ef406d85c0187246a7bd7c57d5b6"
+    },
+    "ttfSha256": {
+      "400-normal": "a75452f2856e9c9232ba88578362740274a17cb4b01662137e8ae31d2b13c038",
+      "700-normal": "cf5cb2f273f4e3d6d6254fa3a383b6685c81f85fc27e781157a906e495ae264c",
+      "400-italic": "b5654f82137ea10ad25d985230a604ecb17a4f6c423331275182457e2fe46d7c",
+      "700-italic": "ef9d26fa4a1ec52b47ec03d6830fef076d02aa9b94b30abc0452e1b412addddc"
+    }
+  },
+  {
+    "family": "Merriweather",
+    "id": "merriweather",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/merriweather/-/merriweather-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "66f5bd22d738a801a9e58d71920559743b0baaced04be299e3c4feca3dce3556",
+      "700-normal": "4e1ab49396c02be0d9a2a25eed7bc73781c047d85fcb5dfc2889873eaf992b09",
+      "400-italic": "051559ee0644cd647c8f654cffea1d1a5ce601e573af21d0984528563fb476f6",
+      "700-italic": "e5adfc7eac419ec5624f00612ff7d27f0e5d4bfd898cddc88b610e9e533b641c"
+    },
+    "ttfSha256": {
+      "400-normal": "b5f20618155160eadd7d1a0899dfed986ff531ce989e6f6d24a6dfae14db0774",
+      "700-normal": "523451a8b8244f9fcb81f3aef72e175c30ca2f97865cb7a3c0f5849f6715c4e6",
+      "400-italic": "6205df77dd6ee88872fb4bdc1db80966a344e9b312babc56f0970d3855a80c9f",
+      "700-italic": "42870a14eb9ff98037bd9aa2591e7f545bc89ba7ea074ed20bc355a8830777bd"
+    }
+  },
+  {
+    "family": "Noto Sans",
+    "id": "noto-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/noto-sans/-/noto-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "09aee8065d25508f23a4c3d92cd777ac869c52d93fd868a88f025d888a7937d6",
+      "700-normal": "e77bfe1db912f687b0319b60de158cfada67f89c8ee4f8e2bd6020f970accbfb",
+      "400-italic": "c302cbfdd98d628d60b6ef8de3c8459c70449df3a5ff2baacfa7481d95e79f4c",
+      "700-italic": "445b663e3234ac661a1b501afbbdd7fc01380e0dd59951af10ff7568f6ee7ddd"
+    },
+    "ttfSha256": {
+      "400-normal": "2572217a2a220cacfd96de9de575f4aa1281161da0635ce2781dce8ded28f4bb",
+      "700-normal": "f84f316e9cadff273d4a193947e28b23a2e3d9ad68e1491443fa55b8b5f21c8f",
+      "400-italic": "392269d2524cebd9c0627a29d74d68b6b8b467c5971376a104d8bbe6ecf2f262",
+      "700-italic": "098e3b8d330bbc93fb5adb4820956b99dabf1ccdcdf9d0ca127eaedd09f66679"
+    }
+  },
+  {
+    "family": "Noto Serif",
+    "id": "noto-serif",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/noto-serif/-/noto-serif-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "4c0cbe3eec50d260754d681c17ee2af49a43d7fd93ce42877f665fcb1a889b87",
+      "700-normal": "0d0b440760c93e6fec440ad438d10cea6c70367a0f5ecfcfa15cef0a85c67093",
+      "400-italic": "a7386f772de25b62a3a449fa5d9f3e09916b65cf6a6dfc52f5a103c276fee157",
+      "700-italic": "cc89f2cf96acfcf7415d44de050ae7666d44d29acc608e4ef8a19697de6c5f3f"
+    },
+    "ttfSha256": {
+      "400-normal": "3d7de5f4c46769427d0fde755532e27eaeb53d2ca4953fd17143dcba96e8cc32",
+      "700-normal": "db809c4945eb3021a34140e9e552c1af77c8a9fcf53176b5587477515528e28e",
+      "400-italic": "f07cd220326e90a0400a1d7dadc99c25dfe0f841268d47e87350eb6660cbab80",
+      "700-italic": "c17f227c8d6eae63c799447c5c8b1895c436dce207d78cbd806ff2d03522626d"
+    }
+  },
+  {
+    "family": "Ubuntu",
+    "id": "ubuntu",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/ubuntu/-/ubuntu-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "dabae363ac0ae6c3b2a137a32f7132b42520a8af252f87aa6c2198f2a79cf91c",
+      "700-normal": "3658a0717e347c1db8d80dd565584b9dc56769fbf87909c50a4a7740206ec5f7",
+      "400-italic": "bc79d1b312559bbb2fec09c60895b411a60403586df8907fc022afaae3be7971",
+      "700-italic": "c43326719ec42ca99c5f6ee1c6107ebe59f636812c4a0e93a58a2e7051db4930"
+    },
+    "ttfSha256": {
+      "400-normal": "a765dfb5147c5fe38880655d59ff4373d0e1a451b10c380b2222ba7c8624244a",
+      "700-normal": "6cc9fa397671d8217e3f89463e3bde8761cbde6a2db8c0e1f9269893eaffd70d",
+      "400-italic": "2079ffd5c9545170c8aa3886088aa306af2b87bb330adbd5d0e92d8c0160b346",
+      "700-italic": "4afac4a248d7abb736e9de955e2b74b3528017285688863241595bc37fb4b7a2"
+    }
+  },
+  {
+    "family": "Nunito",
+    "id": "nunito",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/nunito/-/nunito-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "a5906e15ceb68f73d3b2c2076b4057c3f6ed401186d56283b45ce12944ca0735",
+      "700-normal": "fa89300b9bbb3bd0f60d6991aa055965d98e2ccca27bf8688fe0c39cdc796846",
+      "400-italic": "983e9c4b4a8f3bb81190009facbccbe5ecf9f55a758ae95c4759a00f715312d1",
+      "700-italic": "e666bd4b48ad20e5385e1f1ec1607d68b85380cfe04064fbb5a2bfdc8200deaf"
+    },
+    "ttfSha256": {
+      "400-normal": "83a4b5665671ac8900a88e0efed3638ebec96e41a7480c406b9549f55c1922fc",
+      "700-normal": "77b4b94012a0d1dab2803bac72ece1304e31a7934573f7c6b6ae5bf09fadcf5e",
+      "400-italic": "722f2c1c4f7056a86ffa1282df50be83d3ba80884fc5a58826210cfeced6d66d",
+      "700-italic": "ee8d7f69bbd8c313bdcfeeeed4a32e80bc0ada66a32bdae9c0a56c8e8a05f4ea"
+    }
+  },
+  {
+    "family": "Nunito Sans",
+    "id": "nunito-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/nunito-sans/-/nunito-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "d9976dd1dc9c0d65046b52810e7cc69cfc229ee9939628ffe637e17efe4ef1ed",
+      "700-normal": "cb84238e7b852f2d22b91a598289f13b31cbc7a2d618fd2c0628ecb69459fbeb",
+      "400-italic": "cf340562ef2cc9c40bef477b4aab898428f51ffeee0476d4c0f9949cce678a1a",
+      "700-italic": "0a1d0129776f7f8ff29b5fa53cbfa598e98cde98491262c6c67bdea4624bfa36"
+    },
+    "ttfSha256": {
+      "400-normal": "3a1d64a10a4181de4585ab6791399715919b28069e4393672dccad460c203dec",
+      "700-normal": "8a3eb044509ec8597516dc9569fbb72fb9cbab0c98bc662213a023e77c6282d8",
+      "400-italic": "fd626884b592a1bbfdedb2c83c1c548734ac4652431927ccdb18f5b83c0fce82",
+      "700-italic": "8f5db49cb0a4245e8dc2034c3ce8392f734785a9cf4828ae5f3eb1d31ed9de14"
+    }
+  },
+  {
+    "family": "Poppins",
+    "id": "poppins",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/poppins/-/poppins-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "7d93459d86585bfcdbb7e0376056226adb25821ee54b96236fe2123e9560929f",
+      "700-normal": "9338e65fc077355c7a87ae0d64cc101e23b9bf8ad78ae65f0f319c857311b526",
+      "400-italic": "50d0c1742d80ac71f4cde20e8c04d41a24806af342831f479938b527fbff0972",
+      "700-italic": "4b0864712c6e7ca75f8c003f7bc1a9270af33d6becd4119463771593274c48d2"
+    },
+    "ttfSha256": {
+      "400-normal": "437c5f46a18955428bb9ac892ac7f39ef7cb9bec6a23905d4f97a2e70db32aec",
+      "700-normal": "26684507aa5e902390763ef0068a0b86613f82eff9a6a687f400123f26852e12",
+      "400-italic": "119f592136976f1a211f54c3ce66afe4f05b27bc3a78e6b2e41c48c1234c7c2a",
+      "700-italic": "9637c34d50bb59871b872273d310332e3fa6ea54184792e7677dfe161402435d"
+    }
+  },
+  {
+    "family": "Work Sans",
+    "id": "work-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/work-sans/-/work-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "418b06936717d2e9b6c7a1fb61acb7e2f40030be4b230452f96505230e7b6b41",
+      "700-normal": "c1e51267967030c3d8893931aa3b2e087b9caf44332cf7c384f4f4c22da0dadc",
+      "400-italic": "5606e3c83b0f0ddd405b9e931ec2fa01c52942b0d39a740afa9471de55a8863e",
+      "700-italic": "007fd9077386a2efc1905642899f07fc079d4507641f4805c50778d13c43fd2b"
+    },
+    "ttfSha256": {
+      "400-normal": "77956580e7e40c861d494f9b1ec63080864de00826549faeef3227f45f9cdd48",
+      "700-normal": "19d8346cecef6702da618329f62744e8a6b2d290ce72f04c12e603f0a5fa0a8a",
+      "400-italic": "b36b624f1f9b70b2c4770dcbe014c9a553e5f7fd5bb595a0f16662e1cb1658cc",
+      "700-italic": "3efb44f97ffabeb66173e465b430dca8bef76cf7c70acd241f4e366f685a463d"
+    }
+  },
+  {
+    "family": "Inter",
+    "id": "inter",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/inter/-/inter-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc",
+      "700-normal": "6f56409fd3d64bb85f7d070bce20749db2d66b6d63cec586cc22d1c761be2491",
+      "400-italic": "7ea9d2f1274cebee837f0c6eebb426c18fbb2333a6b6da4d02ec5cf47db7fb8e",
+      "700-italic": "facd8f930c88e4bf79be48afe46671c9dd72f82cf5f4311acc84a48e616ea169"
+    },
+    "ttfSha256": {
+      "400-normal": "03693cc5689d8c89a20ae55fe945fe59884eec8ad7d7dabb4761e066e88f49ff",
+      "700-normal": "153817b87a52e1ca2555f42458ca223b628e646e1afaafae09197ca42972bd39",
+      "400-italic": "15d4caab6aa4efa35bb6844bafc683897d27de703c02ba7012aa6c3d99fb225a",
+      "700-italic": "fdb0143266c0a6ae73130ff7091395851705d667bc3e3364e14cf20e121c57b4"
+    }
+  },
+  {
+    "family": "Fira Sans",
+    "id": "fira-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/fira-sans/-/fira-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "3e38d8c01fe97529fbf0a086bf958d724b723ca7fc8be77b4ba5745f6259b6ca",
+      "700-normal": "c753d7153cac2cfeb877264d18f11197ca672d3e04ba1472154a54777a4e354d",
+      "400-italic": "455e296f048c1d5f813bc278bf06e48d5963e68cef81100c28da5bfc29bd0fad",
+      "700-italic": "f1602cdc43705c82f64cbaa7ea448a5533f2292f60355c71c84ffb0c1d720b01"
+    },
+    "ttfSha256": {
+      "400-normal": "8a550e2dd1c05bb343c75aaebdcd4cdfbc61c2e57f7f936491379b1b61ff75b0",
+      "700-normal": "8f08201d2cad044654cfd230aa4a240f23aa358673324896ab315b0b74da3162",
+      "400-italic": "63f9829de5ea6ffc3af96d1ab0197d5e20bba624fa8d545f39e895162cf000a1",
+      "700-italic": "cc33281dcef41196a2d514425cf8da723f3a4125487ca13b1d900e49154832b2"
+    }
+  },
+  {
+    "family": "Rubik",
+    "id": "rubik",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/rubik/-/rubik-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "82ac0e78285c43d0cd203427c57ab30fb07b18f8e6166045f729442eb1abfa26",
+      "700-normal": "e423f8ae1668156addf5e32f1056d5b22b5b113a9a23afd364df84a6fa88602d",
+      "400-italic": "6f2f041a86279a1329ba7aeedd89a5b86b7d7c373a809590edeb482c0b866ece",
+      "700-italic": "f60727dd408cc6e965ebca6a934d93236df4412cdd16d52d53e4fbe1adda293b"
+    },
+    "ttfSha256": {
+      "400-normal": "b1dd1a00ef8502f4b3b6272260fd4c44aae352d6eb9f745348b2d308267e5fea",
+      "700-normal": "a47907a5499e82fd4359136cf6930f50f166a54662b6353dddf4a1a328516871",
+      "400-italic": "b44089c8a6e877c9484517f33a162b072ec73cf994d1b939f77f2f6cd5aa8eef",
+      "700-italic": "b03241f09525155684fbc5d8e23fa258bd57439837ea83aeebca5b155a8933f4"
+    }
+  },
+  {
+    "family": "Mulish",
+    "id": "mulish",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/mulish/-/mulish-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "95efc771d19900052b360dce91f4043b488b0df7335f7cabf0e03cb69b690027",
+      "700-normal": "f3bfe7eca43b99826926cefbd1663105ce79031fb69435e0f8d20ef05b95bf10",
+      "400-italic": "e1ba733040548f48ca77a5e2a053bab810b9e4d44d036316865ea912840e4e55",
+      "700-italic": "3e231479384503a42ca9d2f0f6a6b620e06cc7c0ca22b04a3adf725cde8986fd"
+    },
+    "ttfSha256": {
+      "400-normal": "c2622b0c8638f0b8f6cbfc46ed982edbe853ff9c0425d3cd5079e843a17b1cca",
+      "700-normal": "1059955b6359b7778c5140d1946a0bbf9e170c45e8cea8a19173901a1d8be88e",
+      "400-italic": "408e3b36421a8ec6b2d1b693bc6dd2ad6eefc8f538a10f79bf6dddfa08b9e06a",
+      "700-italic": "2eb1b34312c621fa8fed47692468c627a0cc6b022f00da25e385dafe73743158"
+    }
+  },
+  {
+    "family": "Roboto Condensed",
+    "id": "roboto-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/roboto-condensed/-/roboto-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "543c03fff71d1b39590af102e0852c2dbce46f4dbe4faaebafbef6edc82e78f5",
+      "700-normal": "ab74f0c2d7ec37e44e017b9586675dd00c519591207dc3bbc8e003c5628dc9b7",
+      "400-italic": "f3dc65744710e1db95469dd16106cf9821606f4c77c6105faa64152f74b67538",
+      "700-italic": "4a5a42627626fe0eec03c9a72e1f6efe318680a5791c4de20fa8510913544e7c"
+    },
+    "ttfSha256": {
+      "400-normal": "587b64800cb9e224b54276b03664b4e26af04a172328b7007a23057fb98953fc",
+      "700-normal": "fb1838a05ca08e6b3d911187bab53ff7faa98d4bd1553956b281a658499bcab5",
+      "400-italic": "8e7687692bda65bcc81c6a34678619fab3d02cd30fc6d35fbc34bc0d7f25fbc7",
+      "700-italic": "6d92fcdc79dd2c4055e07d87a4104e70f46367814993182dbc40c53a3fce1380"
+    }
+  },
+  {
+    "family": "Roboto Mono",
+    "id": "roboto-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/roboto-mono/-/roboto-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "e03013e0baa5690a803c188da2214d920c3245b25ad78421ecc8ae86cd842ae9",
+      "700-normal": "283fbef73f42c21722c5a3efc7a44b0c38aac1ada665602b2144c13ed58c0e99",
+      "400-italic": "e4a744be99f104ecbd224af9a91da2a7cadd76e1b9cde550b26e341d2e465349",
+      "700-italic": "21eb25612d5c76e78c41bacf87adf6dbb44f20e4ee7f75be6c260e512310c087"
+    },
+    "ttfSha256": {
+      "400-normal": "68a3ce60af30d4df7fb5f5702c8c8655b00a8775f9e8949070b636365023ee6f",
+      "700-normal": "69e6133b0758b911e0be50b1972714a65fe19ce376c1c666e2c7470606173d0a",
+      "400-italic": "6721fc812e249c4334db429b8eb925037742a078a2305525cbdc7f8c66b95b58",
+      "700-italic": "7ed47412728701aff7c9fedeaa70bd2a06e0302b091acfc4b6fecae2e56e0f27"
+    }
+  },
+  {
+    "family": "Lora",
+    "id": "lora",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/lora/-/lora-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "ac079950fd9885261c0f73d9e87233f31b5427333ce0eb20e26c119458493c40",
+      "700-normal": "c05fd5289492ed310ed882259b944ca5287e76e572a65d92d3941f9f44f0342a",
+      "400-italic": "723cc14fe86bc9fadb2f5f34efb421d246edb240a18d2a7828d2edc041d79996",
+      "700-italic": "5be7722fced443a25698c6f77d12a04a2cffa921771d81f2d6f5516a381f134b"
+    },
+    "ttfSha256": {
+      "400-normal": "cfcde1c8bee97b17369e412a778fae1fd37d267caf280597ff47c5462b59209b",
+      "700-normal": "b99785407e19a1285265988d5e00fb2c871ca14a3d49183221f8e7f628464606",
+      "400-italic": "18d2959341c2f9fb0b9465daac48ba593bc5586b020d270f6d94898234807b21",
+      "700-italic": "1aca20b77f45fbbe46a7ee0bd00cc4269b1d7ce349572931376efea0d95a473f"
+    }
+  },
+  {
+    "family": "PT Serif",
+    "id": "pt-serif",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/pt-serif/-/pt-serif-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "4271064a37f3ffc0aac5f3806db8a72acc23e19447d1804e4e80d8796cbf6330",
+      "700-normal": "bf23a7a4eebedbb87d4084a69496b29815914a18e339a00f5dc73a03c9c9328f",
+      "400-italic": "cb373bde18855c82a0ebf2946ea661ebd0be58a7fbabdf20f7744ecd9c0a9cfd",
+      "700-italic": "3cb3cfab3c562cbbb5a53accf433f65ed1cd0403ea3bdd6ceeb73bf87f23521c"
+    },
+    "ttfSha256": {
+      "400-normal": "eda5d2c172d509b73a76168980808d2c34273eed2347678b5838272c7dc1d207",
+      "700-normal": "dc8373ece02dbd20422008206fac7da92fcd39e8a00d2d83eb684010dc7d0c91",
+      "400-italic": "d2ed6295aa9828fd1866f1131405d00d9c47f7414d09317f652de7249facfd15",
+      "700-italic": "f45e7c9de64918bf2e43bd6a4fd8140710d5caed38ab61e4207d409c3700dbd9"
+    }
+  },
+  {
+    "family": "Libre Baskerville",
+    "id": "libre-baskerville",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/libre-baskerville/-/libre-baskerville-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "3eb80fbca70498126925ce16ff5c20b2fa35e67ae7123ddb46302d2778dfbf0e",
+      "700-normal": "96fa63376eed93029fa2514a02f5cb80276b016e239426858787de6e794d8619",
+      "400-italic": "efb7e5f4376a557314f5bb9f5197ef837d86c0ab38e1a50a0ff5c60c3400c629",
+      "700-italic": "41cee933f4b0f98abfdcee0f5188f96e885f40fff88c7fe771ba95c0e1309579"
+    },
+    "ttfSha256": {
+      "400-normal": "efc67097ba648d90f33322e77fa153db6a5f43ff869e22709804eb080b17ab02",
+      "700-normal": "f61d04ae069de6a3e6e6a1c00bb4aaba910e5cbc776d6a14daf64d833341e62a",
+      "400-italic": "f0bf66ad9fdb5333dbba6c4a07bb24e6f5b23758946e8352e7a70dd61f81f262",
+      "700-italic": "0639360324078d1c7200ab91207613f733f2da91297a036a16fef3be6c475a19"
+    }
+  },
+  {
+    "family": "Crimson Text",
+    "id": "crimson-text",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/crimson-text/-/crimson-text-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "538c7067580f457dd3dd98ebaabeb19405c12bdd01674d3db8fd9948ee73c862",
+      "700-normal": "60b9b9640fc716abd752df41f38ad81052f4905e42be2ff3c1f78e851863aee0",
+      "400-italic": "ded83489adaeec098ee0d639252e72be7de219f759b939ba4b2e606e5e68b272",
+      "700-italic": "b6034f862c66e4325fc0f87448e0fe0479fe23070b3971f7c52caac207e44d45"
+    },
+    "ttfSha256": {
+      "400-normal": "f6ddd531394df3af749b090fa77ab1fea524e47a97f0f77427b684643e4c42ee",
+      "700-normal": "9f91604efeadc31f5f6417385bb4828f52d6a26babf5c440b2a002088268b716",
+      "400-italic": "55359dcab452d170fd13ac69bbdfa85ffa1b34491a9ae8f0dd2ea8d51097be70",
+      "700-italic": "d11eaf9175e41a3cf16572636f8ec0da9eb45d22dd6eff6d4c6591907e1468af"
+    }
+  },
+  {
+    "family": "EB Garamond",
+    "id": "eb-garamond",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/eb-garamond/-/eb-garamond-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "912929dba0faab5e151849ea5e988adba3080ad6d2bcc4dbff27aa427896498d",
+      "700-normal": "ae7cef029eea959654a474fbcaa2c202f205abfca29caaef62e9a0019c3c8370",
+      "400-italic": "fc5851c4466e73bec048bb62d65f8abadf70d602816687e6d364214e35fa8abb",
+      "700-italic": "018599ef841106727b93f494622bb55782ed532458eed143c02766faf27dc951"
+    },
+    "ttfSha256": {
+      "400-normal": "cf962c4c28980c102997103d9285c322f1a1508b71f8c6acb556f5c6e34db004",
+      "700-normal": "c53347dc1718169a0b02787b060bc7b3ea44d2631776342f468fdd588ab0d5e9",
+      "400-italic": "963a40fb60f7e031d19f2b998abda3816ffb82fa4d73a6b800ae595d6eb5517c",
+      "700-italic": "bee55a2bc55ce65884efe10d327ee1d54dbd9e6e55d65dff73a768053e442186"
+    }
+  },
+  {
+    "family": "Playfair Display",
+    "id": "playfair-display",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/playfair-display/-/playfair-display-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "1fe9ad5d8b2ebd8ecb8fbd05bed1e3fdfa52dae3f1a04e1c219918442fe9394d",
+      "700-normal": "28453852ea165c47b5a941be00e418402e1407002ed87507f062a1e316328fe6",
+      "400-italic": "eabce94d4a69e439cd050755c31f9894ac8a78f93e58b063c6c01f370474e1de",
+      "700-italic": "de2f4041e7ef84f418bd0144484e521e8df849aff47762230c981704b9661877"
+    },
+    "ttfSha256": {
+      "400-normal": "97e23e074d04665181bfc54e06d00a0511c0ac2010d6a88305fd0c366022a5d8",
+      "700-normal": "28d8820b7306b3d5129b508f173f1c2b6a138bf0d7b6361472590b3dc29058b5",
+      "400-italic": "405f7fe60762bdcfd49b4fdebaf9ebf97c2ad65a232d0571ed80f27f227c8d4c",
+      "700-italic": "65fd821d5fa45890778331a90805452e9e163617681a48f0a5dff62193d98cbe"
+    }
+  },
+  {
+    "family": "Cormorant Garamond",
+    "id": "cormorant-garamond",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/cormorant-garamond/-/cormorant-garamond-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "8048ac209bec741e1c29cd0cfac5aac1c0c2ba8c3ddbd4a58fa9bd92ef5c63c2",
+      "700-normal": "21a0fc1c5c22708cf4aa0c147fd32982e25bf9e21efec0ca31a4495ba41753eb",
+      "400-italic": "e48e58027030df56869b795ca6f19b7012158275f7ad7cde1900b4a0b68d02e2",
+      "700-italic": "365e35e77095813205cf30a40acf3443ed05d95ffa31d1504e14213e87a3e4dc"
+    },
+    "ttfSha256": {
+      "400-normal": "b261a29a3bb7ce74361de84aed5a08365c1c87d2e950a68d7384753ff85f6502",
+      "700-normal": "5747817b01a96982c0375e3d9f3414f136cb295f85748007d37c96a889588126",
+      "400-italic": "b960a977edbecb05a7d0321d11e344760676e4a4e26b97e0aa35078a9b3ca6c7",
+      "700-italic": "7f6aa1da7ab2951311f0ae61b762a89218212dabe9470fac5c1a626206423ab6"
+    }
+  },
+  {
+    "family": "Spectral",
+    "id": "spectral",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/spectral/-/spectral-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "cf8daee3b83c1e662196c6e34e444bc41344d54bfeb4fb5351e197de6ce94539",
+      "700-normal": "5276f202cce67e8caa9f697800e11cfc9d708da67d47f6f5507dcadcf1e11c11",
+      "400-italic": "db397149a9f73fd6a41dd2fdf3314cf8a9daf0485134465cc268cac578766b71",
+      "700-italic": "0c2722ef57c7ce87c9dc93a18107939e48fb1540ad14809b47957d1f4b2aa794"
+    },
+    "ttfSha256": {
+      "400-normal": "95f01a6f2c33c7bf2a9676cb8dc42f16f99e90f24805a99fe4e0f40640e28c1b",
+      "700-normal": "d0a5263e62181ab60f088eb95630ec1766a1c0bbcb72fb37f87c79bd8b16d935",
+      "400-italic": "f749049c9e52731d45923d3cbb771146bfaab3a762177f27705f477ff3ac6a73",
+      "700-italic": "4a85d8da51a04b4906aaeb114b468f67574dd49544a38156c3f955163ee5771c"
+    }
+  },
+  {
+    "family": "Bitter",
+    "id": "bitter",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/bitter/-/bitter-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "a9960fdb72f913dc0ccd67dbf6c520f720123bd1a4542cb05555e7ebb2dae42f",
+      "700-normal": "222764fa2fd737779886878c572108b38f675e3c04c87f82376cd56e92bac2d6",
+      "400-italic": "bcbbc8d45b61a4be0baf3a621a760c255dc3245cdf77e81b45a46d175a31f0af",
+      "700-italic": "a1d16093e322a3e5d1c443db4af62a6a5a3ee67626f3c9eabd351de0a8ce13a7"
+    },
+    "ttfSha256": {
+      "400-normal": "0a9309426886edd5836eb9ebafd46cdddec7b6993e4bbfe205caa1338d72cd37",
+      "700-normal": "ad0218b81350dec808324826784db0d631f478703b7129b512a0130aedcd8bd6",
+      "400-italic": "a1b9121f5866336f6a109c3874cf29afaf1b8605098d9be1e220c6562833dd20",
+      "700-italic": "a86bf6729e6c685c4148d44194d0584b1b8cfe63ab5642c8bdea627a586f6bd2"
+    }
+  },
+  {
+    "family": "Alegreya",
+    "id": "alegreya",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/alegreya/-/alegreya-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "7cbcf38a5ef682a8b9e2ef4a330b31a08b33bf1ae08e338267c0d1292479c68a",
+      "700-normal": "1c582501cee54f7137a80732266cbd3f0e9ef1f0e85d093228fb4f4db852df4e",
+      "400-italic": "9be8976a11463895bb4d590973a684c1c96616b7e40a03333151efa8c7210241",
+      "700-italic": "a15a52eb7f26712d7c5ab1c6b1f922a131e8c7e22a9520030d13a92e9472de37"
+    },
+    "ttfSha256": {
+      "400-normal": "18de7bd706fbc838f3a65b6e126d3322afd84ce9a6c3b90894abba6962b534b9",
+      "700-normal": "7bb00ac4dc54fbc64da9c643ad4835989140b90842d796383be750506129e095",
+      "400-italic": "19939e534e155577e250501eefa2fb4aa3fa429507eee8cfab7d321a3010c69b",
+      "700-italic": "f44da11a63ca85f1dda8ea960c9e4412bfa20c4e83658550da5dd95556e6a1c8"
+    }
+  },
+  {
+    "family": "Alegreya Sans",
+    "id": "alegreya-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/alegreya-sans/-/alegreya-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "b2a5a35a2563a2f9bf9fb91939fc6ea6c115e9811cda5c4a37d02f623c7c4dbe",
+      "700-normal": "5acd19a588614d23e52b741a21dd8555178ab4932c3195c6d8fb4b296f84acae",
+      "400-italic": "5dd7c3e61cb1b6539d2c51ae3bea8898b60dd45cad07dcfbcd82dad4602747f1",
+      "700-italic": "1824c26f24ca3d09c8c5585995c29a5a570dce41fad2790a9f4dd6334edac61f"
+    },
+    "ttfSha256": {
+      "400-normal": "b6e0fa5d124639f03e137d10d07340c7ef97c38d7964dd2e7abd0d4e08f8874c",
+      "700-normal": "1f9340d8ac65c584a5d4220c1304a391ea51f78099e3229ab03e870ed6de46ba",
+      "400-italic": "e81800e816e14ed7f126e2563eca210de7d49fa2fa27acc618617028f300b1fa",
+      "700-italic": "efb7714ff0fd80e48039c0757cd358e39f3c010ba0a50059b963ee7ef3fa50e8"
+    }
+  },
+  {
+    "family": "Arvo",
+    "id": "arvo",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/arvo/-/arvo-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "b4eb4284188dcd4a4643d900bbe50b2d6b336afeb7c126eace219276b5d30521",
+      "700-normal": "3d908a2c04ec4c59d26d1454008b2d6744480654663a5f88e439f6483976bd37",
+      "400-italic": "a9afe512bd6b72ae101dbaca00dcdb22342e3bdcb47dc288cd648d008cde70ff",
+      "700-italic": "c8a5f73fec3ebf4252cef025b6f012a1c29de0de2212909c9bef8882e57ee5b1"
+    },
+    "ttfSha256": {
+      "400-normal": "943b55ccc2f1a733189a433e72757feb97019872299d42a1c7f15fda2abaf22b",
+      "700-normal": "b6cf335970a22e08deb0bbf3794692950a0698041dcae1f780472cceef5aff63",
+      "400-italic": "70c4100ec1dfed0aee5a0be57a7aa9bf0f6d75a9779b3c3ecb66f45a7271ce2a",
+      "700-italic": "d72590a1c050b665cc3a865044b279c88d11750cbd99f1f462e47687513048da"
+    }
+  },
+  {
+    "family": "Cabin",
+    "id": "cabin",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/cabin/-/cabin-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "77f442b8d11d3f4fad140744b15500493939a8be0542814ca9eb63164fbdfacd",
+      "700-normal": "2721cbdaf3cafa9f5f2964f94a436afb6540326958a43447a25dc253f3c2005b",
+      "400-italic": "dbfd04746d93eee810274a8a0d7784e64ab84636a62a0d9b9d10e49bae168b5d",
+      "700-italic": "a71999edcde170b43779c7281713ef198473cb7fff5f2dfc1b0a4f6dc501e7a9"
+    },
+    "ttfSha256": {
+      "400-normal": "59e8b272e11820415a05ca2d6a63cd9a1917ac7c5b312d4425352cd00e456882",
+      "700-normal": "df6a632959f68b53d9e5f7fd51d4c234734bf4e84e046f4bab34f8128c36dfbf",
+      "400-italic": "cffb597fc10fba6f20a22f0e914314b210f82d4582ea182fcd6df7b126f10fa1",
+      "700-italic": "2a64dd56ee9a0c3a929f9c41ae11a2b9746ff07d62e9dea87c3441ecb1b54ca0"
+    }
+  },
+  {
+    "family": "Karla",
+    "id": "karla",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/karla/-/karla-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "250bb48fdea5ba354fa85161f3877121ef679c6f7a1ef3d8f173fb8979628906",
+      "700-normal": "b3613b987992f48294da8bce46723ef9683a16422318cd41712421084dd4c2c4",
+      "400-italic": "3de0e923c67c125d772e2788f708b483e46d3d653da27c2a18aac857464bde44",
+      "700-italic": "b4799d450d41a9048b97d8b6a32abe75ffb9689062b0a4f58203c305c00ae30b"
+    },
+    "ttfSha256": {
+      "400-normal": "7d2fccdaa26ce475a8c2c2a48fdf4760e9b20ac69a0f66fca4f0ab846835d866",
+      "700-normal": "e4c723f2bb87d31dcde89f3e210aec7249cf86e7c5184de894626f9cc53c57d4",
+      "400-italic": "378b8579440c04e9dccc239c5c44d412d0b8009ce694416a4e9092aee18de556",
+      "700-italic": "9915a40cd34e37f8a032afdc03efb31df02280fe5818de3ee533ec8f06a38e68"
+    }
+  },
+  {
+    "family": "Libre Franklin",
+    "id": "libre-franklin",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/libre-franklin/-/libre-franklin-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "50a24a85106ad722ab9d1353977c1f7b3b3d18465a807c0d6f1551b57a705f41",
+      "700-normal": "8ef7121d145d9e99857854efd61831391e1a8b0a91ff255f18907a1f5b9d6943",
+      "400-italic": "a3d7ad6c5c01339ccf0f7261fad35415175f080fb378b7e840d8eadd62db0548",
+      "700-italic": "a2abdfbeaa0a253d7b364ab922a6c2a2812f846b956be52c337bce7f854fab33"
+    },
+    "ttfSha256": {
+      "400-normal": "bb3368df7ff164ad9ef1e228c93b2d7129ec287c4e820ef1b7ddfb855e980a0f",
+      "700-normal": "b932a31af8cd23c443c92d19bfa55e7d0d1c2aa74c9f1596abd2b48387c0d79d",
+      "400-italic": "e7cd2986cbeb911aa4a9ab9c1a4b0ffcf43681672b145b153e4ef2cbf9be277d",
+      "700-italic": "605d9c1370c6d90266304cec17e10f3fc884363db406e2d92a5177695c7db84a"
+    }
+  },
+  {
+    "family": "Overpass",
+    "id": "overpass",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/overpass/-/overpass-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "f835f9c7e1266a33b93fe8865a1ddc8d40e7db6a80b494a4716cdebc72f973eb",
+      "700-normal": "6a855eb539e6f098452ffccb297fa3188969078ac4005af853b8872868e30170",
+      "400-italic": "6a898c7c321e7ab60cff27e22f300eb9bf8f697e302f836a9bf2213c808789b8",
+      "700-italic": "9fd70b37e5da36f568047d0a063abfdcc756f0d78be37c9c6bc62a1b5c3b0eba"
+    },
+    "ttfSha256": {
+      "400-normal": "5f4e4719cfc40e7eb9ceadd8682f068c75dc652c575d12c864144557b8fa18b5",
+      "700-normal": "49ce9b7f5028499fb415219917a83db69f3e008142f9f721e59f2c16dff5bec5",
+      "400-italic": "368ce7b96dd54f1c1113e81e2a4ed8086e0c81f7012a238688316c5d7626e012",
+      "700-italic": "6007df62cac5c9640e5bac34e0b0cc0a03d9aed165417fde3599d496cf19202d"
+    }
+  },
+  {
+    "family": "IBM Plex Sans",
+    "id": "ibm-plex-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/ibm-plex-sans/-/ibm-plex-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "3b646991d30055a93a4ecc499713d4347953a74a947ecab435ab72070cbdab0e",
+      "700-normal": "42e7b0c143c19df9d99fd896e76b48f846edf0902d200bc29796b34d12c33aa7",
+      "400-italic": "6de912e531b6c98084f1b2d5e5a91bad77be4e68bc4e396e43c46fc435e5f3d9",
+      "700-italic": "3a6a2d7d529a192d52245a69c637c2144aa8e6227ac8a9b21c878939cdc7a7e7"
+    },
+    "ttfSha256": {
+      "400-normal": "1872782504203650410eedd72d31279037355ff21e41336186b862dec220ca82",
+      "700-normal": "6a9876b3b24e7e7d7c0b4fa22dad5935ad1d4c7c395caa7b2584ae151e625b2c",
+      "400-italic": "a856e4117e9aecad8ae040420eb8d95c031bdfd27d102da656577d66ac39fc51",
+      "700-italic": "669e8fa468700eb5e0493402957f3d3ae28f9d526896569c286413bee8bf4c7f"
+    }
+  },
+  {
+    "family": "IBM Plex Serif",
+    "id": "ibm-plex-serif",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/ibm-plex-serif/-/ibm-plex-serif-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "cb2c5eee2c0a43ff30d2365407c7bc8b20e3bd90720a4a64102ba0b328022a02",
+      "700-normal": "886ea167faf6610c3448a7dd058dbe7c7438f710229c9ff52343ef006960939c",
+      "400-italic": "d3f861b1ca55e50ca94de4c1756cb0d67c73de615172adf6b5b2078d939c723a",
+      "700-italic": "8cf0a1103f7785a0b457568d47467d40f2283c9f743a82a80c77b8acf6e7db47"
+    },
+    "ttfSha256": {
+      "400-normal": "c56358def115531372130e36662e8ea6bdbed75b830d36a94e48e043a332d93f",
+      "700-normal": "71c93dce2dd4201f8f0bb3bcb74d5611509c22ab81bb2514eab45e952c81e8e1",
+      "400-italic": "cdb2ce3a0b7fda223617d405e539fc576ed5c9fbe736ac0c7d50cf13d21e88ab",
+      "700-italic": "c3aa9fec222bf37c2e6ae9a5d62aefe2daa7f73d562ca6039e65c91b860a9e4b"
+    }
+  },
+  {
+    "family": "IBM Plex Mono",
+    "id": "ibm-plex-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/ibm-plex-mono/-/ibm-plex-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "700-normal": "4f84d86cfd060f4ded334358ff8a4c81d4db2ed5addd568359d693f44a87765a",
+      "400-italic": "0840095faae86403735a8c04014b72cb29e7923646b222b360b7e8252932e4e3",
+      "700-italic": "2bb0d4c82652472446ed1a5a89a0553f2db1e4ea17cbda66a45e690899d83e91"
+    },
+    "ttfSha256": {
+      "400-normal": "3f7efa37307b8b54338fc6437acd67f8d936239ec8e0708551a9b746474f2176",
+      "700-normal": "cb4d2f28a38d6fe38278b4812dccb0ec6a3d0801a082e5e598160ac1fd4799f4",
+      "400-italic": "1f31f2b31ae6e69b891fe442eb5a9d1dd7d5500974fda10bc8fa09480321c946",
+      "700-italic": "4607db8f7f2fb3e3db518db36292448a0d1ee434b2c3f97b3f6360779d44c902"
+    }
+  },
+  {
+    "family": "Source Code Pro",
+    "id": "source-code-pro",
+    "version": "5.3.1",
+    "source": "https://registry.npmjs.org/@fontsource/source-code-pro/-/source-code-pro-5.3.1.tgz",
+    "sha256": {
+      "400-normal": "75aa8cacfd459d58d7c093f3ff0ab8745cc878dfc93c5d4cda052791aeace878",
+      "700-normal": "34faf509fa4130733093f36100f76670ff7d93d4889746de11a62a0fe8d82084",
+      "400-italic": "62cfd505807fcb0647885704753f297cb20fef708fbc2b4627fb36667fe78c71",
+      "700-italic": "18180587ce834101ff702f4077ab745a448f035ba2c79c143498d05890f563f1"
+    },
+    "ttfSha256": {
+      "400-normal": "ac43bb5cc618859d7b4302575ff63f4dd273a1c6f13be7e4cad921f6ad2238e4",
+      "700-normal": "299b7c033e30ea4de25f34840ac593c2a1711e2ad87f8f262cb5c3ce4db8ff5f",
+      "400-italic": "b10f70344e49e06e783731c9ec484a1cfeeea9ea648af63d72f2248dd437260b",
+      "700-italic": "59414ce172d5ed434dcd31c819b6c555dc07de15ddd89df111794fa6dbb3a927"
+    }
+  },
+  {
+    "family": "Source Serif 4",
+    "id": "source-serif-4",
+    "version": "5.3.1",
+    "source": "https://registry.npmjs.org/@fontsource/source-serif-4/-/source-serif-4-5.3.1.tgz",
+    "sha256": {
+      "400-normal": "02194deb92d3975dd30e11a3824a1f1db32b48c93654e60560cb81ce8e7b5f95",
+      "700-normal": "7691c51bc286a9014db0048277d2c3f2ad0a90b533dc8adfb16cb22a95390d39",
+      "400-italic": "882b7c150c29f29d4f8daae6b8dcae8662aac7f28ca34b34615305154136ecfd",
+      "700-italic": "700a80f147fe1cf69dac97c3fe0245efbbff8b46fc41d2d46d6ef0b0a4ab22d8"
+    },
+    "ttfSha256": {
+      "400-normal": "da23660bab2e62aecb87731d6b084c76214f145544422cc10081ccef8cd2fbc6",
+      "700-normal": "b4a7fed9d816b2997b1c49bc10dff089885a36af03c034b22117dca0322cf095",
+      "400-italic": "52f03b93147e39a4cd2be458a1e1a694930310e3343cf10d79bdb236abbbbab9",
+      "700-italic": "de011afa60d69741d91296df90c7d984cd1a63e4efe180320e900828e3d9dc25"
+    }
+  },
+  {
+    "family": "Barlow",
+    "id": "barlow",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/barlow/-/barlow-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "b0a8ad37ac45f5fb22ced461576db72e44e295107aad7a9c8a7a4bad728fd03b",
+      "700-normal": "2d797dd8b35dcb3413e1af9d7052b3f4f8c341a147cdcb01f4f06af80db53289",
+      "400-italic": "7a306c56f630df002deeafbd521738e20795d765feea65030def2e80f9a3d62f",
+      "700-italic": "717f61f0f8cf46b1f2aa54283e91ae39b1a80c4769ccaa761c7fab813708bcff"
+    },
+    "ttfSha256": {
+      "400-normal": "2dd6a85e2b7b47bd6d2037911080bc5dda514b5a2c6e9650b5604b09599d3d92",
+      "700-normal": "4a30cde133b0d40192ab30ef4d7822ec2e248b8cc190fad31b2c8a15bd8e48c0",
+      "400-italic": "f79d189ce17acc391d2dff40af52bc4e2fee7925352b9718de8d52ab9554e5ec",
+      "700-italic": "b7ad338419bf3c878d882a0e7e76ad01578dd4bad3b1e88fa6a7d03970112dde"
+    }
+  },
+  {
+    "family": "Barlow Condensed",
+    "id": "barlow-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/barlow-condensed/-/barlow-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "7fff1bb22e5773f0d1a55d3093068b6dac4539e8bb3ac23fb9f0a729df2c7bb4",
+      "700-normal": "3787a5a419171630e6890cfa47c4da067474d005cd0ff8dc11ec090fdc3ee2b8",
+      "400-italic": "6296ca0857e312134865254fbdea079f91ad3baaec646f0a294c26877a9e622d",
+      "700-italic": "3e91132781a58039c31d419b741d75de86107897428f95680323ff5ce279fee6"
+    },
+    "ttfSha256": {
+      "400-normal": "72c8f13a5ee5de45d1f1d01cad15f64ff728256ea404ac638407eafdfbe79bc0",
+      "700-normal": "e62a0ebb00a32b018f1622fc2aca5703cf93ffb30880873684977654a0506b0e",
+      "400-italic": "a7bbdc76234e02167853d524ddf91bb55dc60c2e9ec9ae53bfdb4b85d1db30a1",
+      "700-italic": "dc39eb5c6dc40e5881e3e45ece8c618895b0e9f2385fa1e6a1a6e17ba45196e8"
+    }
+  },
+  {
+    "family": "Barlow Semi Condensed",
+    "id": "barlow-semi-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/barlow-semi-condensed/-/barlow-semi-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "d03a7a5f6b74534c80699289d4f6495fdb09a7596774a4ede79129d2f8bb67b1",
+      "700-normal": "fb958c8c20a05552ac8a85d925d96028d52565792650e941a5fe96b6997aa5cb",
+      "400-italic": "a3b26505f3bc6da23bcf14244c0d8428e1687b845fe6240dd653ce04e63faf8a",
+      "700-italic": "dc95a9a77fa4ee13dbeb26149f93882d64157d6a361dd2ff48263aba2b47139d"
+    },
+    "ttfSha256": {
+      "400-normal": "6b1656b4db1867990655d0768e42b4b1d0552f5e409ce7bd79eac1092966def1",
+      "700-normal": "14d40d74d48cf6edf1d47af38dd9e3d5eb6109f15ab9382ee08e179390b9ba63",
+      "400-italic": "25f157c2c453f895df9be9e0dcc3b717e828110e274ee3ff500a069ba31f998e",
+      "700-italic": "78efc87bf736215f015536ec0698aa47336effd5ef6e841a42decb3e0ff9f152"
+    }
+  },
+  {
+    "family": "Archivo",
+    "id": "archivo",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/archivo/-/archivo-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "07f9160163da2ec0f6376ef9d27a2bb8163f98019ba798da4baafb154e30056e",
+      "700-normal": "abada6cd4c92a9a706f6d7ed3189f322ff43dd78b9402c7d1137465b861d2a04",
+      "400-italic": "aff750193376fa0cc7299242c3847f3c1189a78a23d526bfc205dbfc526a5403",
+      "700-italic": "8b6268c2884ad2b89cb947b6823f2218eaad07fcf8dec770ef95c244fdd3273a"
+    },
+    "ttfSha256": {
+      "400-normal": "401393461af306af02d9896d882243b9762ffddcbdad306d62a3fba81caff971",
+      "700-normal": "886620aefb7eb4b267611c30e76e12c81f8673b5c6577891b3d6a05f6b61cf31",
+      "400-italic": "b5c19017933a6405caad3a842202b180c8fa26346a20e67e34b22986035df353",
+      "700-italic": "febc251926b8a49695784375b2e69777bef487aca550f024738987ec5b366a58"
+    }
+  },
+  {
+    "family": "Archivo Narrow",
+    "id": "archivo-narrow",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/archivo-narrow/-/archivo-narrow-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "50e835187413b9d25833ccd7c9638673e64112aafd64004f48fc613ace27e354",
+      "700-normal": "062eae97e718b8a39ff5861d08046755eaf4c6f27f9a0fe861116d9d1305d6bf",
+      "400-italic": "08d7b1aad57777e83cc4780a625894086653c0da07b42d928233e7fcaace7981",
+      "700-italic": "6267f0f7809097ec9caa86642805832e3979a0f698421b472033a0d2ca0d3d12"
+    },
+    "ttfSha256": {
+      "400-normal": "92a971aaae0223d18e07f33e5a2e784d7f11c6fa23c596a9cf7adda6013f19aa",
+      "700-normal": "0df64fbc39edf2f285b5087c036aa98581a80b26c643d495050381e0f8db9f6d",
+      "400-italic": "eb8e44525bdcc6a95706df093fcd4a29a64a2a2221627572f331bf9902ab7827",
+      "700-italic": "d2d2ec2716930dfbe463b85b25008e6680238bf37b9bc2c3897d835c0998ceea"
+    }
+  },
+  {
+    "family": "Asap",
+    "id": "asap",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/asap/-/asap-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "ae28ffbd36f815b3e7e3f095fd8c13e5acfba9f1349b74260d5ed44ab75e0d43",
+      "700-normal": "8d02336ddd047411e88694cdabd6a99a794fa63549d57fe4dd755510e5723638",
+      "400-italic": "3fcb2ce1970dcb584b882c25ffc073f7405324130f4dc5c302bddf04acea3915",
+      "700-italic": "30c290ee332a88e11bf0907c51202eb817d592d2abcc71193a9c58388ce36e78"
+    },
+    "ttfSha256": {
+      "400-normal": "63d00a89b7ee68fc7ebb56d02ade7a97b7892c576dc61b28330def66a653f9d5",
+      "700-normal": "7cae6c3045d77a75f8a1af0be15b04b8139e6c4062f65959addeb9bd123f0f3b",
+      "400-italic": "ca16cfd7b6966597d3e78dfb62e1792c4151329b9ce1061a6a925a0c14651a91",
+      "700-italic": "b984ce3892df14ddfcac0bba27faeb41bee6bd4a1fdf084a51d878cbdaac1deb"
+    }
+  },
+  {
+    "family": "Titillium Web",
+    "id": "titillium-web",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/titillium-web/-/titillium-web-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "861b80b49d2a634d8746e2e45c672309d9ba69a2fdd95da2af034d7a1d09b3f9",
+      "700-normal": "9e3162d81ed6681322ab34791660f1b45c79945197e7a7dbb217005b2926caf4",
+      "400-italic": "4dddc0c023c77b64963f3508bc3bfe6fee1a346f8b4fe9865807987e7448671a",
+      "700-italic": "046270a219c289573ee81e9a8d4749c9fe806f0ce139b72dc2ca563403f5bbf8"
+    },
+    "ttfSha256": {
+      "400-normal": "a330e621ebe2428edeb3efb716a06825ed0e901af03d10221376a76824f76c4a",
+      "700-normal": "a8a8a08da7963cc34216ae6317a4b5e63ecb2c71d13a26c127392bb5b8d23743",
+      "400-italic": "aae8e94e6b1e80f4f8c9f698df170c895e783f3121763bfb8f026bab90c5a353",
+      "700-italic": "1ab80b8bf7fab90c1282acea93b6772da3074c2ed6163ad0dda060347c6cb2cf"
+    }
+  },
+  {
+    "family": "Exo",
+    "id": "exo",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/exo/-/exo-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "54be207d1f76e357721a5a6f203e5a2e62cdc6857b6ac2fb529ff675cfc337cc",
+      "700-normal": "2551840e57fde2f6a58f300f364a798be1ca8bd49753777adca5f74f41102777",
+      "400-italic": "13e208381df510134d8eb39aee7adc9e2ef843861730f110c2490cb8587297be",
+      "700-italic": "1f2ec5218e1852dc72d95cd4b8438425f97f16c4647389220a8d6cc616d774b6"
+    },
+    "ttfSha256": {
+      "400-normal": "fa57dff616415b919706eb2b1d484fee40ae04fc640b42cd1152451e83a65313",
+      "700-normal": "7d48a5324eaf477dcb69f2e9f5813bf25b127411046b1494ad0c563dc7ba212c",
+      "400-italic": "0e9e46a2b1f4aeb56a104067eab10359ac6a03e4841c539954eeb7328e049836",
+      "700-italic": "b7d2993c290a276297e3d936427a83db42dcacecd5fd165fe7b0c0e2fa9990ae"
+    }
+  },
+  {
+    "family": "Exo 2",
+    "id": "exo-2",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/exo-2/-/exo-2-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "49c9cd329161f5c5feed3ae80a788199f2dce127c00828e027a61261cf602491",
+      "700-normal": "96c87b1597aed754e0ad45970883774e851a390788e7fba7b3f49f8d1f6e5a6b",
+      "400-italic": "29e963f8ee5a74b9cc119dc0d61cb9adb9a8d4b1a45c50c0fd847afd36e675b6",
+      "700-italic": "869979d9752f8c9016b92bac2ec230f79d24a5ae7217b777356ec14d6491c541"
+    },
+    "ttfSha256": {
+      "400-normal": "66dce8e9d82946107585ab110373449eecf80ed6475cc8d4ef744872091bdd4d",
+      "700-normal": "53fec661e039dcd01e849301e1b54f6e2fe0aea2b61864196b5686dba0f2597b",
+      "400-italic": "1e5a62529e1ddce6379498c523865444c8fa9ad12b14057f8edcbca97791757d",
+      "700-italic": "b4e4b20483ac9e44a9dfea598fe7327475ae7db753a42f6f4700cada2971f106"
+    }
+  },
+  {
+    "family": "Josefin Sans",
+    "id": "josefin-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/josefin-sans/-/josefin-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "242e98782313218a60ac5397a94a49bbe4cf3dbf4ca31039acacd801d957b13a",
+      "700-normal": "a3c6a58cd814957f4d0f30bd99afae615e74cba87dbef88a276593bcb3b3568b",
+      "400-italic": "c63f65e35ef4d0144fd09560526de5ab8b4cbfe930f810d0902ae3a87562e6a7",
+      "700-italic": "15d34e49da4b82c618fb3bb4224bc9a117d5e74a43eb36fc75261c4310868960"
+    },
+    "ttfSha256": {
+      "400-normal": "3ba5d880132830b8992944302f1d6c3d1bb00c8fa902a86e6d2689f679540950",
+      "700-normal": "dd4ed7e13ceaf8c9976f841f5819bc11b3241f6912631ab65950263906bd4b74",
+      "400-italic": "1f19d45ef9cf6d22862e9fadb55a4d9ac4587c6ec8b175cdd65432795754c45f",
+      "700-italic": "0d9ad845ebfe5e0d4ba3c3ecb594cd91f2a34abdfbd0b1f14466728e8735b58c"
+    }
+  },
+  {
+    "family": "Josefin Slab",
+    "id": "josefin-slab",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/josefin-slab/-/josefin-slab-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "248a603b50674b82c502a9b0236bbc4dd7895f6120539c555d3e57d14a66b2cd",
+      "700-normal": "63f69e6742591ccd19f9012d4594aa561386a146fe51f2052abb963c23bde2fd",
+      "400-italic": "f2c521bb0d25b27b60285ace2a189f29b8ef83ce9dc793f127df4fc879a7bb85",
+      "700-italic": "09074c9f7cf8c79ba6f175257b74e430b3268a97ff76f879fd2c32d60545dd3c"
+    },
+    "ttfSha256": {
+      "400-normal": "8c562a9e6372bc20370139775bf4b6844f6a82ba28a9ed12a3effcb0131184de",
+      "700-normal": "69f6b68084a33e1469beee468a57686ddc9ac500064f354d68d482473e9f8135",
+      "400-italic": "95cb2af04efbf4188ac7e545aa58a5ed5288e735edd6212f34fa06b375be44e5",
+      "700-italic": "1dae26c4892b5bb1e0a34d79c7e25fc9e79147e0ef18d5a9a77c626db51d8835"
+    }
+  },
+  {
+    "family": "Kanit",
+    "id": "kanit",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/kanit/-/kanit-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "1e856b3a04f93a23ec758ad37750f4dcfbde02334fd30358d02d5d4db3052bf2",
+      "700-normal": "a44817a3dcd26f5c659cd92c241f7c9e96414a74c0de249407064364573cd6b5",
+      "400-italic": "b03c7530e7a3b2af4c972c4da610e4b676e8db810595e5571e6e262134032833",
+      "700-italic": "47a311455ce8aa7d106d9fa7ab53a88343268796d507e7e81346128df1d1aff5"
+    },
+    "ttfSha256": {
+      "400-normal": "536c4bedd6ec745ab31559691162887c61605bd4b10e495fa917ac6c34509828",
+      "700-normal": "439836746c1168bb28bcc7d0105d688d3a24ef5e18e709e881a29eb20c6caa51",
+      "400-italic": "f71c08d6459f1aefbd25c454e9c832e1a2f944e5855d9ed15f8c00b05426b296",
+      "700-italic": "eed9ebc9cd8ab52d5feb4ba3ae1131f963ce807e25dfcddd32f420ccd08fa9bd"
+    }
+  },
+  {
+    "family": "Prompt",
+    "id": "prompt",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/prompt/-/prompt-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "76f4b0e556e9bdcdcd9c839d20f5e3420a3ccca3f2d5da2f7beefb0e95a09bcb",
+      "700-normal": "54eb2e1925b4a3edd3460b8140546fb3e7767666d7ac1c1fcc246d3f1ab8157a",
+      "400-italic": "47ebe9de907c4c2278c78d75555a934e2f87d174dbe6a42b78486aba4413aff0",
+      "700-italic": "64df16f5a0870577c1df3a2e7455f9e81855d3678a4f3a9e0d8f947e7c1832d0"
+    },
+    "ttfSha256": {
+      "400-normal": "9e38c649a187339d9bda4e1670efa8f0c2443ebbb88f05b159498a19c98764d9",
+      "700-normal": "e3c37cc36627d3e4221ee38eac599b18fd667d8451c291db1153ab5f11889924",
+      "400-italic": "71d816a49fa79dd6c2a58dc19f58eb9427cf3e5720ea32035dda1c98a09d3400",
+      "700-italic": "7b75a4170300e53d25c8afa2eb2ea97d1813decd380c2f20ad48d50941fe8dcc"
+    }
+  },
+  {
+    "family": "Sarabun",
+    "id": "sarabun",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/sarabun/-/sarabun-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "04548534510686923239aeda26dd40fa57bf6cc55166204ef52b483bcf9e4228",
+      "700-normal": "b7e814f0f8a07648c77837917ff896c819d44ed4688a83f49b9cb29fdf7898fb",
+      "400-italic": "c18af111fac6b8c4bf32b67eee4535fc19f92656bf399f885c08ec4f2caa315d",
+      "700-italic": "a05323b8b535219beb1c1fc07a84fd40a1aaf7456ae97b3d64d5b1f70eb69a74"
+    },
+    "ttfSha256": {
+      "400-normal": "bca31f9a5b1e35dae57344da7332db00bff43ed442203c3ed5f25999f6562c08",
+      "700-normal": "04520b0263e454801642c62740d4dbdf8201d6f81ce15e2a122a16e26d1e5464",
+      "400-italic": "a89afe7732014143627fcb18cb9550a2386bd9c29f9c5be510c1ebec39b72fcb",
+      "700-italic": "5287c9d8e3d688941f35941c7ce745f307454eb5903e49972888b6d95597d3a6"
+    }
+  },
+  {
+    "family": "Public Sans",
+    "id": "public-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/public-sans/-/public-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "36274b5787b4f03b27e65ae971d6c808a96838ccd60c9dabaee154889b6bba82",
+      "700-normal": "dace741613696827f61dbee2d984e8685f14a2846136783f3ad1c8950914bf1d",
+      "400-italic": "e9110763c65b780c1282c9ee7c7acf152b16aec93d75ba2e6e8831f74c7233a7",
+      "700-italic": "8e0990d15e994ed1c52a5c8e9912f7a900578cff18ced1ca3885ce7476a7d5f7"
+    },
+    "ttfSha256": {
+      "400-normal": "9e8c2a34f17d1d4d8791b5bc2a2279bcc0eebc49ef438d2a05bc5289c61eda1a",
+      "700-normal": "ed2d9deec89c487c94fce45cb72a830f2244415c2f7fcb106dae7df6c5b70ad2",
+      "400-italic": "48341422116d99f747f2d77ddedbf6dddbab3c04e4ba322d26c983291cf65471",
+      "700-italic": "cf039a445c7edc70a8a4c6cca9aedf6f5c96a010aaf6f6f76a5e631245cd6e33"
+    }
+  },
+  {
+    "family": "DM Sans",
+    "id": "dm-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/dm-sans/-/dm-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "4ab51eb2cd7305d177187908d6397474d4520663f6c6e572feb0a64f4fa80006",
+      "700-normal": "35c5efa0e5daa52ee5c6500f5be354bf751fb65c4e49e1d6806c6eb5883e8fe9",
+      "400-italic": "5da946c1525e99ad130ac74ad021cb4f85a8be57ee167969ce4573bff1d84f10",
+      "700-italic": "7f07b05e2297ea9295c9f93a950b00adf085806f4b7196ce7bf241efdea83387"
+    },
+    "ttfSha256": {
+      "400-normal": "eadc89d4e9fca5e3fefb85c280587442a41ebb79e24a2b0057cf5b3809fc2188",
+      "700-normal": "c0cea53670f9fc391487da11306ad8b19e76681a78b706d9f6bbda57df98e2b0",
+      "400-italic": "f805d7064a9ab8f3373cb21a90b88f0e8eb3f682bd9501d1120defbffbc1a151",
+      "700-italic": "01009eccae73b870a7d5aa7fc66f4f758bb897869b45dbcd96494f79421f1cc1"
+    }
+  },
+  {
+    "family": "Space Mono",
+    "id": "space-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/space-mono/-/space-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "fb4a81a2d0a893e5c38c394a7e716a1cef0b24610a0af49c96f6d529bd66bf2b",
+      "700-normal": "2d46bd159b53f55c41167a4f1540a074649464194fd1e416f5b4694a6c0f282c",
+      "400-italic": "a5fb49042e7305918585561ab5fbd587d708ce74b0f54b56751e2b1151922d19",
+      "700-italic": "e84908e18ffcfab7d46490f4fd9781bc701cbd76aa3af4cb3e625858fd39ff3d"
+    },
+    "ttfSha256": {
+      "400-normal": "6950efe75add7b0be0ea12ddb0eb1b6fee729161576ef553094f9c00c683f59f",
+      "700-normal": "71d3ded02991cb3887e0182847494c09d3c31e73aaac369c5b30ee255583499e",
+      "400-italic": "10cf91d419592b8c4c00da35b3a3390473581d46a31a6da1a76c7813f30ee1d3",
+      "700-italic": "10198b1a2bca8660c2709108dbcf75bdc643e80282c9f4b38b6dd9ae901da9e6"
+    }
+  },
+  {
+    "family": "Noto Sans Display",
+    "id": "noto-sans-display",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/noto-sans-display/-/noto-sans-display-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "4dcbba12b060c458f654eb343c1e2d6e3d720021276ff1fc9c1a81fdc7aa5172",
+      "700-normal": "d4c452ce6bd46891d0443796df238b4b6addf39b5c6095fb42844e6d476e2903",
+      "400-italic": "d667400ce31d606c68dc329251ed93441835d20088be976f6bbcf3e32fbe2075",
+      "700-italic": "d5d10ba2f5317a93bb6694d34b6128785ad8fc0f9352527ef281f36fe340e2a8"
+    },
+    "ttfSha256": {
+      "400-normal": "a97de4e21160a69c913258484e59818fcd888bf98383b407c789c0bc42288b49",
+      "700-normal": "9ca77942e19118f97cf668b1c25c6ffdbceda5b447666750aa84b1a4da4e3c2b",
+      "400-italic": "e56c3093f4a8812610e11486114e6b7c35da7e2189949df661ad7a0191c7b56c",
+      "700-italic": "69e014f06e8fc702ef4753e6957106a2306abda4da2ae1be4cf63314f1cffb91"
+    }
+  },
+  {
+    "family": "Noto Serif Display",
+    "id": "noto-serif-display",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/noto-serif-display/-/noto-serif-display-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "c6319c298f6733178b391973cff931337653261ca41419f970b55087d44d905d",
+      "700-normal": "1d6f07e4d36c336d8676875a1afc2a68f175ee5ce31c1aa3ed5d4e3a36f992ca",
+      "400-italic": "1fff3599e152c3401a0d0672dae1a107546823cf08b91d96404bde50eafc2363",
+      "700-italic": "eda93c0cf81f1e6f49eb91f51881cb3fcd1d599a4ba857ff5058b7810fac4b6e"
+    },
+    "ttfSha256": {
+      "400-normal": "a2bc46da2be38d8eb0f80bbe663955de3c6e6800e2a1ddb8d5622a4434c542a6",
+      "700-normal": "4f03ac36ce7268b9d5e94d76d701aac16e0b447a29561b6c814bf3ac53384b7d",
+      "400-italic": "868f3d26168053773188a82df34740bc5fdd8c1a446f08bcdcd7e412edd4a67a",
+      "700-italic": "f0eb063020fe4091ca7b0ffe6efc2de3c4d95971a3ff8b0caa1afebe093e4f7d"
+    }
+  },
+  {
+    "family": "Literata",
+    "id": "literata",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/literata/-/literata-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "a60c193b55766b68b922e2327e15c2d8c145532f283a27c3411b9c47a8583d18",
+      "700-normal": "1f2985e0fc368aac76f95b847cd05ef6ec4bac2733a648098c62edf990756cf5",
+      "400-italic": "1e98bfbbb4eb8177b9c21b3fd526e1118c4835d21ff870c0d1c25b1ef4409fba",
+      "700-italic": "8a42dbed45f1855e2dcad9709173019013991c32aa71356e80a1e0ee9bb76763"
+    },
+    "ttfSha256": {
+      "400-normal": "9ea3384c9eb17e758eea5c043994f8ca8ba6d663854522a9fd06058f871812fa",
+      "700-normal": "6e89cb6a5359b54b578c22e4a539f4dbbe0811cf0c9ac3d044893dc20c8f56aa",
+      "400-italic": "e30d07d82662908de528d899a3ffe05d95e4d57b9d57c5555741864530a23c3b",
+      "700-italic": "44a86e1b8cec855786fb49c2f6b1d028689a4e6befc977c156c4d11b2a799091"
+    }
+  },
+  {
+    "family": "Newsreader",
+    "id": "newsreader",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/newsreader/-/newsreader-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "e66067814f1c672d33a457e4f4d102c818b481420e2234cf685ebdbf2f443904",
+      "700-normal": "8b5c3b65cbda1d79ed371d23df3ef1fe194e590558965cf9942042441480ec61",
+      "400-italic": "fa9b900403949d9a723106752a5c8ad2797012a0c9057427b1da2db72d552148",
+      "700-italic": "6fdfe19b1241c0882ed6ca7ba6b6d0e5137655756eeba3c568d3e4e2cb0a9a8f"
+    },
+    "ttfSha256": {
+      "400-normal": "5b5e087a712a123675b7bf050af200021fc080bcb47997b717e83a2749608ea4",
+      "700-normal": "dc001ad3288c05bcfeb58d2594fdb6bf1f84bc9bf18ea4130ea823ec347736ee",
+      "400-italic": "4d3c989a963582b09d1512639fbef6036a50e4f920ada3d15a7a20e402e38b21",
+      "700-italic": "f04e40228dd6890e107260ceff800eaabaabafa2e74b8a1eabf7f757c6e6d177"
+    }
+  },
+  {
+    "family": "Fraunces",
+    "id": "fraunces",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/fraunces/-/fraunces-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "e558f39453a9c611908be04294b50dea5f21ae6c49b41c6e47f4115e91f90209",
+      "700-normal": "c38570d224b830056e69484bb9e768e1d3fa7ba4755c8891a3c6d366194d2ff3",
+      "400-italic": "475b154af19c6b4ef371db22078b5044a078ce2467e11ef22a7b87f77837caf3",
+      "700-italic": "7dc50bd3be8ae258d8ab4a8fd208745cd2b4f4a1c9fc0bab90d3170124509535"
+    },
+    "ttfSha256": {
+      "400-normal": "6f98ac8dc7f8dc8efcaa0292e4d3449c63701217840224975fd41c886055256e",
+      "700-normal": "1b794870733608f1937df4679e28c4c3a9b9eac98fc13537044ce2f8fc59f25a",
+      "400-italic": "c28a0013308da4aeb997784e1ebbab81cca96e605a7dd4d335723af008f2502f",
+      "700-italic": "94f08239398f2ed0239042645040789d7f751bb7f8f2240a8464cac4f67195cb"
+    }
+  },
+  {
+    "family": "Red Hat Display",
+    "id": "red-hat-display",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/red-hat-display/-/red-hat-display-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "131f293be2bb64d87a5ea2a90dadb934df94d976071e220dd685f2a036e5cf90",
+      "700-normal": "9abd8177653672bb520e522ed9796479d67d1e71f198695d790813c1a11933a6",
+      "400-italic": "de0657eab667e72b6b468315fd93c1190b9ca6e45d0e2e5a984702daaff6cb87",
+      "700-italic": "0bec32e28c3524c32d4f6d18621d4dcce4d3ad6b99afb27fce4e65119d12a1e2"
+    },
+    "ttfSha256": {
+      "400-normal": "20549551104df2780c80afbd75b6a13cb4e49c4ccdc03f27ec4cfb722d575492",
+      "700-normal": "46bd7436e958d2d0f7642694270c6d4f597a48a01fd33ce1e4574726a8eca51b",
+      "400-italic": "24b68ce71cc6c7b10e33bd91ed78b933128ede2f39a760b65c9e5ef421d6a873",
+      "700-italic": "05e7fc76f876cd881db66fa064e17580a35fe6c8e38e35458dd2ea4c525dd3a4"
+    }
+  },
+  {
+    "family": "Red Hat Text",
+    "id": "red-hat-text",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/red-hat-text/-/red-hat-text-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "65129f71694b5b1ffcf50f1c9ab27fc5fe36b496f5e7c183a7ae7ca73876552c",
+      "700-normal": "86a489ec00630b2eb08850ed7d87b8793d290e2a85e5a2205e5c283da5e98ece",
+      "400-italic": "fad5fb671a19d8cd56f3985b2e9c2e00accb1ef6fd16a2acacc5ff24de9c670d",
+      "700-italic": "7f0ccab388d78a86f85313ec9daf1a2935c338859080d6e0248226a0c6c682dd"
+    },
+    "ttfSha256": {
+      "400-normal": "b08dc3e1a78475390d16936426aa25e703c7cc2613e13fc87ac943bf9d10b284",
+      "700-normal": "f63b88b6558cf42219f4e0c4c2955a5d0934c84a16e14630b481da31c6523eff",
+      "400-italic": "c2696e4587c85ff41283f4b890a30ece40666e195e25ebd9b611191edc482248",
+      "700-italic": "0800db57ed0d20a891dec540361e5ca59e184c84dfe0a8c07bb02fe5c7d5b5be"
+    }
+  },
+  {
+    "family": "Red Hat Mono",
+    "id": "red-hat-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/red-hat-mono/-/red-hat-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "392fbbdfabe89c965489cbb7738abce86aff180b12b75280026dfe3f6005b189",
+      "700-normal": "ba2e0090744f128536177669b27ac6a7231f4e8f2848a14469227362b88f7aa7",
+      "400-italic": "c43c41c0557a3794d7f8dcdacdad10c56e76420e21ed92060615c26347a46e30",
+      "700-italic": "25704cd09016d9c21a2b2fcb851e786cf6a15120be662879eae2e1870382f68f"
+    },
+    "ttfSha256": {
+      "400-normal": "436ed0d8080785add0b6ce3dab2b9fd5d2415024371b3b50a59defd388605ee7",
+      "700-normal": "ccc613c977c500f08a13db24cd719beac4d9cb16a2bf7a4d4fcb9af440b8b9c3",
+      "400-italic": "3104ef05f418fe619fc23f84b9a2f34d2fa4a93e15f0935ff9a7bf9004776822",
+      "700-italic": "277daa62319bff513224fae0639ed95f07162e5a7087881f6721a6ca74e4f214"
+    }
+  },
+  {
+    "family": "Jost",
+    "id": "jost",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/jost/-/jost-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "f94cffda16515fbb1667a2662d6b46f5610a942fd02fe88d67ff98f776288962",
+      "700-normal": "81da4d711250508c3f686d210ed07d5eb6229185d313fcc73fda7bf2b37d2ca5",
+      "400-italic": "5e2038b7f8d366fc1c4036228b648b9a84676155e7a6235fab9c48a42f88ab41",
+      "700-italic": "148710d2189d1bc8f5c9c6d674eff4c20096108b237ba8de75ed11db3c9f02db"
+    },
+    "ttfSha256": {
+      "400-normal": "4b4556357a843f21ec7929174fa36db347d2c9cb19c596f5e81eba3f22e4b057",
+      "700-normal": "5584166e3e561645a07e5e48ce9329ab5dad9bb6d44875ca18278cb956a6fc71",
+      "400-italic": "a9f2077c454a697d7fc7785ecc2fcc88b4bf9ba89d296b158bbd9ee9cb8e3b89",
+      "700-italic": "9060b6243944f1719194915bab9928192f535ab6e12d5384cd4d58656b449411"
+    }
+  },
+  {
+    "family": "Urbanist",
+    "id": "urbanist",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/urbanist/-/urbanist-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "526bab743f8aeba2df182767150d7a354bf57b885f6ff2eab184cd27264b90aa",
+      "700-normal": "ede48e359fb3f70d13b558e4bf8aea2697e3c86c267cfb4b360fe2d7a621df18",
+      "400-italic": "45c02697b91d86ee08783566738804eb78cde214569b7c2d077fa5d1b2cc8d98",
+      "700-italic": "25dceef6d3b91d88e95287ea912f3f31ea7d948f97d993b84db77c5e24b7d733"
+    },
+    "ttfSha256": {
+      "400-normal": "3c5474c5f6979a13b66e0c4eb4f7910c6bc2eac0bd68f6aa04267bf28a3c376d",
+      "700-normal": "878578ec2a156c93ffb5819ba2c670f5a0c273f172f2e4efc9b4da128580f7dc",
+      "400-italic": "e7209176320ea6182eef17bd6f1607b0db25f976f5fcc693d32d9cb5cf79cc9b",
+      "700-italic": "68dafbd655cacd497e0addbf47bd1ff049586b58e73342732d7c027bfb5b151b"
+    }
+  },
+  {
+    "family": "Plus Jakarta Sans",
+    "id": "plus-jakarta-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/plus-jakarta-sans/-/plus-jakarta-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "221a4135d06a4b33abbd535e9a0da4e565d19545ddd9267c4e678a916d54d9b6",
+      "700-normal": "2050755bf475817c96ac7d914c7f07cc3c2d11ff4b3fb4747b8d41de584aad17",
+      "400-italic": "e3d33148aa32c737949f4f91a0a3ef014792be66c61539455c492ec2cd4796e6",
+      "700-italic": "995c33d1ea0f192ac2d8038abbfeb04c5198fcd1e876beb69a848c7649378e54"
+    },
+    "ttfSha256": {
+      "400-normal": "ad9a623b6fa9f5bf48285597503589a6f96bb3a02d2b65130647a805bd540d41",
+      "700-normal": "e51f48799da1cefc8cf8c1c6ded06b1c42fe89d5cc13946fe7ebeab24b3894ba",
+      "400-italic": "f9050ff347da199de688c9d0ad3f7b84fc3e2f027466bd5b4dc041d480705bca",
+      "700-italic": "f44ae55e03bd585bfdfd1c0b3a64cb1bb1cfabba96134a6bd8ffce42fff95962"
+    }
+  },
+  {
+    "family": "Albert Sans",
+    "id": "albert-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/albert-sans/-/albert-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "59e53b4a6c96f13f12fa4db8fd163c4f7c5d304d8dc3f9eac6db7b67f429867f",
+      "700-normal": "504be3ae4e3c1ae0c607c0fcf7a7e02a5f9484418d0300488cf480dd208e2d83",
+      "400-italic": "a31cbeca2db3313728c339977bb856d579bae66f186c76419ee9332f983cb1fb",
+      "700-italic": "b968fa6100fd592a82473aadfc1aaaeb3e02ceebe4b2c7b2cd54de57be2cebbe"
+    },
+    "ttfSha256": {
+      "400-normal": "c669fcd7cf6cff11bf65eb4ccfc0da5e110c452dd3d34a818f9cf97531e6a48b",
+      "700-normal": "2bc8d3ef6310925ed4e70ab92c15e8ebfb45dd206389be18d29cf4bdba5a3935",
+      "400-italic": "7ac02dc00071564f2b423bc22f6979ea49b638392746ed8c5f9c614454209130",
+      "700-italic": "524edc4dad114f438c3f0f4c80251d3b376d6fddf92b0d68c101fb14d7874254"
+    }
+  },
+  {
+    "family": "Figtree",
+    "id": "figtree",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/figtree/-/figtree-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "8f98dd642986f1fa39c45b89665a57372897c235b36028e0e4a136e43dc5f8ab",
+      "700-normal": "7ec4f08d09f91d349917dd6592f6aaae66d8fe1bbd58fa24707961e79236616e",
+      "400-italic": "3a2b7966f6d36cb6b6d1b71ca83668a9234e8cf1b9adaf733d7439885c314d57",
+      "700-italic": "9d0a2a92613201db6fa0c5a7c9e21939b29e5b8e6d9f9946ab21673584e617cf"
+    },
+    "ttfSha256": {
+      "400-normal": "20194040c7a1c4c18a94fecd1dc595985efb7ee8f61bc02cca45bf98cc426f28",
+      "700-normal": "04a0137dfd9503f6a50d621aa4cb5730de42d1d2c00bd1b1523b1efe05f68f03",
+      "400-italic": "3a86c7e33a105c571c8158ca3f4679198f33a3fc3f6cb9d7aca1ffb2e126056c",
+      "700-italic": "5984cd6e7e564c69d4d9d2cc71d057f09ff03a659421570ae0afd8c2fa7a3b3f"
+    }
+  },
+  {
+    "family": "Hanken Grotesk",
+    "id": "hanken-grotesk",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/hanken-grotesk/-/hanken-grotesk-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "787b3fdd0b7e6d59ae7ce14ce7a41d1a44616584b4c919b527da951972d5d87d",
+      "700-normal": "d85de6e272296d06f8205ad11e27140274e0ef97050232777d146eabb71c312d",
+      "400-italic": "53168ef35821f9ec781d281e9efefb097833a1f60760552ac9cba4f4ccc43aa6",
+      "700-italic": "7cdbb67d8fb22723d96e29e7465033bab52a102c7cb07e4e2260d6a0168ff7e9"
+    },
+    "ttfSha256": {
+      "400-normal": "8213dff2742070ab549a30ff1278393711351308f78d8c36ee709a286707796d",
+      "700-normal": "15723a14830c4963e73a9517809a6bb480d7d1b1d7a1a94a82abdab9a758158f",
+      "400-italic": "4e9d87bc7349b060e6f66e244860d46a3fbbca50e6504db432413093fbc246be",
+      "700-italic": "9443dfaf23e8848dc7240ec2bbd5d2f59e3f178fc996f6a6752311864143efc9"
+    }
+  },
+  {
+    "family": "Instrument Sans",
+    "id": "instrument-sans",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/instrument-sans/-/instrument-sans-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "9a91efaa3599a6ef01b2f49e9ec670e3a2f39baeef09c73198f1052cf3bb0850",
+      "700-normal": "bcf650536cae57403741af193e1e237c245f8929b936f03601279079a64fd699",
+      "400-italic": "b089ac6fca39eb8d49d166db9e33574fb891223cfa5d63b3b3be1668f1cfe28b",
+      "700-italic": "77be5291bd5cc2cf5cb1b55b97d9ce9427ece3acb9067942470a19b6a02f4c4c"
+    },
+    "ttfSha256": {
+      "400-normal": "cfa69ec75390b7792f173e2016103ec926c9cac346d4dffe07c1dc27f5cf6b3e",
+      "700-normal": "35f4432d044bdd19924fcd45e631deb593aa94ed2e482d3ecdd31c157d1ba645",
+      "400-italic": "f8de18d5d83bb7116ed607f498d91b02eca665883eb53d7f029dba21a1928e4d",
+      "700-italic": "67d09f1d3f258aa3219bba1feb6a477646d2fcb3832e0568b09e7e856adf879f"
+    }
+  },
+  {
+    "family": "Schibsted Grotesk",
+    "id": "schibsted-grotesk",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/schibsted-grotesk/-/schibsted-grotesk-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "437cd97c802be9f10f60b4db8a723261e5c35dfe1529de0562981871028bd670",
+      "700-normal": "d656a2dcc2bf850a9af5156f2de42f6051facfbaa8d5790cf31159de39bc2568",
+      "400-italic": "b10306edd100a0706ea6060350f5a077a2e747bad1f46ec6605159719ba4a082",
+      "700-italic": "0cf55d899de73b4872bec42cf44565eeeda5a1fb24393e1d0c8b31fe363753e1"
+    },
+    "ttfSha256": {
+      "400-normal": "cd4156feaacdf1d8bd2a844e62455b8cbd5c3cd56fec433aa7b61812a8fa7a60",
+      "700-normal": "9a56825d2d5f88477704a4e6975fe3cf9a8933896346c02294f53a2027dd38d5",
+      "400-italic": "f3c0e80fdb8f0fa7ed3e7a7a14116e8f8ddb3c02c3cac5ead145983becdc4cdd",
+      "700-italic": "1f9507ec5488e5fbab4b687afe98331bcbb854b2ec10b7b41e9883740c959bc5"
+    }
+  },
+  {
+    "family": "Vollkorn",
+    "id": "vollkorn",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/vollkorn/-/vollkorn-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "dce19b6da3afe25af6cee9ec697877f92d95b6ed2617da67a5e7d5b8d7a857c9",
+      "700-normal": "e9c1dd6167df498ddb111951556ae29283efcce4b7e559db3547063e9a4c63c4",
+      "400-italic": "ac791f9264b4bb19d26f5bd904836a9af5c012552eb5170d5c18ab5906ac0cf3",
+      "700-italic": "1aff7dfe309ad54096201f1432de053567a3def89a8e9abe2871b7c8e57852ff"
+    },
+    "ttfSha256": {
+      "400-normal": "36cb91cc72fe02629cb63db0c06b38a167c67c16d4bfbb61824a3ab20cd369a4",
+      "700-normal": "23ae8d57f0ad153d933b803401c6e53ddf574654a6830ccf0d30bbda55c2476d",
+      "400-italic": "aa156aef523ddd831de1e9787cb58816cbccd5fd21c14a777aea8af3c598a470",
+      "700-italic": "4d46ad790173dab282d5fffe27bb3b738fd7b03bac19ebcb0cfaa31c278a76db"
+    }
+  },
+  {
+    "family": "Gentium Book Plus",
+    "id": "gentium-book-plus",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/gentium-book-plus/-/gentium-book-plus-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "dd5d2902dac9c11d3acc42b0e54a74b4f2db9bd4a7d6872c23338f70df29ca7e",
+      "700-normal": "b151cf211e3c03b3eac0ef3a4e94c44aa67096f9e7148cabfb9e9f8a0017eb33",
+      "400-italic": "daa214002d1aa0ce6fbe72c495542a2d321b51172565e2e9508a3b5e064fcf6c",
+      "700-italic": "92e7e158a25dc7849586431b22aca15c633347c64ae32279ca64c081e6b6dfcb"
+    },
+    "ttfSha256": {
+      "400-normal": "f18a9f797418f90f55089f63973ea30d70a71af04c275c891437b6b4a2eacc7a",
+      "700-normal": "e24456a4f017526bc13a3432dc01798bfd4414cf5daefb7453fecb6c21c3d6f4",
+      "400-italic": "38aa655bf412f594ce848ed51acacefb492770c6fdea05b7906fd3f9d661df7b",
+      "700-italic": "e4622cfc2b3695e87c257a86497deeacde3e664efb02c9363e91b8df14dad650"
+    }
+  },
+  {
+    "family": "Gentium Plus",
+    "id": "gentium-plus",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/gentium-plus/-/gentium-plus-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "b02c235f6c229e2691c6c5ff46853d864c269b3184f5e476d0c348ce796540b9",
+      "700-normal": "efde37030e7fa10387b646b886087ddc74bba35aa5a5a105f0b5501876a803ad",
+      "400-italic": "341871b46c4d92b8c525147b4b6c714fb55c1c4a6434cc632d54bad1ba08a219",
+      "700-italic": "5c2324d598c65074ec48b1cba2b7bcaa8b155bf682a0d0c5eb27831281a8ce7f"
+    },
+    "ttfSha256": {
+      "400-normal": "48b108a4756fc6f55b1768e71ab3db4543bdec3d20e5d8833d4fffbdcc0257a8",
+      "700-normal": "d2d2a72dbd96b7619f17fae6f1faaf10459e7df25294a5126264d574306f4de4",
+      "400-italic": "4c446be4083dbeeb36644ffe166920e978e9aa3da49f163bfe98b471837da4a5",
+      "700-italic": "8464b49b706f3ae55a9a0712273707e897412f0c1236e0014713a9bc1f4efaaf"
+    }
+  },
+  {
+    "family": "Andada Pro",
+    "id": "andada-pro",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/andada-pro/-/andada-pro-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "7a25c5b7f2d395e69f83b1dced4c122c29863f1a54e2a3ad064bab1bc88a4ff1",
+      "700-normal": "0a92132d73460afa14d37f801f9be6b1be98d6f5cf51f676007723acdb714083",
+      "400-italic": "d5891fcb60d6e97cae4ea0f42560295ff1011dbbb4bb2e82178931a16c22f095",
+      "700-italic": "8fb15a6df410b2a60cde3f5cfe39407bf5a6f9601363033a85341322e1271038"
+    },
+    "ttfSha256": {
+      "400-normal": "d5df84e5b828fade57d81b43ad9db9c3bead0b81ff530b7a2452b32b258ceb5a",
+      "700-normal": "7326531ba39b1d156d967617f6b4156e77c9b459f5e57fbcd9dacd781f18401a",
+      "400-italic": "899ff9f3a17319749ff19126b0b345cefb6b090ff799f12ee500e19727f82e54",
+      "700-italic": "913d597e39ff99f0a41c192b073bf4ae0f2a01ab06480d966c33e483bf0a48d9"
+    }
+  },
+  {
+    "family": "Faustina",
+    "id": "faustina",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/faustina/-/faustina-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "9273c0fd4b67c81cd6a2883480009a97cfdef6707e291937916e5377f6360513",
+      "700-normal": "d5c4fd67879791323a7023a43420750a8ddd60f5e154f0d4a35757730f94681c",
+      "400-italic": "623fb3976144faec7152681084f5e1d16ec018fe228adcefb8b9633dba04571a",
+      "700-italic": "c652779198718d03e561988db4b1b7acecf3b909ad562384467c9c641ed2ee8f"
+    },
+    "ttfSha256": {
+      "400-normal": "2829275658f73e8986708ecbf4090caa5ad6d1eb97f927973bd99de47a2d767a",
+      "700-normal": "d53cddf7c9e67d9ccfe9b426e268e1ec937a4a94a7ddecc9fc4810becfbc9091",
+      "400-italic": "8210ac55f17a79c59343cd0a3b73fc007679380f12b1c69541f915de917044c3",
+      "700-italic": "61fc189fa8077b16f31ee9c3d46791df82fea2586c02c357718d6792982371db"
+    }
+  },
+  {
+    "family": "Tinos",
+    "id": "tinos",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/tinos/-/tinos-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "18505b57c8a016326da164a1e9a14e8d1c5081ae78e9fe7b57bb66a330ea4ef9",
+      "700-normal": "4132bff0c1156d037289c3372cab59f16e4b0967b71d6cd219ce67619d02de73",
+      "400-italic": "55fe58e551b07fc6586e4e632d10ebf50339fe1f0f4ec97cb55a2abc7d18ff79",
+      "700-italic": "6b199a846d3766e7d35961162b6dc399cda36ff60d3f26ef022be685b609425e"
+    },
+    "ttfSha256": {
+      "400-normal": "838f348e0014a3b184831649c343a00136a60d82d51a8b3e00e2b302790c100e",
+      "700-normal": "a3ecdb65329eaa46189be8552aed3a14fa9900bf741c3f66dfd8482949ed7d4a",
+      "400-italic": "a129eeb0ae49f0947313a9728cc92adcd1ca8235cd53a118a25fa73d851314d3",
+      "700-italic": "0d213fa5e115cb82a797fc88342be2a541677063f055af844fe26348ad5697b5"
+    }
+  },
+  {
+    "family": "Arimo",
+    "id": "arimo",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/arimo/-/arimo-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "c1f056f51c99a65aca53a0a80e71e67916dd7a8ed2423cd11f52193241440b20",
+      "700-normal": "181215e08de9ce411e8c9e628eea6ea8bfa45de2a955ee57fc970dd8a080a3f6",
+      "400-italic": "56da61898ceaf4ffec05922232ef957515d6debdae5bcb952667a46b6af5cd08",
+      "700-italic": "585caa2d533eff8554785869fc41a802a6865c243a83e1b5d210eb18125c032a"
+    },
+    "ttfSha256": {
+      "400-normal": "d5d3bc64ba7355c12658a3ef83696340a7c16fa932f80987726f0193cea5b7e3",
+      "700-normal": "4371d732ea86ea5b4083ef4fd45bfcfa38945d66af4817664536db50c1bbb2ea",
+      "400-italic": "5c0a2a7169d9f72d1a1a4795a516602af279a4b45d6d82e6b46f4b2da97b1a78",
+      "700-italic": "99536da6564b0a7beda7e90be54ee0bee868e8e59afd33c4cb3b36be71659ae0"
+    }
+  },
+  {
+    "family": "Cousine",
+    "id": "cousine",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/cousine/-/cousine-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "fb542bb367b20289e71b682dc45d8f01de5b0a0658464db9053801f30e7c13a8",
+      "700-normal": "63c3bc173bf483b579052da1a6532d84d65d0fbfdd081f1ce50d4fe895343625",
+      "400-italic": "1f797cdf757dc474a18e8b7378fb49eaab06f11c239ec40db6064cd5cb49febc",
+      "700-italic": "7ac046711b0716288354f50cf697d61743a101507e791547cf05d24db7fbaf22"
+    },
+    "ttfSha256": {
+      "400-normal": "a7f037b8fbd6109e093128feec226a75d9427b925907c2835fe551d855b25d66",
+      "700-normal": "f98360e118d92124e51ac14dc5ffcf9d0767745e60c4a5c6ebea04858b89fd96",
+      "400-italic": "f142734e8192c91ae1b63c4f7bf2a6bc0a817e127e099998c3780ab261a88a89",
+      "700-italic": "b5a935d193d477c8e5f183058018a7f55ab8a753309902bf657a201da55e1c2e"
+    }
+  },
+  {
+    "family": "Carlito",
+    "id": "carlito",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/carlito/-/carlito-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "a29c4a4e61863753cf6a10831efaa05f849dcaa8f580422dbc41bc058c3b6b64",
+      "700-normal": "af249cfe4107221070ff077c29a043004e8f2efea977dcbaaf217a24f3b7680e",
+      "400-italic": "6bbdd83c5797d207bd2027f2687a70e428513c56130feaad1ffc0a1a7ace7c07",
+      "700-italic": "e1bbd00245b0b22d0c540413ac73a91f7afff587899260a683acec3564f06ac3"
+    },
+    "ttfSha256": {
+      "400-normal": "6de2134bfea8447fe8c72dc3c115c97c3967d69c47d6cc3596654a6e69a17b93",
+      "700-normal": "e121f3963c774f6e618eb453e371457e718bfc303a9236d4d4f2fdf009b40ce9",
+      "400-italic": "2d11b739778e135592a94e91e80f2018fba10cf8f7509066a459fec846281374",
+      "700-italic": "9750a4d78271f4effce426a0131dcaad01c752786dfd3ebc3be6361e451ac1b4"
+    }
+  },
+  {
+    "family": "Caladea",
+    "id": "caladea",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/caladea/-/caladea-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "367a4c4dd45c762f6f680ccedbbf18be9d10e13b068aad2813ece1dba881369b",
+      "700-normal": "6a6549b8ec8be5ad7db66f28dee13ea008710379e7bd992870eb2d7ac14c9c3a",
+      "400-italic": "6d439cdc4db2e6cc3252e4dfec76438a4180ec872ff9394ce4dc8792d26d58d1",
+      "700-italic": "097d08d9ec3e2304f083e066a72acae181f400832249a07b334f30a53c20ebc7"
+    },
+    "ttfSha256": {
+      "400-normal": "f4092cb47b5161e58d3c608c28c2a31f8c4e1831a4c182551db55d9abe5fab32",
+      "700-normal": "38ba337792634acfc89189da044c382a2df0aa0d1c9fb791486e325a3fdd34ef",
+      "400-italic": "a9eb14d59336689df91eac71698fcb2a4d5d58095b80e6b2766571c0fb75d6ce",
+      "700-italic": "c63d9ebed04413f49bb67e4eea45a1a3c1afb8971b556813d5cc807297cfaa99"
+    }
+  },
+  {
+    "family": "Gelasio",
+    "id": "gelasio",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/gelasio/-/gelasio-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "68e2b704c5624ba84e70d826e33c5fc08d75eb452f834d869abdecc39f3b26ac",
+      "700-normal": "dff91a5084db8f15e401e902acdac8768f5ae1746205c5319ad2cf3655517170",
+      "400-italic": "0a06efba3949d19ad4cb02d20d1d28f970fcd881183a927bffeb59f154aa1d04",
+      "700-italic": "33881ef5fa10796ddad4401691dbae1deb6719b0e1356545d4a5b51fabbd9455"
+    },
+    "ttfSha256": {
+      "400-normal": "e7ce4d7313291329531a6bb74b4bb09a5ad99678b199ad920fd98be01dd6d68d",
+      "700-normal": "2b9dde247c273f4fbf10e9d5ef027faca8f554da59e9fd397331505b990b776c",
+      "400-italic": "d5e31f1d5661cf213e5dba18f7cf1f2d7571be872d31fb3af96bb8ba84e169dd",
+      "700-italic": "baa949a2a52b88ff08a13d1e2cae367cc48a9e308d90a074451c107b11533279"
+    }
+  },
+  {
+    "family": "Rambla",
+    "id": "rambla",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/rambla/-/rambla-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "7c852c25498a31ecba8d03614a7375aff0a653911fb8210e3e5ea1a586f374e8",
+      "700-normal": "5280b1cb3b361f813c5695d6532de015c79fbaa282b62b3fb45c7c87ce898290",
+      "400-italic": "cab8e26c91a950872e2b68ab3c5c82fed4949a45f70bef5226ba4a4b563cccad",
+      "700-italic": "fff01fbc4acf339394dd728386dd71668b2461ab3c5fb46083c51a6de8e6bc7b"
+    },
+    "ttfSha256": {
+      "400-normal": "dce8308837ae2846e79d06aa81fbeb0b7ea0f5a064e389346d4add5fddd91d4a",
+      "700-normal": "47a0de00dd0f535db274e20150fd785720c9fcf6dd57344b797521dca6fdef39",
+      "400-italic": "66209a63e5bf2893a703c710526c348ded9f5de7f3b787d1782a0d6ec02c44ba",
+      "700-italic": "0a41811fd957c111d4e01a2a75b70a1a9498b963dd092582bd06a03269bbca78"
+    }
+  },
+  {
+    "family": "Chivo",
+    "id": "chivo",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/chivo/-/chivo-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "e0d2fe7ce671a90326e0bc1a17c9fd8450cd9c7a56baaccf693abe3fb1e7cbae",
+      "700-normal": "f02d0229588e8d5fe6670bb34215b75b19e2cd6ff1779fa2dabe7970fe3292a1",
+      "400-italic": "20a84a7a4bc351d3cdd2ba98b037163c6ffc951471609f3c12223765d860a829",
+      "700-italic": "8df7ded79febf06aad61436aec763b86ad9046bf9d1350d7b3180ab4f98e91a8"
+    },
+    "ttfSha256": {
+      "400-normal": "cd1971ca359e1cc2d69aa6fee8b4fde5c1cfb1aef174346a02cf90d54de4a494",
+      "700-normal": "6cc3cd30bc785c6a3a3ce215807e7f1f9edb9de11f2536b9cab1188a7f75f8dc",
+      "400-italic": "42d9abab2f589d109324ca2cf4ddb58e7b6e2cfb642073262dcd5a2592c06f6f",
+      "700-italic": "6fbe1492e71b48ee9fa835302b75f2a064ca27aba0a16b037dd1ba2e1b4cf066"
+    }
+  },
+  {
+    "family": "Chivo Mono",
+    "id": "chivo-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/chivo-mono/-/chivo-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "d103882f9a90474f378c4fb156276e7f430602f6283ef75c2f00e354dae0be45",
+      "700-normal": "91bff47c6f165fed25f7657902dea6d696960462fc746de96959450a3f8df061",
+      "400-italic": "9822f480e72280937a72d07ef634ba8f6a550231a9e3f115e1314b479307540f",
+      "700-italic": "2500eb968704e5b490bc5ef93525a56aa02cd35c8360cbddfbeed751f214119d"
+    },
+    "ttfSha256": {
+      "400-normal": "5ed8da086191c478d3b0042b1fe92f2021f7cb672ab474f37e4ed7a960ff235f",
+      "700-normal": "25c5bd26206d044267152bb7ecabb233dcaa6525a161c72b10391198239e940e",
+      "400-italic": "c8414ad9bb4840fdb35b876240f241f0513734e1c40d4a1c122845bb867c882b",
+      "700-italic": "5a1f400b9a8313204d57f067413925dc5ad4297479c7e6fd9158613f86eef088"
+    }
+  },
+  {
+    "family": "Atkinson Hyperlegible",
+    "id": "atkinson-hyperlegible",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/atkinson-hyperlegible/-/atkinson-hyperlegible-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "d64ba838ef5472bba248620ec4fd8b5aa7cf0db2908e0bb230600caf279ba7bc",
+      "700-normal": "140e2bd25a7315c8a062508391426b0d8c3297400c947b8d847be28f73a199f0",
+      "400-italic": "bc8825fd435d4aa8e31449937826d583a7daaae15a83832c91b38375131ebf08",
+      "700-italic": "73e0c9e1e284128dda599558f7c15bd5f3c056442c31dfae950528a16b3835cf"
+    },
+    "ttfSha256": {
+      "400-normal": "fe92adff3973fdf321be871ed707ea071441098c52515523a6b9ebe1b91437eb",
+      "700-normal": "789de7deeb3dc526d7a4c81b1f34049c0878a1c989609bde2a993ee01ed70741",
+      "400-italic": "423ba4770664c8795e90e4d2939116f55dc88fe2c572ad08759e3348e1541ab1",
+      "700-italic": "5e7f26dab63ba2ef2f9b883b14334ef8f7fd873da8fdb2c953689377bf9fa7d6"
+    }
+  },
+  {
+    "family": "Atkinson Hyperlegible Next",
+    "id": "atkinson-hyperlegible-next",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/atkinson-hyperlegible-next/-/atkinson-hyperlegible-next-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "5cb240a4d99ab7e6fc3a4d4e6d11d89789fdffe9c86a8384000d662c53283f6f",
+      "700-normal": "0dbe07ed7679407db9d90f747d5ca3bd1b2bb7ccbcbe41c8246cfc6d2c7bc3bc",
+      "400-italic": "59bc0e965694b9409ac2684c6c8d08994f4fee8a474bc63c4653714f8f441435",
+      "700-italic": "a72f903d445907688cb6d06ad4dc993975b8f65b5126743ff70c75e09c6122b2"
+    },
+    "ttfSha256": {
+      "400-normal": "b92a152f46a522143b40c07406a4c2251baad035e04daa28eb085ab4ceba5f87",
+      "700-normal": "79b587c44485f8d8e684597df483b917a9c092fda18b49c063ae1c7867439d4b",
+      "400-italic": "45096f8e8c38bdcbe4157df085e35de2e58388a45b12adccaeb99bc2b8677408",
+      "700-italic": "adb663c2abcfbcd970592f70b47f470206e305993c36ace8c68490e662660aac"
+    }
+  },
+  {
+    "family": "Atkinson Hyperlegible Mono",
+    "id": "atkinson-hyperlegible-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/atkinson-hyperlegible-mono/-/atkinson-hyperlegible-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "87b5b94c18025729fc6ed4e8c25221ade3746dc87213943fa4de49f1f0f26787",
+      "700-normal": "f30319aa2ab224c5a19d177617e2141b002fcb95c1afe233214f9d342e47687d",
+      "400-italic": "25e6fb237b3e1a908e483ca5e88628358fe87a53eb3f8df7115a4ade9c381c69",
+      "700-italic": "d0955a1248c52abae263759d34f646301bbd1c7aefa5888f3d77911b57145545"
+    },
+    "ttfSha256": {
+      "400-normal": "c9531a93a72322f5097d4c8e3218fa3666ffed2246608af9f0b4d0ea1d68dc95",
+      "700-normal": "aeffd60ee2dd095e3056a16a369aa6fa49c20030132abe8a45ec18e796de5295",
+      "400-italic": "9eb891832c44f3c87903639b3b83855fa325d7fd7dce29dd20155e7e05e45bee",
+      "700-italic": "04d10ac4b0c7b53b98121a43e124d9a228fdcc4b4bb78a5cbbe2ce705b0fc82d"
+    }
+  },
+  {
+    "family": "Victor Mono",
+    "id": "victor-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/victor-mono/-/victor-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "1c96d4706ad792e7740ba352e709380a7328e1d5b853d4d909b771c04be1a94a",
+      "700-normal": "9761443990cb1b68fb7cf3d249e3998a644275793d6b11769e2ba8b286ae8b07",
+      "400-italic": "27cf5fb106198f946b3379454f237d209093935f23dd87fbd542c969923086d1",
+      "700-italic": "86514ab5b20d16cf53c31dcf6b9dfa699ad6a4306e79ed80bd2f78a762a0b2f2"
+    },
+    "ttfSha256": {
+      "400-normal": "b51c9f716505014499202afa303a62677532eecd84838558f31021aeeeaf6f1c",
+      "700-normal": "fcec0f3dbdd760e9474dc79f761eedc70605d44b1263d8ce549bf859bfd12060",
+      "400-italic": "cf0ba70abd49a02ef6ba7b04185648e893803798f262c5e079105e265295c5c7",
+      "700-italic": "876b47901d4e9b876514c031e793a292592fc2140630bae3abf6d617311564ce"
+    }
+  },
+  {
+    "family": "JetBrains Mono",
+    "id": "jetbrains-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/jetbrains-mono/-/jetbrains-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "14425ba9c695763c1547f48a206b7aa60350a33ae23de09f0407877f3fcd89eb",
+      "700-normal": "d0d4e818808f2a0ba39b2b09d1989366f63494e295f003c7ef436697378507e8",
+      "400-italic": "87ddac4a62229787528cf4ac3fa58137b62a9aec364c44fc0f40470bcda9efba",
+      "700-italic": "2cd42fe8f872ef7e06156fe04338b23fc4ec532e66450c8e931db43473c0306c"
+    },
+    "ttfSha256": {
+      "400-normal": "2908b44c040565cac89fb97eee1b2d1ca27224d0394c8a1450440ad7ecd52522",
+      "700-normal": "eccbfa4d45de88feed00fec372b0841adb8de68705bd15acfff0ce4812d57b4b",
+      "400-italic": "a2dc894367daf83e17004011f853e4d5666a04561585a63852d92e335c01f6fd",
+      "700-italic": "c5a5057aa041889409889b8da2306d36be821d6fe2db2f3968d650b8c03260b8"
+    }
+  },
+  {
+    "family": "Fira Sans Condensed",
+    "id": "fira-sans-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/fira-sans-condensed/-/fira-sans-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "73d6a1d1a9b43f27a99c2e699f39a585bbdb32710bfd5ef862ac0f34d4aa6b73",
+      "700-normal": "e94b13bb20b4d7551a411b614abbc716b4b2e74dd7bb82c83e431a390cb21516",
+      "400-italic": "06f93389f16a802ad49191fa60fd0053253c1da7d92326866ea7803946ed82ca",
+      "700-italic": "b6aff9839752fd42073a2a4846943ebaa274e757b8e5b4f047a0f56046a344e7"
+    },
+    "ttfSha256": {
+      "400-normal": "62762eb2173c3ab5e6a0b4ed08007a3c33636b326f3b5498b5be730b095cda45",
+      "700-normal": "34ba128f6cff3ade8c409ea5d374c62f96278e98c6060bb452a4c0468acb7cae",
+      "400-italic": "0ea829c3f1ce6ee47f5a94ce9be819160c93529379a75f33a6f0315db6dc59f3",
+      "700-italic": "ab6f0f251089bf3ed719027714df80239baff05a2e4ae1262c7bd563a3f16646"
+    }
+  },
+  {
+    "family": "Fira Sans Extra Condensed",
+    "id": "fira-sans-extra-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/fira-sans-extra-condensed/-/fira-sans-extra-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "66f7e397ba6a640030e5fb2c5aecfea7a9566a934c2fc33c5853e97e9c3f14db",
+      "700-normal": "e7ad234e4c28c281639467edb4d62b875874e59d607c0597281c3957d4595858",
+      "400-italic": "cfb67633134a1d7fbb49930f45a2de146af698ba18415fad5ee9e2bd0201bf66",
+      "700-italic": "38da08c346f8e7ae4fc1e6e8cd6fbfa0f3f1c1da47d8a58f67d48837560dc42d"
+    },
+    "ttfSha256": {
+      "400-normal": "dd3048b2a89dc800e02874f5d8ecfaecc342b4c6895044e965f482f324274153",
+      "700-normal": "ea9a5af8d0788c4ae9da81a555f6a3b20fe334ffa12f373c4d542d81e51a78ed",
+      "400-italic": "e120da2bddcc536f5b416ceda9e4fb6e6bbd9d7ecc9fef9bb9f89c2041401057",
+      "700-italic": "ffb0062fbe89856b32cba2438b64134de4e366727c5552d90d8f190ef6b3e505"
+    }
+  },
+  {
+    "family": "Zilla Slab",
+    "id": "zilla-slab",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/zilla-slab/-/zilla-slab-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "ab2607313bc04e82a53aca235853a0b83463e99b3ae88b17cc963e371f8fe91c",
+      "700-normal": "896b6ebb8cd10aca90bdff88a5a1b648cbc0d50751740bd5a6d012007aef9ebe",
+      "400-italic": "1285db803447f43de11d51677826b43cd0b9a4ddf76adc5a1c2514b8c0e6c00a",
+      "700-italic": "81dad87e98f037656238d0e49e98bbe93be520917c71e3871cb232226f98d6cc"
+    },
+    "ttfSha256": {
+      "400-normal": "8c195cf094726e3385c436a33d28998c2b15c257ecc40f6824c78d00aef9789a",
+      "700-normal": "7a320a7868d64eaf538309e61ba128e5901f6b8baee34ab3241a75aa14dd335a",
+      "400-italic": "36bda992f8f4ae4292aa68b14d4ad4cffec6b2ed30d8345c604e10afa895127b",
+      "700-italic": "90d8cec77ce994ed1b94e46c42e58a3db4d80ac5a8f873da19ceb463ebfca405"
+    }
+  },
+  {
+    "family": "IBM Plex Sans Condensed",
+    "id": "ibm-plex-sans-condensed",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/ibm-plex-sans-condensed/-/ibm-plex-sans-condensed-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "456bf5cda9c0b1f1ead43f01b80df5ba5af7cb41d7cbc0543091537c39fb4c89",
+      "700-normal": "4768878c107d92c528a65bba206a87cdcf2c694514e75907fb91772cf8a388a5",
+      "400-italic": "476b66380b89b1aeed53634192d0604701055da4f7ed21e54812d312a387a3e3",
+      "700-italic": "1eec0bbbd61fbccc1e34d75aa0e42894b7f027e972b8e1f8e8bfd319174c26a0"
+    },
+    "ttfSha256": {
+      "400-normal": "c446f957530776da190c12399963ce5b4cfc18f310c9c329554b9e693416ea7a",
+      "700-normal": "871a386af98754de3db1a59dd40df4bc12bf2383d58ccecfda2bc34ca18de04f",
+      "400-italic": "878d17380897c79e920479a983cb285c99d6a8f23f586b82a811f283cfbf710f",
+      "700-italic": "3b2484a10429927835fa48d1afc586bd2b151738d942665bb29690b9c294cf8d"
+    }
+  },
+  {
+    "family": "B612",
+    "id": "b612",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/b612/-/b612-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "a96e47feaec40f5b53b6c8e941e87ba7732d7935d47f2a554223585f36c6785d",
+      "700-normal": "95f39db174588831100e7e32a0329d4f91952a6c28f2fd91f207951e3a8c6788",
+      "400-italic": "47ec3f57f35c10d9282edbaee999b05b9eb6d49d253814625f81c6ea3622b604",
+      "700-italic": "6ea34d714e13ac1a2458d4c9afa880ebcdc4aa57662be072e6f068cc17e0ba60"
+    },
+    "ttfSha256": {
+      "400-normal": "c69d176667f88b8cc446277aeac68601cdfa428aa38920a5e22e7c3905d6dbb5",
+      "700-normal": "98dd2ac8770f4cae42b6814287788e6206f06107353ee15e406a5689ec2390d4",
+      "400-italic": "05554233b2ae865c3b370f8b95f7fa8513bc7a81c36d39f36683d3fe476064e6",
+      "700-italic": "7addcfe389b611c9db9bba9b91073677cca91e792aff5da7baefe673b82c084b"
+    }
+  },
+  {
+    "family": "B612 Mono",
+    "id": "b612-mono",
+    "version": "5.3.0",
+    "source": "https://registry.npmjs.org/@fontsource/b612-mono/-/b612-mono-5.3.0.tgz",
+    "sha256": {
+      "400-normal": "36316fb226f98c51db117b8ba357316013a610a1d0f7607d2af73ea3f9194848",
+      "700-normal": "4994d0b2f403b6805d8b918c01b0d5122808373373795f8149ccc231ebd197f3",
+      "400-italic": "c6de1ba1faccda901a355b4cbdea556f87f707e8e46d3d67369f9306c0649ce8",
+      "700-italic": "81f21dde70f0a0ae8903abbe3a521cac3210695e425aaed76a6838121392ea40"
+    },
+    "ttfSha256": {
+      "400-normal": "e5da97c63a5a1632a411acfc71bb606b43ed8f7626bc91156e87e9e4798a8d2e",
+      "700-normal": "303ab7d73664ac8a1f2ffeccd60dbe06eb912fb0386cab8854fe346bb385f00c",
+      "400-italic": "68f59e993cf24914cae9eec3b24348a734ec7c35c15e35cfddd4a718545eea6f",
+      "700-italic": "de1290f2ff8eb28ef28e690f8ea8484f7708d0a20f67a21870011d029db9f0f4"
+    }
+  }
+]

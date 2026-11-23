@@ -1,0 +1,18 @@
+{
+  "family": "Atkinson Hyperlegible Mono",
+  "id": "atkinson-hyperlegible-mono",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/atkinson-hyperlegible-mono/-/atkinson-hyperlegible-mono-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "87b5b94c18025729fc6ed4e8c25221ade3746dc87213943fa4de49f1f0f26787",
+    "700-normal": "f30319aa2ab224c5a19d177617e2141b002fcb95c1afe233214f9d342e47687d",
+    "400-italic": "25e6fb237b3e1a908e483ca5e88628358fe87a53eb3f8df7115a4ade9c381c69",
+    "700-italic": "d0955a1248c52abae263759d34f646301bbd1c7aefa5888f3d77911b57145545"
+  },
+  "ttfSha256": {
+    "400-normal": "c9531a93a72322f5097d4c8e3218fa3666ffed2246608af9f0b4d0ea1d68dc95",
+    "700-normal": "aeffd60ee2dd095e3056a16a369aa6fa49c20030132abe8a45ec18e796de5295",
+    "400-italic": "9eb891832c44f3c87903639b3b83855fa325d7fd7dce29dd20155e7e05e45bee",
+    "700-italic": "04d10ac4b0c7b53b98121a43e124d9a228fdcc4b4bb78a5cbbe2ce705b0fc82d"
+  }
+}

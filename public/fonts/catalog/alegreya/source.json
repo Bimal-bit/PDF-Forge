@@ -1,0 +1,18 @@
+{
+  "family": "Alegreya",
+  "id": "alegreya",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/alegreya/-/alegreya-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "7cbcf38a5ef682a8b9e2ef4a330b31a08b33bf1ae08e338267c0d1292479c68a",
+    "700-normal": "1c582501cee54f7137a80732266cbd3f0e9ef1f0e85d093228fb4f4db852df4e",
+    "400-italic": "9be8976a11463895bb4d590973a684c1c96616b7e40a03333151efa8c7210241",
+    "700-italic": "a15a52eb7f26712d7c5ab1c6b1f922a131e8c7e22a9520030d13a92e9472de37"
+  },
+  "ttfSha256": {
+    "400-normal": "18de7bd706fbc838f3a65b6e126d3322afd84ce9a6c3b90894abba6962b534b9",
+    "700-normal": "7bb00ac4dc54fbc64da9c643ad4835989140b90842d796383be750506129e095",
+    "400-italic": "19939e534e155577e250501eefa2fb4aa3fa429507eee8cfab7d321a3010c69b",
+    "700-italic": "f44da11a63ca85f1dda8ea960c9e4412bfa20c4e83658550da5dd95556e6a1c8"
+  }
+}

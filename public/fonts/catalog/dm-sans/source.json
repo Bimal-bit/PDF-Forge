@@ -1,0 +1,18 @@
+{
+  "family": "DM Sans",
+  "id": "dm-sans",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/dm-sans/-/dm-sans-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "4ab51eb2cd7305d177187908d6397474d4520663f6c6e572feb0a64f4fa80006",
+    "700-normal": "35c5efa0e5daa52ee5c6500f5be354bf751fb65c4e49e1d6806c6eb5883e8fe9",
+    "400-italic": "5da946c1525e99ad130ac74ad021cb4f85a8be57ee167969ce4573bff1d84f10",
+    "700-italic": "7f07b05e2297ea9295c9f93a950b00adf085806f4b7196ce7bf241efdea83387"
+  },
+  "ttfSha256": {
+    "400-normal": "eadc89d4e9fca5e3fefb85c280587442a41ebb79e24a2b0057cf5b3809fc2188",
+    "700-normal": "c0cea53670f9fc391487da11306ad8b19e76681a78b706d9f6bbda57df98e2b0",
+    "400-italic": "f805d7064a9ab8f3373cb21a90b88f0e8eb3f682bd9501d1120defbffbc1a151",
+    "700-italic": "01009eccae73b870a7d5aa7fc66f4f758bb897869b45dbcd96494f79421f1cc1"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "family": "Faustina",
+  "id": "faustina",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/faustina/-/faustina-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "9273c0fd4b67c81cd6a2883480009a97cfdef6707e291937916e5377f6360513",
+    "700-normal": "d5c4fd67879791323a7023a43420750a8ddd60f5e154f0d4a35757730f94681c",
+    "400-italic": "623fb3976144faec7152681084f5e1d16ec018fe228adcefb8b9633dba04571a",
+    "700-italic": "c652779198718d03e561988db4b1b7acecf3b909ad562384467c9c641ed2ee8f"
+  },
+  "ttfSha256": {
+    "400-normal": "2829275658f73e8986708ecbf4090caa5ad6d1eb97f927973bd99de47a2d767a",
+    "700-normal": "d53cddf7c9e67d9ccfe9b426e268e1ec937a4a94a7ddecc9fc4810becfbc9091",
+    "400-italic": "8210ac55f17a79c59343cd0a3b73fc007679380f12b1c69541f915de917044c3",
+    "700-italic": "61fc189fa8077b16f31ee9c3d46791df82fea2586c02c357718d6792982371db"
+  }
+}

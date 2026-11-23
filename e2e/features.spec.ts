@@ -1,3 +1,4 @@
+import { runPageCommand } from './workspace-helpers';
 import { expect, test, type Page, type Download } from '@playwright/test';
 import { PDFDocument, PDFName, PDFDict, PDFArray, PDFRawStream, decodePDFRawStream, StandardFonts } from 'pdf-lib';
 import { readFile } from 'node:fs/promises';
@@ -67,9 +68,10 @@ test('secure exports include pending edits and reordered duplicated pages', asyn
   await page.getByRole('button', { name: 'Insert', exact: true }).click();
   await page.getByRole('button', { name: 'Add text overlay', exact: true }).click();
   await page.getByLabel('Overlay text').fill('Pending secret');
+  const redactionPoint = await page.locator('.text-object').evaluate((element) => { const text = element.getBoundingClientRect(), sheet = element.closest('.pdf-page')!.getBoundingClientRect(); return { x: Math.round((text.x - sheet.x + 10) * 1.5), y: Math.round((text.y - sheet.y + 8) * 1.5) }; });
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
-  await page.getByRole('button', { name: 'Duplicate page', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
+  await runPageCommand(page, 'Duplicate page');
   const cleanDownload = page.waitForEvent('download'); await page.getByRole('button', { name: 'Sanitize PDF', exact: true }).click();
   const clean = await PDFDocument.load(await bytes(await cleanDownload));
   expect(clean.getPageCount()).toBe(3);
@@ -83,7 +85,7 @@ test('secure exports include pending edits and reordered duplicated pages', asyn
   await page.getByLabel('Open PDF', { exact: true }).setInputFiles({ name: 'secure.pdf', mimeType: 'application/pdf', buffer: Buffer.from(data) });
   const canvas = page.getByRole('article', { name: 'Page 2', exact: true }).locator('canvas');
   await expect(canvas).toHaveJSProperty('width', 450);
-  await expect.poll(() => canvas.evaluate((element) => [...element.getContext('2d')!.getImageData(120, 492, 1, 1).data].slice(0, 3).every((value) => value < 20))).toBe(true);
+  await expect.poll(() => canvas.evaluate((element, point) => [...element.getContext('2d')!.getImageData(point.x, point.y, 1, 1).data].slice(0, 3).every((value) => value < 20), redactionPoint)).toBe(true);
   await expect(page.locator('.text-layer')).toHaveText(['', '', '']);
 });
 
@@ -93,6 +95,7 @@ test('exports current edits as DOCX, XLSX, Markdown and page images', async ({ p
   await page.getByRole('button', { name: 'Add text overlay', exact: true }).click();
   await page.getByLabel('Overlay text').fill('Current converted edit');
   await page.getByRole('button', { name: 'Add table', exact: true }).click();
+  await page.getByRole('button', { name: 'Insert table', exact: true }).click();
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
   for (const format of ['DOCX', 'XLSX', 'MD', 'JPG', 'WEBP', 'ZIP', 'print PDF']) {
     const pending = page.waitForEvent('download'); await page.getByRole('button', { name: `Export ${format}`, exact: true }).click();
@@ -135,7 +138,7 @@ test('detects existing fields, imports local values, and preserves them after re
   await expect(page.getByLabel('Field value', { exact: true })).toHaveValue('Original');
   await page.getByLabel('Import form data', { exact: true }).setInputFiles({ name: 'values.json', mimeType: 'application/json', buffer: Buffer.from('{"Customer":"Updated customer"}') });
   await expect(page.getByLabel('Field value', { exact: true })).toHaveValue('Updated customer');
-  await page.getByRole('button', { name: 'Move page down', exact: true }).click();
+  await runPageCommand(page, 'Move page down');
   const pending = page.waitForEvent('download'); await page.getByLabel('Export PDF', { exact: true }).click();
   const result = await PDFDocument.load(await bytes(await pending));
   expect(result.getForm().getTextField('Customer').getText()).toBe('Updated customer');
@@ -146,7 +149,7 @@ test('signs a PDF with a local P12 certificate and verifies its CMS signature', 
   await open(page, 2);
   await page.getByLabel('Go to page 2', { exact: true }).click();
   await page.getByRole('button', { name: 'Tools', exact: true }).click();
-  await page.getByRole('button', { name: 'Delete page', exact: true }).click();
+  await runPageCommand(page, 'Delete page');
   const keys = forge.pki.rsa.generateKeyPair(2048); const certificate = forge.pki.createCertificate();
   certificate.publicKey = keys.publicKey; certificate.serialNumber = '01';
   certificate.validity.notBefore = new Date('2025-01-01'); certificate.validity.notAfter = new Date('2035-01-01');

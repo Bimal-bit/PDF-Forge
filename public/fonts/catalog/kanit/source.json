@@ -1,0 +1,18 @@
+{
+  "family": "Kanit",
+  "id": "kanit",
+  "version": "5.3.0",
+  "source": "https://registry.npmjs.org/@fontsource/kanit/-/kanit-5.3.0.tgz",
+  "sha256": {
+    "400-normal": "1e856b3a04f93a23ec758ad37750f4dcfbde02334fd30358d02d5d4db3052bf2",
+    "700-normal": "a44817a3dcd26f5c659cd92c241f7c9e96414a74c0de249407064364573cd6b5",
+    "400-italic": "b03c7530e7a3b2af4c972c4da610e4b676e8db810595e5571e6e262134032833",
+    "700-italic": "47a311455ce8aa7d106d9fa7ab53a88343268796d507e7e81346128df1d1aff5"
+  },
+  "ttfSha256": {
+    "400-normal": "536c4bedd6ec745ab31559691162887c61605bd4b10e495fa917ac6c34509828",
+    "700-normal": "439836746c1168bb28bcc7d0105d688d3a24ef5e18e709e881a29eb20c6caa51",
+    "400-italic": "f71c08d6459f1aefbd25c454e9c832e1a2f944e5855d9ed15f8c00b05426b296",
+    "700-italic": "eed9ebc9cd8ab52d5feb4ba3ae1131f963ce807e25dfcddd32f420ccd08fa9bd"
+  }
+}
